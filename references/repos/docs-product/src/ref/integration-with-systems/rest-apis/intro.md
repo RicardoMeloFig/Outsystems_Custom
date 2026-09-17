@@ -1,0 +1,20 @@
+---
+summary: REST APIs in OutSystems 11 (O11) enable data exchange and API integration for traditional web, mobile, and reactive web apps.
+tags:
+  - REST
+  - Web services
+locale: en-us
+guid: 624479ed-e9da-4ac8-a41b-e56811306623
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+---
+
+# REST APIs

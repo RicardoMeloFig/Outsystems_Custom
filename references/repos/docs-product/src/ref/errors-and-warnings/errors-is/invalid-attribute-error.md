@@ -1,0 +1,52 @@
+---
+summary: Learn how to resolve invalid attribute errors in OutSystems 11 (O11) by setting valid data types and defining identifier attributes.
+locale: en-us
+guid: 81b14a73-9d6c-443d-8ef8-22819129e350
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Entities
+  - Extensions
+  - Troubleshooting
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - unblock
+---
+
+# Invalid Attribute Error
+
+Message
+:   `'<attribute>' data type is invalid.`
+
+Cause
+:   The data type of the attribute is not valid.
+
+Recommendation
+:   Edit the [entity attribute](<../../../integration-with-systems/integration-studio/managing-extensions/entity-attribute.md>) or structure attribute and set a valid data type for it.
+
+---
+
+Message
+:   `'<attribute>' data type is invalid: '<entity>' has no attribute set as Identifier.`
+
+Cause
+:   The attribute set in the Identifier property in not an Identifier attribute and there's no Identifier attribute defined in the entity.
+
+Recommendation
+:   Edit the [entity](<../../../integration-with-systems/integration-studio/managing-extensions/entity-define.md>), define the Identifier attribute, and set it on the Identifier property.
+
+---
+
+Message
+:   `<attribute> data type must be set to 'Integer' to use 'Auto Number'.`
+
+Cause
+:   The attribute is set as `Auto Number` but you can only use Auto Numbers with attributes of `Integer` data type.
+
+Recommendation
+:   Edit the [entity attribute](<../../../integration-with-systems/integration-studio/managing-extensions/entity-attribute.md>) and either set its data type to `Integer` or disable it as `Auto Number`.

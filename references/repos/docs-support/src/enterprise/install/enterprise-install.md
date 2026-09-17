@@ -1,0 +1,20 @@
+---
+guid: 1F1E3A8D-8E35-4F99-B398-637D95B11AE5
+locale: en-us
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+summary: OutSystems 11 (O11) installation steps for enterprise environments, covering setup for traditional web, mobile, and reactive web apps.
+tags:
+  - Infrastructure
+  - Platform Server
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - none
+---
+
+# Installation

@@ -1,0 +1,62 @@
+---
+summary: OS-DP-STREAM-00013 error occurs when the destination server returns a gRPC 13 (Internal) response during log streaming setup in OutSystems platform.
+tags: log streaming, error handling, connection issues, grpc, application performance management
+guid: 1b6ec9da-271f-450b-9ae3-da4202959284
+locale: en-us
+app_type: traditional web apps, mobile apps, reactive web apps
+figma:
+platform-version: o11, odc
+audience:
+  - Platform administrator
+  - Developer
+outsystems-tools:
+  - lifetime
+coverage-type:
+  - unblock
+topic:
+  - fix-streaming-internal
+---
+
+# OS-DP-STREAM-00013
+
+<details>
+<summary> <strong> Streaming audit and observability data in ODC</strong></summary>
+
+## Error message
+
+`There was an internal error on your destination server.`
+
+## Cause
+
+The error occurs when testing the connection and the destination server responds with a gRPC 13 (Internal) error.
+
+## Impact
+
+Unable to establish a connection with the destination server. Therefore, observability data isn't streamed to the destination.
+
+## Recommended action
+
+Check if the APM tool works correctly and re-establish the connection.
+
+</details>
+
+<details>
+<summary> <strong> Log streaming in O11</strong></summary>
+
+## Error message
+
+`There was an internal error on your destination server.`
+
+## Cause
+
+The error occurs when testing the connection after [Configuring the log streaming service in LifeTime](https://www.outsystems.com/tk/redirect?g=172ac547-add4-4cc5-9adf-d72fbe379d35) or when checking Log Streaming health and the destination server responds with a gRPC 13 (Internal) error.
+
+## Impact
+
+Unable to establish a connection with the destination server. Therefore, logs aren't streamed to the destination.
+
+## Recommended action
+
+Check if the APM tool works correctly and re-establish the connection.
+
+</details>

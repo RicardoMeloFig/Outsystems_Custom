@@ -1,0 +1,20 @@
+---
+tags:
+  - Business Processes
+  - Timers
+summary: Reference information on processes, process design tools and timers.
+locale: en-us
+guid: e8acf001-424d-4059-8044-716ffd06eefd
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+---
+
+# Processes

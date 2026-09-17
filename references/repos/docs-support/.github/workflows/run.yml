@@ -1,0 +1,30 @@
+name: Run
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+    - main
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled, ready_for_review, converted_to_draft]
+  merge_group:
+
+concurrency:
+  group: run-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    name: Run
+    uses: OutSystems/tk-cicd/.github/workflows/run.yml@main
+    secrets: inherit
+    with:
+      translations-event: docs-support
+      product-type: O11
+      frontmatter-paths: "src/**/*.md,!src/release-notes/**/*.md"
+      markdownlint-overrides: >
+        [
+          { "pattern": "src/troubleshooting/incident-models/**/*.md", "config": "src/troubleshooting/incident-models/.markdownlint.json" },
+          { "pattern": "src/release-notes/**/*.md", "config": "src/release-notes/.markdownlint.json" }
+        ]

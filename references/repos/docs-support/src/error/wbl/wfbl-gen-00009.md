@@ -1,0 +1,38 @@
+---
+summary: Workflow Builder module error blocks OutSystems 11 (O11) app publishing when external entity dependencies lack download permission.
+tags: error handling, application publishing, dependency management, permission issues
+locale: en-us
+guid: 4e2640ad-ac76-418e-bea8-33823fe0abfe
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Platform administrator
+outsystems-tools:
+  - workflow builder
+  - service studio
+coverage-type:
+  - unblock
+topic:
+  - wfb-module-error
+---
+
+# OS-WFBL-GEN-00009
+
+## Error message
+
+`Module error. <OriginalErrorMessage>.`
+
+## Cause
+
+This error occurs when users try to publish an application and the system can't obtain the external dependencies that are needed from the users infrastructure.
+The &lt;OriginalErrorMessage&gt;should include information about the cause of the error.
+
+## Impact
+
+Users can't publish the application.
+
+## Recommended action
+
+Verify that for all form/case fields of type "Database entity" defined in the application, the respective Entity and Module in the  users infrastructure are correct, and the logged in user on Workflow Builder has download permission on those modules (in the users infrastructure).

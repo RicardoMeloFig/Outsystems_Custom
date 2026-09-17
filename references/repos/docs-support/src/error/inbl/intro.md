@@ -1,0 +1,21 @@
+---
+summary: Integration Builder errors in OutSystems 11 (O11) reference covering causes, impact, and fixes for each error type.
+tags: integration builder, error handling, technical support, troubleshooting, application development
+locale: en-us
+guid: 6d78a021-1ab8-4144-8636-6273c18ad1db
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+  - integration builder
+coverage-type:
+  - none
+---
+
+# Integration Builder errors
+
+Check the causes, impact, and how to fix Integration Builder errors in these section's articles.

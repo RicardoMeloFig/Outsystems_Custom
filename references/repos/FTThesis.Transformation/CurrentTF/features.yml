@@ -1,0 +1,8 @@
+﻿features:
+ - name: "Feature1"
+   elements:
+    - WebBlock3
+    - TestAction
+ - name: "Feature2"
+   elements:
+    - WebScreen3

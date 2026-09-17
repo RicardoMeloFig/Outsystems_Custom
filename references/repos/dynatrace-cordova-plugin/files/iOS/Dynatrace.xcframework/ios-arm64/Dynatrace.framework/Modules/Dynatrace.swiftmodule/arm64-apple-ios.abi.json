@@ -1,0 +1,662 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "Dynatrace",
+    "printedName": "Dynatrace",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "SwiftUI",
+        "printedName": "SwiftUI",
+        "declKind": "Import",
+        "moduleName": "Dynatrace"
+      },
+      {
+        "kind": "Import",
+        "name": "DynatraceCoreStatic",
+        "printedName": "DynatraceCoreStatic",
+        "declKind": "Import",
+        "moduleName": "Dynatrace",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SwiftUIInstrumentationConfigParam",
+        "printedName": "SwiftUIInstrumentationConfigParam",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "skipInstrumentation",
+            "printedName": "skipInstrumentation",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Dynatrace.SwiftUIInstrumentationConfigParam.Type) -> Dynatrace.SwiftUIInstrumentationConfigParam",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SwiftUIInstrumentationConfigParam",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                    "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SwiftUIInstrumentationConfigParam",
+                        "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO19skipInstrumentationyA2CmF",
+            "mangledName": "$s9Dynatrace33SwiftUIInstrumentationConfigParamO19skipInstrumentationyA2CmF",
+            "moduleName": "Dynatrace"
+          },
+          {
+            "kind": "Var",
+            "name": "useDefaultControlName",
+            "printedName": "useDefaultControlName",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Dynatrace.SwiftUIInstrumentationConfigParam.Type) -> Dynatrace.SwiftUIInstrumentationConfigParam",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SwiftUIInstrumentationConfigParam",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                    "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SwiftUIInstrumentationConfigParam",
+                        "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO21useDefaultControlNameyA2CmF",
+            "mangledName": "$s9Dynatrace33SwiftUIInstrumentationConfigParamO21useDefaultControlNameyA2CmF",
+            "moduleName": "Dynatrace"
+          },
+          {
+            "kind": "Var",
+            "name": "doNotReportStateVariable",
+            "printedName": "doNotReportStateVariable",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Dynatrace.SwiftUIInstrumentationConfigParam.Type) -> Dynatrace.SwiftUIInstrumentationConfigParam",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SwiftUIInstrumentationConfigParam",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                    "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SwiftUIInstrumentationConfigParam",
+                        "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO24doNotReportStateVariableyA2CmF",
+            "mangledName": "$s9Dynatrace33SwiftUIInstrumentationConfigParamO24doNotReportStateVariableyA2CmF",
+            "moduleName": "Dynatrace"
+          },
+          {
+            "kind": "Var",
+            "name": "useControlName",
+            "printedName": "useControlName",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Dynatrace.SwiftUIInstrumentationConfigParam.Type) -> (Swift.String) -> Dynatrace.SwiftUIInstrumentationConfigParam",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> Dynatrace.SwiftUIInstrumentationConfigParam",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SwiftUIInstrumentationConfigParam",
+                        "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SwiftUIInstrumentationConfigParam",
+                        "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO14useControlNameyACSScACmF",
+            "mangledName": "$s9Dynatrace33SwiftUIInstrumentationConfigParamO14useControlNameyACSScACmF",
+            "moduleName": "Dynatrace"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO",
+        "mangledName": "$s9Dynatrace33SwiftUIInstrumentationConfigParamO",
+        "moduleName": "Dynatrace",
+        "intro_iOS": "13.0",
+        "declAttributes": [
+          "AccessControl",
+          "Available"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "instrument",
+        "printedName": "instrument",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(with:viewName:createAction:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "instrument",
+                "printedName": "Dynatrace.instrument<τ_0_0>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  }
+                ],
+                "usr": "s:9Dynatrace10instrumentV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "() -> τ_0_0",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:9Dynatrace10instrumentV4with8viewName12createAction_ACyxGSDyS2SG_SSSbxyctcfc",
+            "mangledName": "$s9Dynatrace10instrumentV4with8viewName12createAction_ACyxGSDyS2SG_SSSbxyctcfc",
+            "moduleName": "Dynatrace",
+            "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+            "sugared_genericSig": "<Content where Content : SwiftUI.View>",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "body",
+            "printedName": "body",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OpaqueTypeArchetype",
+                "printedName": "some SwiftUI.View",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "View",
+                    "printedName": "SwiftUI.View",
+                    "usr": "s:7SwiftUI4ViewP"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9Dynatrace10instrumentV4bodyQrvp",
+            "mangledName": "$s9Dynatrace10instrumentV4bodyQrvp",
+            "moduleName": "Dynatrace",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OpaqueTypeArchetype",
+                    "printedName": "some SwiftUI.View",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "View",
+                        "printedName": "SwiftUI.View",
+                        "usr": "s:7SwiftUI4ViewP"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:9Dynatrace10instrumentV4bodyQrvg",
+                "mangledName": "$s9Dynatrace10instrumentV4bodyQrvg",
+                "moduleName": "Dynatrace",
+                "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+                "sugared_genericSig": "<Content where Content : SwiftUI.View>",
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:9Dynatrace10instrumentV",
+        "mangledName": "$s9Dynatrace10instrumentV",
+        "moduleName": "Dynatrace",
+        "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+        "sugared_genericSig": "<Content where Content : SwiftUI.View>",
+        "intro_iOS": "13.0",
+        "declAttributes": [
+          "Preconcurrency",
+          "Custom",
+          "AccessControl",
+          "Available"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "View",
+            "printedName": "View",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "Body",
+                "printedName": "Body",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OpaqueTypeArchetype",
+                    "printedName": "some SwiftUI.View",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "View",
+                        "printedName": "SwiftUI.View",
+                        "usr": "s:7SwiftUI4ViewP"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "usr": "s:7SwiftUI4ViewP",
+            "mangledName": "$s7SwiftUI4ViewP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "View",
+        "printedName": "View",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "skippingInstrumentation",
+            "printedName": "skippingInstrumentation()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OpaqueTypeArchetype",
+                "printedName": "some SwiftUI.View",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "View",
+                    "printedName": "SwiftUI.View",
+                    "usr": "s:7SwiftUI4ViewP"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:7SwiftUI4ViewP9DynatraceE23skippingInstrumentationQryF",
+            "mangledName": "$s7SwiftUI4ViewP9DynatraceE23skippingInstrumentationQryF",
+            "moduleName": "Dynatrace",
+            "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+            "sugared_genericSig": "<Self where Self : SwiftUI.View>",
+            "deprecated": true,
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "withDefaultControlName",
+            "printedName": "withDefaultControlName()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OpaqueTypeArchetype",
+                "printedName": "some SwiftUI.View",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "View",
+                    "printedName": "SwiftUI.View",
+                    "usr": "s:7SwiftUI4ViewP"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:7SwiftUI4ViewP9DynatraceE22withDefaultControlNameQryF",
+            "mangledName": "$s7SwiftUI4ViewP9DynatraceE22withDefaultControlNameQryF",
+            "moduleName": "Dynatrace",
+            "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+            "sugared_genericSig": "<Self where Self : SwiftUI.View>",
+            "deprecated": true,
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom",
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "withCustomInstrumentationConfig",
+            "printedName": "withCustomInstrumentationConfig(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OpaqueTypeArchetype",
+                "printedName": "some SwiftUI.View",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "View",
+                    "printedName": "SwiftUI.View",
+                    "usr": "s:7SwiftUI4ViewP"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Dynatrace.SwiftUIInstrumentationConfigParam]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SwiftUIInstrumentationConfigParam",
+                    "printedName": "Dynatrace.SwiftUIInstrumentationConfigParam",
+                    "usr": "s:9Dynatrace33SwiftUIInstrumentationConfigParamO"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:7SwiftUI4ViewP9DynatraceE31withCustomInstrumentationConfigyQrAD0a17UIInstrumentationH5ParamOd_tF",
+            "mangledName": "$s7SwiftUI4ViewP9DynatraceE31withCustomInstrumentationConfigyQrAD0a17UIInstrumentationH5ParamOd_tF",
+            "moduleName": "Dynatrace",
+            "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+            "sugared_genericSig": "<Self where Self : SwiftUI.View>",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "uiKitBridge",
+            "printedName": "uiKitBridge(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OpaqueTypeArchetype",
+                "printedName": "some SwiftUI.View",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "View",
+                    "printedName": "SwiftUI.View",
+                    "usr": "s:7SwiftUI4ViewP"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:7SwiftUI4ViewP9DynatraceE11uiKitBridgeyQrSi_SbtF",
+            "mangledName": "$s7SwiftUI4ViewP9DynatraceE11uiKitBridgeyQrSi_SbtF",
+            "moduleName": "Dynatrace",
+            "genericSig": "<τ_0_0 where τ_0_0 : SwiftUI.View>",
+            "sugared_genericSig": "<Self where Self : SwiftUI.View>",
+            "declAttributes": [
+              "Preconcurrency",
+              "Custom"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:7SwiftUI4ViewP",
+        "mangledName": "$s7SwiftUI4ViewP",
+        "moduleName": "SwiftUICore",
+        "genericSig": "<τ_0_0.Body : SwiftUI.View>",
+        "sugared_genericSig": "<Self.Body : SwiftUI.View>",
+        "intro_Macosx": "10.15",
+        "intro_iOS": "13.0",
+        "intro_tvOS": "13.0",
+        "intro_watchOS": "6.0",
+        "declAttributes": [
+          "Preconcurrency",
+          "TypeEraser",
+          "TypeEraser",
+          "OriginallyDefinedIn",
+          "OriginallyDefinedIn",
+          "OriginallyDefinedIn",
+          "OriginallyDefinedIn",
+          "Available",
+          "Available",
+          "Available",
+          "Available",
+          "Custom"
+        ],
+        "isExternal": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/opt\/agent-jenkins\/workspace\/eAgent_ios-agent_release_8.335.x\/DynatraceUEM\/Dynatrace\/SwiftUIExtensions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 872,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/opt\/agent-jenkins\/workspace\/eAgent_ios-agent_release_8.335.x\/DynatraceUEM\/Dynatrace\/SwiftUIExtensions.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1543,
+      "length": 4,
+      "value": "true"
+    }
+  ]
+}

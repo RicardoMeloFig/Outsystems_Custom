@@ -1,0 +1,20 @@
+// Plot size
+minimum_width: 2000
+height: 800
+
+// Labels
+caption_size: 50
+x_label_area_size: 70
+y_label_area_size: 100
+
+// Ticks
+x_labels: 10
+x_label_style: 20
+y_labels: 10
+y_label_style: 20
+
+// File to line legend label
+legend_label_font: 20
+
+// Line width
+stroke_width: 2

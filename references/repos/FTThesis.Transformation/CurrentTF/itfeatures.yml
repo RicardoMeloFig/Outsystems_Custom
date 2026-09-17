@@ -1,0 +1,9 @@
+﻿features:
+ - name: "FeatureA"
+   elements:
+    - TicketsByLocation
+    - CalculateCurrentQuarter
+ - name: "FeatureB"
+   elements:
+    - List
+    - NewBlock

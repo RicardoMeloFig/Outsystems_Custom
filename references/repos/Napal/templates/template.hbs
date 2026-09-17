@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+<ul>
+{{#each metric as |files_data metric_name|}}
+    <li>
+        <a href="#{{metric_name}}">{{metric_name}}</a>
+    </li>
+{{/each}}
+</ul>
+</div>
+
+
+
+{{#each metric as |files_data metric_name|}}
+
+<div class="container" style="margin-bottom: 50px; border-style: ridge;">
+    <h3>{{metric_name}}</h3>
+
+    <div style="overflow:auto;">
+        <img src="{{metric_name}}"> 
+        <a name={{metric_name}}></a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>File name</th>
+                <th>Average</th>
+                <th>Median</th> 
+                <th>25th Percentile</th>
+                <th>75th Percentile</th>
+                <th>90th Percentile</th>
+                <th>99th Percentile</th>
+            </tr>
+            {{#each files_data as |stat file_name|}}
+            <tr>
+                <td>{{file_name}}</td>
+                <td>{{stat.average}}</td>
+                <td>{{stat.median}}</td>
+                <td>{{stat.p25th_percentile}}</td>
+                <td>{{stat.p75th_percentile}}</td>
+                <td>{{stat.p90th_percentile}}</td>
+                <td>{{stat.p99th_percentile}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</div>
+
+{{/each}}
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+summary: "ODC authentication and authorization errors: causes, impact, and steps to diagnose and fix user access issues in mobile and reactive web apps."
+tags:
+  - Authentication
+  - Authorization
+  - External Authentication
+  - Troubleshooting
+locale: en-us
+guid: 02b57209-f724-431e-956f-f926340a5070
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+audience:
+  - Platform administrator
+outsystems-tools:
+  - none
+coverage-type:
+  - unblock
+isautopublish: true
+---
+
+# Authentication and authorization errors
+
+This article outlines the possible causes, impact, and recommended actions for resolving an authentication and authorization errors. It helps identify why the issue occurs, explains how it affects user access, and provides clear steps for administrators to diagnose and fix the problem efficiently.

@@ -1,0 +1,26 @@
+---
+summary: Explore process design patterns for improved readability and performance in OutSystems 11 (O11).
+tags:
+  - Best Practices
+  - Business Processes
+  - Performance
+  - Workflows
+locale: en-us
+guid: 6bb2ff5a-25b3-4d09-8863-08fc0896b4c8
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - understand
+topic:
+  - process-decision-patterns
+---
+
+# Patterns for Designing Processes
+
+When designing [Processes](../process.md), there are some patterns that can and should be applied to the flow design for an easier reading and better performance results.

@@ -1,0 +1,11 @@
+framework module Dynatrace {
+    umbrella header "Framework.h"
+    
+    export *
+    module * { export * }
+}
+
+module Dynatrace.Swift {
+  header "Dynatrace-Swift.h"
+  requires objc
+}

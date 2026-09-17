@@ -1,0 +1,882 @@
+# Support
+# Release notes
+- href: release-articles/intro.md
+- topics:
+    # OutSystems 11
+    - href: release-articles/11/intro.md
+    - topics:
+        - href: release-notes/11/platform-server/platform-server.md
+        - href: release-notes/11/cross-platform-service-studio/cross-platform-service-studio.md
+        - href: release-notes/11/integration-studio/integration-studio.md
+        - href: release-notes/11/development-environment/development-environment.md
+        - href: release-articles/11/side-effects-breaking-changes.md
+    # LifeTime
+    - href: release-notes/lifetime-management-console/lifetime-management-console.md
+    # ODC
+    - href: release-articles/odc/intro.md
+    - topics:
+        - href: release-notes/odc/ga/ga.md
+        - href: release-notes/odc/odc-studio/odc-studio.md
+    # OutSystems 10
+    - href: release-notes/10/intro.md
+    - topics:
+        - href: release-notes/10/platform-server/platform-server.md
+        - href: release-notes/10/development-environment/development-environment.md
+        - href: release-notes/10/end-support-10.md
+        - href: release-notes/10/side-effects-breaking-changes-10.md
+    # MABS
+    - href: release-articles/mabs/mabs-versions.md
+    - topics:
+        - href: release-articles/mabs/mabs-versioning-and-lifecycle.md
+        - href: release-articles/mabs/mabs-beta-support.md
+        - href: release-articles/mabs/mabs-12.md
+        - topics:
+            - href: release-notes/mabs/12/12.1/12.1.md
+            - href: release-notes/mabs/12/12.0/12.0.md
+        - href: release-articles/mabs/mabs-11.md
+        - topics:
+            - href: release-notes/mabs/11/11.2/11.2.md
+            - href: release-notes/mabs/11/11.1/11.1.md
+            - href: release-notes/mabs/11/11.0/11.0.md
+        - href: release-articles/mabs/older-releases.md
+        - topics:
+            - href: release-articles/mabs/mabs-10.md
+            - topics:
+                - href: release-notes/mabs/10/10.0/10.0.md
+            - href: release-notes/mabs/9/mabs-9.md
+            - topics:
+                - href: release-notes/mabs/9/9.0/9.0.md
+            - href: release-articles/mabs/mabs-8.md
+            - href: release-articles/mabs/mabs-7.md
+            - href: release-articles/mabs/mabs-5.md
+            - href: release-articles/mabs/mabs-6.md
+            - href: release-articles/mabs/troubleshoot-issues-with-mabs-6.md
+        - href: release-articles/mabs/obsolete-versions.md
+    ## Mobile UI
+    - href: release-articles/mobile-ui/mobile-ui-versioning.md
+    - href: release-notes/ai-mentor-studio/ai-mentor-studio.md
+    - href: release-notes/integration-builder/integration-builder.md
+    - href: release-notes/cat/cat.md
+    - href: release-notes/experience-builder/experience-builder.md
+    - href: release-notes/workflow-builder/workflow-builder.md
+    - href: release-articles/product-lifecycle/product-lifecycle.md
+    - href: release-articles/release-cycle.md
+    - href: release-articles/tech-preview.md
+    - href: release-articles/what-version.md
+
+# Troubleshooting
+- href: troubleshooting/intro.md
+- topics:
+    - href: troubleshooting/logs/get-logs.md
+    - topics:
+        - href: troubleshooting/logs/service-center-logs.md
+        - href: troubleshooting/logs/lifetime-logs.md
+        - href: troubleshooting/logs/service-studio-logs.md
+        - href: troubleshooting/logs/odc-studio-logs.md
+        - href: troubleshooting/logs/mabs-logs.md
+        - href: troubleshooting/logs/android-device-logs.md
+        - href: troubleshooting/logs/ios-device-logs.md
+        - href: troubleshooting/logs/event-viewer-logs.md
+        - href: troubleshooting/logs/iis-logs.md
+        - href: troubleshooting/logs/database-logs.md
+        - href: troubleshooting/logs/bpt-report.md
+        - href: troubleshooting/logs/change-logging-levels.md
+        - href: troubleshooting/logs/enable-ostrace-for-soap-import.md
+        - href: troubleshooting/logs/os-diag-tool.md
+        - href: troubleshooting/logs/har-file.md
+        - href: troubleshooting/logs/java-logs.md
+
+    # Application Development
+    - href: troubleshooting/application-development/intro.md
+    - topics:
+        - href: troubleshooting/application-development/debugger-not-working.md
+        - href: troubleshooting/application-development/connect-email-pe.md
+        - href: troubleshooting/application-development/error-host-not-found.md
+        - href: troubleshooting/application-development/ipp-error.md
+        - href: troubleshooting/application-development/deploy-fail-new-entity-attribute.md
+        - href: troubleshooting/application-development/mabs-troubleshooting-android.md
+        - href: troubleshooting/application-development/error-cannot-access-file.md
+        - href: troubleshooting/application-development/could-not-create-fk.md
+        - href: troubleshooting/application-development/troubleshoot-issues-with-mabs-5.md
+        - href: troubleshooting/application-development/troubleshoot-mobile-apps-generation.md
+        - href: troubleshooting/application-development/library-hell.md
+        - href: troubleshooting/application-development/service-unavailable-503.md
+        - href: troubleshooting/application-development/error-401.md
+        - href: troubleshooting/application-development/troubleshoot-cross-platform-permissions.md
+        - href: troubleshooting/application-development/sso-limitation.md
+        - href: troubleshooting/application-development/debugger-does-not-start.md
+
+    # Application Lifecycle
+    - href: troubleshooting/application-lifecycle/intro.md
+    - topics:
+        - href: troubleshooting/application-lifecycle/reset-user-pwd.md
+        - href: troubleshooting/application-lifecycle/app-not-in-users.md
+        - href: troubleshooting/application-lifecycle/mgmt-console-not-authorized.md
+        - href: troubleshooting/application-lifecycle/reset-lifetime-authentication.md
+        - href: troubleshooting/application-lifecycle/too-many-failed-login.md
+        - href: troubleshooting/application-lifecycle/deploy-apps-sc.md
+        - href: troubleshooting/application-lifecycle/app-module-rename.md
+        - href: troubleshooting/application-lifecycle/app-renamed-in-target-not-expected.md
+        - href: troubleshooting/application-lifecycle/remove-unsafe-eval.md
+        - href: troubleshooting/application-lifecycle/remove-unsafe-inline.md
+        - href: troubleshooting/application-lifecycle/lifetime/lifetime-deploy-unable.md
+        - href: troubleshooting/application-lifecycle/lifetime/lifetime-register-env-error.md
+        - href: troubleshooting/application-lifecycle/lifetime/lifetime-sync-stuck.md
+        - href: troubleshooting/application-lifecycle/lifetime/sync-app-definition.md
+        - href: troubleshooting/application-lifecycle/resource-nowait-specified.md
+        - href: troubleshooting/application-lifecycle/extension-recompilation/extension-recompilation-warning.md
+        - href: troubleshooting/application-lifecycle/extension-recompilation/extension-upgrade-disabled-error.md
+        - href: troubleshooting/application-lifecycle/extension-recompilation/extension-recompilation.md
+        - href: troubleshooting/application-lifecycle/missing-incorrect-csps.md
+
+    # Application Runtime
+    - href: troubleshooting/application-runtime/intro.md
+    - topics:
+        - href: troubleshooting/application-runtime/ota-troubleshooting/ota-upgrades-troubleshoot.md
+        - topics:
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-timeout-downloading.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-mismatched-resources-moduleinfo.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-failed-changes.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-changed-local-entities.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-mobile-device-logs.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-service-error-logs.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-healing-resource.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-manifest-file-corrupt.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-switch-cache-version.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-cache-load-fail.md
+            - href: troubleshooting/application-runtime/ota-troubleshooting/ota-database-close-fail.md
+        - href: troubleshooting/application-runtime/slow-integrations.md
+        - href: troubleshooting/application-runtime/upload-not-work-videos-ios.md
+        - href: troubleshooting/application-runtime/bpt-automatic-activities-timeout.md
+        - href: troubleshooting/application-runtime/viewport-fit-issue.md
+        - href: troubleshooting/application-runtime/timeouts-under-hood.md
+        - href: troubleshooting/application-runtime/no-trust-relationship-ssltls.md
+        - href: troubleshooting/application-runtime/host-header-no-match.md
+        - href: troubleshooting/application-runtime/dst-change-bpt-not-processed.md
+        - href: troubleshooting/application-runtime/error-accessing-app-windows-token.md
+        - href: troubleshooting/application-runtime/unexpected-link-app-error.md
+        - href: troubleshooting/application-runtime/enable-ssl-protocols-tls.md
+        - href: troubleshooting/application-runtime/altering-file-upload-limits.md
+        - href: troubleshooting/application-runtime/problems-logging-integrated-auth.md
+        - href: troubleshooting/application-runtime/attributes-limited-sqlite.md
+        - href: troubleshooting/application-runtime/ki-map-reactive.md
+        - href: troubleshooting/application-runtime/ki-datagrid-reactive.md
+        - href: troubleshooting/application-runtime/cannot-decrypt/cannot-decrypt.md
+        - href: troubleshooting/application-runtime/troubleshoot-502.md
+        - href: troubleshooting/application-runtime/slowsql.md
+        - href: troubleshooting/application-runtime/multilingual.md
+        - href: troubleshooting/application-runtime/plugins-appshield/intro.md
+        - href: troubleshooting/application-runtime/inspect-http-requests-mobile.md
+        - href: troubleshooting/application-runtime/wia-popup-shows.md
+        - href: troubleshooting/application-runtime/try-newer-react-runtime-tp.md
+        - href: troubleshooting/application-runtime/seo/troubleshooting.md
+        - href: troubleshooting/application-runtime/cant-reach-apps.md
+        - href: troubleshooting/application-runtime/oracle-open-cursors.md
+        - href: troubleshooting/application-runtime/data-loss-after-deployment.md
+        - href: troubleshooting/application-runtime/publish-errors/compilation-error-in-consuming-soap.md
+        - href: troubleshooting/application-runtime/publish-errors/troubleshoot-failed-deployments-due-to-an-error-in-ping.md
+
+    # Infrastructure Management
+    - href: troubleshooting/infrastructure-management/intro.md
+    - topics:
+        - href: troubleshooting/infrastructure-management/vpn-troubleshooting-guide.md
+        - href: troubleshooting/infrastructure-management/vpn-errors.md
+        - href: troubleshooting/infrastructure-management/ssl-domain-cloud-errors.md
+        - href: troubleshooting/infrastructure-management/manual-start-services.md
+        - href: troubleshooting/infrastructure-management/upgrade-cloud-demo.md
+        - href: troubleshooting/infrastructure-management/upgrade-latest-version.md
+        - href: troubleshooting/infrastructure-management/test-env-connectivity.md
+        - href: troubleshooting/infrastructure-management/manage-database-space.md
+        - href: troubleshooting/infrastructure-management/restart-cloud/restart-cloud.md
+        - href: troubleshooting/infrastructure-management/slower-queries.md
+        - href: troubleshooting/infrastructure-management/deploy-all-workaround-11180.md
+        - href: troubleshooting/infrastructure-management/change-db-endpoints.md
+        - href: troubleshooting/infrastructure-management/sql-server-22-upgrade-cloud.md
+        - href: troubleshooting/infrastructure-management/win-server-22-upgrade-cloud.md
+
+    # Incident Models
+    - href: troubleshooting/incident-models/im.md
+    - topics:
+        #- href:
+        - href: troubleshooting/incident-models/o11/im-o11.md
+        - topics:
+            - href: troubleshooting/incident-models/o11/im-1778.md
+            - href: troubleshooting/incident-models/o11/im-297.md
+            - href: troubleshooting/incident-models/o11/im-2412.md
+            - href: troubleshooting/incident-models/o11/im-2420.md
+            - href: troubleshooting/incident-models/o11/im-1597.md
+            - href: troubleshooting/incident-models/o11/im-1742.md
+            - href: troubleshooting/incident-models/o11/im-2546.md
+            - href: troubleshooting/incident-models/o11/im-2423.md
+            - href: troubleshooting/incident-models/o11/im-1748.md
+            - href: troubleshooting/incident-models/o11/im-1851.md
+            - href: troubleshooting/incident-models/o11/im-1607.md
+            - href: troubleshooting/incident-models/o11/im-2647.md
+            - href: troubleshooting/incident-models/o11/im-2616.md
+            - href: troubleshooting/incident-models/o11/im-2714.md
+            - href: troubleshooting/incident-models/o11/im-500.md
+            - href: troubleshooting/incident-models/o11/im-3182.md
+            - href: troubleshooting/incident-models/o11/im-3110.md
+            - href: troubleshooting/incident-models/o11/im-2944.md
+            - href: troubleshooting/incident-models/o11/im-2857.md
+            - href: troubleshooting/incident-models/o11/im-2834.md
+            - href: troubleshooting/incident-models/o11/im-2795.md
+            - href: troubleshooting/incident-models/o11/im-2515.md
+            - href: troubleshooting/incident-models/o11/im-2534.md
+            - href: troubleshooting/incident-models/o11/im-3145.md
+            - href: troubleshooting/incident-models/o11/im-3188.md
+            - href: troubleshooting/incident-models/o11/im-3299.md
+            - href: troubleshooting/incident-models/o11/im-3247.md
+            - href: troubleshooting/incident-models/o11/im-3320.md
+            - href: troubleshooting/incident-models/o11/im-3350.md
+            - href: troubleshooting/incident-models/o11/im-3506.md
+            - href: troubleshooting/incident-models/o11/im-3508.md
+            - href: troubleshooting/incident-models/o11/im-3575.md
+            - href: troubleshooting/incident-models/o11/im-3557.md
+            - href: troubleshooting/incident-models/o11/im-2411.md
+            - href: troubleshooting/incident-models/o11/im-3789.md
+            # End O11 IMs
+        - href: troubleshooting/incident-models/odc/im-odc.md
+        - topics:
+            # Uncomment above two lines when an ODC IM is added, to deploy sections
+            - href: troubleshooting/incident-models/odc/im-2864.md
+            - href: troubleshooting/incident-models/odc/im-2854.md
+            - href: troubleshooting/incident-models/odc/im-1893.md
+            - href: troubleshooting/incident-models/odc/im-2815.md
+            - href: troubleshooting/incident-models/odc/im-2952.md
+            - href: troubleshooting/incident-models/odc/im-2950.md
+            - href: troubleshooting/incident-models/odc/im-2958.md
+            - href: troubleshooting/incident-models/odc/im-1712.md
+            - href: troubleshooting/incident-models/odc/im-3061.md
+            - href: troubleshooting/incident-models/odc/im-3030.md
+            - href: troubleshooting/incident-models/odc/im-3042.md
+            - href: troubleshooting/incident-models/odc/im-3091.md
+            - href: troubleshooting/incident-models/odc/im-3015.md
+            - href: troubleshooting/incident-models/odc/im-3160.md
+            - href: troubleshooting/incident-models/odc/im-3186.md
+            - href: troubleshooting/incident-models/odc/im-3159.md
+            - href: troubleshooting/incident-models/odc/im-2357.md
+            - href: troubleshooting/incident-models/odc/im-2928.md
+            - href: troubleshooting/incident-models/odc/im-3252.md
+            - href: troubleshooting/incident-models/odc/im-3102.md
+            - href: troubleshooting/incident-models/odc/im-2772.md
+            - href: troubleshooting/incident-models/odc/im-3301.md
+            - href: troubleshooting/incident-models/odc/im-3231.md
+            - href: troubleshooting/incident-models/odc/im-3392.md
+            - href: troubleshooting/incident-models/odc/im-3426.md
+            - href: troubleshooting/incident-models/odc/im-3416.md
+            - href: troubleshooting/incident-models/odc/im-3458.md
+            - href: troubleshooting/incident-models/odc/im-3528.md
+            - href: troubleshooting/incident-models/odc/im-3519.md
+            - href: troubleshooting/incident-models/odc/im-3595.md
+            - href: troubleshooting/incident-models/odc/im-3648.md
+            - href: troubleshooting/incident-models/odc/im-3726.md
+            - href: troubleshooting/incident-models/odc/im-3727.md
+            - href: troubleshooting/incident-models/odc/im-3792.md
+            - href: troubleshooting/incident-models/odc/im-3668.md
+            - href: troubleshooting/incident-models/odc/im-3813.md
+            - href: troubleshooting/incident-models/odc/im-3927.md
+            - href: troubleshooting/incident-models/odc/im-3974.md
+            - href: troubleshooting/incident-models/odc/im-4109.md
+            # End ODC IMs
+    # End Incident Models
+
+# Security
+- href: security/intro.md
+- topics:
+    # Develop secure OutSystems apps
+    - href: security/app-security/intro.md
+    - topics:
+        - href: security/app-security/app-security-owasp-top-10.md
+        - href: security/app-security/app-server-communication.md
+        - href: security/data-masking.md
+    - href: security/penetration-test-cloud.md
+    - href: security/static-application-security-testing.md
+    - href: security/secure-rest-client-certificate.md
+    - href: security/platform-server-hardening.md
+    - href: security/certificate-management/certificate-management.md
+    - href: security/cloud-certificate-change/cloud-certificate-change.md
+    - href: security/penetration-tests.md
+    - href: security/rest-headers-hardening.md
+
+    # Vulnerabilities
+    - href: security/vulnerabilities/intro.md
+    - topics:
+        - href: security/vulnerabilities/vulnerability-RPM-6669.md
+        - href: security/vulnerabilities/vulnerability-RPM-6441.md
+        - href: security/vulnerabilities/vulnerability-RPM-5183.md
+        - href: security/vulnerabilities/vulnerability-RRCT-5465.md
+        - href: security/vulnerabilities/vulnerability-RPM-3056.md
+        - href: security/vulnerabilities/vulnerability-RPM-3055.md
+        - href: security/vulnerabilities/vulnerability-RPM-1054.md
+        - href: security/vulnerabilities/vulnerability-RPM-1278.md
+        - href: security/vulnerabilities/vulnerability-RPM-813.md
+        - href: security/vulnerabilities/vulnerability-RPM-786.md
+        - href: security/vulnerabilities/vulnerability-RPM-683.md
+        - href: security/vulnerabilities/vulnerability-RPM-657.md
+        - href: security/vulnerabilities/vulnerability-RPM-689.md
+        - href: security/vulnerabilities/vulnerability-RICT-2673.md
+        - href: security/vulnerabilities/vulnerability-RCFT-4197.md
+        - href: security/vulnerabilities/vulnerability-RPSFCT-55.md
+        - href: security/vulnerabilities/vulnerability-RICT-2855.md
+        - href: security/vulnerabilities/vulnerability-RICT-2849.md
+        - href: security/vulnerabilities/vulnerability-RDEV-2256.md
+        - href: security/vulnerabilities/vulnerability-RTAF-3379.md
+        - href: security/vulnerabilities/vulnerability-RTAF-2226.md
+        - href: security/vulnerabilities/vulnerability-RPD-5160.md
+        - href: security/vulnerabilities/vulnerability-RLIT-3368.md
+        - href: security/vulnerabilities/vulnerability-RPD-4260.md
+        - href: security/vulnerabilities/vulnerability-RPD-4310.md
+        - href: security/vulnerabilities/vulnerability-RLIT-2388.md
+        - href: security/vulnerabilities/vulnerability-RPD-3849.md
+        - href: security/vulnerabilities/vulnerability-RPD-3384.md
+        - href: security/vulnerabilities/vulnerability-RPD-2903.md
+        - href: security/vulnerabilities/vulnerability-RPD-2322.md
+        - href: security/vulnerabilities/vulnerability-RPM-4141.md
+
+    # How OutSystems Platform helps you develop secure applications
+    - href: security/develop-secure-apps/intro.md
+    - topics:
+        - href: security/develop-secure-apps/code-injection-css-attacks.md
+        - href: security/develop-secure-apps/authentication-vulnerabilities.md
+        - href: security/develop-secure-apps/access-control-vulnerabilities.md
+        - href: security/develop-secure-apps/encryption-ssl-tls.md
+        - href: security/develop-secure-apps/csrf-attacks.md
+        - href: security/develop-secure-apps/redirects-forwarders-vulnerabilities.md
+
+# Error reference documentation
+- href: error/intro.md
+- topics:
+    # MABS
+    - href: error/mabs/intro.md
+    - topics:
+        - href: error/mabs/mabs-gen-10000.md
+        - href: error/mabs/mabs-gen-10001.md
+        - href: error/mabs/mabs-gen-20000.md
+        - href: error/mabs/mabs-gen-20001.md
+        - href: error/mabs/mabs-gen-40001.md
+        - href: error/mabs/mabs-gen-40002.md
+        - href: error/mabs/mabs-gen-40003.md
+        - href: error/mabs/mabs-gen-40005.md
+        - href: error/mabs/mabs-gen-40006.md
+        - href: error/mabs/mabs-gen-40008.md
+        - href: error/mabs/mabs-gen-40009.md
+        - href: error/mabs/mabs-gen-40010.md
+        - href: error/mabs/mabs-gen-40011.md
+        - href: error/mabs/mabs-gen-40012.md
+        - href: error/mabs/mabs-gen-40013.md
+        - href: error/mabs/mabs-gen-40014.md
+        - href: error/mabs/mabs-gen-40015.md
+        - href: error/mabs/mabs-gen-40016.md
+        - href: error/mabs/mabs-gen-40017.md
+        - href: error/mabs/mabs-gen-40018.md
+        - href: error/mabs/mabs-gen-40019.md
+        - href: error/mabs/mabs-gen-40020.md
+        - href: error/mabs/mabs-gen-40021.md
+        - href: error/mabs/mabs-gen-40022.md
+        - href: error/mabs/mabs-gen-40023.md
+        - href: error/mabs/mabs-gen-50000.md
+        - href: error/mabs/mabs-gen-50001.md
+        - href: error/mabs/mabs-gen-50002.md
+        - href: error/mabs/mabs-act-40000.md
+        - href: error/mabs/mabs-plf-50000.md
+        - href: error/mabs/mabs-plf-50001.md
+        - href: error/mabs/mabs-plf-50002.md
+        - href: error/mabs/mabs-plg-10000.md
+        - href: error/mabs/mabs-plg-20000.md
+        - href: error/mabs/mabs-plg-20001.md
+        - href: error/mabs/mabs-plg-20002.md
+        - href: error/mabs/mabs-plg-40000.md
+        - href: error/mabs/mabs-plg-40001.md
+        - href: error/mabs/mabs-plg-40002.md
+        - href: error/mabs/mabs-plg-40004.md
+        - href: error/mabs/mabs-plg-40005.md
+        - href: error/mabs/mabs-plg-40006.md
+        - href: error/mabs/mabs-plg-40007.md
+        - href: error/mabs/mabs-plg-40008.md
+        - href: error/mabs/mabs-plg-40009.md
+        - href: error/mabs/mabs-plg-40010.md
+        - href: error/mabs/mabs-plg-40011.md
+        - href: error/mabs/mabs-plg-40012.md
+        - href: error/mabs/mabs-plg-40013.md
+        - href: error/mabs/mabs-plg-40014.md
+        - href: error/mabs/mabs-plg-40015.md
+        - href: error/mabs/mabs-plg-40016.md
+        - href: error/mabs/mabs-plg-40017.md
+        - href: error/mabs/mabs-plg-40018.md
+        - href: error/mabs/mabs-plg-40019.md
+        - href: error/mabs/mabs-plg-40020.md
+        - href: error/mabs/mabs-plg-40021.md
+        - href: error/mabs/mabs-plg-50000.md
+        - href: error/mabs/mabs-plg-50001.md
+        - href: error/mabs/mabs-plg-50002.md
+        - href: error/mabs/mabs-plg-50003.md
+        - href: error/mabs/mabs-plg-50004.md
+        - href: error/mabs/mabs-plg-50005.md
+        - href: error/mabs/mabs-sig-40001.md
+        - href: error/mabs/mabs-sig-40002.md
+        - href: error/mabs/mabs-sig-40003.md
+        - href: error/mabs/mabs-sig-40004.md
+        - href: error/mabs/mabs-sig-40005.md
+        - href: error/mabs/mabs-sig-40006.md
+        - href: error/mabs/mabs-sig-40007.md
+        - href: error/mabs/mabs-sig-40008.md
+        - href: error/mabs/mabs-sig-40009.md
+        - href: error/mabs/mabs-sig-40010.md
+        - href: error/mabs/mabs-sig-40011.md
+        - href: error/mabs/mabs-sig-40012.md
+        - href: error/mabs/mabs-sig-40013.md
+        - href: error/mabs/mabs-sig-40014.md
+        - href: error/mabs/mabs-sig-40015.md
+        - href: error/mabs/mabs-sig-40016.md
+        - href: error/mabs/mabs-sig-40017.md
+        - href: error/mabs/mabs-sig-40018.md
+        - href: error/mabs/mabs-sig-40019.md
+        - href: error/mabs/mabs-sig-40020.md
+        - href: error/mabs/mabs-cnf-40000.md
+        - href: error/mabs/mabs-cnf-40001.md
+        - href: error/mabs/mabs-cnf-40002.md
+        - href: error/mabs/mabs-cnf-40004.md
+        - href: error/mabs/mabs-cnf-40005.md
+        - href: error/mabs/mabs-cnf-40006.md
+        - href: error/mabs/mabs-cnf-40011.md
+        - href: error/mabs/mabs-cnf-40012.md
+        - href: error/mabs/mabs-cnf-50000.md
+        - href: error/mabs/mabs-shld-40001.md
+        - href: error/mabs/mabs-shld-40002.md
+        - href: error/mabs/mabs-shld-40003.md
+        - href: error/mabs/mabs-shld-40004.md
+        - href: error/mabs/mabs-shld-40005.md
+        - href: error/mabs/mabs-shld-40007.md
+        - href: error/mabs/mabs-shld-50000.md
+        - href: error/mabs/mabs-shld-50001.md
+        - href: error/mabs/mabs-shld-50002.md
+        - href: error/mabs/mabs-shld-50003.md
+        - href: error/mabs/mabs-ckt-10000.md
+        - href: error/mabs/mabs-cst-40000.md
+        - href: error/mabs/mabs-cst-50000.md
+        - href: error/mabs/mabs-fin-50000.md
+        - href: error/mabs/mabs-int-50000.md
+        - href: error/mabs/mabs-key-50000.md
+        - href: error/mabs/mabs-pref-40000.md
+        - href: error/mabs/mabs-pref-40001.md
+        - href: error/mabs/mabs-pref-40002.md
+        - href: error/mabs/mabs-pref-40003.md
+        - href: error/mabs/mabs-pref-40004.md
+        - href: error/mabs/mabs-prj-40001.md
+        - href: error/mabs/mabs-prj-40002.md
+        - href: error/mabs/mabs-prj-40003.md
+        - href: error/mabs/mabs-prj-40004.md
+        - href: error/mabs/mabs-prj-50001.md
+        - href: error/mabs/mabs-prj-50002.md
+        - href: error/mabs/mabs-prj-50003.md
+        - href: error/mabs/mabs-prj-50004.md
+        - href: error/mabs/mabs-prj-50005.md
+        - href: error/mabs/mabs-prj-50006.md
+        - href: error/mabs/mabs-res-40001.md
+        - href: error/mabs/mabs-res-40002.md
+        - href: error/mabs/mabs-res-40003.md
+        - href: error/mabs/mabs-res-40004.md
+        - href: error/mabs/mabs-res-40005.md
+        - href: error/mabs/mabs-res-50000.md
+        - href: error/mabs/mabs-res-50001.md
+        - href: error/mabs/mabs-res-50002.md
+        - href: error/mabs/mabs-unx-50000.md
+        - href: error/mabs/mabs-unx-50001.md
+        - href: error/mabs/mabs-vld-50000.md
+        - href: error/mabs/mabs-depecrated-error.md
+        - href: error/mabs/mabs-undocumented-error.md
+        - href: error/mabs/os-naos-40007.md
+        - href: error/mabs/os-naos-40008.md
+        - href: error/mabs/os-naos-40009.md
+        - href: error/mabs/os-naos-50005.md
+        - href: error/mabs/os-naos-50019.md
+        - href: error/mabs/os-naos-50024.md
+        - href: error/mabs/os-mco-40001.md
+        - href: error/mabs/os-mco-40002.md
+        - href: error/mabs/os-mco-40003.md
+        - href: error/mabs/os-mco-40004.md
+        - href: error/mabs/os-mco-40005.md
+        - href: error/mabs/os-mco-40006.md
+        - href: error/mabs/os-mco-40007.md
+        - href: error/mabs/os-mco-40008.md
+        - href: error/mabs/os-mco-40009.md
+        - href: error/mabs/os-mco-40010.md
+        - href: error/mabs/os-mco-40011.md
+        - href: error/mabs/os-mco-40012.md
+        - href: error/mabs/os-mco-40013.md
+        - href: error/mabs/os-mco-40014.md
+        - href: error/mabs/os-mco-40015.md
+        - href: error/mabs/os-mco-40016.md
+        - href: error/mabs/os-mco-50001.md
+        - href: error/mabs/os-mco-50002.md
+        - href: error/mabs/os-mco-50003.md
+        - href: error/mabs/os-mco-50004.md
+        - href: error/mabs/os-mco-50005.md
+        - href: error/mabs/os-mco-50006.md
+        - href: error/mabs/os-mco-50007.md
+        - href: error/mabs/os-mco-50008.md
+        - href: error/mabs/os-mco-50009.md
+        - href: error/mabs/os-mco-50010.md
+        - href: error/mabs/os-mco-50011.md
+        - href: error/mabs/os-mco-50012.md
+        - href: error/mabs/os-mco-50013.md
+        - href: error/mabs/os-mco-50014.md
+        - href: error/mabs/os-mco-50015.md
+        - href: error/mabs/os-mco-50016.md
+        - href: error/mabs/os-mco-50017.md
+        - href: error/mabs/os-mco-50018.md
+        - href: error/mabs/os-mco-50019.md
+        - href: error/mabs/os-mco-50020.md
+        - href: error/mabs/os-mco-50021.md
+        - href: error/mabs/os-mco-50022.md
+    #Integration Builder
+    - href: error/inbl/intro.md
+    - topics:
+        - href: error/inbl/inbl-api-00004.md
+        - href: error/inbl/inbl-api-00008.md
+        - href: error/inbl/inbl-api-00011.md
+        - href: error/inbl/inbl-api-00021.md
+        - href: error/inbl/inbl-api-00028.md
+        - href: error/inbl/inbl-api-00033.md
+        - href: error/inbl/inbl-api-00038.md
+        - href: error/inbl/inbl-api-00050.md
+        - href: error/inbl/inbl-api-00061.md
+        - href: error/inbl/inbl-api-00069.md
+        - href: error/inbl/inbl-api-00070.md
+        - href: error/inbl/inbl-api-10003.md
+        - href: error/inbl/inbl-api-20000.md
+        - href: error/inbl/inbl-gen-00032.md
+        - href: error/inbl/inbl-gen-00110.md
+        - href: error/inbl/inbl-gen-50002.md
+        - href: error/inbl/inbl-gen-50004.md
+        - href: error/inbl/inbl-gen-50005.md
+        - href: error/inbl/inbl-gen-50028.md
+        - href: error/inbl/signin-problems.md
+        - href: error/inbl/connectivity-problems.md
+    #Workflow Builder
+    - href: error/wbl/intro.md
+    - topics:
+        - href: error/wbl/wfbl-api-00001.md
+        - href: error/wbl/wfbl-api-00002.md
+        - href: error/wbl/wfbl-api-00003.md
+        - href: error/wbl/wfbl-api-10001.md
+        - href: error/wbl/wfbl-conf-00001.md
+        - href: error/wbl/wfbl-conf-00002.md
+        - href: error/wbl/wfbl-conf-00003.md
+        - href: error/wbl/wfbl-conf-00004.md
+        - href: error/wbl/wfbl-conf-00005.md
+        - href: error/wbl/wfbl-conf-00006.md
+        - href: error/wbl/wfbl-conf-00007.md
+        - href: error/wbl/wfbl-conf-00008.md
+        - href: error/wbl/wfbl-gen-00000.md
+        - href: error/wbl/wfbl-gen-00001.md
+        - href: error/wbl/wfbl-gen-00002.md
+        - href: error/wbl/wfbl-gen-00003.md
+        - href: error/wbl/wfbl-gen-00004.md
+        - href: error/wbl/wfbl-gen-00005.md
+        - href: error/wbl/wfbl-gen-00006.md
+        - href: error/wbl/wfbl-gen-00007.md
+        - href: error/wbl/wfbl-gen-00008.md
+        - href: error/wbl/wfbl-gen-00009.md
+        - href: error/wbl/wfbl-gen-10001.md
+        - href: error/wbl/wfbl-gen-40001.md
+        - href: error/wbl/wfbl-gen-40002.md
+
+    # Log streaming
+    - href: error/dp/intro.md
+    - topics:
+        - href: error/dp/dp-stream-50001.md
+        - href: error/dp/dp-stream-50002.md
+        - href: error/dp/dp-stream-50003.md
+        - href: error/dp/dp-stream-40401.md
+        - href: error/dp/dp-stream-40301.md
+        - href: error/dp/dp-stream-40101.md
+        - href: error/dp/dp-stream-30101.md
+        - href: error/dp/dp-stream-00001.md
+        - href: error/dp/dp-stream-00002.md
+        - href: error/dp/dp-stream-00003.md
+        - href: error/dp/dp-stream-00004.md
+        - href: error/dp/dp-stream-00005.md
+        - href: error/dp/dp-stream-00006.md
+        - href: error/dp/dp-stream-00007.md
+        - href: error/dp/dp-stream-00008.md
+        - href: error/dp/dp-stream-00009.md
+        - href: error/dp/dp-stream-00010.md
+        - href: error/dp/dp-stream-00011.md
+        - href: error/dp/dp-stream-00012.md
+        - href: error/dp/dp-stream-00013.md
+        - href: error/dp/dp-stream-00014.md
+        - href: error/dp/dp-stream-00015.md
+        - href: error/dp/dp-stream-00016.md
+
+     #Case Management framework
+    - href: error/cmfr/intro.md
+    - topics:
+        - href: error/cmfr/cmfr-bpt-00001.md
+        - href: error/cmfr/cmfr-gen-00001.md
+        - href: error/cmfr/cmfr-gen-00002.md
+        - href: error/cmfr/cmfr-gen-00003.md
+        - href: error/cmfr/cmfr-gen-00004.md
+        - href: error/cmfr/cmfr-gen-00005.md
+        - href: error/cmfr/cmfr-gen-00006.md
+        - href: error/cmfr/cmfr-gen-00007.md
+        - href: error/cmfr/cmfr-gen-00008.md
+        - href: error/cmfr/cmfr-gen-00009.md
+        - href: error/cmfr/cmfr-gen-00010.md
+        - href: error/cmfr/cmfr-gen-00011.md
+        - href: error/cmfr/cmfr-gen-00012.md
+        - href: error/cmfr/cmfr-gen-00013.md
+        - href: error/cmfr/cmfr-gen-00014.md
+        - href: error/cmfr/cmfr-gen-00015.md
+        - href: error/cmfr/cmfr-gen-00016.md
+        - href: error/cmfr/cmfr-gen-00017.md
+        - href: error/cmfr/cmfr-gen-00018.md
+        - href: error/cmfr/cmfr-gen-00019.md
+        - href: error/cmfr/cmfr-gen-00020.md
+        - href: error/cmfr/cmfr-gen-00021.md
+        - href: error/cmfr/cmfr-gen-00022.md
+        - href: error/cmfr/cmfr-gen-00023.md
+        - href: error/cmfr/cmfr-gen-00024.md
+        - href: error/cmfr/cmfr-gen-00025.md
+        - href: error/cmfr/cmfr-gen-00026.md
+        - href: error/cmfr/cmfr-gen-00027.md
+        - href: error/cmfr/cmfr-gen-00028.md
+        - href: error/cmfr/cmfr-gen-00029.md
+        - href: error/cmfr/cmfr-gen-00030.md
+        - href: error/cmfr/cmfr-gen-00031.md
+        - href: error/cmfr/cmfr-gen-00032.md
+        - href: error/cmfr/cmfr-gen-00033.md
+        - href: error/cmfr/cmfr-gen-00034.md
+        - href: error/cmfr/cmfr-gen-00035.md
+        - href: error/cmfr/cmfr-gen-00036.md
+        - href: error/cmfr/cmfr-gen-00037.md
+        - href: error/cmfr/cmfr-gen-00038.md
+        - href: error/cmfr/cmfr-gen-20001.md
+        - href: error/cmfr/cmfr-gen-20002.md
+        - href: error/cmfr/cmfr-gen-20003.md
+        - href: error/cmfr/cmfr-gen-20004.md
+        - href: error/cmfr/cmfr-gen-20005.md
+        - href: error/cmfr/cmfr-gen-20006.md
+        - href: error/cmfr/cmfr-gen-20007.md
+        - href: error/cmfr/cmfr-gen-20008.md
+
+ #Mobile plugins errors
+    - href: error/plug/intro.md
+    - topics: 
+        - href: error/plug/os-plug-fltr-0001.md
+        - href: error/plug/os-plug-fltr-0002.md
+        - href: error/plug/os-plug-fltr-0003.md
+        - href: error/plug/os-plug-fltr-0004.md
+        - href: error/plug/os-plug-fltr-0005.md
+        - href: error/plug/os-plug-fltr-0006.md
+        - href: error/plug/os-plug-fltr-0007.md
+        - href: error/plug/os-plug-fltr-0008.md
+        - href: error/plug/os-plug-fltr-0009.md
+        - href: error/plug/os-plug-fltr-0010.md
+        - href: error/plug/os-plug-fltr-0011.md
+        - href: error/plug/os-plug-file-0001.md
+        - href: error/plug/os-plug-file-0002.md
+        - href: error/plug/os-plug-file-0003.md
+        - href: error/plug/os-plug-file-0004.md
+        - href: error/plug/os-plug-file-0005.md
+        - href: error/plug/os-plug-file-0006.md
+        - href: error/plug/os-plug-file-0007.md
+        - href: error/plug/os-plug-file-0008.md
+        - href: error/plug/os-plug-file-0009.md
+        - href: error/plug/os-plug-file-0010.md
+        - href: error/plug/os-plug-file-0011.md
+        - href: error/plug/os-plug-file-0012.md
+        - href: error/plug/os-plug-file-0013.md
+        - href: error/plug/os-plug-flvw-0001.md
+        - href: error/plug/os-plug-flvw-0002.md
+        - href: error/plug/os-plug-flvw-0003.md
+        - href: error/plug/os-plug-flvw-0004.md
+        - href: error/plug/os-plug-flvw-0005.md
+        - href: error/plug/os-plug-flvw-0006.md
+        - href: error/plug/os-plug-flvw-0007.md
+        - href: error/plug/os-plug-flvw-0008.md
+        - href: error/plug/os-plug-flvw-0009.md
+        - href: error/plug/os-plug-flvw-0010.md
+        - href: error/plug/os-plug-flvw-0011.md
+        - href: error/plug/os-plug-flvw-0012.md
+        - href: error/plug/os-plug-flvw-0013.md
+        - href: error/plug/os-plug-kstr-0001.md
+        - href: error/plug/os-plug-kstr-0002.md
+        - href: error/plug/os-plug-kstr-0003.md
+        - href: error/plug/os-plug-kstr-0004.md
+        - href: error/plug/os-plug-kstr-0005.md
+        - href: error/plug/os-plug-kstr-0006.md
+        - href: error/plug/os-plug-kstr-0007.md
+        - href: error/plug/os-plug-kstr-0008.md
+        - href: error/plug/os-plug-kstr-0009.md
+        - href: error/plug/os-plug-kstr-0010.md
+        - href: error/plug/os-plug-kstr-0011.md
+        - href: error/plug/os-plug-kstr-0012.md
+        - href: error/plug/os-plug-kstr-0013.md
+        - href: error/plug/os-plug-kstr-0014.md
+        - href: error/plug/os-plug-kstr-0015.md
+        - href: error/plug/os-plug-kstr-0016.md
+        - href: error/plug/os-plug-kstr-0017.md
+        - href: error/plug/os-plug-kstr-0018.md
+
+    # Authentication and authorization
+    - href: error/identity/intro.md
+    - topics:
+        - href: error/identity/os-idco-cong-40001.md
+        - href: error/identity/os-idco-cong-40002.md
+        - href: error/identity/os-idco-auth-40101.md
+        - href: error/identity/os-idco-conf-40102.md
+        - href: error/identity/os-uauc-60040.md
+        - href: error/identity/os_uauc_60043.md
+        
+# Community
+- href: community/intro.md
+- topics:
+    - href: community/open-support-case.md
+    - href: community/add-case-followers.md
+    - href: community/support-cases-security.md
+    - href: community/change-community-pw.md
+    - href: community/change-community-email.md
+    - href: community/close-community-account.md
+    - href: community/merge-accounts.md
+    - href: community/community-badges.md
+    - href: community/customer-portal.md
+    # Outsystems Personal Edition
+    - href: community/personal-edition-faq/personal-edition-faq.md
+    - topics:
+        - href: community/personal-edition-faq/pe-hibernation-faq.md
+    # Training
+    - href: community/training/training-intro.md
+    - topics:
+        - href: community/training/appointment-confirmation.md
+        - href: community/training/bootcamp-details.md
+        - href: community/training/download-os-certificates.md
+        - href: community/training/download-my-certificate.md
+        - href: community/training/exam-invoice.md
+        - href: community/training/exam-policies.md
+        - href: community/training/exam-voucher.md
+        - href: community/training/prometric-score.md
+        - href: community/training/transfer-certification.md
+        - href: community/online-training-offline-access.md
+
+# Licensing
+- href: licensing/intro.md
+- topics:
+    - href: licensing/how-licensing-works.md
+    - href: licensing/agent-execution.md
+    - href: licensing/app-object-count.md
+    - href: licensing/end-users.md
+    - href: licensing/check-license-includes.md
+    - href: licensing/ipp/what-is-ipp.md
+    - topics:
+        - href: licensing/ipp/used-ipp-portal.md
+        - href: licensing/ipp/ip-rights-not-granted.md
+    - href: licensing/add-new-environment.md
+    - href: licensing/whats-a-personal.md
+    - href: licensing/infrastructure-under-hood.md
+    - href: licensing/move-apps-personal-enterprise.md
+    - href: licensing/trial/backup-apps-trial.md
+    - href: licensing/detach-11.md
+    - href: licensing/detach-10.md
+
+# Enterprise Customers
+- href: enterprise/enterprise-intro.md
+- topics:
+
+    # Licensing
+    - href: enterprise/licensing/enterprise-licensing.md
+    - topics:
+        - href: enterprise/licensing/manage/enterprise-licensing-manage.md
+        - topics:
+            - href: enterprise/licensing/manage/find-activation-code/find-activation-code.md
+            - href: enterprise/licensing/manage/get-license-for-env.md
+            - href: enterprise/licensing/manage/howto-install-license.md
+            - href: enterprise/licensing/manage/free-up-environment.md
+            - href: enterprise/licensing/manage/license-verification.md
+
+        # Troubleshooting
+        - href: enterprise/licensing/troubleshooting/enterprise-licensing-trouble.md
+        - topics:
+            - href: enterprise/licensing/troubleshooting/reached-license-limits.md
+            - href: enterprise/licensing/troubleshooting/change-hw-license-invalid.md
+
+    # Installation
+    - href: enterprise/install/enterprise-install.md
+    - topics:
+        - href: enterprise/install/generate-csr.md
+        - href: enterprise/install/install-ssl-certificate-linux.md
+        - href: enterprise/install/installing-platform-fips-compliant.md
+        - href: enterprise/install/add-certificate-trusted.md
+        - href: enterprise/install/size-environment-run-infra-mgmt-console.md
+        - href: enterprise/install/add-front-end/add-front-end.md
+
+    # Maintenance and Operations
+    - href: enterprise/maintenance/enterprise-maintenance.md
+    - topics:
+        - href: enterprise/maintenance/allowlist-cloud-servers/allowlist-cloud-servers.md
+        - href: enterprise/maintenance/add-certificate-trusted-cloud.md
+        - href: enterprise/maintenance/mobile-null-datetime.md
+        - href: enterprise/maintenance/change-pw-database-users.md
+        - href: enterprise/maintenance/move-app-pool.md
+        - href: enterprise/maintenance/change-collation-db-sql-server.md
+        - href: enterprise/maintenance/oracle-configure-linguistic-sorting.md
+        - href: enterprise/maintenance/config-oracle-database.md
+        - href: enterprise/maintenance/connection-pools.md
+        - href: enterprise/maintenance/cookie-usage.md
+        - href: enterprise/maintenance/database-storage-cloud.md
+        - href: enterprise/maintenance/reinstall-different-path.md
+        - href: enterprise/maintenance/cloud-maintenance-window.md
+        - href: enterprise/maintenance/does-safe-harbor-ecj-apply.md
+        - href: enterprise/maintenance/protect-android-ios-certificate.md
+        - href: enterprise/maintenance/multiple-db-catalogs-schemas.md
+        - href: enterprise/maintenance/cloud-timezones.md
+        - href: enterprise/maintenance/failover-procedures.md
+        - href: enterprise/maintenance/cloud-shared-responsibility.md
+        - href: enterprise/maintenance/reinstall-lifetime.md
+        - href: enterprise/maintenance/remove-infra-mgmt-console.md
+        - href: enterprise/maintenance/restore-database.md
+        - href: enterprise/maintenance/system-updates-paas.md
+        - href: enterprise/maintenance/timezone-considerations.md
+        - href: enterprise/maintenance/chrome-samesite-cookie-changes.md
+        - href: enterprise/maintenance/sql-compatibility-upgrade.md
+        - href: enterprise/maintenance/change-ac.md
+
+    # Troubleshooting
+    - href: enterprise/troubleshooting/enterprise-trouble.md
+    - topics:
+        - href: enterprise/troubleshooting/env-deploy-controller-twice.md
+        - href: enterprise/troubleshooting/information-logged.md
+        - href: enterprise/troubleshooting/troubleshoot-ios-content.md
+        - href: enterprise/troubleshooting/service-permissions-change.md
+        - href: enterprise/troubleshooting/oracle-odp-net-issues.md
+        - href: enterprise/troubleshooting/reset-users-auth-preferences.md
+        - href: enterprise/troubleshooting/slow-publishing-117x.md
+        - href: enterprise/troubleshooting/mabs/obfuscation.md
+        - href: enterprise/troubleshooting/troubleshoot-platform-server.md
+        - href: enterprise/troubleshooting/unable-register-front-end.md
+        - href: enterprise/troubleshooting/it-users-vs-app-users.md
+        - href: enterprise/troubleshooting/dot-net-core-3-1/dot-net-core-3-1.md
+        - href: enterprise/troubleshooting/saml-unable-decrypt-assertion.md
+        - href: enterprise/troubleshooting/saml-unable-create-signature.md
+
+    # Known issues
+    - href: enterprise/troubleshooting/known-issues/enterprise-known-issues.md
+    - topics:
+        - href: enterprise/troubleshooting/known-issues/ki-11_10-downtime-CT/ki-11_10-downtime-CT.md
+        - href: enterprise/troubleshooting/known-issues/ki-11_10-site-properties/ki-11_10-site-properties.md
+
+# Forge
+- href: forge/forge-intro.md
+- topics:
+    - href: forge/components/creating-components.md
+    - href: forge/components/forge-components-best-practices.md
+    - href: forge/forge-faqs/forge-faqs.md
+    - topics:
+        - href: forge/forge-faqs/forge-overview.md
+        - href: forge/forge-faqs/share-project.md
+        - href: forge/forge-faqs/review-project.md
+        - href: forge/forge-faqs/curate-project.md
+        - topics:
+            - href: forge/forge-faqs/remove-project.md
+        - href: forge/forge-faqs/trusted-requirements.md

@@ -1,0 +1,5 @@
+ext['dynatrace.instrumentationFlavor'] = 'cordova'
+apply plugin: 'com.dynatrace.instrumentation'
+
+// AUTO - INSERTED
+// AUTO - INSERTED

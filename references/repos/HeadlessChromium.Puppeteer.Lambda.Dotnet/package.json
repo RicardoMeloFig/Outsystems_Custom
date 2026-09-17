@@ -1,0 +1,7 @@
+{
+	"name": "HeadlessChromium.Puppeteer.Lambda.Dotnet",
+	"version": "0.0.1-dev",
+	"dependencies": {
+		"@sparticuz/chromium": "149.0.0"
+	}
+}

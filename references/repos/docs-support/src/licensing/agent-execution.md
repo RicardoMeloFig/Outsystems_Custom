@@ -1,0 +1,31 @@
+---
+summary: Agent Execution in the OutSystems platform counts each CallAgent action call at runtime, regardless of tools used, AI model calls, or loop iterations.
+tags:
+  - AI
+  - Agentic
+locale: en-us
+guid: 9fafc3bd-31db-46b9-99a5-36d7aaaaebc8
+app_type: traditional web apps,mobile apps,reactive web apps
+helpids:
+platform-version: o11,odc
+figma: https://www.figma.com/design/TzqCbVlN2j4nadunA7q8VU/Licensing?node-id=1501-240&t=mzZFQ3QLMCu85O07-1
+audience:
+  - Developer
+  - Front-end developer
+  - Tech lead
+  - Architect
+outsystems-tools:
+  - service studio
+  - odc studio
+  - odc portal
+  - service center
+coverage-type:
+  - understand
+topic:
+---
+
+# Agent execution
+
+An Agent Execution is counted each time the action CallAgent is executed in runtime. Independent of how many actions or tools the Agent is using or how many times it calls an AI model inside that loop, each call to the Agent is still only 1 Execution. The following diagram shows a detailed example of how Agent executions and AOs are counted:
+
+![Diagram showing how Agent executions and AOs are counted, including API call, Timer, App, Workflow, Orchestrator Agent, AI Model GPT5, Intake Agent, Communicator Agent, AI Model Claude4, and actions.](images/agent-ao-usage-diag.png "Agent Execution and AO Usage Diagram")

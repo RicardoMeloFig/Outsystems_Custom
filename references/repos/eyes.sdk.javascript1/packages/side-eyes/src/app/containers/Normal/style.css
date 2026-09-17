@@ -1,0 +1,56 @@
+.body {
+  height: 605px;
+}
+
+.open-global-settings {
+  line-height: 27px;
+  padding-top: 5px;
+}
+
+.more-options {
+  line-height: 21px;
+}
+
+.project-settings .input {
+  flex-direction: row;
+  margin: 11px 0;
+}
+
+.project-settings .input label {
+  font-weight: normal;
+  font-size: 14px;
+  text-transform: none;
+  color: inherit;
+  flex-basis: 100%;
+  padding-top: 3px;
+}
+
+.project-settings .input input {
+  height: 26px;
+  width: 122px;
+  border: 1px solid #dcdcdc;
+  border-radius: 2px;
+  padding: 0;
+  text-indent: 5px;
+}
+
+.disclaimer {
+  font-size: 13px;
+  padding-left: 27px;
+}
+
+.disclaimer p {
+  margin: 3px 0;
+}
+
+.ReactModal__Overlay--after-open {
+  background-color: transparent !important;
+}
+
+.accessibility-option {
+  padding: 3px 50px 5px 27px;
+}
+
+#accessibility-options {
+  padding-top: 5px;
+}

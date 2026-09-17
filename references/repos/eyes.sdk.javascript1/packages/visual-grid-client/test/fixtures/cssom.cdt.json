@@ -1,0 +1,61 @@
+[
+  {
+    "nodeType": 9,
+    "childNodeIndexes": [
+      7
+    ]
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "HEAD",
+    "attributes": [],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "This text is red"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "id",
+        "value": "root"
+      }
+    ],
+    "childNodeIndexes": [
+      2
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "#root { background-color: yellow; }#root { color: red; }"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "STYLE",
+    "attributes": [],
+    "childNodeIndexes": [
+      4
+    ]
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "BODY",
+    "attributes": [],
+    "childNodeIndexes": [
+      3,
+      5
+    ]
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "HTML",
+    "attributes": [],
+    "childNodeIndexes": [
+      1,
+      6
+    ]
+  }
+]

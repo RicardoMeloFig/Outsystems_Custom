@@ -1,0 +1,85 @@
+---
+summary: This article details the counting of Application Objects (AOs) on the OutSystems platform, including screens, entities, API methods, and events.
+tags:
+  - Entities
+  - Events
+  - External Databases
+  - Libraries
+  - REST
+  - Screens
+  - Web services
+locale: en-us
+guid: cd994c70-9dcc-46ed-b423-84099beac39a
+app_type: traditional web apps, mobile apps, reactive web apps
+helpids: 30497, 30455
+platform-version: o11, odc
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+  - understand
+topic:
+  - ao-counting-rules
+  - ao-limits-usage
+isautopublish: true
+---
+
+# Application objects
+
+An application object (AO) is a measurement of the complexity of your applications on the OutSystems platform. Each **screen**, **entity/database table**, **API method**, and custom-defined **Event** in your apps count as 1 AO. AOs are counted the same in OutSystems 11 and OutSystems Developer Cloud, except where noted below.
+
+## Details on AO counting for Screens
+
+* Web screens, email screens, and mobile web screens each count as 1 AO.
+* Web blocks are components that exist within a screen, so they don't contribute to the AO count.
+* Tabs and pop-up windows in your Reactive web apps are implemented within an existing screen, so they don't contribute to the AO count either.
+* Tabs and pop-up windows created as distinct screens in Service Studio, such as with traditional web apps, count as 1 AO for each screen.
+* Tooltips don't contribute to the AO count.
+
+## Details on AO counting for entities and database tables
+
+* Entities you create within OutSystems (both normal [entities](https://success.outsystems.com/Documentation/11/Developing_an_Application/Use_Data/Data_Modeling/Entities) and [static entities](https://success.outsystems.com/Documentation/11/Developing_an_Application/Use_Data/Data_Modeling/Static_Entities)) each count as 1 AO.
+* Entities you import from external databases (for example, a table or a view) for use in your app each count as 1 AO.
+* [OutSystems 11 entities you import in OutSystems Developer Cloud](https://www.outsystems.com/tk/redirect?g=42156dc2-2ec5-4f2d-bf5c-b5af28072cfa) through Data Fabric don't contribute to the AO count.
+* Entities using local storage, such as for use with mobile apps, each count as 1 AO.
+* Static entities included in a library each count as 1 AO.
+* Tables created by the OutSystems platform, such as the Users table where end user information is stored, don't contribute to the AO count.
+
+## Details on AO counting for API methods
+
+* Each API method you import in OutSystems Developer Cloud through Data Fabric (for example, SAP BAPIs, SAP OData Deep Inserts, Search Services, MCP tools) counts as 1 AO.
+* Each SAP BAPI method you consume in OutSystems 11 through Service Studio counts as 1 AO.
+* Each API method you consume through AI Models counts as 1 AO.
+* Each API method you create or consume through [SOAP Web Services](https://success.outsystems.com/Documentation/11/Extensibility_and_Integration/SOAP/Exposing_SOAP_Web_Services/Expose_a_SOAP_Web_Service) within each app or library counts as 1 AO.
+* Each REST API method you create or consume within each app or library counts as 1 AO.
+* REST API methods exposed in OutSystems 11 and consumed only in OutSystems Developer Cloud, or exposed in OutSystems Developer Cloud and consumed only in OutSystems 11, don't contribute to the AO count. For more information, see [Logic interoperability](https://www.outsystems.com/tk/redirect?g=1edc897d-d7ca-494f-9379-d8ce57467cc9).
+* API methods within C#-based extensions don't contribute to the AO count.
+
+## Details on AO counting for events
+
+* Each [custom-defined Event](https://www.outsystems.com/tk/redirect?g=54254c98-5a1e-42c3-a280-fa2aae5c5abe) you create within OutSystems Developer Cloud counts as 1 AO.
+* Events in OutSystems 11 do not contribute to the AO count.
+* Please note that [Block events](https://www.outsystems.com/tk/redirect?g=6140a263-aa35-45e6-92a7-dc4453dae1c6) and [lifecycle events](https://www.outsystems.com/tk/redirect?g=9205fe77-5e90-402b-ba73-45cdc745515a) don't contribute to the AO count.
+
+## Other scenarios relating to AO counting
+
+* Within the same runtime environment, each entity and each API method only count as 1 AO, even when used by multiple apps within this same runtime.
+* Disabled applications continue to contribute to the AO count until they're deleted.
+* Components sourced from [OutSystems Forge](https://www.outsystems.com/forge/) may also contribute to the AO count. Check the Forge page for the component for further detail.
+* In OutSystems Developer Cloud, you can deploy multiple versions of the same library. Only the version with the highest number of AOs contributes to the AO count.
+* In OutSystems Developer Cloud, a library used across multiple portfolios contributes to the AO count only once.
+* In OutSystems 11, libraries that are published contribute to the AO count, even when they are not referenced by any applications. In OutSystems Developer Cloud, unreferenced libraries do not contribute to the AO count.
+* With libraries, the AO count contributed includes all API methods and static entities in the library, even when not all are referenced or used by apps.
+* In OutSystems Developer Cloud, all selected entities of a connection contribute to the AO count if the connection is referenced in an app. For example, if 50 Salesforce entities are selected in the external database connection and only one is used in one or multiple apps, the connection counts as 50 AOs.
+
+## AO limits
+
+OutSystems subscriptions typically include rights to run applications up to a specified number of AOs, with options for upgrading AO capacity that vary by subscription. With OutSystems 11, you can review your AO limits within the Customer Portal and you can see the current AO usage displayed for each runtime environment within Service Center. With OutSystems Developer Cloud, you can review these within the [**Subscription**](https://www.outsystems.com/tk/redirect?g=504cdfa5-68d4-46ce-8363-e08aa05e4514) section of the ODC Portal. You can view your overall application objects count and consumption across your production stage(s).
+
+The AO capacity you license only applies to production runtimes. Development and non-production/QA runtimes allow unlimited AOs, but cannot be used for running apps for production use.
+
+If you have one production runtime, you're entitled to run up to the AO capacity licensed on your subscription within that one production runtime. If you have multiple production runtimes, you're entitled to run up to this total number of AOs across all production runtimes, so you'll sum the AO usage from each production runtime to determine your total production AO usage. Please contact your OutSystems sales representative for assistance upgrading your AO capacity when needed.

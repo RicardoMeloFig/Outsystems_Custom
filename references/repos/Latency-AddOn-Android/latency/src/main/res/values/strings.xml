@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Latency</string>
+    <string name="label_latency_dialog_message">Slow connection detected</string>
+
+</resources>

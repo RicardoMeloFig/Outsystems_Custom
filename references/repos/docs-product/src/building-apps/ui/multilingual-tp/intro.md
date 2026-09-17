@@ -1,0 +1,72 @@
+---
+summary: OutSystems 11 (O11) supports multilingual reactive web and mobile apps with user-selectable language options.
+tags:
+  - Mobile app
+  - Multi-language
+  - Platform Server
+  - Translation
+locale: en-us
+guid: d92eca43-e46e-4db0-8445-4dfb51e0b73d
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+  - platform server
+coverage-type:
+  - understand
+  - apply
+topic:
+  - translating-apps
+---
+
+# Multilingual Reactive Web and Mobile Apps
+
+With Multilingual Reactive Web and Mobile Apps you can translate an app to other languages. Once the translations are available in the app, you can switch the language automatically or let users do it.
+
+<div class="info" markdown="1">
+
+Available in Platform Server 11.12.0 or later and up-to-date Service Studio.
+
+</div>
+
+When translating apps, note the following important information about language codes:
+
+* The default language code is **en-US**.
+* The current language is bound to the user session and when the user logs out, the language code automatically changes to the default language code.
+* The list of selectable language codes is obtained through the operating system. As a result, the options displayed may be influenced by your local system configurations.
+* Language codes are **case sensitive**.
+
+## Getting started
+
+Here's how to get started:
+
+* For instructions on how to translate your app directly in Service Studio, see [Translate your app](translate-your-app.md).
+* If you want to extract text for sending it to a translation service, see [Translation management](translation-management.md).
+* For instructions on how to translate Traditional Web Apps, see [this section](../multilingual/intro.md).
+
+You can translate the following elements of your app:
+
+* Screen titles
+* Text in buttons, links, and screens
+* Text literals in expressions
+* Instructions in human activities
+* Validation messages, widget confirmation messages, and empty state messages
+* Static entities. Check [Working with Static Entities](translate-your-app.md#working-with-static-entities) for important notes.
+
+## Translating systems components
+
+You can translate systems components. See the forum blog post [System Components Translations](https://www.outsystems.com/forums/discussion/10760/system-components-translations/) for instructions.
+
+<div class="info" markdown="">
+
+You need to define at least one locale to be able to export the text resources from a system component.
+
+</div>
+
+## Training resources
+
+Check out the [Multi-Language in OutSystems](https://www.outsystems.com/training/courses/182/multi-language-in-outsystems/) training section for video resources and demos.

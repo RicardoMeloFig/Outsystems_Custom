@@ -1,0 +1,27 @@
+.visual-grid-options {
+  padding-top: 7px;
+  position: relative;
+}
+
+.visual-grid-options .option-header .title {
+  float: left;
+  padding-right: 5px;
+}
+
+.visual-grid-options .option-header .add {
+  float: left;
+}
+
+.error-message {
+  color: red;
+}
+
+.general-error {
+  padding: 0 0 8px 27px !important;
+}
+
+.download-config {
+  position: absolute;
+  top: -29px;
+  right: -3px;
+}

@@ -1,0 +1,37 @@
+---
+summary: Workflow Builder application error occurs when an action fails; log out and log back in, or contact OutSystems support if it persists.
+tags: error handling, troubleshooting, user support, service interruption, workflow systems
+locale: en-us
+guid: f0c85b4a-a151-4e34-a6b8-768c15177f78
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - workflow builder
+topic:
+  - wfb-application-error
+coverage-type:
+  - unblock
+---
+
+# OS-WFBL-GEN-00008
+
+## Error message
+
+`Application error. <OriginalErrorMessage>.`
+
+## Cause
+
+This error occurs when users try to perform an action over an application and it fails.
+The &lt;OriginalErrorMessage&gt; includes information about the cause of the error.
+
+## Impact
+
+Users may experience some loss of service on Workflow Builder.
+
+## Recommended action
+
+Logout and Login again from Workflow Builder. If the problem persists, create a case with [OutSystems support](https://success.outsystems.com/Support).

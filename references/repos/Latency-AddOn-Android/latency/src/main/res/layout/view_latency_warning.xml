@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/view_latency_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="#F24A494A"
+        android:visibility="invisible">
+
+        <com.outsystems.android.widgets.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:text="@string/label_latency_dialog_message"/>
+
+        <ImageButton
+            android:id="@+id/image_button_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/icon_help"
+            android:contentDescription="Image Button icon" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/view_latency_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_latency_error"
+        android:paddingBottom="20dp"
+        android:background="#F2353535"
+        android:visibility="invisible">
+
+        <org.sufficientlysecure.htmltextview.HtmlTextView
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:id="@+id/text_view_info_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:text="Your connection is getting low, we detect a High-Latency in your network, probably"/>
+
+        <Button
+            android:id="@+id/button_close_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_below="@+id/text_view_info_warning"
+            android:text="Ok, I undersand this."
+            android:textSize="17sp"
+            style="@style/Widget.Button"
+         />
+    </RelativeLayout>
+
+</RelativeLayout>

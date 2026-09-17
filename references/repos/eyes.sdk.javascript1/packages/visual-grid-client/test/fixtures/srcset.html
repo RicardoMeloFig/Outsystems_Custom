@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Responsive HTML images demo</title>
+    <style>img{display:block;}</style>
+  </head>
+  <body>
+        <picture>
+          <source media="(max-width: 768px)" srcset="smurfs.jpg">
+          <img width="250" src="gargamel.jpg" alt="Picture element, smurfs on small, gargamel on large">
+        </picture>
+
+        <img srcset="smurfs1.jpg 151w,gargamel1.jpg 1200w"
+             sizes="(max-width: 768px) 151px,750px"
+             src="smurfs2.jpg" alt="Smurfs on small screen, gargamel on large">
+  </body>
+</html>

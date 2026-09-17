@@ -1,0 +1,30 @@
+---
+isautopublish: true
+pageprivacy: public
+---
+
+<h2 id="outsystems_developer_cloud_2026-07-27" >OutSystems Developer Cloud 2026-07-27</h2>
+<div class="info"><p>Released on Jul 27, 2026</p></div>
+
+
+<style>.cattag {background: #f4f2ff; color: #6a6581; padding: 4px 10px;}</style>
+<h3 id="new_in_outsystems_developer_cloud_2026-07-27" > New</h3>
+<ul>
+<li>The Portfolios/v1 public API is now deprecated but will remain functional until January 8, 2027, when it will be sunset. Please check <a href="https://success.outsystems.com/documentation/outsystems_developer_cloud/odc_rest_apis/api_references/migrate_from_portfolio_api_v1_to_v2/">the guide for transitioning to Portfolios v2.</a>  (RDMAST-2881)</li>
+<li>Workflow Editor: Merge Revisions
+<ul>
+<li>You can now automatically merge two workflow revisions in the Workflow Editor. When a newer revision is published while you are editing, select "Merge both versions" in the comparison view to intelligently combine changes from both versions.</li>                       <li>The system performs element-level conflict detection, automatically merging modifications, additions, and deletions only when both sides agree. Elements involved in conflicting changes are highlighted using color coding, allowing you to review them before publishing the merged result.</li>
+<li>You can access the automatic merge feature from two scenarios:
+<ul>
+<li>When publishing - If a newer revision was published while you were editing, merge both versions before deciding to publish your changes.</li>
+<li>Opening a workflow - If a colleague published a new revision while you had unsaved changes, merge the versions to combine your work with theirs before continuing to edit.</li>
+</ul>
+</li>
+</ul> (RDODCT-4483)</li>
+</ul>
+<h3 id="bug_fixing_outsystems_developer_cloud_2026-07-27" >Bug Fixing</h3>
+<ul>
+<li>Fixed an issue that prevented the correct filtering by the OutSystems11 provider on the Connections screen. (RPM-7046)</li>
+<li>Fixed an issue that prevented the creation of an O11 Cloud connection, since it was impossible to select an O11 environment to which to establish the connection. (RPM-7056)</li>
+</ul>
+

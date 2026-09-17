@@ -1,0 +1,84 @@
+---
+tags:
+  - Data Synchronization
+  - IT Users
+  - Technical Debt
+  - Troubleshooting
+summary: 'Code Quality troubleshooting in OutSystems 11 (O11): fix sync failures, duplicated findings mismatches, and IT User login errors.'
+locale: en-us
+guid: e2eb38b8-b3b6-42dd-9389-232ef2ba6226
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma: https://www.figma.com/file/rEgQrcpdEWiKIORddoVydX/Managing%20the%20Applications%20Lifecycle?node-id=929:753
+audience:
+  - Platform administrator
+  - Developer
+outsystems-tools:
+  - service studio
+  - service center
+  - lifetime
+  - code quality
+coverage-type:
+  - unblock
+isautopublish: true
+---
+
+# Troubleshooting
+
+<div class="info" markdown="1">
+
+AI Mentor Studio is now Code Quality.
+
+</div>
+
+<div class="info" markdown="1">
+
+Ensure that you are using the latest version of the Code Quality probes and that they are correctly installed. For more information, refer to [How to update the Code Quality probes](how-update-probes.md).
+
+</div>
+
+## Synchronization issues
+
+Synchronization (data sent from Code Quality Probe to SaaS) occurs every 12 hours.
+
+In Code Quality, go to the **Apps** tab and check when was the **Last sync**.
+
+![Screenshot showing the last synchronization date and time in the Code Quality canvas](images/latest-sync-ams.png "Code Quality Last Sync Check")
+
+If the last sync occurred more than 24 hours ago, go to the **Monitoring** tab of the Service Center of the LifeTime environment (`https://<lifetime_environment>/ServiceCenter`), and check for errors in the Code QualityLifeTime Probe module named **ArPr_Communitcation**.
+
+Note that the **LifeTime environment** must be able to connect to Code Quality Web Service available at:`https://codequality.outsystems.com/Probe_API/rest/Synchronization`.
+
+If the issue persists, open a ticket in the [Support Portal](https://www.outsystems.com/goto/submit-support-case) with all the details that you have and steps followed to troubleshoot.
+
+## Duplicated code findings mismatch  
+
+The number of issues listed in Code Quality is inconsistent across views. For example, the number of duplicate code instances in the findings view differs from the number listed in the detailed view.
+
+This may occur if you change the target environment of the code analysis probe without first deleting data from Code Quality. Before you change the target environment, contact [technical support](https://success.outsystems.com/Support/Enterprise_Customers/OutSystems_Support/01_Contact_OutSystems_technical_support) to delete existing data. Then follow the [setup procedure](how-setup.md) to configure the new target environment.
+
+## IT User login issues {#it-user-login-issues}
+
+When attempting to log into Code Quality using your IT User account, you might get the following error message:
+
+`It was not possible to sign into Code Quality. Check here for the solutions.`
+
+### Cause
+
+The credentials provided to log in aren't valid, or the user is blocked. The possible reasons are:
+
+* The username doesn't exist
+
+* The password is incorrect
+
+* The user is blocked due to many failed attempts
+
+### Recommended action
+
+* Verify that you used the correct username and password or request an administrator to reset your password.
+
+* With your **LifeTime** administrator, confirm that the username exists.
+
+* Ask your **LifeTime** administrator to unblock your username.
+
+For more information, check also [Protection against brute force attacks](../../security/protection-against-brute-force-attacks.md).

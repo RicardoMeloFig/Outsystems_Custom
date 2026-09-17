@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# determine absolute path of the executable
+execDir=${BASH_SOURCE[0]}
+execDirCheck=$(readlink ${execDir})
+
+# check the context and set appropriately
+if [ -z ${execDirCheck} ]; then
+  k0sdir=$(pwd)
+else
+  k0sdir=$(dirname ${execDirCheck})
+fi
+
+# paths setup and discovery
+workernodes=${1}
+nginxdir=${k0sdir}/nginx
+nginxconf=${nginxdir}/default.conf
+node=1
+t_out=5
+ssl_name=k0s-local
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo -e "workernodes: ${workernodes}\nk0sdir: ${k0sdir}\nnginxdir: ${nginxdir}\nnginxconf: ${nginxconf}\nnode: ${node}\nt_out: ${t_out}\n"
+
+echo "checking for helm..."
+if ! command -v helm &> /dev/null
+then
+  echo "helm3 is not installed or found in ${PATH}, exiting..."
+  exit
+fi
+
+echo "checking for openssl..."
+if ! command -v openssl &> /dev/null
+then
+  echo "openssl is not installed or found in ${PATH}, exiting..."
+  exit
+fi
+
+echo "starting our controller node..."
+docker run -d --name k0s-controller-1 --hostname k0s-controller-1 -v ${k0sdir}:/k0s --privileged -p 6443:6443 -v /var/lib/k0s k0sproject/k0s k0s controller -c /k0s/controller/controller.yaml &> /dev/null
+
+echo "allowing controller to warm up for ${t_out} seconds..."
+sleep ${t_out}
+
+echo "getting worker token..."
+token=$(docker exec -it k0s-controller-1 k0s token create --role=worker)
+
+echo "generating an SSL certificate..."
+${k0sdir}/gen_ssl.sh ${ssl_name}
+
+echo 'upstream workers {' > ${nginxconf}
+
+while [ ${node} -le ${workernodes} ]
+do
+  echo "starting worker ${node}..."
+  docker run -d --name k0s-worker-${node} --hostname k0s-worker-${node} --expose 80 --expose 443 --expose 10254 --privileged -v /var/lib/k0s k0sproject/k0s k0s worker ${token} &> /dev/null
+  echo -e "  server "$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' k0s-worker-${node})";" >> ${nginxconf}
+  echo "letting worker ${node} warm up and join the cluster..."
+  sleep ${t_out}
+  let node++
+done
+
+echo "finish up the nginx config..."
+cat >> ${nginxconf} << EOL
+}
+
+server {
+  listen 80;
+  server_name *.k0s.local;
+  location / {
+    proxy_set_header Host \$host;
+    proxy_pass http://workers;
+  }
+}
+EOL
+
+echo "starting up external nginx load balancer to the worker nodes..."
+docker run -p 80:80 -v ${nginxdir}:/etc/nginx/conf.d --name k0s-ext-lb -d nginx &> /dev/null
+
+config=$(docker exec k0s-controller-1 cat /var/lib/k0s/pki/admin.conf)
+
+echo "snarfing up kubecfg and placing in .kube..."
+
+if [ ! -d ~/.kube ]; then
+  mkdir ~/.kube
+fi
+
+echo "${config}" > ~/.kube/config
+chmod 600 ~/.kube/config
+
+echo "[helm] installing bitnami repository..."
+helm repo add bitnami https://charts.bitnami.com/bitnami &> /dev/null
+
+echo "[helm] insalling nginx-ingress from bitnami..."
+helm install nginx-ingress bitnami/nginx-ingress-controller --values ${k0sdir}/charts/nginx-ingress.yaml &> /dev/null

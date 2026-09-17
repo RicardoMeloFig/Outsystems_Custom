@@ -1,0 +1,667 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code-export csharp-nunit commands checkElement 1`] = `"eyes.Check(Target.Region(By.id(\\"blah\\")).WithName(\\"blah\\").BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-nunit commands checkElement 2`] = `"eyes.Check(Target.Region(By.id(\\"blah\\")).BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-nunit commands checkWindow 1`] = `"eyes.Check(Target.Window().Fully().WithName(\\"blah\\").BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-nunit commands checkWindow 2`] = `"eyes.Check(Target.Window().Fully().BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-nunit commands checkWindow 3`] = `"eyes.Check(Target.Window().Fully().BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-nunit commands setMatchLevel 1`] = `""`;
+
+exports[`code-export csharp-nunit commands setMatchTimeout 1`] = `""`;
+
+exports[`code-export csharp-nunit commands setPreRenderHook 1`] = `"preRenderHook = \\"console.log(\\"blah\\");\\";"`;
+
+exports[`code-export csharp-nunit commands setPreRenderHook 2`] = `""`;
+
+exports[`code-export csharp-nunit commands setViewportSize 1`] = `""`;
+
+exports[`code-export csharp-nunit hooks afterEach 1`] = `
+"TestResultsSummary allTestResults = runner.GetAllTestResults();
+System.Console.WriteLine(allTestResults);"
+`;
+
+exports[`code-export csharp-nunit hooks afterEach 2`] = `"eyes.AbortIfNotClosed();"`;
+
+exports[`code-export csharp-nunit hooks beforeEach 1`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+AccessibilitySettings settings = new AccessibilitySettings(AccessibilityLevel.AA, AccessibilityGuidelinesVersion.WCAG_2_0);
+conf.SetAccessibilityValidation(settings);
+eyes = new Eyes();
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-nunit hooks beforeEach 2`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.SetBaselineEnvName(\\"blah\\");
+eyes = new Eyes();
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-nunit hooks beforeEach 3`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.AddDeviceEmulation(DeviceName.IPAD, ScreenOrientation.Portrait);
+runner = new VisualGridRunner(10);
+eyes = new Eyes(runner);
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-nunit hooks beforeEach 4`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.AddBrowser(100, 100, BrowserType.CHROME);
+runner = new VisualGridRunner(10);
+eyes = new Eyes(runner);
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-nunit hooks dependency 1`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-nunit hooks dependency 2`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-nunit hooks dependency 3`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-nunit hooks dependency 4`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-nunit hooks inEachEnd 1`] = `"eyes.CloseAsync();"`;
+
+exports[`code-export csharp-nunit hooks inEachEnd 2`] = `undefined`;
+
+exports[`code-export csharp-nunit hooks variable 1`] = `
+"Eyes eyes;
+string preRenderHook;
+VisualGridRunner runner;"
+`;
+
+exports[`code-export csharp-nunit hooks variable 2`] = `
+"Eyes eyes;
+string preRenderHook;"
+`;
+
+exports[`code-export csharp-xunit commands checkElement 1`] = `"eyes.Check(Target.Region(By.id(\\"blah\\")).WithName(\\"blah\\").BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-xunit commands checkElement 2`] = `"eyes.Check(Target.Region(By.id(\\"blah\\")).BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-xunit commands checkWindow 1`] = `"eyes.Check(Target.Window().Fully().WithName(\\"blah\\").BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-xunit commands checkWindow 2`] = `"eyes.Check(Target.Window().Fully().BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-xunit commands checkWindow 3`] = `"eyes.Check(Target.Window().Fully().BeforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export csharp-xunit commands setMatchLevel 1`] = `""`;
+
+exports[`code-export csharp-xunit commands setMatchTimeout 1`] = `""`;
+
+exports[`code-export csharp-xunit commands setPreRenderHook 1`] = `"preRenderHook = \\"console.log(\\"blah\\");\\";"`;
+
+exports[`code-export csharp-xunit commands setPreRenderHook 2`] = `""`;
+
+exports[`code-export csharp-xunit commands setViewportSize 1`] = `""`;
+
+exports[`code-export csharp-xunit hooks afterEach 1`] = `
+"TestResultsSummary allTestResults = runner.GetAllTestResults();
+System.Console.WriteLine(allTestResults);"
+`;
+
+exports[`code-export csharp-xunit hooks afterEach 2`] = `"eyes.AbortIfNotClosed();"`;
+
+exports[`code-export csharp-xunit hooks beforeEach 1`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+AccessibilitySettings settings = new AccessibilitySettings(AccessibilityLevel.AA, AccessibilityGuidelinesVersion.WCAG_2_0);
+conf.SetAccessibilityValidation(settings);
+eyes = new Eyes();
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-xunit hooks beforeEach 2`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.SetBaselineEnvName(\\"blah\\");
+eyes = new Eyes();
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-xunit hooks beforeEach 3`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.AddDeviceEmulation(DeviceName.IPAD, ScreenOrientation.Portrait);
+runner = new VisualGridRunner(10);
+eyes = new Eyes(runner);
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-xunit hooks beforeEach 4`] = `
+"
+Configuration conf = new Configuration();
+conf.SetTestName(\\"test blah\\");
+conf.SetAppName(\\"project blah\\");
+conf.SetViewportSize(new Size(1024, 768));
+conf.AddBrowser(100, 100, BrowserType.CHROME);
+runner = new VisualGridRunner(10);
+eyes = new Eyes(runner);
+eyes.SetConfiguration(conf);
+eyes.Open(driver);"
+`;
+
+exports[`code-export csharp-xunit hooks dependency 1`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-xunit hooks dependency 2`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-xunit hooks dependency 3`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-xunit hooks dependency 4`] = `
+"using Applitools;
+using Applitools.Selenium;
+using Applitools.VisualGrid;
+using System.Drawing;
+using Configuration = Applitools.Selenium.Configuration;
+using ScreenOrientation = Applitools.VisualGrid.ScreenOrientation;"
+`;
+
+exports[`code-export csharp-xunit hooks inEachEnd 1`] = `"eyes.CloseAsync();"`;
+
+exports[`code-export csharp-xunit hooks inEachEnd 2`] = `undefined`;
+
+exports[`code-export csharp-xunit hooks variable 1`] = `
+"Eyes eyes;
+string preRenderHook;
+VisualGridRunner runner;"
+`;
+
+exports[`code-export csharp-xunit hooks variable 2`] = `
+"Eyes eyes;
+string preRenderHook;"
+`;
+
+exports[`code-export java-junit commands checkElement 1`] = `"eyes.check(Target.window().region(By.id(\\"blah\\")).withName(\\"blah\\"));"`;
+
+exports[`code-export java-junit commands checkElement 2`] = `"eyes.check(Target.window().region(By.id(\\"blah\\")));"`;
+
+exports[`code-export java-junit commands checkWindow 1`] = `"eyes.check(Target.window().fully().withName(\\"blah\\"));"`;
+
+exports[`code-export java-junit commands checkWindow 2`] = `"eyes.check(Target.window().fully());"`;
+
+exports[`code-export java-junit commands checkWindow 3`] = `"eyes.check(Target.window().fully().beforeRenderScreenshotHook(preRenderHook));"`;
+
+exports[`code-export java-junit commands setMatchLevel 1`] = `"eyes.setMatchLevel(\\"Layout\\");"`;
+
+exports[`code-export java-junit commands setMatchTimeout 1`] = `"eyes.setMatchTimeout(10000);"`;
+
+exports[`code-export java-junit commands setPreRenderHook 1`] = `"preRenderHook = \\"console.log(\\"blah\\");\\";"`;
+
+exports[`code-export java-junit commands setPreRenderHook 2`] = `"preRenderHook = \\"\\";"`;
+
+exports[`code-export java-junit commands setViewportSize 1`] = `"Eyes.setViewportSize(driver, new RectangleSize(1024, 768));"`;
+
+exports[`code-export java-junit hooks afterEach 1`] = `
+"runner.getAllTestResults();
+eyes.abortIfNotClosed();"
+`;
+
+exports[`code-export java-junit hooks afterEach 2`] = `"eyes.abortIfNotClosed();"`;
+
+exports[`code-export java-junit hooks beforeEach 1`] = `
+"eyes = new Eyes();
+eyes.setApiKey(System.getenv(\\"APPLITOOLS_API_KEY\\"));
+Configuration config = eyes.getConfiguration();
+AccessibilitySettings settings = new AccessibilitySettings(AccessibilityLevel.AA, AccessibilityGuidelinesVersion.WCAG_2_0);
+config.setAccessibilityValidation(settings);
+eyes.setConfiguration(config);
+eyes.open(driver, \\"project blah\\", \\"test blah\\");"
+`;
+
+exports[`code-export java-junit hooks beforeEach 2`] = `
+"eyes = new Eyes();
+eyes.setApiKey(System.getenv(\\"APPLITOOLS_API_KEY\\"));
+Configuration config = eyes.getConfiguration();
+eyes.setBaseLineEnvName(\\"blah\\");
+eyes.setConfiguration(config);
+eyes.open(driver, \\"project blah\\", \\"test blah\\");"
+`;
+
+exports[`code-export java-junit hooks beforeEach 3`] = `
+"runner = new VisualGridRunner(concurrency);
+eyes = new Eyes(runner);
+Configuration config = eyes.getConfiguration();
+
+config.addDeviceEmulation(DeviceName.IPAD, ScreenOrientation.PORTRAIT);
+eyes.setConfiguration(config);
+eyes.open(driver, \\"project blah\\", \\"test blah\\");"
+`;
+
+exports[`code-export java-junit hooks beforeEach 4`] = `
+"runner = new VisualGridRunner(concurrency);
+eyes = new Eyes(runner);
+Configuration config = eyes.getConfiguration();
+
+config.addBrowser(100, 100, BrowserType.CHROME);
+eyes.setConfiguration(config);
+eyes.open(driver, \\"project blah\\", \\"test blah\\");"
+`;
+
+exports[`code-export java-junit hooks dependency 1`] = `
+"import com.applitools.eyes.selenium.Eyes;
+import com.applitools.eyes.RectangleSize;
+import com.applitools.eyes.selenium.fluent.Target;
+import com.applitools.eyes.selenium.Configuration;
+import com.applitools.eyes.selenium.BrowserType;
+import com.applitools.eyes.visualgrid.model.DeviceName;
+import com.applitools.eyes.visualgrid.model.ScreenOrientation;
+import com.applitools.eyes.visualgrid.services.VisualGridRunner;
+import com.applitools.eyes.AccessibilitySettings;
+import com.applitools.eyes.AccessibilityLevel;
+import com.applitools.eyes.AccessibilityGuidelinesVersion;"
+`;
+
+exports[`code-export java-junit hooks dependency 2`] = `
+"import com.applitools.eyes.selenium.Eyes;
+import com.applitools.eyes.RectangleSize;
+import com.applitools.eyes.selenium.fluent.Target;
+import com.applitools.eyes.selenium.Configuration;
+import com.applitools.eyes.selenium.BrowserType;
+import com.applitools.eyes.visualgrid.model.DeviceName;
+import com.applitools.eyes.visualgrid.model.ScreenOrientation;
+import com.applitools.eyes.visualgrid.services.VisualGridRunner;"
+`;
+
+exports[`code-export java-junit hooks dependency 3`] = `
+"import com.applitools.eyes.selenium.Eyes;
+import com.applitools.eyes.RectangleSize;
+import com.applitools.eyes.selenium.fluent.Target;
+import com.applitools.eyes.selenium.Configuration;
+import com.applitools.eyes.AccessibilitySettings;
+import com.applitools.eyes.AccessibilityLevel;
+import com.applitools.eyes.AccessibilityGuidelinesVersion;"
+`;
+
+exports[`code-export java-junit hooks dependency 4`] = `
+"import com.applitools.eyes.selenium.Eyes;
+import com.applitools.eyes.RectangleSize;
+import com.applitools.eyes.selenium.fluent.Target;
+import com.applitools.eyes.selenium.Configuration;"
+`;
+
+exports[`code-export java-junit hooks inEachEnd 1`] = `"eyes.close();"`;
+
+exports[`code-export java-junit hooks inEachEnd 2`] = `undefined`;
+
+exports[`code-export java-junit hooks variable 1`] = `
+"private Eyes eyes;
+private VisualGridRunner runner;
+final int concurrency = 5;
+private String preRenderHook;"
+`;
+
+exports[`code-export java-junit hooks variable 2`] = `"private Eyes eyes;"`;
+
+exports[`code-export javascript-mocha commands checkElement 1`] = `"await eyes.check(\\"blah\\", Target.region(By.id(\\"blah\\")).webHook(preRenderHook))"`;
+
+exports[`code-export javascript-mocha commands checkElement 2`] = `"await eyes.check((new URL(await driver.getCurrentUrl())).pathname, Target.region(By.id(\\"blah\\")).webHook(preRenderHook))"`;
+
+exports[`code-export javascript-mocha commands checkWindow 1`] = `"await eyes.check(\\"blah\\", Target.window().webHook(preRenderHook).fully(true))"`;
+
+exports[`code-export javascript-mocha commands checkWindow 2`] = `"await eyes.check((new URL(await driver.getCurrentUrl())).pathname, Target.window().webHook(preRenderHook).fully(true))"`;
+
+exports[`code-export javascript-mocha commands checkWindow 3`] = `"await eyes.check((new URL(await driver.getCurrentUrl())).pathname, Target.window().webHook(preRenderHook).fully(true))"`;
+
+exports[`code-export javascript-mocha commands setMatchLevel 1`] = `"await eyes.setMatchLevel(\\"Layout\\");"`;
+
+exports[`code-export javascript-mocha commands setMatchTimeout 1`] = `"eyes.setMatchTimeout(10000)"`;
+
+exports[`code-export javascript-mocha commands setPreRenderHook 1`] = `"preRenderHook = \\"console.log(\\"blah\\");\\""`;
+
+exports[`code-export javascript-mocha commands setPreRenderHook 2`] = `"preRenderHook = \\"\\""`;
+
+exports[`code-export javascript-mocha commands setViewportSize 1`] = `"await eyes.setViewportSize({ width: 1024, height: 768 })"`;
+
+exports[`code-export javascript-mocha hooks afterEach 1`] = `
+"const results = await eyes.getRunner().getAllTestResults()
+console.log(results)
+eyes.abortIfNotClosed()"
+`;
+
+exports[`code-export javascript-mocha hooks afterEach 2`] = `"eyes.abortIfNotClosed()"`;
+
+exports[`code-export javascript-mocha hooks beforeEach 1`] = `
+"eyes = new Eyes()
+const config = eyes.getConfiguration();
+config.setAccessibilityValidation({\\"level\\":\\"AA\\",\\"guidelinesVersion\\":\\"WCAG_2_0\\"})
+eyes.setConfiguration(config);
+eyes.setApiKey(process.env[\\"APPLITOOLS_API_KEY\\"])
+await eyes.open(driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export javascript-mocha hooks beforeEach 2`] = `
+"eyes = new Eyes()
+eyes.setApiKey(process.env[\\"APPLITOOLS_API_KEY\\"])
+eyes.setBaselineEnvName(\\"blah\\")
+await eyes.open(driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export javascript-mocha hooks beforeEach 3`] = `
+"eyes = new Eyes(new VisualGridRunner())
+const config = new Configuration()
+config.setConcurrentSessions(10)
+config.addDeviceEmulation(DeviceName.IPAD, ScreenOrientation.PORTRAIT)
+eyes.setConfiguration(config)
+eyes.setApiKey(process.env[\\"APPLITOOLS_API_KEY\\"])
+await eyes.open(driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export javascript-mocha hooks beforeEach 4`] = `
+"eyes = new Eyes(new VisualGridRunner())
+const config = new Configuration()
+config.setConcurrentSessions(10)
+config.addBrowser(100, 100, BrowserType.CHROME)
+eyes.setConfiguration(config)
+eyes.setApiKey(process.env[\\"APPLITOOLS_API_KEY\\"])
+await eyes.open(driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export javascript-mocha hooks dependency 1`] = `
+"const { Eyes, Target } = require('@applitools/eyes-selenium')
+const { Configuration, VisualGridRunner, BrowserType, DeviceName, ScreenOrientation } = require('@applitools/eyes-selenium')"
+`;
+
+exports[`code-export javascript-mocha hooks dependency 2`] = `
+"const { Eyes, Target } = require('@applitools/eyes-selenium')
+const { Configuration, VisualGridRunner, BrowserType, DeviceName, ScreenOrientation } = require('@applitools/eyes-selenium')"
+`;
+
+exports[`code-export javascript-mocha hooks dependency 3`] = `"const { Eyes, Target } = require('@applitools/eyes-selenium')"`;
+
+exports[`code-export javascript-mocha hooks dependency 4`] = `"const { Eyes, Target } = require('@applitools/eyes-selenium')"`;
+
+exports[`code-export javascript-mocha hooks inEachEnd 1`] = `"await eyes.close()"`;
+
+exports[`code-export javascript-mocha hooks inEachEnd 2`] = `undefined`;
+
+exports[`code-export javascript-mocha hooks variable 1`] = `
+"let eyes
+let preRenderHook"
+`;
+
+exports[`code-export javascript-mocha hooks variable 2`] = `
+"let eyes
+let preRenderHook"
+`;
+
+exports[`code-export python-pytest commands checkElement 1`] = `"self.eyes.check(\\"blah\\", Target.region([By.id(\\"blah\\")]))"`;
+
+exports[`code-export python-pytest commands checkElement 2`] = `"self.eyes.check(urlparse(self.driver.current_url).path, Target.region([By.id(\\"blah\\")]))"`;
+
+exports[`code-export python-pytest commands checkWindow 1`] = `"self.eyes.check(\\"blah\\", Target.window().fully(True))"`;
+
+exports[`code-export python-pytest commands checkWindow 2`] = `"self.eyes.check(urlparse(self.driver.current_url).path, Target.window().fully(True))"`;
+
+exports[`code-export python-pytest commands checkWindow 3`] = `"self.eyes.check(urlparse(self.driver.current_url).path, Target.window().fully(True))"`;
+
+exports[`code-export python-pytest commands setMatchLevel 1`] = `"self.eyes.match_level(\\"Layout\\")"`;
+
+exports[`code-export python-pytest commands setMatchTimeout 1`] = `"self.eyes.match_timeout(10000)"`;
+
+exports[`code-export python-pytest commands setPreRenderHook 1`] = `""`;
+
+exports[`code-export python-pytest commands setPreRenderHook 2`] = `""`;
+
+exports[`code-export python-pytest commands setViewportSize 1`] = `"self.eyes.viewport_size = {'width': 1024, 'height': 768}"`;
+
+exports[`code-export python-pytest hooks afterEach 1`] = `"self.vg_runner.get_all_test_results()"`;
+
+exports[`code-export python-pytest hooks afterEach 2`] = `"self.eyes.abort()"`;
+
+exports[`code-export python-pytest hooks beforeEach 1`] = `
+"config = Configuration()
+self.eyes = Eyes()
+self.eyes.api_key = os.environ[\\"APPLITOOLS_API_KEY\\"]
+setting = AccessibilitySettings(
+          AccessibilityLevel.AA, AccessibilityGuidelinesVersion.WCAG_2_0
+        )
+config.accessibility_validation = setting
+self.eyes.open(self.driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export python-pytest hooks beforeEach 2`] = `
+"config = Configuration()
+self.eyes = Eyes()
+self.eyes.api_key = os.environ[\\"APPLITOOLS_API_KEY\\"]
+self.eyes.baseline_env_name = \\"blah\\"
+self.eyes.open(self.driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export python-pytest hooks beforeEach 3`] = `
+"config = Configuration()
+concurrency = 10
+self.vg_runner = VisualGridRunner(concurrency)
+self.eyes = Eyes(self.vg_runner)
+
+config.add_device_emulation(DeviceName.IPAD, ScreenOrientation.PORTRAIT)
+self.eyes.configuration = config
+self.eyes.api_key = os.environ[\\"APPLITOOLS_API_KEY\\"]
+self.eyes.open(self.driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export python-pytest hooks beforeEach 4`] = `
+"config = Configuration()
+concurrency = 10
+self.vg_runner = VisualGridRunner(concurrency)
+self.eyes = Eyes(self.vg_runner)
+
+config.add_browser(100, 100, BrowserType.CHROME)
+self.eyes.configuration = config
+self.eyes.api_key = os.environ[\\"APPLITOOLS_API_KEY\\"]
+self.eyes.open(self.driver, \\"project blah\\", \\"test blah\\")"
+`;
+
+exports[`code-export python-pytest hooks dependency 1`] = `
+"import os
+from urllib.parse import urlparse
+from applitools.selenium import (Eyes, Target, Configuration)
+from applitools.selenium import (BrowserType, DeviceName, ScreenOrientation)
+from applitools.selenium.visual_grid import VisualGridRunner
+from applitools.common.accessibility import (AccessibilitySettings, AccessibilityLevel, AccessibilityGuidelinesVersion)
+"
+`;
+
+exports[`code-export python-pytest hooks dependency 2`] = `
+"import os
+from urllib.parse import urlparse
+from applitools.selenium import (Eyes, Target, Configuration)
+from applitools.selenium import (BrowserType, DeviceName, ScreenOrientation)
+from applitools.selenium.visual_grid import VisualGridRunner
+"
+`;
+
+exports[`code-export python-pytest hooks dependency 3`] = `
+"import os
+from urllib.parse import urlparse
+from applitools.selenium import (Eyes, Target, Configuration)
+from applitools.common.accessibility import (AccessibilitySettings, AccessibilityLevel, AccessibilityGuidelinesVersion)
+"
+`;
+
+exports[`code-export python-pytest hooks dependency 4`] = `
+"import os
+from urllib.parse import urlparse
+from applitools.selenium import (Eyes, Target, Configuration)
+"
+`;
+
+exports[`code-export python-pytest hooks inEachEnd 1`] = `"self.eyes.close()"`;
+
+exports[`code-export python-pytest hooks inEachEnd 2`] = `"self.eyes.close_async()"`;
+
+exports[`code-export python-pytest hooks variable 1`] = `undefined`;
+
+exports[`code-export python-pytest hooks variable 2`] = `undefined`;
+
+exports[`code-export ruby-rspec commands checkElement 1`] = `"@eyes.check(\\"blah\\", Applitools::Selenium::Target.region(By.id(\\"blah\\")).script_hook(@pre_render_hook))"`;
+
+exports[`code-export ruby-rspec commands checkElement 2`] = `"@eyes.check(URI.parse(@driver.current_url).path, Applitools::Selenium::Target.region(By.id(\\"blah\\")).script_hook(@pre_render_hook))"`;
+
+exports[`code-export ruby-rspec commands checkWindow 1`] = `"@eyes.check(\\"blah\\", Applitools::Selenium::Target.window.fully.script_hook(@pre_render_hook))"`;
+
+exports[`code-export ruby-rspec commands checkWindow 2`] = `"@eyes.check(URI.parse(@driver.current_url).path, Applitools::Selenium::Target.window.fully.script_hook(@pre_render_hook))"`;
+
+exports[`code-export ruby-rspec commands checkWindow 3`] = `"@eyes.check(URI.parse(@driver.current_url).path, Applitools::Selenium::Target.window.fully.script_hook(@pre_render_hook))"`;
+
+exports[`code-export ruby-rspec commands setMatchLevel 1`] = `"@eyes.match_level(\\"Layout\\")"`;
+
+exports[`code-export ruby-rspec commands setMatchTimeout 1`] = `"@eyes.match_timeout(10000)"`;
+
+exports[`code-export ruby-rspec commands setPreRenderHook 1`] = `"preRenderHook = 'console.log(\\"blah\\");'"`;
+
+exports[`code-export ruby-rspec commands setPreRenderHook 2`] = `"preRenderHook = ''"`;
+
+exports[`code-export ruby-rspec commands setViewportSize 1`] = `""`;
+
+exports[`code-export ruby-rspec hooks afterEach 1`] = `"@visual_grid_runner.get_all_test_results"`;
+
+exports[`code-export ruby-rspec hooks afterEach 2`] = `"@eyes.abort_if_not_closed"`;
+
+exports[`code-export ruby-rspec hooks beforeEach 1`] = `
+"@eyes = Applitools::Selenium::Eyes.new
+config = @eyes.get_configuration
+config.accessibility_validation = Applitools::AccessibilitySettings.new(Applitools::AccessibilityLevel::AA, Applitools::AccessibilityGuidelinesVersion::WCAG_2_0)
+@eyes.config = config
+@eyes.api_key = ENV['APPLITOOLS_API_KEY']
+@eyes.open(driver: @driver, app_name: 'project blah', test_name: 'test blah', viewport_size: '1024x768')"
+`;
+
+exports[`code-export ruby-rspec hooks beforeEach 2`] = `
+"@eyes = Applitools::Selenium::Eyes.new
+@eyes.api_key = ENV['APPLITOOLS_API_KEY']
+@eyes.baseline_env_name = 'blah'
+@eyes.open(driver: @driver, app_name: 'project blah', test_name: 'test blah', viewport_size: '1024x768')"
+`;
+
+exports[`code-export ruby-rspec hooks beforeEach 3`] = `
+"@visual_grid_runner = Applitools::Selenium::VisualGridRunner.new(10)
+@eyes = Applitools::Selenium::Eyes.new(visual_grid_runner: @visual_grid_runner)
+config = Applitools::Selenium::Configuration.new.tap do |c|
+  c.api_key = ENV['APPLITOOLS_API_KEY']
+  c.app_name = 'project blah'
+  c.test_name = 'test blah'
+  c.viewport_size = Applitools::RectangleSize.for('1024x768')
+
+  c.add_device_emulation(Devices::IPAD, Orientations::PORTRAIT)
+end
+@eyes.config = config
+@eyes.open(driver: @driver)"
+`;
+
+exports[`code-export ruby-rspec hooks beforeEach 4`] = `
+"@visual_grid_runner = Applitools::Selenium::VisualGridRunner.new(10)
+@eyes = Applitools::Selenium::Eyes.new(visual_grid_runner: @visual_grid_runner)
+config = Applitools::Selenium::Configuration.new.tap do |c|
+  c.api_key = ENV['APPLITOOLS_API_KEY']
+  c.app_name = 'project blah'
+  c.test_name = 'test blah'
+  c.viewport_size = Applitools::RectangleSize.for('1024x768')
+
+  c.add_browser(100, 100, BrowserTypes::CHROME)
+end
+@eyes.config = config
+@eyes.open(driver: @driver)"
+`;
+
+exports[`code-export ruby-rspec hooks dependency 1`] = `"require 'eyes_selenium'"`;
+
+exports[`code-export ruby-rspec hooks dependency 2`] = `"require 'eyes_selenium'"`;
+
+exports[`code-export ruby-rspec hooks dependency 3`] = `"require 'eyes_selenium'"`;
+
+exports[`code-export ruby-rspec hooks dependency 4`] = `"require 'eyes_selenium'"`;
+
+exports[`code-export ruby-rspec hooks inEachEnd 1`] = `"@eyes.close(false)"`;
+
+exports[`code-export ruby-rspec hooks inEachEnd 2`] = `"@eyes.close(false)"`;
+
+exports[`code-export ruby-rspec hooks variable 1`] = `undefined`;
+
+exports[`code-export ruby-rspec hooks variable 2`] = `undefined`;

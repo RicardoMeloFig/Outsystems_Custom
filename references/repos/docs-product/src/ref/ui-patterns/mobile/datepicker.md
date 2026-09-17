@@ -1,0 +1,46 @@
+---
+tags:
+  - CSS
+  - Events
+  - Forms
+  - Mobile app
+  - UI Patterns
+summary: Explore the Date Picker reference for OutSystems 11 (O11), detailing events, layout, and CSS selectors for mobile and reactive web apps.
+locale: en-us
+guid: 0134e6e2-5319-4f34-9f72-5a137e9971a4
+app_type: mobile apps, reactive web apps
+platform-version: o11
+figma: https://www.figma.com/file/eFWRZ0nZhm5J5ibmKMak49/Reference?type=design&node-id=612%3A349&mode=design&t=xOFe93sVU3cU3chE-1
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+---
+
+# Date Picker Reference
+
+<div class="info" markdown="1">
+
+Applies to Mobile Apps and Reactive Web Apps only
+
+</div>
+
+## Events
+
+| **Event Name** | **Description** | **Mandatory** |
+| --- | --- | --- |
+| OnSelect | Action to execute after selecting a DatePicker day. If SelectInterval is enabled, both parameters return values. If not, only the StartDate has a value. | True |
+  
+## Layout and Classes
+
+![Diagram illustrating the layout and CSS classes of the Date Picker UI Pattern](images/datepicker-layout-classes-diag.png "Date Picker Layout and Classes Diagram")
+
+## CSS Selectors
+
+| **Element** | **CSS Class** | **Description** |
+| --- | --- | --- |
+| td | .is-selected | Clicked day. |
+| td | .is-startrange | If SelectInterval is True , this class will be the start range value. |

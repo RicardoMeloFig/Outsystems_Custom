@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "helpids": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "string",
+            "pattern": "^\\d+(,\\s*\\d+)*$"
+          },
+        {
+          "type": "null"
+        }
+        ]
+      },
+      "summary": {},
+      "tags": {},
+      "guid": {
+        "type": "string",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en-us"
+        ]
+      },
+      "app_type": {
+        "type": "string",
+        "pattern": "^(mobile apps|reactive web apps|traditional web apps)(,\\s*(mobile apps|reactive web apps|traditional web apps))*$"
+      },
+      "platform-version": {
+        "type": "string",
+        "pattern": "^(o11|odc)(,\\s*(o11|odc))*$"
+      },
+      "figma": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string",
+            "pattern": "^$"
+          },
+          {
+            "type": "string",
+            "pattern": "^https://www\\.figma\\.com"
+          }
+        ]
+      },
+      "outsystems-tools": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "coverage-type": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string",
+        "enum": [
+          "remember",
+          "understand",
+          "apply",
+          "evaluate",
+          "unblock",
+          "none"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "audience": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "Architect",
+          "Business analyst",
+          "Developer",
+          "Front-end developer",
+          "Product owner",
+          "Tech lead",
+          "Platform administrator"
+        ]
+      },
+      "uniqueItems": true
+    },
+  "topic": {
+    "type": [
+      "array",
+      "null"
+    ],
+    "items": {
+      "type": "string"
+    },
+    "uniqueItems": true
+  },
+    "isautopublish": {
+      "type": "boolean"
+    }
+    },
+    "required": [
+      "summary",
+      "locale",
+      "app_type",
+      "guid",
+      "platform-version"
+    ],
+    "additionalProperties": false
+}

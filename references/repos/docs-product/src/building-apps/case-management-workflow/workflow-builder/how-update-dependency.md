@@ -1,0 +1,47 @@
+---
+tags: outsystems, dependency management, service center, application deployment
+summary: Explore how to install or update dependencies in OutSystems 11 (O11) for Workflow Builder using the Case Management framework.
+guid: 456764c4-6370-4363-b576-8d399be303e3
+locale: en-us
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Platform administrator
+  - Developer
+outsystems-tools:
+  - workflow builder
+  - service center
+  - case management framework
+topic:
+  - update-cm-dependency
+coverage-type:
+  - apply
+---
+
+# How to install or update dependencies
+
+[Workflow Builder](http://workflowbuilder.outsystems.com/) has one dependency, the Case Management framework.
+To publish Workflow Builder apps, the environment must have the latest version of the Case Management framework.
+
+To install or update this dependency, you must be a [Workflow Builder admin](how-works.md#workflow-builder-administrator), and follow these steps:
+
+1. Select your user name, and then select **Settings**.
+
+1. In the **Dependencies** tab, select **Install CM framework manually**.
+
+1. In the **Install Case Management Framework** dialog, select **Download Case Management Framework** and save the **.osp** file in your computer.
+
+1. Select **Service Center console > Factory > Solutions**.
+
+1. In Service Center, select **Upload & Publish a Solution**.
+
+1. Select **Choose File** and select the **.osp** file that you downloaded in step 3.
+
+1. Select **1-Click Publish**.
+
+1. Validate if the Solution is successfully published by checking for a **Done: The solution was successfully published** message.
+
+1. In Workflow Builder, select the checkbox to confirm you completed all the steps, and then click on the **Installation complete**.
+
+After completing these steps, Workflow Builder re-checks and updates the status of your dependencies.

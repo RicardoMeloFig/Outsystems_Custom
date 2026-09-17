@@ -1,0 +1,39 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name Dynatrace
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+@_exported import Dynatrace
+import Swift
+import SwiftUI
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  @available(*, deprecated, message: "Use withCustomInstrumentationConfig(.skipInstrumentation) instead")
+  @_Concurrency.MainActor @preconcurrency public func skippingInstrumentation() -> some SwiftUICore.View
+  
+  @available(*, deprecated, message: "Use withCustomInstrumentationConfig(.useDefaultControlName) instead")
+  @_Concurrency.MainActor @preconcurrency public func withDefaultControlName() -> some SwiftUICore.View
+  
+  @_Concurrency.MainActor @preconcurrency public func withCustomInstrumentationConfig(_ params: SwiftUIInstrumentationConfigParam...) -> some SwiftUICore.View
+  
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public func uiKitBridge(_ index: Swift.Int, _ responder: Swift.Bool = false) -> some SwiftUICore.View
+  
+}
+@available(iOS 13.0, *)
+public enum SwiftUIInstrumentationConfigParam {
+  case skipInstrumentation, useDefaultControlName, doNotReportStateVariable, useControlName(Swift.String)
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public struct instrument<Content> : Swift.Sendable, SwiftUICore.View where Content : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(with values: [Swift.String : Swift.String], viewName: Swift.String, createAction: Swift.Bool = true, @SwiftUICore.ViewBuilder _ content: @escaping () -> Content)
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  @available(iOS 13.0, *)
+  public typealias Body = @_opaqueReturnTypeOf("$s9Dynatrace10instrumentV4bodyQrvp", 0) __<Content>
+}

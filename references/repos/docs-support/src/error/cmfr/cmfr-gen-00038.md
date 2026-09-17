@@ -1,0 +1,43 @@
+---
+summary: The user you are trying to delegate from is not a member of the selected group.
+tags:
+  - Case Management framework
+  - Debugging
+  - Groups
+  - Roles
+  - Security
+  - Troubleshooting
+locale: en-us
+guid: e79a3f1c-3560-4d18-90f9-a666ce037b17
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+  - case management framework
+coverage-type:
+  - unblock
+topic:
+  - fix-delegation-group-mismatch
+---
+
+# OS-CMFR-GEN-00038
+
+## Error message
+
+`The user you are trying to delegate from is not a member of the selected group.`
+
+## Cause
+
+While trying to execute the **Delegation_Create** or **Delegation_Update** actions, the Case Management framework detected that the **FromUserId** input value belongs to a user that isn't a member of the **FromGroupId** that was input.
+
+## Impact
+
+The Case Management framework wasn't able to successfully execute the action.
+
+## Recommended action
+
+Make sure the user passed in the **FromUserId** input parameter is a member of the group passed in the **FromGroupId** input parameter. Use Service Studio's Debugger to check the input parameter's value at the date of execution.

@@ -1,0 +1,121 @@
+---
+summary: Explore payload request examples for consuming a single REST method in OutSystems 11 (O11).
+tags:
+  - REST
+  - Web services
+locale: en-us
+guid: E7A21ACC-EC04-4FB8-A3CC-D121EF8A9963
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma: https://www.figma.com/file/jSgZ0l0unYdVymLxKZasno/Extensibility-and-Integration?type=design&node-id=2881%3A15271&mode=design&t=187UAgmZTPxcY0ZG-1
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - apply
+---
+
+# Payload request examples when consuming a single REST method
+
+When you consume a REST method through the **Add Single Method** option, with input parameters sent in the body, you can paste an example of the payload sent at runtime in the request. Service Studio uses this example to generate the request input parameters and structures.
+
+Service Studio uses the text you add in the **Request** field of the **Body** tab to infer the properties, parameters, and content type of the method.
+
+The format of the request example can be JSON, form URL Encoded, multipart/form-data, or text/plain. This article provides examples of each request format. For more information about consuming a single method API, see [Consume a single method of a REST API](consume-a-rest-api.md#single-method).
+
+![Screenshot showing examples of requests in Service Studio](images/request-examples-ss.png "Service Studio Request Examples")
+
+## JSON
+
+If you use the JSON request format, you must insert a JSON payload. The following request payload example shows a JSON payload that represents a structure with the fields and values.
+
+```
+
+{
+  "name": "OutSystems",
+  "city": "Atlanta"
+}
+
+```
+
+Using this payload, the system creates the following input parameter and the corresponding structure:
+
+![Image displaying the input parameters generated from a JSON payload in Service Studio](images/payload-input-parameters-ss.png "Payload Input Parameters in Service Studio") ![Image showing the structure created from a JSON payload in Service Studio](images/payload-structure-ss.png "Payload Structure in Service Studio")
+
+## Form URL encoded
+
+If you use the Form URL Encoded format, the payload must be in a query string format with key-value pairs. Each key and value pair is separated by an equal sign ``(name=value)`` and every pair is separated by the ampersand sign ``(name1=value1&name2=value2)``.
+
+In addition to these standard rules, you can define your own input parameters. Special characters such as spaces and tabs must be coded following the [Uniform Resources Locators (URL)](https://www.rfc-editor.org/rfc/rfc1738) rules.
+
+The following request payload example contains three key-value pairs, ``name``, ``age``, and ``email``, which create three input parameters that are sent in the **Body**.
+
+```
+
+name={name}&age={age}&email={email} 
+
+```
+
+![Screenshot of a form URL encoded sample payload in Service Studio](images/post-url-sample-ss.png "Form URL Encoded Sample in Service Studio")
+
+## Multipart/form-data
+
+To create a valid request with different parts, the following rules must be adhered to:
+
+* Each part of the payload must be separated by a boundary. A boundary is a string that defines the start and end of each part.
+
+* Each part of the payload must include its own **Content-Disposition** header. The header  specifies the name of the part and its type.
+
+* After every part header, an empty line must  be added. This distinguishes the real payload of every part. Otherwise, the payload is interpreted as text/plain.
+
+* If a part of the payload is binary data (such as a file), it must also include a **Content-Type** header that specifies the type of the data (for example, image/jpeg).
+
+* The last part of the boundary must be followed by two hyphens to indicate the end of the payload.
+
+```
+
+--BOUNDARY
+Content-Disposition: form-data; name="metadata"
+Content-Type: application/json
+
+{
+  "name": "My Document",
+  "created_at": "2022-12-30T12:00:00Z"
+}
+
+--BOUNDARY
+Content-Disposition: form-data; name="document"
+Content-Type: application/pdf
+
+[BINARY PDF CONTENT HERE]
+--BOUNDARY--
+
+```
+
+In this example, there are two parts - the first part is a JSON payload and the second part is a pdf file. Both parts are enclosed in a boundary. The boundary must be a unique string that is not used in any other place of the payload. After every separator boundary string occurrence, there is a **Content-Disposition** header with a disposition type of **form-data** where the disposition contains a **name** parameter and the value of that parameter is the original field name in the form. In the example, the name for the first part is **metadata**. This metadata form is composed of two JSON fields, **Name** and **Created_at**.
+
+Using this payload example, the system can infer the data structures involved. The metadata input parameter with two fields **Name** and **Created_at** and a second input parameter document of type **Binary Data**.
+
+![Image illustrating the input parameters for multipart/form-data in Service Studio](images/metadata-inputs-ss.png "Multipart Form Data Inputs in Service Studio")
+
+<div class="info" markdown="1">
+
+If you need to include a `filename` parameter in the `Content-Disposition` header for file uploads, change the data type of the input to **RequestPart** and populate its **Filename** attribute. For more information, see [Consuming a REST API with a multipart or form data method](consume-multipart-form-data.md).
+
+</div>
+
+For more information about multipart/form-data structure, see the [standard specifications (RFC 2388)](https://www.ietf.org/rfc/rfc2388.txt).
+
+## Text/plain
+
+When systems can’t recognize the payload request format, text/plain request is the default option used.
+
+In the following payload request example, the payload is simply the string "Hello World!" encoded as text/plain.
+
+**Hello World!**
+
+The system creates an input parameter of data type Text.
+
+![Screenshot showing a text/plain payload example in Service Studio](images/plain-text-ss.png "Text Plain Payload Example in Service Studio")

@@ -1,0 +1,29 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Binary output
+mabs13-plugin-update
+
+# Distribution
+dist/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Logs
+*.log

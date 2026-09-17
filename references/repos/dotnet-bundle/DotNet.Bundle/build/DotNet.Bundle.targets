@@ -1,0 +1,74 @@
+<Project TreatAsLocalProperty="TaskFolder;TaskAssembly">
+
+  <PropertyGroup>
+    <TaskFolder>netstandard2.0</TaskFolder>
+    <TaskAssembly>$(MSBuildThisFileDirectory)..\tasks\$(TaskFolder)\DotNet.Bundle.dll</TaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="DotNet.Bundle.BundleAppTask" AssemblyFile="$(TaskAssembly)" />
+  
+  <Target Name="BundleApp" DependsOnTargets="Publish">
+    
+    <PropertyGroup>
+      <CFBundleName Condition="'$(CFBundleName)' == '' AND '$(TargetName)' != ''">$(TargetName)</CFBundleName>
+      <CFBundleName Condition="'$(CFBundleName)' == '' AND '$(TargetName)' == ''">Application</CFBundleName>
+
+      <CFBundleDisplayName Condition="'$(CFBundleDisplayName)' == '' AND '$(TargetName)' != ''">$(TargetName)</CFBundleDisplayName>
+      <CFBundleDisplayName Condition="'$(CFBundleDisplayName)' == '' AND '$(TargetName)' == ''">Application</CFBundleDisplayName>
+
+      <CFBundleIdentifier Condition="'$(CFBundleIdentifier)' == '' AND '$(TargetName)' != ''">$(TargetName)</CFBundleIdentifier>
+      <CFBundleIdentifier Condition="'$(CFBundleIdentifier)' == '' AND '$(TargetName)' == ''">com.example</CFBundleIdentifier>
+
+      <CFBundleVersion Condition="'$(CFBundleVersion)' == '' AND '$(Version)' != ''">$(Version)</CFBundleVersion>
+      <CFBundleVersion Condition="'$(CFBundleVersion)' == '' AND '$(Version)' == ''">1.0.0</CFBundleVersion>
+
+      <CFBundlePackageType Condition="'$(CFBundlePackageType)' == ''">APPL</CFBundlePackageType>
+
+      <CFBundleSignature Condition="'$(CFBundleSignature)' == ''">????</CFBundleSignature>
+
+      <CFBundleExecutable Condition="'$(CFBundleExecutable)' == '' AND '$(TargetName)' != ''">$(TargetName)</CFBundleExecutable>
+      <CFBundleExecutable Condition="'$(CFBundleExecutable)' == '' AND '$(TargetName)' == ''">none</CFBundleExecutable>
+      
+      <CFBundleIconFile Condition="'$(CFBundleIconFile)' == '' AND '$(TargetName)' != ''">$(TargetName).icns</CFBundleIconFile>
+      <CFBundleIconFile Condition="'$(CFBundleIconFile)' == '' AND '$(TargetName)' == ''">none.icns</CFBundleIconFile>
+
+      <CFBundleShortVersionString Condition="'$(CFBundleShortVersionString)' == ''">$(CFBundleVersion)</CFBundleShortVersionString>
+
+      <CFBundleInfoDictionaryVersion Condition="'$(CFBundleInfoDictionaryVersion)' == ''">6.0</CFBundleInfoDictionaryVersion>
+
+      <NSPrincipalClass Condition="'$(NSPrincipalClass)' == ''">NSApplication</NSPrincipalClass>
+
+      <AppName Condition="'$(AppName)' == ''">$(CFBundleDisplayName)</AppName>
+        
+      <SourcesDirectory Condition="'$(SourcesDirectory)' == ''">$(PublishDir)</SourcesDirectory>
+    </PropertyGroup>
+    
+    <BundleAppTask
+      AppName="$(AppName)"
+      SourcesDir="$(SourcesDirectory)"
+      OutDir="$(OutDir)"
+      PublishDir="$(PublishDir)"
+      CFBundleName="$(CFBundleName)"
+      CFBundleDisplayName="$(CFBundleDisplayName)"
+      CFBundleIdentifier="$(CFBundleIdentifier)"
+      CFBundleVersion="$(CFBundleVersion)"
+      CFBundlePackageType="$(CFBundlePackageType)"
+      CFBundleSignature="$(CFBundleSignature)"
+      CFBundleExecutable="$(CFBundleExecutable)"
+      CFBundleIconFile="$(CFBundleIconFile)"
+      CFBundleShortVersionString="$(CFBundleShortVersionString)"
+      CFBundleInfoDictionaryVersion="$(CFBundleInfoDictionaryVersion)"
+      CFBundleURLTypes="@(CFBundleURLTypes)"
+      MDItemKeywords="$(MDItemKeywords)"
+      NSPrincipalClass="$(NSPrincipalClass)"
+      NSHighResolutionCapable="$(NSHighResolutionCapable)"
+      NSRequiresAquaSystemAppearance="$(NSRequiresAquaSystemAppearance)"
+      LSEnvironment="@(LSEnvironment)"
+      LSUIElement="$(LSUIElement)"
+      LSBackgroundOnly="$(LSBackgroundOnly)"
+      CFBundleAlternateNames="@(CFBundleAlternateNames)"
+      />
+    
+  </Target>
+  
+</Project>

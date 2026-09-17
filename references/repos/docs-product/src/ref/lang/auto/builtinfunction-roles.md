@@ -1,0 +1,88 @@
+---
+summary: Explore role management functions like `Check<role_name>Role` in OutSystems 11 (O11) for user authentication and authorization.
+locale: en-us
+guid: a3d00b4b-8f79-4136-9b52-bc9052faaa8d
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Authentication
+  - Authorization
+  - Roles
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+---
+
+# Roles
+
+<div class="info" markdown="1">
+
+OutSystems automatically defines a `Check<role_name>Role` function for each role in your module. For more information about how to use `Check<role_name>Role`, refer to [Role functions](../../../user-management/user-roles/create-a-custom-role.md#role-functions).
+
+</div>
+
+The following table lists role-related built-in functions.
+
+<table markdown="1">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#CheckRole">CheckRole</a>(&#8203;RoleId, UserId)</td>
+<td>Returns true when the given user has the specific role.</td>
+</tr>
+<tr>
+<td><a href="#GetUserId">GetUserId</a>()</td>
+<td>Returns the identifier of the user that is currently authenticated with the server or 'NullIdentifier()' if the user is not authenticated.</td>
+</tr>
+</tbody>
+</table>
+
+## CheckRole { #CheckRole }
+
+Returns true when the given user has the specific role.  
+
+Available in:  
+
+* Server-side logic: Yes
+* Client-side logic: No
+* Database: Can be used with attributes in aggregates.
+* Local Storage: Can be used with attributes in aggregates.
+
+### Parameters
+
+RoleId
+:    Type: RoleId. Mandatory.  
+The identifier of the role to be validated.
+
+UserId
+:    Type: UserId. Mandatory.  
+The identifier of the user for which to validate if role is granted.
+
+### Output
+
+Type: Boolean  
+
+## GetUserId { #GetUserId }
+
+Returns the identifier of the user that is currently authenticated with the server or 'NullIdentifier()' if the user is not authenticated.  
+
+Available in:  
+
+* Server-side logic: Yes
+* Client-side logic: Yes
+* Database: Function is evaluated before the aggregate is executed.
+* Local Storage: Function is evaluated before the aggregate is executed.
+
+### Output
+
+Type: UserId  

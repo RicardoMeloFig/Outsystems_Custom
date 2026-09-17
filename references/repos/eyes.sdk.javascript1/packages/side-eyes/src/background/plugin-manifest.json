@@ -1,0 +1,99 @@
+{
+  "name": "Applitools",
+  "version": "1.0.0",
+  "exports": {
+    "languages": [
+      "java-junit",
+      "javascript-mocha",
+      "python-pytest",
+      "ruby-rspec",
+      "csharp-nunit",
+      "csharp-xunit"
+    ]
+  },
+  "commands": [
+    {
+      "id": "eyesCheckWindow",
+      "name": "eyes check window",
+      "docs": {
+        "description": "Sets a visual checkpoint on the entire window. This will scroll throughout the page, and build a screenshot of it.",
+        "target": {
+          "name": "step name",
+          "description": "A name to display at the test results, defaults to url.",
+          "isOptional": true
+        }
+      }
+    },
+    {
+      "id": "eyesCheckElement",
+      "name": "eyes check element",
+      "type": "locator",
+      "docs": {
+        "description": "Sets a visual checkpoint on an element. This will not scroll, element has to fit inside the viewport.",
+        "target": "locator",
+        "value": {
+          "name": "step name",
+          "description": "A name to display at the test results, defaults to url.",
+          "isOptional": true
+        }
+      }
+    },
+    {
+      "id": "eyesSetMatchLevel",
+      "name": "eyes set match level",
+      "docs": {
+        "description": "Sets the match level for the subsequent check points, defaults to Strict.",
+        "target": {
+          "name": "match level",
+          "description": "The match level describes the way that Eyes matches two images, or two regions of an image. For example a Strict level checks if images are visibly the same, whereas a Layout level allows different text as long as the general geometry of the area is the same. You can specify one of the following: Exact, Strict, Content, Layout."
+        }
+      }
+    },
+    {
+      "id": "eyesSetMatchTimeout",
+      "name": "eyes set match timeout",
+      "docs": {
+        "description": "Sets the match timeout for the subsequent check points, higher timeout means more retries will be made. defaults to 2000 milliseconds.",
+        "target": "waitTime"
+      }
+    },
+    {
+      "id": "eyesSetViewportSize",
+      "name": "eyes set viewport size",
+      "docs": {
+        "description": "Resizes the browser to match the viewport size (excluding window borders).",
+        "target": "resolution"
+      }
+    },
+    {
+      "id": "eyesSetBaselineEnvName",
+      "name": "eyes set baseline env name",
+      "docs": {
+        "description": "Uses an existing baseline environment for all Eyes check commands. If a baseline environment for the given name doesn't exist, one will be created.",
+        "target": {
+          "name": "baseline env name",
+          "description": "The name of the the baseline environment to use during test execution."
+        }
+      }
+    },
+    {
+      "id": "eyesSetPreRenderHook",
+      "name": "eyes set pre render hook",
+      "docs": {
+        "description": "Runs a snippet of JavaScript before check commands to assist with page rendering (Visual Grid ONLY).",
+        "target": {
+          "name": "before render screenshot hook",
+          "description": "JavaScript snippet to assist with page render."
+        }
+      }
+    }
+  ],
+  "dependencies": {
+    "@applitools/eyes-selenium": "4.43.1"
+  },
+  "jest": {
+    "extraGlobals": [
+      "Math"
+    ]
+  }
+}

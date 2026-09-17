@@ -1,0 +1,223 @@
+---
+summary: 'OutSystems 11 (O11) network requirements: TCP ports for deployment, Integration Builder, Workflow Builder, Code Quality, LifeTime, and log streaming IPs.'
+tags:
+  - Deploy
+  - Front-End
+  - Infrastructure
+  - IP Filters
+  - Monitoring
+  - Platform Server
+  - Security
+locale: en-us
+guid: 6238ecb9-6eaf-4406-a421-f4b01322052d
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Platform administrator
+outsystems-tools:
+  - configuration tool
+coverage-type:
+  - remember
+  - understand
+topic:
+  - download-and-set-up
+isautopublish: true
+---
+
+# OutSystems 11 network requirements
+
+<div class="info" markdown="1">
+
+This article applies to: **OutSystems 11**&#8195;&#8195;Also available: [OutSystems 10](https://success.outsystems.com/documentation/10/setting_up_outsystems/outsystems_network_requirements/)&#8195; For older versions [check the Platform server downloads](https://www.outsystems.com/Downloads/search/Platform-Server).
+
+</div>
+
+## Network environment requirements
+
+### Open ports
+
+For each server of an OutSystems environment, `localhost`:
+
+* must resolve to 127.0.0.1 (IPv4)
+* must be accessible by HTTP on 127.0.0.1
+
+<div class="info" markdown="1">
+
+It's possible to configure some of the ports used. Check the [Configuration Tool documentation](../../ref/configuration-tool/intro.md) to learn more.
+
+</div>
+
+The following table lists the ports that should be open to make your applications to be accessible **outside** of your local network (WAN) or **inside** of your local network (LAN).
+
+|Source|Destination|Port|Protocol|Notes|
+|------|-----------|----|--------|-----|
+|End Users/Internet|Front-End|80|TCP|Applications HTTP access|
+|End Users/Internet|Front-End|443|TCP|Applications HTTPS access (always required for Mobile and Reactive Web apps)|
+
+The table below details the ports that need to be accessible in each server of an OutSystems environment for **publication and runtime connectivity**. If a server has both roles (Controller and Front-End), then consider the ports for both profiles on that server.
+
+<div class="info" markdown="1">
+
+**Security best practice:** TCP ports 12000, 12001, 12002, 12100, 12101 and 12102 shouldn't be open to the internet.
+
+</div>
+
+|Source|Destination|Port|Protocol|Notes|
+|------|-----------|----|--------|-----|
+|Front-End|nativebuilder.api.outsystems.com|443|TCP|Generate Mobile apps with MABS ([more info](https://success.outsystems.com/Support/Enterprise_Customers/Installation/Mobile_App_Builder_Service_connectivity_requirements))|
+|Front-End|Controller (by default)<br/>— Depends on where the Cache Invalidation Service/RabbitMQ is installed.|5672|TCP|Cache Invalidation Service connection|
+|Front-End|Controller|12100|TCP|OutSystems Deployment Controller Service connection. Applies to Platform Server 11.25.0 and higher.|
+|Front-End|Controller|12000|TCP|OutSystems Deployment Controller Service connection|
+|Front-End|SQL Server / Oracle|1433 / 1521|TCP|Database connection|
+|Controller|Front-End|12101|TCP|OutSystems Deployment Service connection. Applies to Platform Server 11.24.0 and higher.|
+|Controller|Front-End|12001|TCP|OutSystems Deployment Service connection|
+|Controller|SQL Server / Oracle|1433 / 1521|TCP|Database connection|
+
+The following table lists the ports that should be open to correctly **monitor** OutSystems. A failure on opening these ports may result in warnings and error messages.
+
+|Source|Destination|Port|Protocol|Notes|
+|------|-----------|----|--------|-----|
+|Front-End|Front-End|80|TCP|IIS Monitoring|
+|Front-End|Controller|12100|TCP|OutSystems Deployment Controller Service Monitoring. Applies to Platform Server 11.25.0 and higher.|
+|Front-End|Controller|12000|TCP|OutSystems Deployment Controller Service Monitoring|
+|Front-End|Front-End|12101|TCP|OutSystems Deployment Service Monitoring. Applies to Platform Server 11.24.0 and higher.|
+|Front-End|Front-End|12001|TCP|OutSystems Deployment Service Monitoring|
+|Front-End|Front-End|12102|TCP|OutSystems Scheduler Service Monitoring. Applies to Platform Server 11.21.0 and higher.|
+|Front-End|Front-End|12002|TCP|OutSystems Scheduler Service Monitoring|
+|Controller|Front-End|80|TCP|IIS Monitoring|
+|Controller|Front-End|12101|TCP|OutSystems Deployment Service Monitoring. Applies to Platform Server 11.24.0 and higher.|
+|Controller|Front-End|12001|TCP|OutSystems Deployment Service Monitoring|
+|Controller|Front-End|12102|TCP|OutSystems Scheduler Service Monitoring. Applies to Platform Server 11.21.0 and higher.|
+|Controller|Front-End|12002|TCP|OutSystems Scheduler Service Monitoring|
+|Front-End and Controller|\*.outsystems.com<br/>outsystems.com|443|TCP|Telemetry|
+
+In case you are using a hybrid infrastructure where some part is in OutSystems Cloud and another is managed by yourself, it's possible to create a VPN connection between the environments (hybrid configuration is only supported in OutSystems licenses purchased before January 2020). Learn more in the [Amazon documentation](http://aws.amazon.com/vpc/faqs/#C1).
+
+### Development tools
+
+<div class="info" markdown="1">
+
+Check the [HTTP proxy configuration guide](configure-http-proxy.md) for the necessary configurations if you're working on a network where communications to the Internet need to go through an HTTP proxy.
+
+</div>
+
+The following table lists the necessary connectivity between the developers workstations and the several endpoints that support the full experience of Service Studio and Integration Studio.
+
+| Source | Destination | Port | Protocol | Notes |
+| ------ | ----------- | ---- | -------- | ----- |
+| Service Studio and Integration Studio | Front-End | 443 | TCP | <ul>Deploy applications to the environment</ul> |
+| Service Studio | \*.outsystems.com<br/>outsystems.com | 443 | TCP | Service Studio connects to `outsystems.com` and several sub-domains to achieve the following: <ul><li>[AI-Assisted Development](../../building-apps/logic/ai-assisted-dev.md) </li><li> What's New! - The What's New dialog shows you the latest features added.</li> <li>Update Service Studio automatically</li><li>Telemetry</li><li>Submit feedback and errors via Service Studio</li> <li>Forge - The Forge bell icon lets you know if there are updates for installed components. </li><li>Application creation when creating from an existing sample app</li><li>Shows related documentation links when using help.</li></ul> |
+| Service Studio | s3.amazonaws.com | 443 | TCP | <ul><li>Forge components - To install Forge components from the Forge tab or from the Forge website.</li><li>Access app templates while creating apps from scratch.</li></ul> |
+| Service Studio | fonts.googleapis.com | 443 | TCP | <ul>Used when changing the theme when using the Theme Editor both at development and runtime.</ul> |
+| Service Studio | outsystems.eu.qualtrics.com | 443 | TCP | <ul>Used to run surveys inside Service Studio. This applies when connecting to a personal environment only and to free editions.</ul> |
+
+### Network latency
+
+Even though OutSystems is built to scale horizontally, you need to consider the network latency between the database server, the Platform Server, and the front-end servers. For this reason, it’s advisable to have all servers that make up an environment, running under the same provider.
+
+As an example, if you are using Amazon RDS as your database server and running the Platform Server on your own infrastructure, the application’s performance will be degraded.
+
+### Integration Builder
+
+[Integration Builder](https://integrationbuilder.outsystems.com/) should be able to connect to the environments where you deploy integrations*. When connecting Integration Builder to all your environments, ensure that the front ends of the environments accept inbound connections from the **Source** address. For example, for a standard infrastructure, Integration Builder should be able to connect to the development, quality assurance, and production environments but doesn't need to connect to LifeTime.
+
+Alternatively, ensure that the front ends of the environments used with Integration Builder accept connections from the IP addresses in the **Notes**. These IP addresses are subject to change.
+
+The Integration Builder uses the environments' public DNS hostname to communicate.
+
+|Source|Destination|Port|Protocol|Notes|
+|---|---|---|---|---|
+|integrationbuilder.outsystems.com|Environment Front-End<br/>(public DNS hostname)|443|HTTPS|52.51.203.1<br/>108.128.2.246<br/>54.228.47.100<br/>63.33.151.194<br/>34.241.56.16<br/>54.75.124.221|
+|Environment Front-End|integrationbuilder.outsystems.com|443|HTTPS|52.51.203.1<br/>108.128.2.246<br/>54.228.47.100<br/>63.33.151.194<br/>34.241.56.16<br/>54.75.124.221|
+
+It's not mandatory to have Integration Builder connected to **all your environments**. Only a development environment is mandatory. However, there are a few limitations on environments that are not connected to Integration Builder:
+
+* Development Connections (created automatically by Integration Builder in a
+  Dev environment for testing purposes) won't work. It's necessary to define
+  your own connection.
+
+* Sending emails through Integration Manager to administrators to request new
+  connections or assistants won't work.
+
+* Automatic creation of connections in Integration Manager won't work. Manual
+  creation is still possible.
+
+### Workflow Builder
+
+[Workflow Builder](http://workflowbuilder.outsystems.com/) must be able to connect to the environment where you want Workflow Builder to publish apps. Ensure that the front ends of that environment accept inbound connections from the **Source** address.
+
+Alternatively, ensure that the front ends of the environment used with Workflow Builder accepts connections from the IP addresses in the **Notes**. These IP addresses are subject to change.
+
+The Workflow Builder uses the environment's public DNS hostname to communicate.
+
+|Source|Destination|Port|Protocol|Notes|
+|---|---|---|---|---|
+|workflowbuilder.outsystems.com|Environment Front-End<br/>(public DNS hostname)|443|TCP|52.51.203.1<br/>108.128.2.246<br/>54.228.47.100<br/>63.33.151.194<br/>34.241.56.16<br/>54.75.124.221|
+
+To use [IT user governance based on LifeTime teams](https://success.outsystems.com/Documentation/Workflow_Builder/How_to_set_up_Workflow_Builder/How_to_set_up_the_users_governance_model), Workflow Builder needs to be able to connect directly to LifeTime via TCP using HTTPS, port 443.
+
+## Network infrastructure requirements
+
+### LifeTime
+
+You need to have bidirectional secure communication between the front-end of the LifeTime environment, and all other servers (front-ends and deployment controllers) of your OutSystems Infrastructure. When the environments have load balancers, you can establish the connectivity between LifeTime and the load balancers of the environments it manages.
+
+|Source|Destination|Port|Protocol|
+|------|-----------|----|--------|
+|LifeTime Front-End|Environment Front-End|443|TCP|
+|Environment Front-End|LifeTime Front-End|443|TCP|
+
+### Code Quality
+
+To use [Code Quality](https://codequality.outsystems.com/), the Code Quality LifeTime plugin must be able to communicate with the Code Quality SaaS. Check out [how Code Quality works](../../monitor-and-troubleshoot/manage-tech-debt/how-works.md).
+
+The network requirements depend on the authentication method and Probe version you use to access Code Quality.
+
+#### OutSystems account authentication
+
+If you access Code Quality using OutSystems account authentication, ensure the following destination endpoint is reachable, depending on the Probe version:
+
+| Probe version | Source | Destination | Port | Protocol |
+| --- | --- | --- | --- | --- |
+| Probes 6.0.0 and above | LifeTime Front-End | codequality.outsystems.com/Probe_API/rest/Synchronization/ | 443 | TCP |
+| Probes 4.2 and above | LifeTime Front-End | codequality.outsystems.com/Probe_API/rest/Synchronization/ | 443 | TCP |
+| Probes 4.0 and 4.1 | LifeTime Front-End | architecture.outsystems.com/Broker_API/rest/ArchitectureDashboard | 443 | TCP |
+
+#### IT user authentication
+
+If you access Code Quality using IT user authentication, Code Quality must be able to connect to the environment where you want to perform code analysis. Hence, besides ensuring the destination endpoint (LifeTime Front-End) is reachable, you also need to ensure that the front ends of the environment where you want to perform code analysis accept inbound connections from `codequality.outsystems.com`.  
+
+Alternatively, ensure that the front ends of the environment used with Code Quality accept connections from the IP addresses in the **Notes**. These IP addresses are subject to change.
+
+| Source | Destination | Port | Protocol | Notes |
+| --- | --- | --- | --- | --- |
+| LifeTime Front-End (Probes 6.0.0 and above) | codequality.outsystems.com/Probe_API/rest/Synchronization/ | 443 | TCP | **Outbound communication** |
+| LifeTime Front-End (Probes before 6.0.0) | aimentorstudio.outsystems.com/Probe_API/rest/Synchronization/ | 443 | TCP | **Outbound communication** |
+| codequality.outsystems.com | Environment Front-End (public DNS hostname) | 443 | TCP | **Inbound communication**<br/>IP addresses:<br/>52.17.222.124<br/>52.212.170.142<br/>52.17.218.236<br/>18.200.157.187<br/>34.255.149.145 |
+| codequality.outsystems.com | LifeTime Front-End | 443 | TCP | **Inbound communication**<br/>IP addresses:<br/>52.17.222.124<br/>52.212.170.142<br/>52.17.218.236<br/>18.200.157.187<br/>34.255.149.145 |
+
+### Log streaming { #log-streaming }
+
+For environments with [log streaming](../../monitor-and-troubleshoot/log-streaming/intro.md) enabled, logs are streamed from OutSystems to your APM tool through the OutSystems Data platform.
+
+When your APM tool is hosted in a private network or behind a firewall, you can allowlist the Data platform egress IP addresses to restrict inbound traffic, removing the need to make your APM tool publicly accessible. For more information, refer to [log streaming prerequisites](../../monitor-and-troubleshoot/log-streaming/intro.md#prerequisites).
+
+Use the following table to identify the Data platform region that serves your environment's region and the corresponding IP addresses to allowlist in your firewall or reverse proxy.
+
+| Customer regions | Data platform region | Data platform IPs |
+| --- | --- | --- |
+| US East (North Virginia), US West (Oregon), US East (Ohio), CA (Canada Central) | US East (North Virginia) | 54.89.107.154, 54.84.58.61, 35.172.177.93 |
+| South America (São Paulo) | South America (São Paulo) | 54.94.69.128, 18.229.244.40, 15.229.64.9 |
+| Europe (Frankfurt), Europe (Ireland), Europe (London), Africa (Cape Town), Middle East (Bahrain) | Europe (Frankfurt) | 3.73.166.181, 52.59.51.255, 18.194.166.197 |
+| Asia Pacific (Singapore), Asia Pacific (Hong Kong), Asia Pacific (Seoul), Asia Pacific (Jakarta), Asia Pacific (Sydney), Asia Pacific (Mumbai) | Asia Pacific (Singapore) | 52.76.74.134, 18.143.210.11, 52.74.33.192 |
+| Asia Pacific (Tokyo) | Asia Pacific (Tokyo) | 35.73.209.241, 54.65.81.192, 57.180.168.188 |
+
+<div class="info" markdown="1">
+
+OutSystems tries to ensure that these IP addresses remain unchanged as much as possible, however, the list of public IPs may change over time due to infrastructure updates, though such changes would be rare and unexpected.
+
+If you'd like to be informed of any IP address changes, please subscribe to updates to the [OutSystems status page](https://status.outsystems.com/).
+
+</div>

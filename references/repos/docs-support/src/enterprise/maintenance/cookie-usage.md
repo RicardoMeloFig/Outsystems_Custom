@@ -1,0 +1,70 @@
+---
+summary: Explore cookie usage in OutSystems 11 (O11) applications, detailing types, sizes, and purposes to enhance user experience and comply with EU directives.
+locale: en-us
+guid: 60f532d6-5fa3-4b1e-91cc-9e4ec6686e87
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Authentication
+  - End-user Authentication
+  - Monitoring
+  - Pagination
+  - Security
+  - Traditional Web
+  - Web
+audience:
+  - Front-end developer
+  - Developer
+  - Platform administrator
+outsystems-tools:
+  - none
+coverage-type:
+  - remember
+  - understand
+topic:
+  - cookie-reference-o11
+  - disabled-cookies-impact-o11
+---
+
+# Cookie usage in OutSystems applications
+
+In compliance with directive 2009/136/EC of the European Parliament and of the Council, of 25.11.2009, users of web applications should be provided with clear and comprehensive information when engaging in an activity which results in storage of their information, such as cookies. Also, each country implements its own directives regarding this issue. You can find the official documentation [here](http://eur-lex.europa.eu/legal-content/en/ALL/?uri=CELEX:32009L0136).
+
+This topic applies to OutSystems versions 5.0 and higher.
+
+## Cookies usage
+
+When someone visits a web application, a cookie is placed on the customer's machine (if the customer accepts cookies) or is read if the customer has previously visited the web application. Cookies are used to improve the usability of web applications, but can also be used for collecting metrics for generating visitor statistics, among others.
+
+All applications developed with OutSystems use cookies to identify the user to improve the usability of the applications, for instance allowing automatic login into the applications or maintaining the pagination selected by the user.
+
+## Not accepting cookies
+
+If you choose to not have your browser accept cookies from applications created with OutSystems, you will still be able to access screens of the application which do not require authentication and read their content. However, functionality may be limited. For applications created with OutSystems that require you to login with a username and password some or all functionalities may not be available if cookies are disabled.
+
+## Cookies created
+
+The following table describes the cookies used by OutSystems. A list of cookies is described along with their detailed information such as size, duration, and purpose.
+
+| Cookie | Approx Size (Bytes) | Expiration | Description |
+| --------- | --------------------- | ------------ | ------------- |
+| ASP.NET_SessionId (.NET)OSSESSIONID (Java) | 41 | Session | This cookie is set by the underlying technology (Microsoft ASP.NET) used to run the web application, or by OutSystems (Java). |
+| osVisitor | 45 | Never | The first time the end-user accesses the web server (accessing a web page from the server), a unique value is stored in this cookie. No association with actual user identity(ies) is done by OutSystems. |
+| osVisit | 43 | 30 min | Each time the end-user accesses a web page and this cookie doesn't exist yet, the cookie is created and set with a unique value, representing that the visitor accessed the site. This cookie expires after 30 minutes, if the visitor leaves the web application and then returns 30 minutes later, a new session is started. No association with an actual user identity(ies) is done by OutSystems. |
+| pageLoadedFromBrowserCache | 30 | Session | Ensures that, in pages where a feedback message is displayed, if the user clicks the back button, they won't be shown the same feedback messages again. This cookie is required to ensure the correct behavior of apps. |
+| `<web screen name>:<generated id>: <initial tab>` | 46 | Session | Some applications may use cookies with this naming convention to keep the pagination state in specific web pages. |
+| `<User Provider Name>` | 49 | 10 days | Used by the Remember Login functionality in applications. |
+| `<User Provider Name>.sid` | 56 | Session | Used in conjunction with the Session Id cookie to prevent session fixation vulnerabilities. |
+| `nr1<User Provider Name>` | 192 | Session | Used to enforce session expiration as needed. Contains information needed to ensure session authenticity. |
+| `nr2<User Provider Name>` | 99 | Session | Provides information to the application code about the user identifier via the built-in function GetUserId. Contains information needed to avoid CSRF attacks. |
+| DEVICE_ORIENTATION | 26 | 360 days | Used to store the orientation of the mobile device to allow OutSystems UI to implement the action `GetDeviceOrientation` properly. No association with an actual user identity(ies) is done by OutSystems. |
+| DEVICE_TYPE | 21 | 360 days | Used to store the type of device being used so the framework can adjust properly in Silk UI (traditional web apps). No association with an actual user identity(ies) is done by OutSystems. |
+| DEVICES_TYPE | 17 | 360 days | Used to store the type of mobile device in use to allow OutSystems UI Web (traditional web apps) to adjust the interface. No association with an actual user identity(ies) is done by OutSystems. |
+| DEVICE_BROWSER | 20 | 360 days | Used to store the browser in use on the device to allow OutSystems UI to implement the action `GetBrowser` properly. No association with an actual user identity(ies) is done by OutSystems. |
+| DEVICE_OS | 12 | 360 days | Used to store the device's operating system allowing OutSystems UI to implement the action `GetOS` properly. No association with an actual user identity(ies) is done by OutSystems. |
+| RT | 87 | 10 min | Used to calculate load time information collected for LifeTime Analytics. The cookie will only be present if the application has Monitoring turned on (in LifeTime Analytics). No association with an actual user identity(ies) is done by OutSystems. |
+
+This is the list of the cookies created by default by OutSystems. Don't forget that your applications may explicitly implement additional cookies, and in such scenarios, you need to disclose their purpose to the users.
+
+Feel free to use this information on your own website or link directly to this topic using [this address](http://www.outsystems.com/goto/cookie-usage).

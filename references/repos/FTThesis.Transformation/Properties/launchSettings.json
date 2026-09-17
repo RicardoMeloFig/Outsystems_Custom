@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ModelAPITest": {
+      "commandName": "Project",
+      "commandLineArgs": "features CurrentTF\\itfeatures.yml CurrentTF\\IssueTracker.oml TransformedITFeat.oml"
+    }
+  }
+}

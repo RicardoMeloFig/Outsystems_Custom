@@ -1,0 +1,20 @@
+---
+summary: Data modeling in OutSystems 11 (O11) covers entities, attributes, and relationships used to structure and persist application data.
+tags:
+  - Data Model
+  - Entities
+locale: en-us
+guid: 2c9d7652-4547-4340-b562-fbb81a88dfed
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - none
+coverage-type:
+  - remember
+---
+
+# Modeling Data

@@ -1,0 +1,43 @@
+---
+summary: Explore fixed and dynamic attributes of Process Entities in OutSystems 11 (O11) to enhance application logic and process management.
+locale: en-us
+guid: 1af83292-a0c9-4a25-b525-9fbfa59105d1
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Business Processes
+  - Entities
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - remember
+  - understand
+topic:
+  - extend-processes-entities
+---
+
+# Process Entities Attributes
+
+A **Process Entity** is defined by a set of fixed attributes and another set of dynamic attributes.
+
+## Fixed Attributes
+
+The fixed attributes of a Process entity are as follows:
+
+* **Process_Id**: The identifier of the process instance of the process entity. (Type: Process Identifier)
+
+* **Label**: The label of the process. (Type: Text)
+
+* **Is_Suspended**: Indicates whether the process is suspended. (Type: Boolean)
+
+* **Created**: Date when the process was created. (Type: Date Time)
+
+## Dynamic Attributes
+
+The dynamic attributes of a process entity are the ones used as input parameters for the process. In this way, the process entity stores the runtime values of the process input parameters.
+
+Use these attributes to [query process entities](intro.md#using-a-process-entity) and obtain process information to be used in your application logic.

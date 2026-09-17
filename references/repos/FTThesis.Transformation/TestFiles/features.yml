@@ -1,0 +1,10 @@
+﻿features:
+ - name: Feature1
+   elements:
+    - Block1
+    - Block2
+    - Action1
+ - name: Feature2
+   elements:
+    - Screen1
+    - Action2

@@ -1,0 +1,26 @@
+.remove.close {
+  background-color: #d6ecf7;
+}
+
+.remove.close {
+  float: left;
+  margin-left: 1px;
+  padding-top: 1px;
+}
+
+.remove.close.outer {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.remove.close.inner {
+  background-color: #767676;
+  width: 14px;
+  height: 14px;
+  padding-right: 1px;
+}
+
+.remove.close.outer:hover {
+  background-color: #b2dbf0;
+}

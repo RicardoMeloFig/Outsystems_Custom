@@ -1,0 +1,55 @@
+.custom-viewport-size {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  align-items: center;
+  margin: 1px 0;
+}
+
+.custom-viewport-size:hover .close {
+  visibility: visible;
+}
+
+.custom-viewport-size .input {
+  margin: 4px 0;
+  width: 28%;
+  line-height: 0;
+}
+
+.custom-viewport-size .input input {
+  font-size: 12px;
+  line-height: 12px;
+  width: auto;
+  padding: 3px;
+}
+
+.custom-viewport-size .input input[type='number']::-webkit-inner-spin-button,
+.custom-viewport-size .input input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-viewport-size .input input {
+  -moz-appearance: textfield;
+}
+
+.custom-viewport-size .close.outer {
+  background-color: transparent;
+}
+
+.custom-viewport-size .close {
+  margin-bottom: 7px;
+  visibility: hidden;
+}
+
+.custom-viewport-size .close .inner {
+  width: 20px;
+  height: 20px;
+  mask-size: 20px !important;
+}
+
+.custom-viewport-size .dimension-separator {
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+}

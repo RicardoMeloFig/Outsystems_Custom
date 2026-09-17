@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>..\Build\$(Configuration)\</OutputPath>
+    <TargetFramework>net5.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+    <RestoreSources>$(RestoreSources);..\\Dotnet.Bundle\\bin\\$(Configuration)\\</RestoreSources>
+    <DotnetBundleTestVersion>9.9.999969</DotnetBundleTestVersion>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>dotnet pack ..\\Dotnet.Bundle\\ -p:Configuration=$(Configuration) -p:PackageVersion=$(DotnetBundleTestVersion)</command>
+        </Command>
+        <Command>
+          <type>BeforeBuild</type>
+          <command>dotnet restore</command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -p:Configuration=$(Configuration)</command>
+         </Command>
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+
+   <!-- Defines Info.plist -->
+  <PropertyGroup>
+    <AppName>MyTestBundle</AppName>
+    <CFBundleName>TestBundle</CFBundleName> 
+    <CFBundleDisplayName>TestBundle</CFBundleDisplayName>
+    <CFBundleShortVersionString>TestBundle</CFBundleShortVersionString>
+    <CFBundleIconFile>IconTest.icns</CFBundleIconFile>
+    <MDItemKeywords>TestBundle, Dummy</MDItemKeywords>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
+    <CFBundleSignature>4242</CFBundleSignature>
+    <NSRequiresAquaSystemAppearance>false</NSRequiresAquaSystemAppearance>
+    <LSUIElement>true</LSUIElement>
+    <LSBackgroundOnly>true</LSBackgroundOnly>
+  </PropertyGroup>
+  <ItemGroup>
+    <CFBundleURLTypes Include="dummy">
+        <CFBundleURLName>TestApp URL</CFBundleURLName>
+        <CFBundleURLSchemes>testappurl;testappurl://</CFBundleURLSchemes>
+    </CFBundleURLTypes>
+    <CFBundleURLTypes Include="dummy">
+        <CFBundleURLName>TestApp URL2</CFBundleURLName>
+        <CFBundleURLSchemes>test://</CFBundleURLSchemes>
+    </CFBundleURLTypes>
+  </ItemGroup>
+  <ItemGroup>
+    <LSEnvironment Include="dummy">
+      <SomeEnvironmentKey>SomeValue</SomeEnvironmentKey>
+      <SomeOtherKey>SomeOtherValue</SomeOtherKey>
+    </LSEnvironment>
+  </ItemGroup>
+  <ItemGroup>
+    <CFBundleAlternateNames Include="TestBundle;Dummy" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dotnet.Bundle" Version="$(DotnetBundleTestVersion)" />
+  </ItemGroup>
+</Project>

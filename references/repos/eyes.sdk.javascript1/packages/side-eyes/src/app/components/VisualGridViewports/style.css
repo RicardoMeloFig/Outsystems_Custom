@@ -1,0 +1,17 @@
+.custom-viewport-sizes .collection {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.custom-viewport-sizes .header {
+  display: flex;
+}
+
+.custom-viewport-sizes .header .title {
+  margin-right: 7px;
+}
+
+.btn.confirm {
+  float: right;
+  margin: 10px 0 0 0;
+}

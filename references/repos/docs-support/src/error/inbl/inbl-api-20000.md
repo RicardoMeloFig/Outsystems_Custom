@@ -1,0 +1,36 @@
+---
+summary: <ErrorCode> <Message>, a Salesforce error message.
+tags:
+  - REST
+  - Troubleshooting
+  - Web services
+locale: en-us
+guid: 6463f8b8-1cef-4cae-97de-f90264e9e480
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+coverage-type:
+  - unblock
+topic:
+  - fix-salesforce-api-error
+audience:
+  - Developer
+---
+
+# OS-INBL-API-20000
+
+## Error message
+
+`"[<ErrorCode>] <Message>"`
+
+## Cause
+
+This is a Salesforce error message returned when Integration Builder tried to call Salesforce API.
+
+## Impact
+
+Can't connect with Salesforce.
+
+## Recommended action
+
+Try again later. If the error persists, contact your Salesforce administrator, or Salesforce support.

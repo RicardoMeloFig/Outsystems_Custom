@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# setup variables for context checking
+execDir=${BASH_SOURCE[0]}
+execDirCheck=$(readlink ${execDir})
+ssl_name=k0s-local
+
+# check the context and set appropriately
+if [ -z ${execDirCheck} ]; then
+  k0sdir=$(pwd)
+else
+  k0sdir=$(dirname ${execDirCheck})
+fi
+
+# this needs to be here since $k0sdir isn't established until just prior
+nginxdir=${k0sdir}/nginx
+
+# loop through all running containers and kill ones that start with k0s-
+echo "shutting down all nodes..."
+for n in $(docker ps | awk '/k0s-/ { print $1 }')
+do
+  docker stop ${n} &> /dev/null
+done
+
+# recovering disk space
+echo "cleaning up after myself..."
+echo "   system space recovered: $(docker system prune -f | awk '/reclaimed space/ { print $4 }')"
+echo "   volume space recovered: $(docker volume prune -f | awk '/reclaimed space/ { print $4 }')"
+
+# removing nginx config used on load balancer
+echo "removing nginx config file..."
+rm ${nginxdir}/default.conf &> /dev/null
+
+echo "removing SSL certificate..."
+${k0sdir}/cln_ssl.sh ${ssl_name} &> /dev/null

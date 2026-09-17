@@ -1,0 +1,38 @@
+---
+summary: "OS-CMFR-GEN-00023 error in OutSystems 11 (O11) Case Management Framework occurs when a record isn't found by ID during a create or update action."
+tags:
+  - Case Management framework
+  - Debugging
+  - Troubleshooting
+locale: en-us
+guid: 4a75fcf7-e46b-4bae-8ecb-74d0a1e4883c
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - service studio
+  - case management framework
+coverage-type:
+  - unblock
+---
+
+# OS-CMFR-GEN-00023
+
+## Error message
+
+`We couldn't find <record> with the Id <identifier-value>.`
+
+## Cause
+
+While executing a create or update action, the Case Management framework wasn't able to find the record that the identifier passed as the input reference.
+
+## Impact
+
+The Case Management framework wasn't able to successfully execute the action.
+
+## Recommended action
+
+Verify if the values that are being passed as input to the Case Management framework action are correct. Use Service Studio's Debugger to check the input parameter's value at the time of execution.

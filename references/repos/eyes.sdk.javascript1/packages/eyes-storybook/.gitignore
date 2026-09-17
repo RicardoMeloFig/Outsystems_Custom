@@ -1,0 +1,10 @@
+node_modules
+eyes.tap
+*.log
+.applitools
+.idea/
+.history
+.vscode/
+test/fixtures/images/
+/logs/
+!/dist

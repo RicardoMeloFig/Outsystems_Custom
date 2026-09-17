@@ -1,0 +1,9 @@
+﻿features:
+ - name: "Feature1"
+   elements:
+    - Block3
+    - Block4
+    - TestAction
+ - name: "Feature2"
+   elements:
+    - Screen3

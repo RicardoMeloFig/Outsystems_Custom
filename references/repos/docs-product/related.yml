@@ -1,0 +1,1946 @@
+# Developing an Application
+- building-apps/intro.md:
+  - getting-started/create-reactive-web.md
+  - getting-started/create-mobile.md
+  - getting-started/service-studio.md
+  - getting-started/tips-tricks/tips-tricks.md
+
+# Developing an Application / Use Data
+
+# Download a file through browser
+- building-apps/data/download-file-browser.md:
+  - ref/logic/implementing-logic/download.md
+
+# Offline
+- building-apps/data/offline/patterns/intro.md:
+  - external:
+    - "Data Synchronization Course": 
+        https://www.outsystems.com/learn/courses/170/data-synchronization/
+- building-apps/data/offline/sync-implement.md:
+  - external:
+    - "Data Synchronization Course": 
+        https://www.outsystems.com/learn/courses/170/data-synchronization/
+
+# Expression editor
+- building-apps/logic/expression-editor.md:
+  - ref/logic/expressions/intro.md
+  - ref/logic/expressions/operators.md
+  - ref/logic/expressions/operands.md
+  - ref/lang/auto/servicestudio-plugin-nrwidgets-expression.md
+  - ref/errors-and-warnings/errors/invalid-expression-error.md
+
+- building-apps/handling-exceptions/handling-mechanism.md:
+    - ref/lang/auto/class-exception-handler.md
+    - ref/lang/auto/class-raise-exception.md
+
+# Caching
+- building-apps/data/caching.md:
+  - building-apps/reuse-and-refactor/strong-weak-dependencies.md
+  - external:
+    - "Cache Invalidation in OutSystems 11": 
+        https://success.outsystems.com/Support/Enterprise_Customers/Maintenance_and_Operations/Cache_Invalidation_in_OutSystems_11
+
+# Actions in Reactive Web and Mobile Apps
+- building-apps/logic/actions.md:
+    - external:
+            - "A course about Logic in Training":
+                https://www.outsystems.com/learn/courses/125/logic/
+
+# Validate Form Inputs
+- building-apps/ui/forms/form-validate.md:
+  - ref/lang/auto/class-mobile-module.md
+  - building-apps/logic/actions.md
+
+# Table
+- building-apps/ui/table/intro.md:
+    # Table pagination and sorting
+    - building-apps/ui/table/pagination-sorting.md
+
+# Table pagination and sorting
+- building-apps/ui/table/pagination-sorting.md:
+    - external:
+        - "How to add sorting to a Table fed by a SQL query":
+            https://success.outsystems.com/Documentation/How-to_Guides/How_to_use_dynamic_sorting_in_a_Table_fed_by_a_SQL_query
+
+# Pass data between Screens with Input Parameters
+- building-apps/ui/navigation/pass-information-between-screens.md:
+    - building-apps/data/share-client-var-between-app.md
+    - building-apps/ui/reuse/block-communicate.md
+
+# Share a Client Variable between apps
+- building-apps/data/share-client-var-between-app.md:
+  - ref/lang/auto/class-client-variable.md
+  - external:
+    - "How to maintain the state of a mobile screen": 
+        https://success.outsystems.com/Documentation/Development_FAQs/How_to_maintain_the_state_of_a_mobile_screen
+
+# Libraries
+- building-apps/reuse-and-refactor/libraries.md:
+    - building-apps/reuse-and-refactor/convert-to-library.md
+
+# Troubleshoot Service Actions using logs
+- building-apps/troubleshoot/troubleshoot-service.md:
+  - debugging-apps/debug-producer-modules.md#service-actions
+
+# Maintain UI in dedicated modules
+- building-apps/ui/reuse/dedicated-ui-modules.md:
+    - building-apps/ui/reuse/block-create-reuse.md
+
+# Send an Email From a Web Application
+- building-apps/sending-emails/intro.md:
+    - manage-platform-app-lifecycle/configure-send-emails.md
+
+# Styles Editor
+- building-apps/ui/look-feel/styles-editor.md:
+    - building-apps/ui/look-feel/css.md
+    - building-apps/ui/look-feel/themes.md
+
+# ------- Web Interfaces -------
+
+#   Adding Data and Logic
+#     Screen Action
+- ref/lang/auto/class-screen-action.md:
+    # Actions in Web Applications
+    - building-apps/logic/action-web.md#screen-actions
+    # Web Screen
+    - ref/lang/auto/class-web-screen.md
+    # Web Block
+    - ref/lang/auto/class-web-block.md
+
+#  Designing Screens
+#    Button Widget
+- ref/lang/auto/class-button-widget.md:
+    # Link Widget
+    - ref/lang/auto/class-link-widget.md
+    # Navigate to Another Screen
+    - building-apps/ui/navigation/navigate-to-detail-screen.md
+    # Screen Action
+    - ref/lang/auto/class-screen-action.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+    # Go To Destination
+    - ref/lang/auto/class-go-to-destination.md
+    # Web Screen
+    - ref/lang/auto/class-web-screen.md        
+    
+# Cell Widget            
+- ref/lang/auto/class-cell-widget.md:
+    # Header Row Widget
+    - ref/lang/auto/class-header-row-widget.md
+    # Row Widget
+    - ref/lang/auto/class-row-widget.md
+
+# Check Box Widget
+- ref/lang/auto/class-check-box-widget.md:
+    # Switch or Toggle a Boolean Value
+    - building-apps/ui/inputs/switch-checkbox.md
+    # Radio Button Widget
+    - ref/lang/auto/class-radio-button-widget.md
+
+# Combo Box Widget
+- ref/lang/auto/class-combo-box-widget.md:
+    # Choose One Value from a List
+    - building-apps/ui/inputs/dropdown-combo.md
+
+# Editable Table Widget
+- ref/lang/auto/servicestudio-plugin-widgets-editabletable.md:
+    # Table Records Widget
+    - ref/lang/auto/class-table-records-widget.md
+    # Aggregate
+    - ref/lang/auto/class-aggregate.md
+    # SQL
+    - ref/lang/auto/class-sql.md
+
+# Edit Record Widget
+- ref/lang/auto/class-edit-record-widget.md:
+    # Show Record Widget
+    - ref/lang/auto/class-show-record-widget.md
+    # List
+    - ref/data/data-types/list.md
+
+# Expression Widget
+- ref/lang/auto/class-expression-widget.md:
+    # Built-in Functions
+    - ref/lang/auto/builtinfunctions.md
+    # Expressions
+    - ref/logic/expressions/intro.md
+
+# Form Widget
+- ref/lang/auto/servicestudio-plugin-widgets-form.md:
+    # Use a Form to Enter Data
+    - building-apps/ui/forms/form-use.md
+    # Button Widget
+    - ref/lang/auto/class-button-widget.md
+    # Check Box Widget
+    - ref/lang/auto/class-check-box-widget.md
+    # Combo Box Widget
+    - ref/lang/auto/class-combo-box-widget.md
+    # Input Password Widget
+    - ref/lang/auto/class-input-password-widget.md
+    # Input Widget
+    - ref/lang/auto/class-input-widget.md
+    # Label Widget
+    - ref/lang/auto/servicestudio-plugin-widgets-label.md
+    # Link Widget
+    - ref/lang/auto/class-link-widget.md
+    # List Box Widget
+    - ref/lang/auto/class-list-box-widget.md
+    # Radio Button Widget
+    - ref/lang/auto/class-radio-button-widget.md
+    # Upload Widget
+    - ref/lang/auto/class-upload-widget.md
+
+# Header Row Widget
+- ref/lang/auto/class-header-row-widget.md:
+    # Editable Table Widget
+    - ref/lang/auto/servicestudio-plugin-widgets-editabletable.md
+    # Row Widget
+    - ref/lang/auto/class-row-widget.md
+    # Table Records Widget
+    - ref/lang/auto/class-table-records-widget.md
+    # Table Widget
+    - ref/lang/auto/class-table-widget.md
+    - external:
+        - "How to scroll records in a table with a fixed header":
+            https://success.outsystems.com/Documentation/How-to_Guides/Front-End/How_to_scroll_records_in_a_table_with_a_fixed_header
+      
+# Image Widget
+- ref/lang/auto/class-image-widget.md:
+    # Display an Image
+    - building-apps/ui/image/display-image.md
+    # Use Resources
+    - building-apps/data/resources.md
+    # Image
+    - ref/lang/auto/class-image.md
+    # Localized Image
+    - ref/lang/auto/class-localized-image.md
+      
+# Input Password Widget
+- ref/lang/auto/class-input-password-widget.md:
+    # Input Widget
+    - ref/lang/auto/class-input-widget.md
+    
+# Label Widget
+- ref/lang/auto/servicestudio-plugin-widgets-label.md:
+    # Button Widget
+    - ref/lang/auto/class-button-widget.md
+    # Check Box Widget
+    - ref/lang/auto/class-check-box-widget.md
+    # Combo Box Widget
+    - ref/lang/auto/class-combo-box-widget.md
+    # Input Password Widget
+    - ref/lang/auto/class-input-password-widget.md
+    # Input Widget
+    - ref/lang/auto/class-input-widget.md
+    # List Box Widget
+    - ref/lang/auto/class-list-box-widget.md
+    # Radio Button Widget
+    - ref/lang/auto/class-radio-button-widget.md
+    # Upload Widget
+    - ref/lang/auto/class-upload-widget.md
+      
+# Link Widget
+- ref/lang/auto/class-link-widget.md:
+    # Navigate to Another Screen
+    - building-apps/ui/navigation/navigate-to-detail-screen.md
+    # Screen Action
+    - ref/lang/auto/class-screen-action.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+    # Go To Destination
+    - ref/lang/auto/class-go-to-destination.md
+    # Web Screen
+    - ref/lang/auto/class-web-screen.md
+
+- ref/lang/auto/class-list-box-widget.md:
+    - ref/lang/auto/class-combo-box-widget.md
+    - building-apps/ui/patterns/web/controls/dropdown.md
+    - building-apps/ui/patterns/web/controls/dropdownselect.md
+
+# List Records Widget
+- ref/lang/auto/class-list-records-widget.md:
+    # Table Records Widget
+    - ref/lang/auto/class-table-records-widget.md
+    # List
+    - ref/data/data-types/list.md
+
+# Placeholder Widget
+- ref/lang/auto/class-placeholder-widget.md:
+    # Design the Layout of Screens
+    - building-apps/ui/look-feel/design-screens-layout.md
+    # Placeholders
+    - building-apps/ui/look-feel/themes.md#placeholders
+    # Web Block
+    - ref/lang/auto/class-web-block.md
+
+# Radio Button Widget
+- ref/lang/auto/class-radio-button-widget.md:
+    # Pick Only One Option in a Group of Choices
+    - building-apps/ui/inputs/button-group.md
+      
+# Row Widget
+- ref/lang/auto/class-row-widget.md:
+    # Editable Table Widget
+    - ref/lang/auto/servicestudio-plugin-widgets-editabletable.md
+    # Edit Record Widget
+    - ref/lang/auto/class-edit-record-widget.md
+    # Show Record Widget
+    - ref/lang/auto/class-show-record-widget.md
+    # Table Records Widget
+    - ref/lang/auto/class-table-records-widget.md
+    # Table Widget
+    - ref/lang/auto/class-table-widget.md
+      
+# Show Record Widget
+- ref/lang/auto/class-show-record-widget.md:
+    # Aggregate
+    - ref/lang/auto/class-aggregate.md
+    # SQL
+    - ref/lang/auto/class-sql.md
+      
+# Table Records Widget
+- ref/lang/auto/class-table-records-widget.md:
+    # List
+    - ref/data/data-types/list.md
+      
+# Upload Widget
+- ref/lang/auto/class-upload-widget.md:
+    # Upload Files
+    - building-apps/ui/inputs/upload.md
+      
+# Web Block Widget
+- ref/lang/auto/class-web-block-widget.md:
+    # Web Block
+    - ref/lang/auto/class-web-block.md 
+  
+# Designing the Layout
+#   Image
+- ref/lang/auto/class-image.md:
+    #Localized Image
+    - ref/lang/auto/class-localized-image.md
+    
+# Localized Image
+- ref/lang/auto/class-localized-image.md:
+    # Multilingual Web Applications
+    - building-apps/ui/multilingual/multilingual-web.md
+    
+# Theme
+- ref/lang/auto/class-theme.md:
+    # Themes
+    - building-apps/ui/look-feel/themes.md
+    
+# UI Flow
+- ref/lang/auto/class-ui-flow.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    
+# Navigating in the Application
+#   Comment
+- ref/lang/auto/class-comment.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    
+# Email
+- ref/lang/auto/class-email.md:
+    # Send an Email From a Web Application
+    - one-way: building-apps/sending-emails/intro.md
+    # Configure OutSystems to Send Emails
+    - manage-platform-app-lifecycle/configure-send-emails.md
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # Send Email
+    - ref/lang/auto/class-send-email.md
+    # Email
+    - ref/lang/auto/builtinfunction-email.md
+  
+#Entry
+- ref/lang/auto/class-entry.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+    # Go To Destination
+    - ref/lang/auto/class-go-to-destination.md
+    # Web Screen
+    - ref/lang/auto/class-web-screen.md
+    
+# External Site
+- ref/lang/auto/class-external-site.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    
+# Go To Destination
+- ref/lang/auto/class-go-to-destination.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+    # Web Screen
+    - ref/lang/auto/class-web-screen.md
+    
+#Web Block
+- ref/lang/auto/class-web-block.md:
+    # Blocks in Themes
+    - building-apps/ui/look-feel/themes.md#blocks
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # Reuse UI
+    - building-apps/ui/reuse/intro.md
+    - building-apps/ui/reuse/block-create-reuse.md
+    
+# Web Screen
+- ref/lang/auto/class-web-screen.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # Navigate to Another Screen
+    - building-apps/ui/navigation/navigate-to-detail-screen.md
+
+# ------- Web System Events -------
+# On Session Start
+- ref/lang/auto/class-on-session-start.md:
+    # Sessions in Web Applications
+    - building-apps/data/session/session.md
+
+    
+# ------- Mobile Interfaces -------
+
+# Adding Data and Logic
+# Aggregate
+- ref/lang/auto/class-aggregate.md:
+    # Fetch and Display Data from the Database
+    - building-apps/data/operations/fetch-display.md
+    
+# Client Action
+- ref/lang/auto/class-client-action.md:
+    # Client Actions
+    - building-apps/logic/actions.md#client-actions
+    
+# Data Action
+- ref/lang/auto/class-data-action.md:
+    # Data Actions
+    - building-apps/logic/actions.md#data-actions
+    # Aggregate
+    - ref/lang/auto/class-aggregate.md
+    # SQL
+    - ref/lang/auto/class-sql.md
+    
+# Script
+- ref/lang/auto/class-script.md:
+    # Use JavaScript Code from an External Library
+    - integration-with-systems/javascript/mobile/use-external-lib.md
+
+# Designing Screens
+#   Block Widget
+- ref/lang/auto/class-block-widget.md:
+    # Block
+    - ref/lang/auto/class-block.md     
+    
+# Button            
+- ref/lang/auto/servicestudio-plugin-nrwidgets-button.md:
+    # Link
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-link.md
+    # Client Action
+    - ref/lang/auto/class-client-action.md
+    # Screen
+    - ref/lang/auto/class-screen.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+
+# ButtonGroup
+- ref/lang/auto/servicestudio-plugin-nrwidgets-buttongroup.md:
+    # Pick Only One Option in a Group of Choices
+    - building-apps/ui/inputs/button-group.md
+    # Button            
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-button.md
+    # Switch
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-switch.md
+
+# ButtonGroupItem
+- ref/lang/auto/servicestudio-plugin-nrwidgets-buttongroupitem.md:
+    # ButtonGroup
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-buttongroup.md
+    # Button Group Pattern
+    - building-apps/ui/patterns/web/controls/buttongroup.md
+# Checkbox
+- ref/lang/auto/servicestudio-plugin-nrwidgets-checkbox.md:
+    # Switch
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-switch.md
+    
+# Container
+- ref/lang/auto/servicestudio-plugin-nrwidgets-container.md:
+    # AdvancedHtml
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-advancedhtml.md
+
+# Dropdown
+- ref/lang/auto/servicestudio-plugin-nrwidgets-dropdown.md:
+    # Choose One Value from a List
+    - building-apps/ui/inputs/dropdown-combo.md
+
+# Expression
+- ref/lang/auto/servicestudio-plugin-nrwidgets-expression.md:
+    # Built-in Functions
+    - ref/lang/auto/builtinfunctions.md
+    # Expressions
+    - ref/logic/expressions/intro.md
+    # Invalid Expression Error
+    - ref/errors-and-warnings/errors/invalid-expression-error.md
+
+# Form
+- ref/lang/auto/servicestudio-plugin-nrwidgets-form.md:
+    # Use a Form to Enter Data
+    - building-apps/ui/forms/form-use.md
+    # Validate Form Inputs
+    - building-apps/ui/forms/form-validate.md
+    # Button            
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-button.md
+    # ButtonGroup
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-buttongroup.md
+    # Checkbox
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-checkbox.md
+    # Dropdown
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-dropdown.md
+    # Input
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-input.md
+    # Label
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-label.md
+    # Link
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-link.md
+    # Switch
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-switch.md
+    # TextArea
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-textarea.md
+    # Text
+    - ref/lang/auto/class-text-widget.md
+    # Upload
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-upload.md
+
+# Icon
+- ref/lang/auto/servicestudio-plugin-nrwidgets-icon.md:
+    # Use Icons
+    - building-apps/ui/image/use-icons.md
+      
+# Image
+- ref/lang/auto/servicestudio-plugin-nrwidgets-image.md:
+    # Display an Image
+    - building-apps/ui/image/display-image.md
+    # Use Resources
+    - building-apps/data/resources.md
+    # Image
+    - ref/lang/auto/class-image.md
+    # Localized Image
+    - ref/lang/auto/class-localized-image.md
+        
+# Label
+- ref/lang/auto/servicestudio-plugin-nrwidgets-label.md:
+    # Checkbox
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-checkbox.md
+    # Dropdown
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-dropdown.md
+    # Input
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-input.md
+    # Switch
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-switch.md
+    # TextArea
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-textarea.md
+    # Upload
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-upload.md
+      
+# Link
+- ref/lang/auto/servicestudio-plugin-nrwidgets-link.md:
+    # Navigate to Another Screen
+    - building-apps/ui/navigation/navigate-to-detail-screen.md
+    # Client Action
+    - ref/lang/auto/class-client-action.md
+    # Screen
+    - ref/lang/auto/class-screen.md
+    # External Site
+    - ref/lang/auto/class-external-site.md
+      
+# List
+- ref/lang/auto/servicestudio-plugin-nrwidgets-list.md:
+    # Fetch and Display Data from the Database
+    - building-apps/data/operations/fetch-display.md
+      
+# List Item Action
+- ref/lang/auto/servicestudio-plugin-nrwidgets-listitemaction.md:
+    # List Item
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-listitem.md
+      
+# List Item
+- ref/lang/auto/servicestudio-plugin-nrwidgets-listitem.md:
+    # List
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-list.md
+
+# Placeholder
+- ref/lang/auto/class-placeholder-widget.md:
+    # Block
+    - ref/lang/auto/class-block.md
+
+# Popover Menu
+- ref/lang/auto/servicestudio-plugin-nrwidgets-popover.md:
+    # Dropdown
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-dropdown.md
+      
+#Popup
+- ref/lang/auto/servicestudio-plugin-nrwidgets-popup.md:
+    # Create and Use a Popup
+    - building-apps/ui/inputs/popup.md
+    # Popover Menu
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-popover.md
+
+# Radio Group
+- ref/lang/auto/servicestudio-plugin-nrwidgets-radiogroup.md:
+    # Create and Use a Popup
+    - building-apps/ui/inputs/button-group.md
+    # Radio Button
+    - ref/lang/auto/servicestudio-plugin-nrwidgets-radiobutton.md
+
+# Radio Button
+- ref/lang/auto/servicestudio-plugin-nrwidgets-radiobutton.md:
+    # Create and Use a Popup
+    - building-apps/ui/inputs/button-group.md
+
+      
+# Switch
+- ref/lang/auto/servicestudio-plugin-nrwidgets-switch.md:
+    # Switch or Toggle a Boolean Value
+    - building-apps/ui/inputs/switch-checkbox.md
+      
+# TextArea
+- ref/lang/auto/servicestudio-plugin-nrwidgets-textarea.md:
+    # Text
+    - ref/lang/auto/class-text-widget.md
+
+# Table Widget
+- ref/lang/auto/servicestudio-plugin-nrwidgets-tablerecords.md:
+    # Table - intro
+    - building-apps/ui/table/intro.md
+    # Table pagination and sorting
+    - building-apps/ui/table/pagination-sorting.md
+      
+# Upload
+- ref/lang/auto/servicestudio-plugin-nrwidgets-upload.md:
+    # Upload Files
+    - building-apps/ui/inputs/upload.md
+    
+# Mobile Theme
+- ref/lang/auto/class-mobile-theme.md:
+    # Themes
+    - building-apps/ui/look-feel/themes.md
+    
+# Navigating in the Application
+#   Block
+- ref/lang/auto/class-block.md:
+    # Event
+    - ref/lang/auto/class-event.md
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # Reuse UI
+    - building-apps/ui/reuse/intro.md
+    - building-apps/ui/reuse/block-create-reuse.md
+    # Blocks in Themes
+    - building-apps/ui/look-feel/themes.md#blocks
+    # Lifecycle Events
+    - one-way: building-apps/ui/screens/screen-block-lifecycle-events.md
+
+# Client Variable
+- ref/lang/auto/class-client-variable.md:
+    # Session Variables
+    - ref/lang/auto/class-session-variable.md
+
+# Session Variable
+- ref/lang/auto/class-session-variable.md:
+    # Sessions in Web Applications
+    - building-apps/data/session/session.md
+
+# Event
+- ref/lang/auto/class-event.md:
+    # Screen and Block Lifecycle Events
+    - building-apps/ui/screens/screen-block-lifecycle-events.md
+    - building-apps/ui/reuse/propagate-changes-from-a-reusable-screen-element.md
+    
+# Screen
+- ref/lang/auto/class-screen.md:
+    # UI Flow
+    - building-apps/ui/navigation/ui-flow.md
+    # Navigate to Another Screen
+    - building-apps/ui/navigation/navigate-to-detail-screen.md
+    # Lifecycle Events
+    - one-way: building-apps/ui/screens/screen-block-lifecycle-events.md
+
+# -------- Logic ---------
+# Built-in Functions
+- ref/lang/auto/builtinfunctions.md:
+    # Expressions
+    - ref/logic/expressions/intro.md
+
+#   Data Conversion
+- ref/lang/auto/builtinfunction-data-conversion.md:
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md#explicit-conversion-functions
+    # Expressions
+    - ref/logic/expressions/intro.md
+
+#   Date and Time
+- ref/lang/auto/builtinfunction-date-and-time.md:
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md
+    # Expressions
+    - ref/logic/expressions/intro.md
+
+#   Email
+- ref/lang/auto/builtinfunction-email.md:
+    #Send an Email From a Web Application
+    - one-way: building-apps/sending-emails/intro.md
+
+#   Math
+- ref/lang/auto/builtinfunction-math.md:
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md
+
+#   Numeric
+- ref/lang/auto/builtinfunction-numeric.md:
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md
+
+#   Roles
+- ref/lang/auto/builtinfunction-roles.md:
+    #Validate End-User Permissions in the Application
+    - user-management/user-roles/validate-permissions.md
+    #Create and User Roles-Use the Role in your Application’s Logic-Role Functions 
+    - user-management/user-roles/create-a-custom-role.md#use-the-role-in-your applications-logic
+
+# Expressions
+- ref/logic/expressions/intro.md:
+    - ref/logic/expressions/operands.md
+    - ref/logic/expressions/operators.md
+    #Create a Calculated Attribute in an Aggregate
+    - building-apps/data/operations/calculated-attribute-create.md
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md
+    # Invalid Expression Error
+    - ref/errors-and-warnings/errors/invalid-expression-error.md
+
+# Operands
+- ref/logic/expressions/operands.md:
+    # Available Data Types
+    - ref/data/data-types/available-data-types.md
+    - ref/lang/auto/builtinfunctions.md
+
+#     Client Action
+-  ref/lang/auto/class-client-action.md:
+    - ref/lang/auto/class-run-client-action.md
+
+#     Server Action
+-  ref/lang/auto/class-server-action.md:
+    - building-apps/logic/actions.md#server-actions
+    - building-apps/logic/action-web.md#server-actions
+    - ref/lang/auto/class-run-server-action.md
+    - building-apps/reuse-and-refactor/encapsulate-logic.md
+    - external:
+        - "A course about Logic in Training":
+            https://www.outsystems.com/learn/courses/125/logic/
+
+
+#     Role
+-  ref/lang/auto/class-role.md:
+    - user-management/intro.md
+
+# Run Server Action
+- ref/lang/auto/class-run-server-action.md:
+    - ref/lang/auto/class-run-client-action.md
+    - building-apps/reuse-and-refactor/encapsulate-logic.md
+
+#     User Exception
+-  ref/lang/auto/class-user-exception.md:
+    - building-apps/handling-exceptions/intro.md#user-exception
+
+#     Role Exception
+-  ref/lang/auto/class-role-exception.md:
+    - building-apps/handling-exceptions/intro.md#security-exception
+
+#     Aggregate
+-  ref/lang/auto/class-aggregate.md:
+    - building-apps/data/operations/filter-results.md
+    - building-apps/data/operations/sort-aggregate.md
+    - building-apps/data/operations/group-calculate.md
+    - building-apps/data/operations/aggregate-column-single-value.md
+    - building-apps/data/operations/calculated-attribute-create.md
+    - building-apps/data/operations/distinct.md
+
+#     JavaScript
+-  ref/lang/auto/class-javascript.md:
+    - integration-with-systems/javascript/mobile/intro.md
+
+#     JSON Deserialize
+-  ref/lang/auto/class-json-deserialize.md:
+    - ref/lang/auto/class-json-serialize.md
+
+#     Destination
+-  ref/lang/auto/class-destination.md:
+    - ref/lang/auto/class-go-to-destination.md
+
+#     If
+-  ref/lang/auto/class-if.md:
+    -  ref/lang/auto/class-switch.md
+
+#     For Each
+-  ref/lang/auto/class-for-each.md:
+    - building-apps/logic/list-iterate.md
+
+#     Exception Handler
+-  ref/lang/auto/class-exception-handler.md:
+    - building-apps/handling-exceptions/intro.md
+    - ref/lang/auto/class-user-exception.md
+    - ref/lang/auto/class-role-exception.md
+
+#     Raise Exception
+-  ref/lang/auto/class-raise-exception.md:
+    - building-apps/handling-exceptions/intro.md
+    - ref/lang/auto/class-user-exception.md
+    - ref/lang/auto/class-role-exception.md
+
+#     Trigger Event
+-  ref/lang/auto/class-trigger-event.md:
+    - building-apps/ui/reuse/propagate-changes-from-a-reusable-screen-element.md
+
+#     SQL
+-  ref/lang/auto/class-sql.md:
+    - building-apps/data/operations/sql.md
+
+#     Excel To Record List
+-  ref/lang/auto/class-excel-to-record-list.md:
+    - ref/lang/auto/class-record-list-to-excel.md
+    - one-way: getting-started/create-reactive-web.md
+    - one-way: building-apps/data/excel-bootstrap.md
+    - one-way: building-apps/ui/inputs/upload.md
+
+#     Ajax Refresh
+-  ref/lang/auto/class-ajax-refresh.md:
+    - building-apps/logic/screen-partial-refresh.md
+
+#     Attach File
+-  ref/lang/auto/class-attach-file.md:
+    - building-apps/sending-emails/emails.md
+    - ref/lang/auto/class-email.md
+
+#     Send Email
+-  ref/lang/auto/class-send-email.md:
+    - one-way: building-apps/sending-emails/intro.md
+
+#  Invalid Link Error
+-  ref/errors-and-warnings/errors/invalid-link-error.md:
+    - one-way: ref/lang/auto/class-link-widget.md
+    
+# Configuration Tool
+
+- ref/configuration-tool/tabs/platform-oracle.md:
+    - external:
+        - "Configuring linguistic sorting in an OutSystems environment using an Oracle database":
+            https://success.outsystems.com/Support/Enterprise_Customers/Maintenance_and_Operations/Configuring_linguistic_sorting_in_an_OutSystems_environment_using_an_Oracle_database
+
+- ref/configuration-tool/tabs/log-oracle.md:
+    - external:
+        - "Configuring linguistic sorting in an OutSystems environment using an Oracle database":
+            https://success.outsystems.com/Support/Enterprise_Customers/Maintenance_and_Operations/Configuring_linguistic_sorting_in_an_OutSystems_environment_using_an_Oracle_database
+
+# --- Extensibility and Integration ---
+
+- integration-with-systems/mobile-plugins/using-cordova-plugins.md:
+    - external:
+        - "How to Create a Cordova Plugin from Scratch":
+            https://www.outsystems.com/blog/posts/how-to-create-a-cordova-plugin-from-scratch/
+
+- integration-with-systems/soap/consume/advanced-extensibility.md:
+    - ref/apis/soap-extensibility-api.md
+    - external:
+        - "Forge Component: SOAP Extensibility Samples":
+            https://www.outsystems.com/forge/component-overview/5322/soap-extensibility-samples
+
+- integration-with-systems/soap/troubleshoot-soap-web-services.md:
+    - integration-with-systems/log-levels-set.md
+
+- integration-with-systems/rest/consume-rest-apis/handling-rest-errors.md:
+    - building-apps/handling-exceptions/intro.md
+    - building-apps/handling-exceptions/handling-mechanism.md
+    - external:
+        - "Demo: Handling HTTP status codes when consuming a REST web service":
+            https://www.outsystems.com/learn/lesson/1888/handling-http-status-codes-when-consuming-a-rest-web-service/
+    - external:
+        - "LinkedIn Article: Handling HTTP status codes when consuming a REST in OutSystems":
+            https://www.linkedin.com/pulse/handling-http-status-codes-when-consuming-rest-rui-barbosa/
+
+- integration-with-systems/rest/consume-rest-apis/redact-info-from-logs.md:
+    - integration-with-systems/log-levels-set.md
+
+- integration-with-systems/rest/expose-rest-apis/add-custom-authentication-to-an-exposed-rest-api.md:
+    - external:
+        - "Forge: How to Add Custom Authentication to a REST API":
+            https://www.outsystems.com/forge/component-overview/927/how-to-add-custom-authentication-to-a-rest-api
+    - one-way: building-apps/data/excel-bootstrap.md
+    - one-way: building-apps/reuse-and-refactor/expose-and-reuse.md
+    - one-way: ref/apis/auto/httprequesthandler-api.final.md
+
+- integration-with-systems/rest/expose-rest-apis/customize-rest-api-responses.md:
+    - external:
+        - "Blog post: How to Implement HTTP Status Codes When Exposing a REST API in OutSystems":
+            https://www.outsystems.com/blog/posts/implementing-http-status-code-exposing-rest/
+
+- integration-with-systems/rest/expose-rest-apis/customize-rest-urls.md:
+    - external:
+        - "Best practices for REST API design (Stack Overflow blog)":
+            https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
+        - "5 Basic REST API Design Guidelines (RestCase blog)":
+            https://blog.restcase.com/5-basic-rest-api-design-guidelines/
+
+- integration-with-systems/rest/troubleshoot-a-rest-api.md:
+    - integration-with-systems/log-levels-set.md
+
+# --- Extensibility and Integration --- Integration Builder
+
+- intro.md:
+    - one-way: integration-with-systems/integration-builder/works.md
+    - one-way: integration-with-systems/integration-builder/connectors/integration-salesforce.md
+    - one-way: integration-with-systems/integration-builder/connectors/integration-sap.md
+
+- works.md:
+    - integration-with-systems/integration-builder/use.md
+    - integration-with-systems/integration-builder/structure.md
+
+- use.md:
+    - integration-with-systems/integration-builder/connectors/integration-salesforce.md
+    - integration-with-systems/integration-builder/connectors/integration-sap.md
+    - integration-with-systems/integration-builder/connectors/integration-ms-dataverse.md
+    - integration-with-systems/integration-builder/connectors/integration-ms-dynamics.md
+
+- connectors/integration-sap.md:
+    - integration-with-systems/integration-builder/connectors/integration-sap-get-spec.md
+
+# --- Extensibility and Integration --- Extend Logic with Your Own Code (Integration Studio)
+
+- integration-with-systems/integration-studio/extension-life-cycle/intro.md:
+    - external:
+        - "Server extension recompilation on upgrade":
+            https://success.outsystems.com/Support/Enterprise_Customers/Upgrading/Server_extension_recompilation_on_upgrade
+
+
+# --- Developing an Application ---
+
+#     Use Data/Data Modeling/Entity Relationships
+
+-  building-apps/data/modeling/relationship/delete-rules.md:
+    - one-way: ref/lang/auto/class-entity-attribute.md
+
+#     Security
+-  security/restrict-access-to-an-internal-network.md:
+    - security/configure-internal-network.md
+
+# Override the Default Mobile Extensibility Configurations
+- deploying-apps/override-extensibility-configurations.md:
+    - deploying-apps/mobile-app-packaging-delivery/customize-mobile-app/intro.md
+
+# Distribute as a progressive web app (PWA)
+- deploying-apps/mobile-app-packaging-delivery/distribute-pwa/intro.md:
+    - deploying-apps/mobile-app-packaging-delivery/generate-distribute-mobile-app/intro.md
+    - deploying-apps/override-extensibility-configurations.md
+
+# Use Events to Propagate Changes From a Block to the Parent
+- building-apps/ui/reuse/propagate-changes-from-a-reusable-screen-element.md:
+    - building-apps/ui/inputs/popup.md
+
+# Mobile App Update Scenarios
+- deploying-apps/mobile-app-packaging-delivery/mobile-app-update-scenarios.md:
+    - monitor-and-troubleshoot/monitoring-an-environment.md
+
+# Technical Preview - Configure mobile apps updates distribution
+- deploying-apps/mobile-app-packaging-delivery/manage-distribution-options/intro.md:
+    - deploying-apps/deploy-an-application.md
+    - deploying-apps/tag-a-version.md
+    - deploying-apps/mobile-app-packaging-delivery/mobile-app-update-scenarios.md
+    - deploying-apps/mobile-app-packaging-delivery/generate-distribute-mobile-app/publish-google-play-store.md
+    - deploying-apps/mobile-app-packaging-delivery/generate-distribute-mobile-app/publish-apple-app-store.md
+    - deploying-apps/mobile-app-packaging-delivery/generate-distribute-mobile-app/development-tests.md
+    - one-way: setup-infra-platform/setup/possible-setups/intro.md
+
+# Building apps with AndroidX
+- deploying-apps/mobile-app-packaging-delivery/mobile-apps-build-service/androidx.md:
+    - deploying-apps/mobile-app-packaging-delivery/customize-mobile-app/extensibility-configurations-json-schema.md
+    - deploying-apps/override-extensibility-configurations.md
+    - deploying-apps/mobile-app-packaging-delivery/customize-mobile-app/set-the-preferences-for-your-mobile-app.md
+
+# Harden the protection of mobile apps with AppShield
+- deploying-apps/mobile-app-packaging-delivery/app-shield/intro.md:
+    - external:
+        - "Obfuscation and retracing logs of mobile builds":
+            https://success.outsystems.com/Support/Enterprise_Customers/Troubleshooting/Obfuscation_and_retracing_logs_of_mobile_builds
+
+# UI Web Patterns
+- building-apps/ui/patterns/web/content/accordion/accordion.md:
+    - ref/ui-patterns/web/accordion.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Accordion.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=1
+- building-apps/ui/patterns/web/content/alert/alert.md:
+    - ref/ui-patterns/web/alert.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Alert.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=3   
+- building-apps/ui/patterns/web/content/balloon/balloon.md:
+    - ref/ui-patterns/web/balloon.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Balloon.aspx
+- building-apps/ui/patterns/web/content/blankslate.md:
+    - ref/ui-patterns/web/blankslate.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/BlankSlate.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=8   
+- building-apps/ui/patterns/web/content/bullets.md:
+    - ref/ui-patterns/web/bullets.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Bullets.aspx
+- building-apps/ui/patterns/web/content/card.md:
+    - ref/ui-patterns/web/card.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Card.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=13    
+- building-apps/ui/patterns/web/content/cardbackground.md:
+    - ref/ui-patterns/web/cardbackground.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/CardBackground.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=14
+- building-apps/ui/patterns/web/content/cardsectioned.md:
+    - ref/ui-patterns/web/cardsectioned.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/CardSectioned.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=16
+- building-apps/ui/patterns/web/content/carousel.md:
+    - ref/ui-patterns/web/carousel.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Carousel.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=176
+- building-apps/ui/patterns/web/content/chatmessage.md:
+    - ref/ui-patterns/web/chatmessage.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ChatMessage.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=19
+- building-apps/ui/patterns/web/content/lightboximage.md:
+    - ref/ui-patterns/web/lightbox-image.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LightboxImage.aspx
+- building-apps/ui/patterns/web/content/modal.md:
+    - ref/ui-patterns/web/modal.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+           https://outsystemsui.outsystems.com/WebStyleGuidePreview/Modal.aspx
+- building-apps/ui/patterns/web/content/panel.md:
+    - ref/ui-patterns/web/panel.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Panel.aspx
+- building-apps/ui/patterns/web/content/section.md:
+    - ref/ui-patterns/web/section.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Section.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=63
+- building-apps/ui/patterns/web/content/tag.md:
+    - ref/ui-patterns/web/tag.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tag.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=74
+- building-apps/ui/patterns/web/content/tooltip.md:
+    - ref/ui-patterns/web/tooltip.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tooltip.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=77
+- building-apps/ui/patterns/web/controls/animatedlabel.md:
+    - ref/ui-patterns/web/animatedlabel.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/AnimatedLabel.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=6
+- building-apps/ui/patterns/web/controls/buttongroup.md:
+    - ref/ui-patterns/web/buttongroup.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ButtonGroup.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=12
+- building-apps/ui/patterns/web/controls/datepicker.md:
+    - ref/ui-patterns/web/datepicker.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/DatePicker.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=31
+- building-apps/ui/patterns/web/controls/dropdown.md:
+    - ref/ui-patterns/web/dropdown.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Dropdown.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=33
+- building-apps/ui/patterns/web/controls/dropdownselect.md:
+    - ref/ui-patterns/web/dropdownselect.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/DropdownSelect.aspx
+- building-apps/ui/patterns/web/controls/fileupload/fileupload.md:
+    - ref/ui-patterns/web/fileupload.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/FileUpload.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=79
+- building-apps/ui/patterns/web/controls/floatingactions.md:
+    - ref/ui-patterns/web/floatingactions.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/FloatingActions.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=38
+- building-apps/ui/patterns/web/controls/inputwithicon.md:
+    - ref/ui-patterns/web/inputwithicon.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/InputWithIcon.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=45
+- building-apps/ui/patterns/web/controls/rangeslider.md:
+    - ref/ui-patterns/web/rangeslider.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/RangeSlider.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=60
+- building-apps/ui/patterns/web/controls/rangesliderinterval.md:
+    - ref/ui-patterns/web/rangesliderinterval.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/RangeSliderInterval.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=61
+- building-apps/ui/patterns/web/controls/search.md:
+    - ref/ui-patterns/web/search.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Search.aspx 
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=62   
+- building-apps/ui/patterns/web/controls/search-balloon.md:
+    - ref/ui-patterns/web/search-balloon.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/SearchBalloon.aspx
+- building-apps/ui/patterns/web/controls/timepicker.md:
+    - ref/ui-patterns/web/timepicker.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/TimePicker.aspx
+- building-apps/ui/patterns/web/controls/togglebutton.md:
+    - ref/ui-patterns/web/togglebutton.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ToggleButton.aspx
+- building-apps/ui/patterns/web/controls/video.md:
+    - ref/ui-patterns/web/video.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Video.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=81
+        - "How to Add Video to Your Applications": 
+            https://success.outsystems.com/Documentation/How-to_Guides/Front-End/How_to_Add_Video_to_Your_Applications
+- building-apps/ui/patterns/web/layout/layout-login.md:
+    - ref/ui-patterns/web/layout-login.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LayoutLogin.aspx
+- building-apps/ui/patterns/web/layout/layout-loginsplit.md:
+    - ref/ui-patterns/web/layout-loginsplit.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LayoutLoginSplit.aspx  
+- building-apps/ui/patterns/web/layout/layout-popup.md:
+    - ref/ui-patterns/web/layout-popup.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LayoutPopup.aspx
+- building-apps/ui/patterns/web/layout/layout-sidemenu.md:
+    - ref/ui-patterns/web/layout-sidemenu.md
+- building-apps/ui/patterns/web/layout/layout-topmenu.md:
+    - ref/ui-patterns/web/layout-topmenu.md
+- building-apps/ui/patterns/web/layout/loginform.md:
+    - ref/ui-patterns/web/loginform.md
+- building-apps/ui/patterns/web/navigation/breadcrumbs.md:
+    - ref/ui-patterns/web/breadcrumbs.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Breadcrumbs.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=10
+- building-apps/ui/patterns/web/navigation/sectionindex.md:
+    - ref/ui-patterns/web/sectionindex.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/SectionIndex.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=73
+- building-apps/ui/patterns/web/navigation/sidebar.md:
+    - ref/ui-patterns/web/sidebar.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Sidebar.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=67
+- building-apps/ui/patterns/web/navigation/tabs/tabs.md:
+    - ref/ui-patterns/web/tabs.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tabs.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=65
+- building-apps/ui/patterns/web/navigation/timeline.md:
+    - ref/ui-patterns/web/timeline.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Timeline.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=76
+- building-apps/ui/patterns/web/navigation/wizard.md:
+    - ref/ui-patterns/web/wizard.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Wizard.aspx        
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=82
+- building-apps/ui/patterns/web/numbers/badge.md:
+    - ref/ui-patterns/web/badge.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Badge.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=7
+- building-apps/ui/patterns/web/numbers/counter.md:
+    - ref/ui-patterns/web/counter.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Counter.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=30
+- building-apps/ui/patterns/web/numbers/iconbadge.md:
+    - ref/ui-patterns/web/icon-badge.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/IconBadge.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=43
+- building-apps/ui/patterns/web/numbers/progressbar.md:
+    - ref/ui-patterns/web/progressbar.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ProgressBar.aspx 
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=57 
+- building-apps/ui/patterns/web/numbers/progresscircle.md:
+    - ref/ui-patterns/web/progresscircle.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ProgressCircle.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=58
+- building-apps/ui/patterns/web/numbers/userinitials.md:
+    - ref/ui-patterns/web/user-initials.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/UserInitials.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=80
+- building-apps/ui/patterns/web/responsive/displayondevice.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/DisplayOnDevice.aspx
+        - "OutSystems UI Pattern": 
+           https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=32
+- building-apps/ui/patterns/web/responsive/loadonvisible.md:
+    - ref/ui-patterns/web/load-on-visible.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LoadOnVisible.aspx
+- building-apps/ui/patterns/web/responsive/moveondevice.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/MoveOnDevice.aspx
+- building-apps/ui/patterns/web/responsive/responsivetable.md:
+    - ref/ui-patterns/web/responsive-table.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ResponsiveTableRecords.aspx
+- building-apps/ui/patterns/web/structure/aligncenter.md:
+    - ref/ui-patterns/web/aligncenter.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+           https://outsystemsui.outsystems.com/WebStyleGuidePreview/AlignCenter.aspx 
+        - "OutSystems UI Pattern": 
+           https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=4
+- building-apps/ui/patterns/web/structure/columns.md:
+    - ref/ui-patterns/web/columns.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Columns2.aspx
+- building-apps/ui/patterns/web/structure/gallery.md:
+    - ref/ui-patterns/web/gallery.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Gallery.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=41 
+- building-apps/ui/patterns/web/utilities/animate.md:
+    - ref/ui-patterns/web/animate.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Animate.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=5
+- building-apps/ui/patterns/web/utilities/charactercount.md:
+    - ref/ui-patterns/web/character-count.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/CharacterCount.aspx
+- building-apps/ui/patterns/web/utilities/fieldset.md:
+    - ref/ui-patterns/web/fieldset.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Fieldset.aspx
+- building-apps/ui/patterns/web/utilities/flipcontent.md:
+    - ref/ui-patterns/web/flip-content.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/FlipContent.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=37
+- building-apps/ui/patterns/web/utilities/iframe.md:
+    - ref/ui-patterns/web/iframe.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Iframe.aspx
+        - "How to Add Video to Your Applications": 
+            https://success.outsystems.com/Documentation/Development_FAQs/How_to_Add_Video_to_Your_Applications            
+- building-apps/ui/patterns/web/utilities/separator.md:
+    - ref/ui-patterns/web/separator.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Separator.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=66
+- building-apps/ui/patterns/web/utilities/stackedicon.md:
+    - ref/ui-patterns/web/stackedicon.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/StackedIcon.aspx
+- building-apps/ui/patterns/web/intro.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/OutSystemsUILiveStyleGuide/Homepage.aspx
+- building-apps/ui/patterns/web/navigation/navigationbar.md:
+    - ref/ui-patterns/web/navigation-bar.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/NavigationBar.aspx
+# UI Mobile Patterns
+- building-apps/ui/patterns/mobile/adaptive/columns.md:
+    - ref/ui-patterns/mobile/columns.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Columns2.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=21
+- building-apps/ui/patterns/mobile/adaptive/displayondevice.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/DisplayOnDevice.aspx
+        - "OutSystems UI Pattern": 
+           https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=32
+- building-apps/ui/patterns/mobile/adaptive/gallery.md:
+    - ref/ui-patterns/mobile/gallery-mobile.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Gallery.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=41 
+- building-apps/ui/patterns/mobile/adaptive/masterdetail.md:
+    - ref/ui-patterns/mobile/masterdetail-mobile.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=51   
+- building-apps/ui/patterns/mobile/content/accordion.md:
+    - ref/ui-patterns/mobile/accordion.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Accordion.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=1 
+- building-apps/ui/patterns/mobile/content/alert.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Alert.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=3 
+- building-apps/ui/patterns/mobile/content/blankslate.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/BlankSlate.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=8
+- building-apps/ui/patterns/mobile/content/card.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Card.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=13
+- building-apps/ui/patterns/mobile/content/cardbackground.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/CardBackground.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=14
+- building-apps/ui/patterns/mobile/content/carditem.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=15
+- building-apps/ui/patterns/mobile/content/cardsectioned.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/CardSectioned.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=16
+- building-apps/ui/patterns/mobile/content/flipcontent.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/FlipContent.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=37
+- building-apps/ui/patterns/mobile/content/floatingcontent.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=39
+- building-apps/ui/patterns/mobile/content/listitemcontent.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=49
+- building-apps/ui/patterns/mobile/content/section.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Section.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=63
+- building-apps/ui/patterns/mobile/content/sectiongroup.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=64
+- building-apps/ui/patterns/mobile/content/tag.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tag.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=74
+- building-apps/ui/patterns/mobile/content/tooltip.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tooltip.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=77
+- building-apps/ui/patterns/mobile/content/useravatar.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=80
+- building-apps/ui/patterns/mobile/interaction/animate.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Animate.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=5
+- building-apps/ui/patterns/mobile/interaction/animatedlabel.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/AnimatedLabel.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=6
+- building-apps/ui/patterns/mobile/interaction/carousel.md:
+    - ref/ui-patterns/mobile/carousel-mobile.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Carousel.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=17
+- building-apps/ui/patterns/mobile/interaction/datepicker.md:
+    - ref/ui-patterns/mobile/datepicker.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/DatePicker.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=31
+- building-apps/ui/patterns/mobile/interaction/dropdownsearch.md:
+    - external:
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=34
+- building-apps/ui/patterns/mobile/interaction/dropdowntags.md:
+    - external:
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=35  
+- building-apps/ui/patterns/mobile/interaction/floatingactions.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/FloatingActions.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=38 
+- building-apps/ui/patterns/mobile/interaction/horizontalscroll.md:
+    - external:
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=42      
+- building-apps/ui/patterns/mobile/interaction/inputwithicon.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/InputWithIcon.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=45 
+- building-apps/ui/patterns/mobile/interaction/lightboximage.md:
+    - ref/ui-patterns/mobile/lightboximage.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/LightBoxImage.aspx
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=46
+- building-apps/ui/patterns/mobile/interaction/map/intro.md:
+    - external:
+        - "Known issue with the Map component for Reactive Web apps": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Troubleshooting/Known_issue_with_the_Map_component_for_Reactive_Web_apps
+- building-apps/ui/patterns/mobile/interaction/notification.md:
+    - ref/ui-patterns/mobile/notification.md
+    - external:
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=53
+- building-apps/ui/patterns/mobile/interaction/rangeslider.md:
+    - ref/ui-patterns/mobile/rangeslider.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/RangeSlider.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=60
+- building-apps/ui/patterns/mobile/interaction/rangesliderinterval.md:
+    - ref/ui-patterns/mobile/rangesliderinterval.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/RangeSliderInterval.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=61
+- building-apps/ui/patterns/mobile/interaction/search.md:
+    - external:
+        - "OutSystems UI Pattern":
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=62
+- building-apps/ui/patterns/mobile/interaction/sidebar.md:
+    - external:
+       - "OutSystems UI Pattern":  
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=67
+- building-apps/ui/patterns/mobile/interaction/stackedcards.md:
+    - ref/ui-patterns/mobile/stackedcards.md
+    - external:
+       - "OutSystems UI Pattern":  
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=68
+- building-apps/ui/patterns/mobile/interaction/video.md:
+    - external:
+       - "OutSystems UI Pattern":  
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=81
+- building-apps/ui/patterns/mobile/navigation/bottombaritem.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=9 
+- building-apps/ui/patterns/mobile/navigation/breadcrumbs.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Breadcrumbs.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=10 
+- building-apps/ui/patterns/mobile/navigation/pagination.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=54 
+- building-apps/ui/patterns/mobile/navigation/sectionindex.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/SectionIndex.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=65 
+- building-apps/ui/patterns/mobile/navigation/submenu.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=69
+- building-apps/ui/patterns/mobile/navigation/tabs.md:
+    - ref/ui-patterns/mobile/tabs-mobile.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Tabs.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=73 
+- building-apps/ui/patterns/mobile/navigation/timelineitem.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=76                 
+- building-apps/ui/patterns/mobile/numbers/badge.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Badge.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=7
+- building-apps/ui/patterns/mobile/numbers/counter.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/Counter.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=30
+- building-apps/ui/patterns/mobile/numbers/iconbadge.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/IconBadge.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=43
+- building-apps/ui/patterns/mobile/numbers/progressbar.md:
+    - ref/ui-patterns/mobile/progressbar-mobile.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ProgressBar.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=216
+- building-apps/ui/patterns/mobile/numbers/progresscircle.md:
+    - ref/ui-patterns/mobile/progresscircle-mob.md
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ProgressCircle.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=58
+- building-apps/ui/patterns/mobile/numbers/progresscirclefraction.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=59
+- building-apps/ui/patterns/mobile/numbers/rating.md:
+    - ref/ui-patterns/mobile/rating.md
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=291
+- building-apps/ui/patterns/mobile/utilities/aligncenter.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide": 
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/AlignCenter.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=4
+- building-apps/ui/patterns/mobile/utilities/buttonloading.md:
+    - external:
+        - "OutSystems UI Web Live Style Guide":
+            https://outsystemsui.outsystems.com/WebStyleGuidePreview/ButtonLoading.aspx
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=117
+- building-apps/ui/patterns/mobile/utilities/centercontent.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=18
+- building-apps/ui/patterns/mobile/utilities/margincontainer.md:
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=50
+- building-apps/ui/patterns/mobile/utilities/swipeevents.md:
+    - ref/ui-patterns/mobile/swipeevents.md
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=70
+- building-apps/ui/patterns/mobile/utilities/touchevents.md:
+    - ref/ui-patterns/mobile/touchevents.md
+    - external:
+        - "OutSystems UI Pattern": 
+            https://outsystemsui.outsystems.com/OutSystemsUIWebsite/PatternDetail?PatternId=78
+
+# Links to Training
+
+# Developing an Application > Troubleshooting Applications > Debugging Applications
+
+- debugging-apps/intro.md:
+    - external:
+        - "Training video - How to Debug Logic in OutSystems":
+            https://www.outsystems.com/training/lesson/2035/how-to-debug-logic-in-outsystems
+
+# Extensibility and Integration
+- integration-with-systems/external-database/connect-external-db.md:
+    - external:
+        - "Demo - Integrating with a SQL Server Database":
+            https://www.outsystems.com/learn/lesson/1847/demo-integrating-with-external-databases/
+    - external:
+        - "Demo - Integrating with a Oracle Server Database":
+            https://www.outsystems.com/learn/lesson/1879/demo-integrating-with-an-oracle-database/
+    - external:
+        - "Demo - Integrating with a MySQL Server Database":
+            https://www.outsystems.com/learn/lesson/1880/demo-integrating-with-a-mysql-database/
+
+
+- integration-with-systems/rest/intro.md:
+    - external:
+        - "Course - Integrating with Web Services":
+            https://www.outsystems.com/learn/courses/116/integrating-with-web-services/
+
+- integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md:            
+    - external:
+        - "Exercise - Retrieving Data from a REST API (GET)":
+            https://www.outsystems.com/learn/lesson/1850/retrieving-data-from-a-rest-api-get/
+    - external:
+        - "Exercise - Writing Data to a REST API (POST and PUT)":
+            https://www.outsystems.com/learn/lesson/1848/writing-data-to-a-rest-api-post-and-put/
+    - external:
+        - "Exercise - Deleting Data from a REST API (DELETE)":
+            https://www.outsystems.com/learn/lesson/1849/deleting-data-from-a-rest-api-delete/
+
+- integration-with-systems/rest/expose-rest-apis/expose-a-rest-api.md:            
+    - external:
+        - "Exercise - Exposing Application Data using REST (GET)":
+            https://www.outsystems.com/learn/lesson/1853/exposing-application-data-using-rest-get/
+    - external:
+        - "Exercise - Creating Application Data using REST (POST)":
+            https://www.outsystems.com/learn/lesson/1851/creating-application-data-using-rest-post/
+    - external:
+        - "Exercise - Updating Application Data using REST (PUT)":
+            https://www.outsystems.com/learn/lesson/1852/updating-application-data-using-rest-put/
+    - external:
+        - "Exercise - Deleting Application Data using REST (DELETE)":
+            https://www.outsystems.com/learn/lesson/1854/deleting-application-data-using-rest-delete/
+
+# Consumed REST
+
+- ref/lang/auto/servicestudio-plugin-rest-restclient.md:
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-rest-restaction.md:
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-rest-restactioninput.md:
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+    - one-way: integration-with-systems/log-levels-reference.md
+
+- ref/lang/auto/servicestudio-plugin-rest-restactionoutput.md:
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-rest-reststructure.md:
+    - integration-with-systems/rest/consume-rest-apis/rest-api-structures.md
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-rest-reststructureattribute.md:
+    - integration-with-systems/rest/consume-rest-apis/rest-api-structures.md
+    - one-way: integration-with-systems/rest/consume-rest-apis/consume-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-rest-restcallbackactionflow.md:
+    - one-way: integration-with-systems/rest/consume-rest-apis/simple-customizations.md
+    - one-way: integration-with-systems/rest/consume-rest-apis/advanced-customizations.md
+    - ref/lang/auto/servicestudio-plugin-rest-restcallbackactionflowinput.md
+    - ref/lang/auto/servicestudio-plugin-rest-restcallbackactionflowoutput.md
+    - ref/lang/auto/servicestudio-plugin-rest-restcallbackstructure.md
+    - ref/lang/auto/servicestudio-plugin-rest-restcallbackstructureattribute.md
+
+# Exposed REST
+
+- ref/lang/auto/servicestudio-plugin-restservice-restservice.md:
+    - one-way: integration-with-systems/rest/expose-rest-apis/expose-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restserviceaction.md:
+    - one-way: integration-with-systems/rest/expose-rest-apis/expose-a-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restserviceactioninput.md:
+    - one-way: ref/lang/auto/servicestudio-plugin-restservice-restserviceaction.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restserviceactionoutput.md:
+    - one-way: ref/lang/auto/servicestudio-plugin-restservice-restserviceaction.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restservicecallbackactionflow.md:
+    - one-way: integration-with-systems/rest/expose-rest-apis/preprocess-rest-api-requests.md
+    - one-way: integration-with-systems/rest/expose-rest-apis/customize-rest-api-responses.md
+    - ref/lang/auto/servicestudio-plugin-restservice-restservicecallbackactionflowinput.md
+    - ref/lang/auto/servicestudio-plugin-restservice-restservicecallbackactionflowoutput.md
+    - ref/lang/auto/servicestudio-plugin-restservice-restservicecallbackstructure.md
+    - ref/lang/auto/servicestudio-plugin-restservice-restservicecallbackstructureattribute.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restserviceauthenticationflow.md:
+    - one-way: integration-with-systems/rest/expose-rest-apis/add-basic-authentication-to-an-exposed-rest-api.md
+    - one-way: integration-with-systems/rest/expose-rest-apis/add-custom-authentication-to-an-exposed-rest-api.md
+
+- ref/lang/auto/servicestudio-plugin-restservice-restserviceauthenticationflowinput.md:
+    - one-way: integration-with-systems/rest/expose-rest-apis/add-basic-authentication-to-an-exposed-rest-api.md
+    - one-way: integration-with-systems/rest/expose-rest-apis/add-custom-authentication-to-an-exposed-rest-api.md
+
+# JSON
+
+- ref/lang/auto/class-json-serialize.md:
+    - external:
+        - "Demo - Handling JSON data":
+            https://www.outsystems.com/learn/lesson/1881/handling-json-data/
+
+- ref/lang/auto/class-json-deserialize.md:   
+    - external:
+        - "Demo - Handling JSON data":
+            https://www.outsystems.com/learn/lesson/1881/handling-json-data/
+
+- building-apps/ui/reuse/propagate-changes-from-a-reusable-screen-element.md:
+    - external:
+        - "Training video - Block Events":
+            https://www.outsystems.com/learn/lesson/1902/block-events/?LearningPathId=18
+
+- building-apps/ui/reuse/block-communicate.md:
+    - external:
+        - "Training video - Block Events":
+            https://www.outsystems.com/learn/lesson/1902/block-events/?LearningPathId=18
+
+
+# Links to Forge
+
+- building-apps/reuse-and-refactor/services.md:
+    - external:
+        - "Directory sample app": 
+            https://www.outsystems.com/forge/component-overview/614/directory
+        - "Sales sample app": 
+            https://www.outsystems.com/forge/component-overview/582/sales
+        - "Cases sample app":
+            https://www.outsystems.com/forge/component-overview/584/cases
+
+# Links to Dev Advocacy Videos
+
+- ref/apis/charts/chart-json.md:
+    - external:
+        - "Demo - Chart Tips #1 - Zoomable Line graphs, Colored regions and Arc charts":
+            https://www.youtube.com/watch?v=SImlviB39gs
+        - "Demo - How to customize line graphs in OutSystems":    
+            https://www.youtube.com/watch?v=uzNnX7oqhNY
+        - "Demo - Customizing your charts using Highcharts API, HTML and JavaScript":
+            https://www.youtube.com/watch?v=rhovQg7hTyQ
+
+# Design UI
+
+- building-apps/ui/intro.md:
+    - external:
+        - "How to Build a Front-End Architecture in OutSystems":
+            https://success.outsystems.com/Documentation/Development_FAQs/How_to_Build_a_Front-End_Architecture_in_OutSystems
+        - "Front-End Architecture Best Practices":
+            https://success.outsystems.com/Documentation/Best_Practices/Front-End_Architecture_Best_Practices
+
+# --- Accessibility ---
+
+- building-apps/ui/accessibility/intro.md:
+    - external:
+        - "Design for Accessibility":
+            https://www.outsystems.com/learn/courses/149/design-for-accessibility/
+        - "Accessibility in Traditional Web Applications": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Accessibility/Accessibility_in_OutSystems_Web_Applications
+        
+- building-apps/ui/accessibility/testing-fixing-accessibility-issues.md:
+    - one-way: building-apps/ui/accessibility/intro.md
+    - building-apps/ui/accessibility/ui-patterns-accessibility.md
+    - building-apps/ui/accessibility/additional-accessibility-resources.md
+    - external:
+        - "Design for Accessibility":
+            https://www.outsystems.com/learn/courses/149/design-for-accessibility/
+        - "Accessibility in Traditional Web Applications": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Accessibility/Accessibility_in_OutSystems_Web_Applications
+
+- building-apps/ui/accessibility/aria-roles-and-attributes.md:
+    - one-way: building-apps/ui/accessibility/intro.md
+    - building-apps/ui/accessibility/testing-fixing-accessibility-issues.md
+    - building-apps/ui/accessibility/ui-patterns-accessibility.md
+    - building-apps/ui/accessibility/additional-accessibility-resources.md
+    - external:
+        - "Design for Accessibility":
+            https://www.outsystems.com/learn/courses/149/design-for-accessibility/
+        - "Accessibility in Traditional Web Applications": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Accessibility/Accessibility_in_OutSystems_Web_Applications
+
+- building-apps/ui/accessibility/ui-patterns-accessibility.md:
+    - one-way: building-apps/ui/accessibility/intro.md
+    - building-apps/ui/accessibility/additional-accessibility-resources.md
+    - external:
+        - "Design for Accessibility":
+            https://www.outsystems.com/learn/courses/149/design-for-accessibility/
+        - "Accessibility in Traditional Web Applications": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Accessibility/Accessibility_in_OutSystems_Web_Applications
+
+- building-apps/ui/accessibility/additional-accessibility-resources.md:
+    - one-way: building-apps/ui/accessibility/intro.md
+    - external:
+        - "Design for Accessibility":
+            https://www.outsystems.com/learn/courses/149/design-for-accessibility/
+        - "Accessibility in Traditional Web Applications": 
+            https://success.outsystems.com/Support/Enterprise_Customers/Accessibility/Accessibility_in_OutSystems_Web_Applications
+
+# --- Managing the Applications Lifecycle > Manage IT Users ---
+
+- manage-platform-app-lifecycle/manage-it-teams/about-permission-levels.md:
+    - manage-platform-app-lifecycle/manage-it-teams/create-an-it-role.md
+    - manage-platform-app-lifecycle/manage-it-teams/setup-team-permissions.md
+    - manage-platform-app-lifecycle/manage-it-teams/grant-it-roles-for-a-specific-application.md
+    - manage-platform-app-lifecycle/manage-it-teams/control-app-creation.md
+    - manage-platform-app-lifecycle/manage-it-teams/allow-managers-to-handle-permissions-of-it-teams.md
+    - manage-platform-app-lifecycle/manage-it-teams/allow-external-db-integration.md
+            
+# Monitor and Troubleshoot
+
+- monitor-and-troubleshoot/monitoring-an-environment.md:
+    - external:
+        - "Anatomy of an OutSystems error stack":
+            https://www.outsystems.com/forums/discussion/7856/anatomy-of-an-outsystems-error-stack/
+            
+# --- Reference > Errors and Warnings > Errors ---
+
+#  Invalid Action Flow Error
+-  ref/errors-and-warnings/errors/invalid-action-flow-error.md:
+    - external:
+        - "A course about Logic in Training":
+            https://www.outsystems.com/learn/courses/125/logic/
+
+# Testing 
+
+- testing-apps/testing-bdd-framework.md:
+    - testing-apps/develop-test.md
+    - testing-apps/test-automation-in-delivery-lifecycle.md
+    - external:
+        - "Becoming a Tester in OutSystems":
+            https://www.outsystems.com/training/paths/10/becoming-a-tester-in-outsystems/
+        - "OutSystems testing guidelines":
+            https://success.outsystems.com/Documentation/Best_Practices/OutSystems_Testing_Guidelines 
+
+# Setting up OutSystems
+
+- setup-infra-platform/setup/cache-invalidation/intro.md:
+    - setup-infra-platform/setup/cache-invalidation/enable-tls.md
+    - setup-infra-platform/setup/cache-invalidation/manage-troubleshoot.md
+    - setup-infra-platform/setup/cache-invalidation/installation.md
+    - setup-infra-platform/setup/cache-invalidation/high-availability.md
+
+- setup-infra-platform/setup/logging-db/intro.md:
+    - setup-infra-platform/setup/logging-db/configure-separate-db.md
+    - setup-infra-platform/setup/logging-db/update-applications.md

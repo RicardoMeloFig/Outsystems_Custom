@@ -1,0 +1,62 @@
+---
+summary: Learn how to manage end user accounts in OutSystems 11 (O11) using the Users application for creation, activation, deactivation, and deletion.
+tags: user management, account activation, security, access control, user roles
+locale: en-us
+guid: 8b17c8d9-939a-486c-bec9-fe1309df7aed
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+audience:
+  - Platform administrator
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - users application
+coverage-type:
+  - apply
+topic:
+  - creating-users
+  - deleting-users
+---
+
+# Add and Delete End Users
+
+In the Users application, click the **Users** tab to view the list of all the end users currently active in your environment.
+
+## Create a new end user { #create }
+
+<div class="info" markdown="1">
+
+If you use an external authentication method (for example, Active Directory or SAML 2.0) to authenticate end users, you don't need to create the users manually. Instead, they're created automatically in the OutSystems database on the first login.
+
+Check [End Users Authentication](end-user-authentication/intro.md) for more information on external authentication methods.
+
+</div>
+
+Before you can add users, you must have access to the Users application. To learn more about access to the Users application, see [Access the Users application](accessing-users.md).
+
+To create a new end user for your applications do the following:
+
+1. From the Users tab click **Create a new User**.
+
+1. Complete the form entering all required fields, and press **Save**. The Users app redirects you to the user detail page.
+
+1. Assign groups and roles to the user.
+
+<iframe src="https://player.vimeo.com/video/823688722" width="750" height="538" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="">Video demonstrating creating a user</iframe>
+
+## Activate and deactivate an existing end user { #activate-deactivate }
+
+A deactivated end user can't log in to any application and has all permissions suspended.
+  
+1. To deactivate an end user, from the user detail page, click **Set as Inactive**.
+
+1. To view the list of deactivated users, from the **Users** tab, click **Inactive Users**. To re-activate an end user, enter the user details and click **Set as Active**.
+
+<iframe src="https://player.vimeo.com/video/823688669" width="750" height="538" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="">Video demonstrating deactivating a user</iframe>
+
+## Delete an existing end user { #delete }
+
+To permanently delete an end user, from the user detail screen, click **Edit this User** and select **Delete this User**.
+
+<iframe src="https://player.vimeo.com/video/823688619" width="750" height="538" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="">Video demonstrating deleting a user</iframe>

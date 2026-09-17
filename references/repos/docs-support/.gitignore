@@ -1,0 +1,21 @@
+build/
+styles/
+rules/
+**/.vscode/
+**/.vs/
+.idea/
+config.yml
+.aider*
+# Ignore all .vale.ini files anywhere in the repo
+**/.vale.ini
+
+# Ignore all .markdownlint.json files anywhere in the repo
+**/.markdownlint.json
+
+# Ignore all files inside the 'styles' folder
+styles/*
+# Ignore all mcp.json files anywhere in the repo
+**/mcp.json
+
+# Ignore MacOS specific folder customization files
+.DS_Store

@@ -1,0 +1,108 @@
+{
+  "id": "8e43685a-112a-455b-a6b2-748a19071100",
+  "version": "2.0",
+  "name": "applitools-ext",
+  "url": "https://applitools.com/",
+  "tests": [{
+    "id": "3ca13a63-0f78-4bcc-902a-70945c2b58b7",
+    "name": "check element",
+    "commands": [{
+      "id": "f517c1d8-76ec-4f53-9962-66babc9d2735",
+      "comment": "",
+      "command": "open",
+      "target": "helloworld",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d12706ea-0336-4b8c-bda0-d171c9f9f465",
+      "comment": "",
+      "command": "eyesSetViewportSize",
+      "target": "1280x800",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bed43289-dbbf-4f69-94c0-7c8c13ea455d",
+      "comment": "",
+      "command": "eyesCheckElement",
+      "target": "css=button",
+      "targets": [],
+      "value": "a button"
+    }]
+  }, {
+    "id": "bf93491e-bffe-41cf-b84e-7096515c55b0",
+    "name": "check window full",
+    "commands": [{
+      "id": "bef8150d-a331-40d0-acbd-3eba5b0c32e0",
+      "comment": "",
+      "command": "open",
+      "target": "helloworld",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d74a069d-325a-476d-958b-05f01359a9b6",
+      "comment": "",
+      "command": "eyesSetViewportSize",
+      "target": "1280x800",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fce61563-638b-49d8-8fe9-2ee18bc05043",
+      "comment": "",
+      "command": "eyesCheckWindow",
+      "target": "check full page",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "87b889f7-70eb-4a6c-a97b-297c27cbad73",
+    "name": "hello world",
+    "parallel": false,
+    "timeout": 3000,
+    "tests": ["bf93491e-bffe-41cf-b84e-7096515c55b0", "3ca13a63-0f78-4bcc-902a-70945c2b58b7"]
+  }],
+  "urls": ["https://en.wikipedia.org/", "https://applitools.com/"],
+  "plugins": [{
+    "id": "ncaiafehgkbcnaonokodngakpphidnhg",
+    "name": "Applitools",
+    "version": "1.0.0"
+  }],
+  "snapshot": {
+    "globalConfig": {
+      "snapshot": "const { Eyes, Target } = require('@applitools/eyes-selenium');global.Target = Target;const { ConsoleLogHandler, BatchInfo, AccessibilityLevel, AccessibilityGuidelinesVersion } = require('@applitools/eyes-sdk-core');let apiKey = process.env.APPLITOOLS_API_KEY, serverUrl = process.env.APPLITOOLS_SERVER_URL, appName = \"applitools-ext\", batchId = configuration.runId, batchName;"
+    },
+    "suites": [{
+      "name": "hello world",
+      "snapshot": {
+        "hook": "beforeAll(async () => {batchName = \"hello world\";});beforeEach(async () => {global.eyes = Eyes.fromBrowserInfo(serverUrl, configuration.params.eyesDisabled, configuration.params.eyesRendering ? { browser: configuration.params.eyesRendering } : undefined);\neyes.setApiKey(apiKey);eyes.getBaseAgentId = () => (\"eyes.seleniumide.runner.\" + (eyes._isVisualGrid ? \"visualgrid\" : \"local\") + \"/1.10.1\");\neyes.setAgentId(\"eyes.seleniumide.runner.\" + (eyes._isVisualGrid ? \"visualgrid\" : \"local\") + \"/1.10.1\");\neyes.setBatch(new BatchInfo(batchName, undefined, batchId));\nif(!eyes._isVisualGrid) {\n\teyes.setHideScrollbars(true);\n\teyes.setStitchMode(\"CSS\");\n}\neyes.setSendDom(configuration.params.eyesDomUploadEnabled === undefined ? true : configuration.params.eyesDomUploadEnabled);\nif (configuration.params.eyesLogsEnabled) {\n\teyes.setLogHandler(new ConsoleLogHandler(true));\n}\nif (configuration.params.eyesAccessibilityLevel) {\n\tconst _config = eyes.getConfiguration();\n\t_config.setAccessibilityValidation(\n\t\t{\n\t\t\tlevel: AccessibilityLevel[configuration.params.eyesAccessibilityLevel],\n\t\t\tguidelinesVersion: AccessibilityGuidelinesVersion.WCAG_2_0,\n\t\t}\n\t)\n\teyes.setConfiguration(_config);\n}});afterEach(async () => {if (eyes._isOpen) {eyes.getEyesRunner ? await eyes.getEyesRunner().getAllResults() : await eyes.close();}});"
+      }
+    }],
+    "tests": [{
+      "id": "3ca13a63-0f78-4bcc-902a-70945c2b58b7",
+      "snapshot": {
+        "commands": {
+          "d12706ea-0336-4b8c-bda0-d171c9f9f465": "await eyes.setViewportSize({width: 1280, height: 800});",
+          "bed43289-dbbf-4f69-94c0-7c8c13ea455d": "if (!opts.isNested) {await driver.wait(until.elementLocated(By.css(`button`)), configuration.timeout); await eyes.check(\"a button\" || (new URL(await driver.getCurrentUrl())).pathname, Target.region(By.css(`button`)).webHook(preRenderHook));}"
+        },
+        "setupHooks": ["const _driver = driver;driver = await eyes.open(driver, appName, \"check element\");global.preRenderHook = \"\";"],
+        "teardownHooks": ["driver = _driver;"]
+      }
+    }, {
+      "id": "bf93491e-bffe-41cf-b84e-7096515c55b0",
+      "snapshot": {
+        "commands": {
+          "d74a069d-325a-476d-958b-05f01359a9b6": "await eyes.setViewportSize({width: 1280, height: 800});",
+          "fce61563-638b-49d8-8fe9-2ee18bc05043": "if (!opts.isNested) {await eyes.check(\"check full page\" || (new URL(await driver.getCurrentUrl())).pathname, Target.window().webHook(preRenderHook).fully(true));}"
+        },
+        "setupHooks": ["const _driver = driver;driver = await eyes.open(driver, appName, \"check window full\");global.preRenderHook = \"\";"],
+        "teardownHooks": ["driver = _driver;"]
+      }
+    }]
+  },
+  "dependencies": {
+    "@applitools/eyes-selenium": "4.37.0"
+  },
+  "jest": {
+    "extraGlobals": ["Math"]
+  }
+}

@@ -1,0 +1,4 @@
+# ignoring the generated nginx config in case a commit is made while the cluster is running
+nginx/default.conf
+*.swp
+*~

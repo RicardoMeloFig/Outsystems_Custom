@@ -1,0 +1,20 @@
+LogicalDisk
+Network Interface(
+w3wp
+Memory\% Committed Bytes In Use
+Memory\Available MBytes
+Memory\Commit Limit
+Memory\Committed Bytes
+ASP.NET\Application Restarts
+ASP.NET\Applications Running
+ASP.NET\Error Events Raised
+ASP.NET\Request Wait Time
+ASP.NET\Requests Current
+ASP.NET\Requests Queued
+ASP.NET\Requests Rejected
+ASP.NET\Worker Process Restarts
+ASP.NET\Worker Processes Running
+_LM_W3SVC_1_ROOT_Benchmark
+ASP.NET Applications(__Total__
+#$%#$%THIS_IS_THE_SEPARATOR. UP ARE WANTED METRICS, BELOW ARE IGNORED METRICS.
+Process

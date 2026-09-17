@@ -1,0 +1,74 @@
+variables:
+  - group: "Phoenix Variables"
+  - name: ProjectPath
+    value: "$(System.DefaultWorkingDirectory)/external-dns/"
+  - name: AzureCITemplatesPath
+    value: "$(System.DefaultWorkingDirectory)/OutSystems.CICDPlatform.AzureCITemplates/"
+  - name: CoreACRUri
+    value: "edencore.azurecr.io"
+
+resources:
+  repositories:
+    - repository: OutSystems.CICDPlatform.AzureCITemplates
+      type: github
+      ref: refs/tags/v5
+      name: OutSystems/OutSystems.CICDPlatform.AzureCITemplates
+      endpoint: OutSystems-CICD Platform-Phoenix Cloud
+
+# Trigger only for main
+trigger:
+  branches:
+    include:
+      - master
+
+# Do not trigger on PRs
+pr: none
+
+stages: # TODO here goes the pr template, this is just for testing purposes
+  - stage: DockerImage
+    displayName: "Docker Images"
+
+    jobs:
+      - job: BuildAndPushJob
+        displayName: "Build & Push"
+        timeoutInMinutes: 15
+        pool:
+          vmImage: "ubuntu-20.04"
+        steps:
+          # checkout repositories
+          - checkout: OutSystems.CICDPlatform.AzureCITemplates
+          - checkout: self
+            fetchDepth: 0 #AzDo enables by default Shallow fetch and configures it with a depth of 1
+            lfs: true
+            persistCredentials: true
+          - bash: |
+              #!/bin/bash
+              set -e
+              set -o pipefail
+
+              # install go ko
+              VERSION=0.15.1
+              OS=Linux
+              ARCH=x86_64
+              curl -sSfL "https://github.com/ko-build/ko/releases/download/v${VERSION}/ko_${VERSION}_${OS}_${ARCH}.tar.gz" > ko.tar.gz
+              tar xzf ko.tar.gz ko
+              chmod +x ko
+              mv ko /usr/local/bin
+
+            name: "InstallGOKO"
+          # authenticate to ACR
+          - template: setup/docker-acr-login.yml@OutSystems.CICDPlatform.AzureCITemplates
+            parameters:
+              ContainerRegistry: "SDLC EdenCore"
+          # test code
+          # - template: build/make-command.yml@OutSystems.CICDPlatform.AzureCITemplates
+          #   parameters:
+          #     MakeCommand: "test"
+          #     DisplayName: "Test Project"
+          # build docker images
+          - template: build/make-command.yml@OutSystems.CICDPlatform.AzureCITemplates
+            parameters:
+              MakeCommand: "build.push-amd64"
+              MakeCommandArgs: "REGISTRY=${{variables.CoreACRUri}} BINARY=os-external-dns"
+              DisplayName: "Build and Push"
+              MakefileFolder: "$(ProjectPath)"

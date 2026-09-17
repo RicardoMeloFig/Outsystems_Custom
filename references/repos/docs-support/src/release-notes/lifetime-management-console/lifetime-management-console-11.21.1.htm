@@ -1,0 +1,27 @@
+---
+isautopublish: true
+pageprivacy: public
+---
+
+<h2 id="lifetime_management_console_11.21.1" >LifeTime Management Console 11.21.1</h2>
+<div class="info"><p>Released on Mar 11, 2024</p></div>
+
+
+<style>.cattag {background: #f4f2ff; color: #6a6581; padding: 4px 10px;}</style>
+<h3 id="new_in_lifetime_management_console_11.21.1" >New in LifeTime Management Console 11.21.1</h3>
+<ul>
+<li>It's now possible to download the applications' source code for static code analysis purposes using LifeTime API v2. <a href="https://www.outsystems.com/tk/redirect?g=c0f22c7d-ac63-4704-b50f-97a3c697da44">Check the documentation for more details</a>. For this capability to be available in a given environment, it requires having installed Platform Server 11.27.0 or higher. (R11CT-3037)</li>
+<li>Extended LifeTime API v2 to allow users to map an extension’s logical database to an external database connection within the scope of a specific deployment. (RDV-594)</li>
+</ul>
+<h3 id="bug_fixing_lifetime_management_console_11.21.1" >Bug Fixing</h3>
+<ul>
+<li>Improved the synchronization of site properties in LifeTime.
+With the introduction of secret site properties, the synchronization of the information about each site property had a decrease of performance. This change improves that performance by reducing the number of requests done to the environment for each new module version. (R11CT-2840)</li>
+<li>Resolved an issue preventing users from clicking the "Continue" button when numerous environments were present in the Log Streaming Setup screen. (R11PST-98)</li>
+<li>Occasionally, users could get confused when looking at certain application information such as name, icon, and color in LifeTime. This is because even though an application can have different values for these attributes in each environment, LifeTime shows the values for the application version that was changed most recently through Service Studio. Now, users have the option to control the source environment from which this information is fetched, by selecting "Sync App Definition" from the Environment Options dropdown menu on the application's details screen. (RPM-1826) <span class="cattag">Application Lifecycle</span>  <span class="cattag">LifeTime</span> </li>
+<li>Fixed an issue that caused the suspension of the synchronization process of the environments which would lead to problems when executing subsequent operations such as deployments, and setting configurations, among others. 
+This occurred in infrastructures with multiple applications that weren't deployed in every environment. The suspension was due to too many requests inside the process.
+The issue was fixed in an internal query that will avoid the excessive number of requests that led to the suspension. (RPM-2117) <span class="cattag">Application Lifecycle</span>  <span class="cattag">LifeTime</span> </li>
+<li>Previously, on the staging progress screen, a video loading issue could happen while playing the animation that would result in a poor user experience. Now, if the video fails to load, a static image is displayed without triggering any errors. (RPM-4303) <span class="cattag">Application Lifecycle</span>  <span class="cattag">LifeTime</span> </li>
+</ul>
+

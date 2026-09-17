@@ -1,0 +1,7 @@
+Process(w3wp)
+Processor(_Total)\% User Time
+Memory\% Committed Bytes In Use
+
+#$%#$%THIS_IS_THE_SEPARATOR. UP ARE WANTED METRICS, BELOW ARE IGNORED METRICS.
+
+/sec

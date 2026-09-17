@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="@dynatrace/cordova-plugin"
+    version="2.335.1">
+    <name>Dynatrace</name>
+    <description>Dynatrace Cordova Plugin</description>
+
+    <hook src="scripts/pluginAdd.js" type="before_plugin_add"/>
+    <hook src="scripts/Outsystems/npmInstall.js" type="before_plugin_install"/>
+    <hook src="scripts/Outsystems/copyConfig.js" type="before_prepare"/>
+    <hook type="after_plugin_add" src="scripts/Install.js"/>
+    <hook type="before_plugin_uninstall" src="scripts/Uninstall.js"/>
+	<hook type="after_prepare" src="scripts/Instrument.js"/>
+	<hook type="after_prepare" src="scripts/Outsystems/copyScript.js"/>
+	<hook type="after_build" src="scripts/CloseLog.js" />
+	<hook type="after_run" src="scripts/CloseLog.js" />
+
+    <js-module src="networking/NativeNetworkInterceptorUtils.js" name="native-network-interceptor-utils" />
+    <js-module src="networking/MobileFirstNetworkInterceptor.js" name="mobile-first-network-interceptor" />
+    <js-module src="other/DynatraceCordovaPlugin.js" name="dynatraceMobile">
+        <clobbers target="dynatraceMobile"/>
+    </js-module>
+
+ <js-module src="other/IdentifyUserNative.js" name="identifyUserNative">
+     <clobbers target="window.plugins.identifyUserNative" />
+ </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <framework src="libsqlite3.dylib" />
+        <framework src="CoreLocation.framework" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="libz.dylib" />
+        <framework src="libc++.dylib" />
+        <framework src="MessageUI.framework" />
+        <framework src="WebKit.framework" />
+        <framework src="files/iOS/Dynatrace.xcframework" custom="true" embed="true" />
+        
+        <config-file parent="/*" target="config.xml">
+            <feature name="DynatraceCordovaPlugin">
+                <param name="ios-package" value="DynatraceCordovaPlugin" />
+            </feature>
+        </config-file>
+	
+	    <header-file src="other/DynatraceCordovaPlugin.h"/>
+        <source-file src="other/DynatraceCordovaPlugin.m"/>
+    </platform>
+	<platform name="android">
+        <framework src="com.dynatrace.agent:agent-android:8.335.1.1001" />
+		<source-file src="other/DynatraceCordovaPlugin.java" target-dir="src/com/dynatrace/cordova/plugin" />
+	
+		<config-file target="config.xml" parent="/*">
+			<feature name="DynatraceCordovaPlugin">
+				<param name="android-package" value="com.dynatrace.cordova.plugin.DynatraceCordovaPlugin" />
+			</feature>
+		</config-file>
+	</platform>
+	<platform name="windows">
+	</platform>
+</plugin>

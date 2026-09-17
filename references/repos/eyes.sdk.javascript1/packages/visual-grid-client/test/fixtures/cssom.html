@@ -1,0 +1,6 @@
+<body><div id="root">This text is red</div><script>
+    const styleTag = document.createElement('style');
+    document.body.appendChild(styleTag);
+    styleTag.sheet.insertRule('#root{color:red;}');
+    styleTag.sheet.insertRule('#root{background-color:yellow;}');
+  </script></body>

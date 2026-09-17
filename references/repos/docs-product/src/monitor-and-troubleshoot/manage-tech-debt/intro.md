@@ -1,0 +1,99 @@
+---
+summary: Code Quality monitors OutSystems 11 (O11) technical debt by analyzing code patterns across performance, architecture, maintainability, and security.
+locale: en-us
+guid: 7aa53270-fb01-4543-90e4-57907dcc68fe
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Architecture
+  - Best Practices
+  - Development lifecycle
+  - Monitoring
+  - Performance
+  - Security
+  - Technical Debt
+audience:
+  - Architect
+  - Developer
+  - Tech lead
+  - Platform administrator
+outsystems-tools:
+  - code quality
+coverage-type:
+  - understand
+topic:
+  - manage-tech-debt
+isautopublish: true
+---
+
+# Manage technical debt
+
+<div class="info" markdown="1">
+
+AI Mentor Studio is now Code Quality.
+
+</div>
+
+<div class="info" markdown="1">
+
+This feature isn't available in OutSystems FedRAMP. Refer to [Unavailable features in OutSystems FedRAMP](../../security/fedramp/unavailable-features.md) for details.
+
+</div>
+
+Code Quality (<https://codequality.outsystems.com/>) is the OutSystems technical debt monitoring tool. It enables IT leaders to visualize complex cross-portfolio architectures and identify problems while also helping developers follow best practices and avoid common pitfalls.
+
+As organizations strive to expedite time-to-market and empower non-professional developers (citizen developers) to create business apps themselves, controlling technical debt naturally becomes a top concern.
+
+<div class="info" markdown="1">
+
+This content covers Code Quality for technical debt management in O11. For AI-powered app generation in ODC, see [Build apps with AI](https://success.outsystems.com/documentation/outsystems_developer_cloud/building_apps/build_apps_with_ai/).
+
+</div>
+
+With Code Quality, technical debt can be effectively managed at every stage of the development lifecycle so that when departmental applications evolve to become enterprise-wide solutions, nothing needs to be rewritten.
+
+For architects and development team leaders, it provides an integrated, bird’s eye view of their organization’s technical debt to identify problem areas and prioritize accordingly. Developers can view detailed findings on what best practices are being violated, their impact, and how to resolve them.
+
+To integrate Code Quality's data with third-party tools, use the [Code Quality API](../../ref/apis/auto/ai-mentor-studio-api.final.md).
+
+## What Code Quality analyzes
+
+Code Quality analyzes the code produced by developers and provides insights regarding code quality that may impact team agility.  
+
+### Code analysis
+
+Code Quality runs a set of predefined rules throughout the produced low-code, with the goal of uncovering code patterns in the following categories:
+
+* Performance
+* Architecture
+* Maintainability
+* Security
+
+[Check here for the list of patterns currently being analyzed](https://success.outsystems.com/Support/Enterprise_Customers/Support_Tools/Architecture_Dashboard/Code_Patterns)
+
+#### Architecture auto-classification
+
+Code Quality is self-sufficient when it comes to analyzing the architecture of the apps in your infrastructure. With the help of an AI engine, Code Quality analyzes a module's code and its relationships to identify where it fits in the overall architecture.
+
+AI auto-classification allows you to onboard factories into the Code Quality and classify each module so that it fits into the right architecture layer. Having the right architecture classification is important as it enables all other code analysis.
+
+By default, all new infrastructures added to Code Quality use AI auto-classification. You also have the option of turning AI auto-classification off, however, this means that for architecture classification, you must have Discovery installed.
+
+## Access to Code Quality features
+
+The availability or scope of some features of Code Quality depend on the OutSystems Edition associated with your infrastructure:
+
+Teams
+:   The ability to filter the app portfolio and technical debt findings per LifeTime team is available for Standard and Enterprise Editions.
+
+Debt Time Machine
+:   The ability to check all the history of technical debt analysis is available for Standard and Enterprise Editions. Basic Editions can access one month of technical debt analysis history.
+
+Infrastructures associated with a Free Edition can't use Code Quality.
+
+## How to access Code Quality
+
+Before you can start using Code Quality your infrastructure and your IT user must be associated with Code Quality. Learn about the [prerequisites and how to set up Code Quality](how-setup.md).
+
+To access Code Quality, go to [https://codequality.outsystems.com/](https://codequality.outsystems.com "https://codequality.outsystems.com") and login with your OutSystems account.
