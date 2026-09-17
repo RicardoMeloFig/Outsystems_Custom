@@ -1,0 +1,174 @@
+## [5.0.0-OS25]
+
+### 2026-08-21
+
+- chore(android): Add missing kotlin declaration in plugin.xml (#64)
+
+
+## [5.0.0-OS24]
+
+### 2026-08-07
+
+- ci: use node 24 and update action versions (#63)
+
+
+## [5.0.0-OS23]
+
+### 2026-06-19
+
+- ci: Trigger release on push to outsystems (#62)
+- ci: Release and Changelog Automation (#61)
+
+
+# Changelog (old)
+=========
+
+## 5.0.0-OS22
+
+### Fixes
+- [Android] Avoid overwriting other plugins' `ext.postBuildExtras` Gradle configuration (https://outsystemsrd.atlassian.net/browse/RMET-5211).
+
+## 5.0.0-OS21
+
+### Features
+- [iOS] Add Swift Package Manager support and bump `FirebaseAnalytics` to version `10.29.0` (https://outsystemsrd.atlassian.net/browse/RMET-5138).
+
+## 5.0.0-OS20
+
+### Chores
+- [Android,iOS] remove unnecessary Firebase preferences (https://outsystemsrd.atlassian.net/browse/RMET-4915).
+
+## 5.0.0-OS19
+
+### Fixes
+- [Android] `setConsent` client action returning error (https://outsystemsrd.atlassian.net/browse/RMET-4309).
+- [Android] Avoid duplicating entries in `AndroidManifest.xml` with hook for MOCA (https://outsystemsrd.atlassian.net/browse/RMET-4277).
+
+## 5.0.0-OS18
+
+### Features
+- [iOS and Android] Adds support for Capacitor (https://outsystemsrd.atlassian.net/browse/RMET-3643).
+
+### Chores
+- [iOS and Android] Removes dependency to `cordova-outsystems-firebase-core` (https://outsystemsrd.atlassian.net/browse/RMET-3643).
+- [Android] Removes dependency to `cordova-support-android-plugin` (https://outsystemsrd.atlassian.net/browse/RMET-3643).
+- [Android] Removes `build_gradle_add_dependency.js` hook (https://outsystemsrd.atlassian.net/browse/RMET-3643).
+
+## 5.0.0-OS17
+
+### Chores
+- [iOS] Update `cordova-plugin-add-swift-support` to version `2.0.3-OS2` (https://outsystemsrd.atlassian.net/browse/RMET-4037).
+
+## 5.0.0-OS16
+
+- Fix(Android & iOS): Convert values to double if necessary (https://outsystemsrd.atlassian.net/browse/RMET-3822 & https://outsystemsrd.atlassian.net/browse/RMET-3823).
+
+## 5.0.0-OS15
+
+- Feat(Android & iOS): Add setConsent functionality to allow users to set consent for analytics (https://outsystemsrd.atlassian.net/browse/RMET-3677 & https://outsystemsrd.atlassian.net/browse/RMET-3678).
+
+## 5.0.0-OS14
+
+- Android | Update dependency to Firebase Analytics Android library (https://outsystemsrd.atlassian.net/browse/RMET-3608).
+
+## 5.0.0-OS13
+
+- Fix: Make `ANALYTICS_COLLECTION_ENABLED` configurable (https://outsystemsrd.atlassian.net/browse/RMET-3503).
+
+## 5.0.0-OS12
+
+- Chore: Update `FirebaseAnalytics` iOS pod to version `10.23.0` (https://outsystemsrd.atlassian.net/browse/RMET-3274).
+
+## 5.0.0-OS11
+
+### 2023-12-22
+- Feat: add new e-commerce logging method on Android (https://outsystemsrd.atlassian.net/browse/RMET-2730).
+
+### 2023-12-18
+- Feat: Implement e-commerce logging on iOS (https://outsystemsrd.atlassian.net/browse/RMET-2731).
+
+### 2023-12-13
+- Feat: add new e-commerce logging method (https://outsystemsrd.atlassian.net/browse/RMET-2729).
+
+## 5.0.0-OS10
+
+### 2023-08-11
+- Feat: update firebase core version (https://outsystemsrd.atlassian.net/browse/RMET-2451).
+
+## 5.0.0-OS9
+
+### 2023-01-12
+- Feat: Return user's response to prompt [RMET-2112](https://outsystemsrd.atlassian.net/browse/RMET-2112)
+
+## 5.0.0-OS8
+
+### 2022-10-31
+- Replaced jcenter with more up to date mavenCentral [RMET-2036](https://outsystemsrd.atlassian.net/browse/RMET-2036)
+
+### 2022-11-10
+- Use fixed versions (https://outsystemsrd.atlassian.net/browse/RMET-2045).
+
+## 5.0.0-OS7
+### 2022-08-17
+- Update Firebase Analytics version to use `21.1.+` (https://outsystemsrd.atlassian.net/browse/RMET-1766).
+
+## 5.0.0-OS6
+### 2021-07-12
+- Removed unused parameters from RequestTrackingAuthorization (https://outsystemsrd.atlassian.net/browse/RMET-1715)
+
+## 5.0.0-OS5
+### 2021-05-16
+- Update dependency to firebase-core to have error message improved (https://outsystemsrd.atlassian.net/browse/RMET-1538)
+
+## 5.0.0-OS4
+### 2021-05-09
+- Made NSUserTrackingUsageDescription optional in .plist file (https://outsystemsrd.atlassian.net/browse/RMET-1547)
+
+### 2021-05-06
+- Fixed default value for NSUserTrackingUsageDescription in plugin.xml (https://outsystemsrd.atlassian.net/browse/RMET-1547)
+
+## 5.0.0-OS3
+## 2022-04-19
+- Hook to add google services dependency to build.gradle. [RMET-1497](https://outsystemsrd.atlassian.net/browse/RMET-1497)
+
+### 2021-04-18
+- Added hook to enable the usage of a dynamic message for the NSUserTrackingUsageDescription field for iOS (https://outsystemsrd.atlassian.net/browse/RMET-1496)
+
+## 5.0.0-OS2
+### 2021-11-05
+- New plugin release to include metadata tag in Extensibility Configurations in the OS wrapper
+
+### 2021-08-24
+- Updated Firebase plugin versions to 8.6.0 on iOS and 19.0.+ on Android [RMET-732](https://outsystemsrd.atlassian.net/browse/RMET-732)
+
+### 2021-08-16
+- Added App Tracking Transparency popups [RMET-732](https://outsystemsrd.atlassian.net/browse/RMET-732)
+
+### 2021-07-22
+- Added Firebase Core Dependency to install config files [RMET-695](https://outsystemsrd.atlassian.net/browse/RMET-695)
+
+## 5.0.0-OS1
+### 2021-05-05
+- Fix: Fixed plugin pipeline information in configurations.json [RMET-720](https://outsystemsrd.atlassian.net/browse/RMET-720)
+
+## 5.0.0-OS
+### 2021-04-08
+- Fix: Fixed Android MABS builds for Firebase Analytics being used with OneSignal [RMET-580](https://outsystemsrd.atlassian.net/browse/RMET-580)
+
+### 2021-03-29
+- Fix: Fixed hook unzipAndCopyConfigurations
+
+### 2021-03-18
+- Feature: added pipelines configuration [RMET-437](https://outsystemsrd.atlassian.net/browse/RMET-437
+
+### 2021-03-11
+- Fix: Fixed the configurations hook (unzipAndCopyConfigurations). [RMET-547](https://outsystemsrd.atlassian.net/browse/RMET-547)
+
+### 2021-03-04
+- Fix: Changed the way we include Google Services for Android. [RMET-539](https://outsystemsrd.atlassian.net/browse/RMET-539)
+
+### 2021-02-26
+- Fix: Fixed MABS builds for both versions of MABS and Sample App connecting to Firebase Project. [RMET-539](https://outsystemsrd.atlassian.net/browse/RMET-539)
+
+### 2021-02-25
+- Fix: Removed unnecessary dependency and add gradle configuration file. [RMET-539](https://outsystemsrd.atlassian.net/browse/RMET-539)

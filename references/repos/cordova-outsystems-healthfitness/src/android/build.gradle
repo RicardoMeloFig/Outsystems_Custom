@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://pkgs.dev.azure.com/OutSystemsRD/9e79bc5b-69b2-4476-9ca5-d67594972a52/_packaging/PublicArtifactRepository/maven/v1' }
+    }
+}
+
+dependencies{
+    implementation("com.google.android.gms:play-services-auth:19.2.0")
+    implementation("com.google.android.gms:play-services-location:19.0.1")
+    implementation("com.google.code.gson:gson:2.8.9")
+
+    implementation 'com.google.code.findbugs:jsr305:1.3.9'
+
+    implementation("com.github.outsystems:oshealthfitness-android:3.0.1@aar")
+
+    // activity
+    implementation "androidx.activity:activity-ktx:1.8.2"
+
+    // appcompact
+    implementation "androidx.appcompat:appcompat:1.6.1"
+
+    // health connect sdk
+    implementation "androidx.health.connect:connect-client:1.1.0-beta01"
+
+    // compose
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation 'androidx.compose.material3:material3:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+    
+    def roomVersion = "2.4.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+}
+
+android {
+    buildTypes {
+        debug {
+            // do not upload debug versions to crashlytics
+        }
+    }
+}

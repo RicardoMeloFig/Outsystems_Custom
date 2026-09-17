@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="com.os.mobile.cachelocation"
+      version="1.0.0">
+    <name>Cache Coordinates</name>
+    <description>Plugins to get Coordinates and store them</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,outsystems, coordinates, cache</keywords>
+    <repo></repo>
+    <issue></issue>
+
+    <js-module src="www/CacheCoordinates.js" name="CacheCoordinates">
+        <clobbers target="cordova.plugins.cacheCoordinates" />
+        <clobbers target="plugin.cacheCoordinates" />
+    </js-module>
+
+    <!-- Android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CacheCoordinatesPlugin">
+                <param name="android-package" value="com.os.mobile.cachelocation.CacheLocation"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        </config-file>
+
+        <!--<dependency id="com.android.support:support-annotations:22.2.0"/> -->
+
+        <source-file src="src/android/CacheLocation.java" target-dir="src/com/os/mobile/cachelocation" />
+        <source-file src="src/android/LocationStore.java" target-dir="src/com/os/mobile/cachelocation" />
+        <source-file src="src/android/LocationTracker.java" target-dir="src/com/os/mobile/cachelocation" />
+        <source-file src="src/android/LocationUtils.java" target-dir="src/com/os/mobile/cachelocation" />
+        <source-file src="src/android/TrackerSettings.java" target-dir="src/com/os/mobile/cachelocation" />
+        <!--<source-file src="src/android/CacheLocationRes/res/values/strings.xml" target-dir="res/values"/>-->
+    </platform>
+
+</plugin>

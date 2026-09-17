@@ -1,0 +1,122 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+name: Node CI
+
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # "bin/templates/platform_www/cordova.js" is ignored because it is a generated file.
+      # It contains mixed content from the npm package "cordova-js" and "./cordova-js-src".
+      # The report might not be resolvable because of the external package.
+      # If the report is related to this repository, it would be detected when scanning "./cordova-js-src".
+      - uses: github/codeql-action/init@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
+        with:
+          languages: javascript, java-kotlin
+          queries: security-and-quality
+          # When 'build-mode' is set to 'none', CodeQL will create a database without
+          # requiring a build for Java. If Kotlin files are added in the future, build
+          # will be required.
+          build-mode: none
+          config: |
+            paths-ignore:
+              - coverage
+              - node_modules
+              - templates/project/assets/www/cordova.js
+              - test/androidx/app/src/main/assets/www/cordova.js
+              - framework/build/intermediates
+              - framework/build/outputs
+              - framework/build/reports
+              - framework/build/tmp
+              - test/androidx/build/intermediates
+              - test/androidx/build/outputs
+              - test/androidx/build/reports
+              - test/androidx/build/tmp
+
+      - uses: github/codeql-action/analyze@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
+
+  test:
+    name: NodeJS ${{ matrix.node-version }} on ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x, 24.x, 26.x]
+        os: [ubuntu-latest, windows-latest, macos-26]
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Environment Information
+        run: |
+          node --version
+          npm --version
+          gradle --version
+
+      - name: npm install and test
+        run: |
+          npm cit
+        env:
+          CI: true
+
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+        if: success()
+        with:
+          name: ${{ runner.os }} node.js ${{ matrix.node-version }}
+          token: ${{ secrets.CORDOVA_CODECOV_TOKEN }}
+          fail_ci_if_error: false

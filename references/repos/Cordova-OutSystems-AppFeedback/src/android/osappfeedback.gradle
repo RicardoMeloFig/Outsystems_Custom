@@ -1,0 +1,21 @@
+repositories {
+    google()
+    mavenCentral()
+    flatDir {
+        dirs 'libs', 'src/main/libs'
+    }
+}
+
+dependencies {
+    implementation 'com.loopj.android:android-async-http:1.4.11'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'commons-io:commons-io:1.3.2'
+    implementation(name: 'MobileECT', ext: 'aar')
+}
+
+android {
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <!-- OutSystems Error Screen -->
+    <dimen name="button_border">2dp</dimen>
+</resources>

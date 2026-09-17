@@ -1,0 +1,40 @@
+{
+  "name": "com.outsystems.plugins.SecureSQLiteBundle",
+  "version": "2.2.8",
+  "description": "Bundle of SQLite related storage plugins and initialization code for easy use with the OutSystems Platform",
+  "cordova": {
+    "id": "com.outsystems.plugins.SecureSQLiteBundle",
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OutSystems/cordova-outsystems-secure-sqlite-bundle.git"
+  },
+  "keywords": [
+    "sqlite",
+    "sqlcipher",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.3.0"
+    }
+  ],
+  "scripts": {
+    "capacitor:update:before": "node build-actions/update_strings_for_keystore.js"
+  },
+  "author": "OutSystems",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OutSystems/cordova-outsystems-secure-sqlite-bundle/issues"
+  },
+  "homepage": "https://github.com/OutSystems/cordova-outsystems-secure-sqlite-bundle"
+}

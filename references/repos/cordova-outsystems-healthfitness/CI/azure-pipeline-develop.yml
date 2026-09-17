@@ -1,0 +1,15 @@
+name: 'Develop'
+
+trigger: none
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - master
+    - outsystems
+    - android-unit-tests
+
+stages:
+- template: 'templates/tests-stage.yml'
+  parameters:
+    platforms: ['all']

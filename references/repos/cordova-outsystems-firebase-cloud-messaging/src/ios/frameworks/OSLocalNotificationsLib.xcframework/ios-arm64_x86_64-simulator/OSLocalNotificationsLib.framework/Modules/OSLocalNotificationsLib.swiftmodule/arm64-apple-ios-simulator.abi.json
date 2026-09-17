@@ -1,0 +1,2742 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOInternalEvent",
+        "printedName": "OSLCNOInternalEvent",
+        "children": [
+          {
+            "kind": "TypeDecl",
+            "name": "CodingKeys",
+            "printedName": "CodingKeys",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "screenName",
+                "printedName": "screenName",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys.Type) -> OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CodingKeys",
+                            "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO10screenNameyA2EmF",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO10screenNameyA2EmF",
+                "moduleName": "OSLocalNotificationsLib"
+              },
+              {
+                "kind": "Var",
+                "name": "parameterArray",
+                "printedName": "parameterArray",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys.Type) -> OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CodingKeys",
+                            "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO14parameterArrayyA2EmF",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO14parameterArrayyA2EmF",
+                "moduleName": "OSLocalNotificationsLib"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueAESgSS_tcfc",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueAESgSS_tcfc",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueSSvp",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueSSvp",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueSSvg",
+                    "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8rawValueSSvg",
+                    "moduleName": "OSLocalNotificationsLib",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "stringValue",
+                "printedName": "stringValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueSSvp",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueSSvp",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueSSvg",
+                    "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueSSvg",
+                    "moduleName": "OSLocalNotificationsLib",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(stringValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueAESgSS_tcfc",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO11stringValueAESgSS_tcfc",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "intValue",
+                "printedName": "intValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueSiSgvp",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueSiSgvp",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Int?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueSiSgvg",
+                    "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueSiSgvg",
+                    "moduleName": "OSLocalNotificationsLib",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(intValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueAESgSi_tcfc",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8intValueAESgSi_tcfc",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "allCases",
+                "printedName": "allCases",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CodingKeys",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8allCasesSayAEGvpZ",
+                "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8allCasesSayAEGvpZ",
+                "moduleName": "OSLocalNotificationsLib",
+                "static": true,
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CodingKeys",
+                            "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8allCasesSayAEGvgZ",
+                    "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO8allCasesSayAEGvgZ",
+                    "moduleName": "OSLocalNotificationsLib",
+                    "static": true,
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO",
+            "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CodingKey",
+                "printedName": "CodingKey",
+                "usr": "s:s9CodingKeyP",
+                "mangledName": "$ss9CodingKeyP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CaseIterable",
+                "printedName": "CaseIterable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "AllCases",
+                    "printedName": "AllCases",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CodingKeys",
+                            "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys",
+                            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10CodingKeysO"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:s12CaseIterableP",
+                "mangledName": "$ss12CaseIterableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CustomDebugStringConvertible",
+                "printedName": "CustomDebugStringConvertible",
+                "usr": "s:s28CustomDebugStringConvertibleP",
+                "mangledName": "$ss28CustomDebugStringConvertibleP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CustomStringConvertible",
+                "printedName": "CustomStringConvertible",
+                "usr": "s:s23CustomStringConvertibleP",
+                "mangledName": "$ss23CustomStringConvertibleP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(screenName:parameterArray:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOInternalEvent",
+                "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[OSLocalNotificationsLib.OSLCNOParameter]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[OSLocalNotificationsLib.OSLCNOParameter]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOParameter",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOParameter",
+                        "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV10screenName14parameterArrayACSS_SayAA15OSLCNOParameterVGSgtcfc",
+            "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV10screenName14parameterArrayACSS_SayAA15OSLCNOParameterVGSgtcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOInternalEvent",
+                "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent",
+                "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV",
+        "mangledName": "$s23OSLocalNotificationsLib19OSLCNOInternalEventV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOError",
+        "printedName": "OSLCNOError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "noTitle",
+            "printedName": "noTitle",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOError.Type) -> OSLocalNotificationsLib.OSLCNOError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOError",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOError",
+                    "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOError",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOError",
+                        "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO7noTitleyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO7noTitleyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "triggerError",
+            "printedName": "triggerError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOError.Type) -> OSLocalNotificationsLib.OSLCNOError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOError",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOError",
+                    "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOError",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOError",
+                        "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO12triggerErroryA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO12triggerErroryA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "errorDescription",
+            "printedName": "errorDescription",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO16errorDescriptionSSSgvp",
+            "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO16errorDescriptionSSSgvp",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO16errorDescriptionSSSgvg",
+                "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO16errorDescriptionSSSgvg",
+                "moduleName": "OSLocalNotificationsLib",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSLocalNotificationsLib.OSLCNOError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOError",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOError",
+                    "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO8rawValueACSgSi_tcfc",
+            "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO8rawValueACSgSi_tcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO8rawValueSivp",
+            "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO8rawValueSivp",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO8rawValueSivg",
+                "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO8rawValueSivg",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:23OSLocalNotificationsLib11OSLCNOErrorO",
+        "mangledName": "$s23OSLocalNotificationsLib11OSLCNOErrorO",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomNSError",
+            "printedName": "CustomNSError",
+            "usr": "s:10Foundation13CustomNSErrorP",
+            "mangledName": "$s10Foundation13CustomNSErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "LocalizedError",
+            "printedName": "LocalizedError",
+            "usr": "s:10Foundation14LocalizedErrorP",
+            "mangledName": "$s10Foundation14LocalizedErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOFactory",
+        "printedName": "OSLCNOFactory",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "createUNWrapper",
+            "printedName": "createUNWrapper()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOActionDelegate",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionDelegate",
+                "usr": "s:23OSLocalNotificationsLib20OSLCNOActionDelegateP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib13OSLCNOFactoryV15createUNWrapperAA20OSLCNOActionDelegate_pyFZ",
+            "mangledName": "$s23OSLocalNotificationsLib13OSLCNOFactoryV15createUNWrapperAA20OSLCNOActionDelegate_pyFZ",
+            "moduleName": "OSLocalNotificationsLib",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib13OSLCNOFactoryV",
+        "mangledName": "$s23OSLocalNotificationsLib13OSLCNOFactoryV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOActionDelegate",
+        "printedName": "OSLCNOActionDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "triggerNotification",
+            "printedName": "triggerNotification(with:_:_:sound:actions:and:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.Int?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[OSLocalNotificationsLib.OSLCNOAction]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[OSLocalNotificationsLib.OSLCNOAction]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOAction",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOAction",
+                        "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOInternalEvent",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOInternalEvent",
+                    "usr": "s:23OSLocalNotificationsLib19OSLCNOInternalEventV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib20OSLCNOActionDelegateP19triggerNotification4with__5sound7actions3andySS_SSSgSiSgAISayAA0D0VGSgAA19OSLCNOInternalEventVSgtYaKF",
+            "mangledName": "$s23OSLocalNotificationsLib20OSLCNOActionDelegateP19triggerNotification4with__5sound7actions3andySS_SSSgSiSgAISayAA0D0VGSgAA19OSLCNOInternalEventVSgtYaKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "genericSig": "<τ_0_0 where τ_0_0 : OSLocalNotificationsLib.OSLCNOActionDelegate>",
+            "sugared_genericSig": "<Self where Self : OSLocalNotificationsLib.OSLCNOActionDelegate>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "clearNotificationCategory",
+            "printedName": "clearNotificationCategory(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib20OSLCNOActionDelegateP25clearNotificationCategory4withySS_tYaF",
+            "mangledName": "$s23OSLocalNotificationsLib20OSLCNOActionDelegateP25clearNotificationCategory4withySS_tYaF",
+            "moduleName": "OSLocalNotificationsLib",
+            "genericSig": "<τ_0_0 where τ_0_0 : OSLocalNotificationsLib.OSLCNOActionDelegate>",
+            "sugared_genericSig": "<Self where Self : OSLocalNotificationsLib.OSLCNOActionDelegate>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:23OSLocalNotificationsLib20OSLCNOActionDelegateP",
+        "mangledName": "$s23OSLocalNotificationsLib20OSLCNOActionDelegateP",
+        "moduleName": "OSLocalNotificationsLib",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOParameter",
+        "printedName": "OSLCNOParameter",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(key:value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOParameter",
+                "printedName": "OSLocalNotificationsLib.OSLCNOParameter",
+                "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV3key5valueACSS_SStcfc",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNOParameterV3key5valueACSS_SStcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOParameter",
+                "printedName": "OSLocalNotificationsLib.OSLCNOParameter",
+                "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNOParameterV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNOParameterV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib15OSLCNOParameterV",
+        "mangledName": "$s23OSLocalNotificationsLib15OSLCNOParameterV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOActionEvent",
+        "printedName": "OSLCNOActionEvent",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "internalRoute",
+            "printedName": "internalRoute",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOActionEvent.Type) -> OSLocalNotificationsLib.OSLCNOActionEvent",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionEvent",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                    "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOActionEvent",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                        "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO13internalRouteyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO13internalRouteyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "appRoute",
+            "printedName": "appRoute",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOActionEvent.Type) -> OSLocalNotificationsLib.OSLCNOActionEvent",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionEvent",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                    "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOActionEvent",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                        "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO8appRouteyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO8appRouteyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "webRoute",
+            "printedName": "webRoute",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOActionEvent.Type) -> OSLocalNotificationsLib.OSLCNOActionEvent",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionEvent",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                    "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOActionEvent",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                        "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO8webRouteyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO8webRouteyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionEvent",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                    "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueACSgSS_tcfc",
+            "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueACSgSS_tcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueSSvp",
+            "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueSSvp",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueSSvg",
+                "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO8rawValueSSvg",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO",
+        "mangledName": "$s23OSLocalNotificationsLib17OSLCNOActionEventO",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNORouteData",
+        "printedName": "OSLCNORouteData",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(deepLinkScheme:identifier:parameterData:fallbackUrl:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNORouteData",
+                "printedName": "OSLocalNotificationsLib.OSLCNORouteData",
+                "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV14deepLinkScheme10identifier09parameterE011fallbackUrlACSS_SSSgSDyS2SGSgAHtcfc",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNORouteDataV14deepLinkScheme10identifier09parameterE011fallbackUrlACSS_SSSgSDyS2SGSgAHtcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNORouteData",
+                "printedName": "OSLocalNotificationsLib.OSLCNORouteData",
+                "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNORouteDataV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib15OSLCNORouteDataV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV",
+        "mangledName": "$s23OSLocalNotificationsLib15OSLCNORouteDataV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOAction",
+        "printedName": "OSLCNOAction",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(identifier:label:textField:type:event:routeData:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOAction",
+                "printedName": "OSLocalNotificationsLib.OSLCNOAction",
+                "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionTextField?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionTextField",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionTextField",
+                    "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOActionType",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOActionEvent",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionEvent",
+                "usr": "s:23OSLocalNotificationsLib17OSLCNOActionEventO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNORouteData",
+                "printedName": "OSLocalNotificationsLib.OSLCNORouteData",
+                "usr": "s:23OSLocalNotificationsLib15OSLCNORouteDataV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV10identifier5label9textField4type5event9routeDataACSS_SSAA0d4TextH0VSgAA0D4TypeOAA0D5EventOAA011OSLCNORouteL0Vtcfc",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV10identifier5label9textField4type5event9routeDataACSS_SSAA0d4TextH0VSgAA0D4TypeOAA0D5EventOAA011OSLCNORouteL0Vtcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOAction",
+                "printedName": "OSLocalNotificationsLib.OSLCNOAction",
+                "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getParameterData",
+            "printedName": "getParameterData(withUserText:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Swift.String]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV16getParameterData12withUserTextSDyS2SGSgSSSg_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV16getParameterData12withUserTextSDyS2SGSgSSSg_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "internalScreenName",
+            "printedName": "internalScreenName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV18internalScreenNameSSvp",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV18internalScreenNameSSvp",
+            "moduleName": "OSLocalNotificationsLib",
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV18internalScreenNameSSvg",
+                "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV18internalScreenNameSSvg",
+                "moduleName": "OSLocalNotificationsLib",
+                "isFromExtension": true,
+                "throwing": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "getRouteURL",
+            "printedName": "getRouteURL(withUserText:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV11getRouteURL12withUserText10Foundation0G0VSgSSSg_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV11getRouteURL12withUserText10Foundation0G0VSgSSSg_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "fallbackURL",
+            "printedName": "fallbackURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV11fallbackURL10Foundation0F0VSgvp",
+            "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV11fallbackURL10Foundation0F0VSgvp",
+            "moduleName": "OSLocalNotificationsLib",
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.URL?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV11fallbackURL10Foundation0F0VSgvg",
+                "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV11fallbackURL10Foundation0F0VSgvg",
+                "moduleName": "OSLocalNotificationsLib",
+                "isFromExtension": true,
+                "throwing": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib12OSLCNOActionV",
+        "mangledName": "$s23OSLocalNotificationsLib12OSLCNOActionV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "OSLocalNotificationsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOActionType",
+        "printedName": "OSLCNOActionType",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "standard",
+            "printedName": "standard",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOActionType.Type) -> OSLocalNotificationsLib.OSLCNOActionType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionType",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                    "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOActionType",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                        "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO8standardyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO8standardyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "destructive",
+            "printedName": "destructive",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSLocalNotificationsLib.OSLCNOActionType.Type) -> OSLocalNotificationsLib.OSLCNOActionType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionType",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                    "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OSLCNOActionType",
+                        "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                        "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO11destructiveyA2CmF",
+            "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO11destructiveyA2CmF",
+            "moduleName": "OSLocalNotificationsLib"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionType?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLCNOActionType",
+                    "printedName": "OSLocalNotificationsLib.OSLCNOActionType",
+                    "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueACSgSS_tcfc",
+            "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueACSgSS_tcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueSSvp",
+            "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueSSvp",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueSSvg",
+                "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO8rawValueSSvg",
+                "moduleName": "OSLocalNotificationsLib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:23OSLocalNotificationsLib16OSLCNOActionTypeO",
+        "mangledName": "$s23OSLocalNotificationsLib16OSLCNOActionTypeO",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "OSLCNOActionTextField",
+        "printedName": "OSLCNOActionTextField",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(placeholder:inputTextKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOActionTextField",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionTextField",
+                "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV11placeholder05inputE3KeyACSS_SStcfc",
+            "mangledName": "$s23OSLocalNotificationsLib21OSLCNOActionTextFieldV11placeholder05inputE3KeyACSS_SStcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLCNOActionTextField",
+                "printedName": "OSLocalNotificationsLib.OSLCNOActionTextField",
+                "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s23OSLocalNotificationsLib21OSLCNOActionTextFieldV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s23OSLocalNotificationsLib21OSLCNOActionTextFieldV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSLocalNotificationsLib",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23OSLocalNotificationsLib21OSLCNOActionTextFieldV",
+        "mangledName": "$s23OSLocalNotificationsLib21OSLCNOActionTextFieldV",
+        "moduleName": "OSLocalNotificationsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "UNMutableNotificationContent",
+        "printedName": "UNMutableNotificationContent",
+        "declKind": "Class",
+        "usr": "c:objc(cs)UNMutableNotificationContent",
+        "moduleName": "UserNotifications",
+        "isOpen": true,
+        "intro_iOS": "10.0",
+        "objc_name": "UNMutableNotificationContent",
+        "declAttributes": [
+          "Available",
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)UNNotificationContent",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "UserNotifications.UNNotificationContent",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "UNUserNotificationCenter",
+        "printedName": "UNUserNotificationCenter",
+        "declKind": "Class",
+        "usr": "c:objc(cs)UNUserNotificationCenter",
+        "moduleName": "UserNotifications",
+        "isOpen": true,
+        "intro_iOS": "10.0",
+        "objc_name": "UNUserNotificationCenter",
+        "declAttributes": [
+          "Available",
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/UNMutableNotificationContent+Adapter.swift",
+      "kind": "IntegerLiteral",
+      "offset": 383,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/UNNotificationActionExtension.swift",
+      "kind": "StringLiteral",
+      "offset": 738,
+      "length": 6,
+      "value": "\"Send\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/UNNotificationActionExtension.swift",
+      "kind": "StringLiteral",
+      "offset": 781,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 141,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 167,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "StringLiteral",
+      "offset": 309,
+      "length": 39,
+      "value": "\"A notification must have a title set.\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "StringLiteral",
+      "offset": 396,
+      "length": 55,
+      "value": "\"There was an error while triggering the notification.\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 141,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 167,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 141,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOError.swift",
+      "kind": "IntegerLiteral",
+      "offset": 167,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 1891,
+      "length": 3,
+      "value": "\"\/\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2958,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3050,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 3113,
+      "length": 10,
+      "value": "\"\/\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 3122,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 3484,
+      "length": 37,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 3517,
+      "length": 1,
+      "value": "\":\/\/\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3821,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 3858,
+      "length": 3,
+      "value": "\"?\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 4045,
+      "length": 30,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 4065,
+      "length": 1,
+      "value": "\"=\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 4074,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4154,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/Models\/OSLCNOAction.swift",
+      "kind": "StringLiteral",
+      "offset": 4195,
+      "length": 3,
+      "value": "\"&\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/OSLCNOWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 31,
+      "length": 13,
+      "value": "\"OSLocalNotificationsLib.OSLCNOWrapper\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/OSLCNOWrapper.swift",
+      "kind": "StringLiteral",
+      "offset": 663,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/OSLCNOWrapper.swift",
+      "kind": "IntegerLiteral",
+      "offset": 753,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/Extensions\/Encodable+UNUserNotificationCenter.swift",
+      "kind": "Dictionary",
+      "offset": 284,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/Extensions\/Encodable+UNUserNotificationCenter.swift",
+      "kind": "Array",
+      "offset": 610,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/UNUserNotificationCenter+Adapter.swift",
+      "kind": "Array",
+      "offset": 402,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/alexandre.jacinto\/Documents\/Work\/OSRepos\/libraries\/OSLocalNotificationsLib-iOS\/OSLocalNotificationsLib\/UNExtensions\/UNUserNotificationCenter+Adapter.swift",
+      "kind": "Array",
+      "offset": 1056,
+      "length": 2,
+      "value": "[]"
+    }
+  ]
+}

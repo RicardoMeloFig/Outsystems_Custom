@@ -1,0 +1,21 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.11.1'
+    }
+}
+
+task assemble {}
+
+ext {
+    sdkVersion = 36
+    buildToolsVersion = '35.0.0'
+    ndkVersion = '28.0.12433566'
+}
+
+repositories {
+    google()
+}

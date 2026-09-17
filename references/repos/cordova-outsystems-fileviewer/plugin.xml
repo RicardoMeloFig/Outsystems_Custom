@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="com.outsystems.plugins.fileviewer" version="1.0.8" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>OSFileViewer</name>
+  <description>OutSystems Cordova Plugin to provide the functionality of a file viewer to mobile applications.</description>
+  <author>OutSystems Inc</author>
+  <js-module name="OSFileViewer" src="www/OSFileViewer.js">
+    <clobbers target="cordova.plugins.OSFileViewer"/>
+  </js-module>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="OSFileViewer">
+        <param name="android-package" value="com.outsystems.plugins.fileviewer.OSFileViewer"/>
+      </feature>
+    </config-file>
+    <config-file parent="application" target="AndroidManifest.xml">
+        <provider
+            android:name="com.outsystems.plugins.fileviewer.OSFileProvider"
+            android:authorities="${applicationId}.opener.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_viewer_paths"/>
+        </provider>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSFileViewer.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSOpenDocument.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSOpenFileChooser.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSPreviewDocument.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSGetMimeType.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/com/outsystems/plugins/fileviewer/OSFileProvider.java" target-dir="src/com/outsystems/plugins/fileviewer"/>
+    <source-file src="src/android/xml/file_viewer_paths.xml" target-dir="res/xml"/>
+  </platform>
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="OSFileViewer">
+        <param name="ios-package" value="OSFileViewer"/>
+      </feature>
+      <preference name="SwiftVersion" value="5" />
+    </config-file>
+    
+    <source-file src="src/ios/OSFileViewer.swift"/>
+    <source-file src="src/ios/FileDownloader.swift"/>
+    <source-file src="src/ios/FileViewerErrors.swift"/>
+    <source-file src="src/ios/FileViewerPlugin.swift"/>
+    <source-file src="src/ios/FileViewerPreview.swift"/>
+    <source-file src="src/ios/FileViewerOpenDocument.swift"/>
+    <source-file src="src/ios/String+Extension.swift"/>
+
+  </platform>
+</plugin>

@@ -1,0 +1,327 @@
+## [2.6.8-OS33]
+
+### 2026-08-21
+
+- chore(android): Remove kotlin declaration from plugin.xml (#51)
+
+
+## [2.6.8-OS32]
+
+### 2026-08-07
+
+- ci: use node 24 and update action versions (#50)
+
+
+## [2.6.8-OS31]
+
+### 2026-06-19
+
+- ci: Trigger release on push to outsystems (#49)
+- ci: Release and Changelog automation (#44)
+
+
+## Changelog (old)
+=========
+
+2.6.8-OS30 - 2026-05-28
+------------------
+- Feat: [iOS][Android] Add `invalidateOnBiometricChange` parameter to `set` method. When set to `true`, the stored secret is invalidated when the device's biometric configuration changes (https://outsystemsrd.atlassian.net/browse/RMET-5188).
+
+2.6.8-OS29 - 2026-03-06
+------------------
+- Fix: [iOS] - Update to library framework built with Xcode 16 and not 26 (https://outsystemsrd.atlassian.net/browse/RMET-5030).
+
+2.6.8-OS28 - 2026-02-03
+------------------
+- Fix: [iOS] Fix Bitcode error in App Store submission by re-building OSKeyStoreLib xcframework without Bitcode (https://outsystemsrd.atlassian.net/browse/RMET-4924)
+
+2.6.8-OS27 - 2026-01-13
+------------------
+- Chore: [Android] Remove unused dependencies to `oscore` and `oscordova` libs (https://outsystemsrd.atlassian.net/browse/RMET-4900)
+
+2.6.8-OS26 - 2026-01-05
+------------------
+- Chore: [iOS] Remove unnecessary dependency to OSCommonPluginLib on iOS (https://outsystemsrd.atlassian.net/browse/RMET-4899)
+
+2.6.8-OS25 - 2025-11-14
+------------------
+- Fix: [android] Fixes missing strings.xml on target project (https://outsystemsrd.atlassian.net/browse/RMET-4780)
+
+2.6.8-OS24 - 2025-09-30
+------------------
+- Fix: [android] Removes the `kotlin-kapt` plugin that was being added, fixing builds for Capacitor apps (https://outsystemsrd.atlassian.net/browse/RMET-4515)
+
+2.6.8-OS23 - 2025-07-08
+------------------
+- Fix: [android] Updates hook to avoid duplicates in `strings.xml` (https://outsystemsrd.atlassian.net/browse/RMET-4025).
+
+2.6.8-OS22 - 2025-06-06
+------------------
+- Fix: [Android] Capacitor Release builds failure.
+
+2.6.8-OS21 - 2025-02-07
+------------------
+- Chore: [iOS] Replace `cordova-plugin-add-swift-support` plugin with the `SwiftVersion` preference (https://outsystemsrd.atlassian.net/browse/RMET-4037).
+
+2.6.8-OS20 - 2024-09-11
+------------------
+- Feat: [Android] Update Error Codes (https://outsystemsrd.atlassian.net/browse/RMET-3607).
+
+2.6.8-OS19 - 2024-05-03
+------------------
+
+- Feat: [Android] Add parameters for title, subtitle, and negative button text of Biometric Prompt (https://outsystemsrd.atlassian.net/browse/RMET-3408).
+
+2.6.8-OS18 - 2024-01-11
+------------------
+
+- Fix: [Android] Update OSKeystoreLib version to fix incompatibility issue with AppFeedback (https://outsystemsrd.atlassian.net/browse/RMET-2994).
+
+- Feat: [iOS] Make library available as `xcframework` (https://outsystemsrd.atlassian.net/browse/RMET-2280).
+
+2.6.8-OS17 - 2023-01-20
+------------------
+
+### 20-01-2023
+Android - Add alternative authentication for Android below 11 (https://outsystemsrd.atlassian.net/browse/RMET-2190)
+
+2.6.8-OS16 - 2022-12-19
+------------------
+
+### 16-12-2022
+- Removed dependency to  jcenter() [RMET-2036](https://outsystemsrd.atlassian.net/browse/RMET-2036)
+
+- Fix: [Android] Replace dynamic gradle versions by fixed versions. (https://outsystemsrd.atlassian.net/browse/RMET-2045)
+
+2.6.8-OS15 - 2022-11-23
+------------------
+
+- Fix: [iOS] When there are no keys associated with a store, return empty string instead of `nil`.
+
+2.6.8-OS14 - 2022-11-09
+------------------
+
+- Fix: [iOS] Replace the old `OSCore` framework for the new `OSCommonPluginLib` pod.
+
+2.6.8-OS13 - 2022-10-21
+------------------
+
+- Android | Feat: Set Key Value pair (https://outsystemsrd.atlassian.net/browse/RMET-1843).
+- Android | Feat: Get Key Value pair (https://outsystemsrd.atlassian.net/browse/RMET-1844).
+- Android | Feat: Remove Key Value pair (https://outsystemsrd.atlassian.net/browse/RMET-1845).
+- Android | Feat: Migration process for key-value pairs (https://outsystemsrd.atlassian.net/browse/RMET-1846).
+
+- iOS | Feat: Set Key Value pair (https://outsystemsrd.atlassian.net/browse/RMET-1872).
+- iOS | Feat: Get Key Value pair. It works with both `Store` and `Key` parameters passed or just the first one (https://outsystemsrd.atlassian.net/browse/RMET-1873).
+- iOS | Feat: Delete Key Value pair. It works with both `Store` and `Key` parameters passed or just the first one (https://outsystemsrd.atlassian.net/browse/RMET-1874).
+
+2.6.8-OS12 - 2022-04-14
+------------------
+
+- Fix: For iOS 15, on the `init` method, if ProtectedData is unavailable, add an observer for the `UIApplicationProtectedDataDidBecomeAvailable` notification that re-triggers `init` when it becomes available. (RMET-1417)
+
+2.6.8-OS11 - 2022-04-12
+------------------
+
+- Fix: Fix for the error messages: Keystore operation failed, User not authenticated, Key not yet valid. (RMET-1182)
+
+
+2.6.8-OS9 - 2022-01-28
+------------------
+
+- Fix: Implementation the validation of the keys before to use. (RMET-1374)
+- Fix: Implementation of the skip flow in the authentication. (RMET-1373)
+
+2.6.8-OS8 - 2022-01-05
+------------------
+
+- Fix: error opening apps after creating a PIN for the first time. (RMET-1292)
+
+2.6.8-OS7 - 2021-11-04
+------------------
+
+- New plugin release to include metadata tag for MABS 7.2.0 compatibility.
+
+2.6.8 - 2017-05-29
+------------------
+
+- Fix multiple namespaced storages for android.
+  [demetris-manikas]
+
+2.6.7 - 2017-05-24
+------------------
+
+- Fixed windows bug introduced by 2.6.6.
+  [digaus]
+
+2.6.6 - 2017-05-19
+------------------
+
+- Drop unsafe iOS options.
+  [demetris-manikas]
+
+2.6.5 - 2017-04-10
+------------------
+
+- Delete saved values on new RSA key creation.
+  [demetris-manikas]
+
+2.6.4 - 2017-03-31
+------------------
+
+- Graceful handling of unsupported Android versions (4.3 and below).
+  [dpa99c]
+
+- Minor android fixes and tests.
+  [demetris-manikas]
+
+- Documentation fixes.
+  [jvjvjv]
+
+2.6.3 - 2016-11-21
+------------------
+
+- Android now thread-safe, fixes the issue with concurrent decryptions failing.
+  [demetris-manikas]
+
+2.6.2 - 2016-11-18
+------------------
+
+- Introduce a queue for decryption on Android so that only one
+  happens at a time. Fixes #75.
+  [ggozad]
+
+2.6.1 - 2016-11-09
+------------------
+
+- Make sure only string values are stored.
+  [demetris-manikas]
+
+2.6.0 - 2016-10-26
+------------------
+
+- Introduce keys(), clear() methods.
+  [yyfearth, demetris-manikas, ggozad]
+
+2.5.2 - 2016-10-11
+------------------
+
+- Fix migration issues.
+  [demetris-manikas]
+
+2.5.1 - 2016-09-12
+------------------
+
+- Fix migration to SharedPreferences error in certain android phones.
+  [ggozad]
+
+2.5.0 - 2016-09-12
+------------------
+
+- Move from localStorage to SharedPreferences.
+  [demetris-manikas]
+
+2.4.2 - 2016-09-01
+------------------
+
+- Update SSKeychain for iOS to SAMKeychain.
+  [briananderson1222]
+
+- More tests.
+  [ggozad]
+
+2.4.1 - 2016-07-28
+------------------
+
+- Make intitializing SecureStorage fail on android if screen-lock settings not appropriate. Introdudce secureDevice as an android-only function to bring up screen-lock settings with only appropriate options.
+  [ggozad, jdard, demetris-manikas]
+
+2.4.0 - 2016-07-04
+------------------
+
+- Windows phone implementation.
+  [sgrebnov]
+
+- Pass javascript Error to cordova failure callbacks, cleanup.
+  [sgrebnov]
+
+2.3.1 - 2016-06-22
+------------------
+
+- Patch sjcl_ss.js to prevent cordova with browserify flag including a unnecessary huge crypto-browserify polyfill.
+  [yyfearth]
+
+2.3.0 - 2016-06-16
+------------------
+
+- Native AES on android devices that support it.
+  [demetris-manikas]
+
+2.2.4 - 2016-05-25
+------------------
+
+- Fix #30, allowing concurrent calls to securestarage in iOS,
+  by not persisting callbackId's.
+  [ggozad]
+
+2.2.3 - 2016-05-18
+------------------
+
+- Fix broken version number in plugin.xml.
+  [ggozad]
+
+2.2.2 - 2016-05-10
+------------------
+
+- Execute iOS commands in separate threads instead of the main thread.
+  [goshakkk / hellyeahllc]
+
+2.2.1 - 2016-02-09
+------------------
+
+- package.json meta.
+  [ggozad]
+
+2.2.0 - 2016-01-05
+------------------
+
+- Supporting iOS 7 without 'WhenPasscodeSetThisDeviceOnly' option.
+  [embedded-spirit]
+
+
+2.1.0 - 2015-10-29
+------------------
+
+- Keychain accessibility setting for iOS.
+  [schaumiii]
+
+
+2.0.0 - 2015-10-28
+------------------
+
+- Update to use npm.
+  [ggozad]
+
+1.1.2 - 2015-04-16
+------------------
+
+- Fix Android key creation conflict.
+  [demetris-manikas]
+
+1.1.1 - 2015-04-13
+------------------
+
+- Android cleanup.
+  [demetris-manikas]
+
+1.1.0 - 2015-04-01
+------------------
+
+- Support the browser platform.
+  [ggozad]
+
+1.0.0 - 2015-03-30
+------------------
+
+- Initial release.
+  [ggozad]

@@ -1,0 +1,278 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ruimendes/Library/Developer/Xcode/DerivedData/TrustKit-aisxdipeotcvwebwwrtejwrexaua/Build/Intermediates.noindex/ArchiveIntermediates/TrustKit/InstallationBuildProductsLocation/Library/Frameworks/TrustKit.framework/TrustKit'
+relocations:
+  - { offset: 0x5F9AD, size: 0x8, addend: 0x0, symName: _TrustKitVersionString, symObjAddr: 0x0, symBinAddr: 0xAD18, symSize: 0x0 }
+  - { offset: 0x5F9E2, size: 0x8, addend: 0x0, symName: _TrustKitVersionNumber, symObjAddr: 0x30, symBinAddr: 0xAD48, symSize: 0x0 }
+  - { offset: 0x5FA2D, size: 0x8, addend: 0x0, symName: _TrustKitVersion, symObjAddr: 0x370, symBinAddr: 0x24088, symSize: 0x0 }
+  - { offset: 0x5FA4D, size: 0x8, addend: 0x0, symName: _kTSKSwizzleNetworkDelegates, symObjAddr: 0x378, symBinAddr: 0x24090, symSize: 0x0 }
+  - { offset: 0x5FA73, size: 0x8, addend: 0x0, symName: _kTSKPinnedDomains, symObjAddr: 0x380, symBinAddr: 0x24098, symSize: 0x0 }
+  - { offset: 0x5FA89, size: 0x8, addend: 0x0, symName: _kTSKIgnorePinningForUserDefinedTrustAnchors, symObjAddr: 0x388, symBinAddr: 0x240A0, symSize: 0x0 }
+  - { offset: 0x5FA9F, size: 0x8, addend: 0x0, symName: _kTSKPublicKeyHashes, symObjAddr: 0x390, symBinAddr: 0x240A8, symSize: 0x0 }
+  - { offset: 0x5FAC5, size: 0x8, addend: 0x0, symName: _kTSKEnforcePinning, symObjAddr: 0x398, symBinAddr: 0x240B0, symSize: 0x0 }
+  - { offset: 0x5FADB, size: 0x8, addend: 0x0, symName: _kTSKExcludeSubdomainFromParentPolicy, symObjAddr: 0x3A0, symBinAddr: 0x240B8, symSize: 0x0 }
+  - { offset: 0x5FAF1, size: 0x8, addend: 0x0, symName: _kTSKIncludeSubdomains, symObjAddr: 0x3A8, symBinAddr: 0x240C0, symSize: 0x0 }
+  - { offset: 0x5FB07, size: 0x8, addend: 0x0, symName: _kTSKPublicKeyAlgorithms, symObjAddr: 0x3B0, symBinAddr: 0x240C8, symSize: 0x0 }
+  - { offset: 0x5FB1D, size: 0x8, addend: 0x0, symName: _kTSKReportUris, symObjAddr: 0x3B8, symBinAddr: 0x240D0, symSize: 0x0 }
+  - { offset: 0x5FB33, size: 0x8, addend: 0x0, symName: _kTSKDisableDefaultReportUri, symObjAddr: 0x3C0, symBinAddr: 0x240D8, symSize: 0x0 }
+  - { offset: 0x5FB49, size: 0x8, addend: 0x0, symName: _kTSKExpirationDate, symObjAddr: 0x3C8, symBinAddr: 0x240E0, symSize: 0x0 }
+  - { offset: 0x5FB5F, size: 0x8, addend: 0x0, symName: _kTSKAlgorithmRsa2048, symObjAddr: 0x3D0, symBinAddr: 0x240E8, symSize: 0x0 }
+  - { offset: 0x5FB85, size: 0x8, addend: 0x0, symName: _kTSKAlgorithmRsa4096, symObjAddr: 0x3D8, symBinAddr: 0x240F0, symSize: 0x0 }
+  - { offset: 0x5FB9B, size: 0x8, addend: 0x0, symName: _kTSKAlgorithmEcDsaSecp256r1, symObjAddr: 0x3E0, symBinAddr: 0x240F8, symSize: 0x0 }
+  - { offset: 0x5FBB1, size: 0x8, addend: 0x0, symName: _kTSKAlgorithmEcDsaSecp384r1, symObjAddr: 0x3E8, symBinAddr: 0x24100, symSize: 0x0 }
+  - { offset: 0x5FC07, size: 0x8, addend: 0x0, symName: _InitializeDomainRegistry, symObjAddr: 0x0, symBinAddr: 0xDF0, symSize: 0x24 }
+  - { offset: 0x5FC4B, size: 0x8, addend: 0x0, symName: _kStringTable, symObjAddr: 0x24, symBinAddr: 0xAD50, symSize: 0x0 }
+  - { offset: 0x5FC82, size: 0x8, addend: 0x0, symName: _kNodeTable, symObjAddr: 0xD8EA, symBinAddr: 0x18616, symSize: 0x0 }
+  - { offset: 0x5FCF0, size: 0x8, addend: 0x0, symName: _kLeafNodeTable, symObjAddr: 0xB644, symBinAddr: 0x16370, symSize: 0x0 }
+  - { offset: 0x5FD1E, size: 0x8, addend: 0x0, symName: _InitializeDomainRegistry, symObjAddr: 0x0, symBinAddr: 0xDF0, symSize: 0x24 }
+  - { offset: 0x5FDB3, size: 0x8, addend: 0x0, symName: _verifyPublicKeyPin, symObjAddr: 0x0, symBinAddr: 0xE14, symSize: 0x294 }
+  - { offset: 0x5FE06, size: 0x8, addend: 0x0, symName: _verifyPublicKeyPin, symObjAddr: 0x0, symBinAddr: 0xE14, symSize: 0x294 }
+  - { offset: 0x60274, size: 0x8, addend: 0x0, symName: _identifier_for_vendor, symObjAddr: 0x0, symBinAddr: 0x10A8, symSize: 0xAC }
+  - { offset: 0x60287, size: 0x8, addend: 0x0, symName: _identifier_for_vendor, symObjAddr: 0x0, symBinAddr: 0x10A8, symSize: 0xAC }
+  - { offset: 0x602F5, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache initWithIdentifier:]', symObjAddr: 0x0, symBinAddr: 0x1154, symSize: 0xF8 }
+  - { offset: 0x60322, size: 0x8, addend: 0x0, symName: _rsa2048Asn1Header, symObjAddr: 0x1B84, symBinAddr: 0x1E1A8, symSize: 0x0 }
+  - { offset: 0x60350, size: 0x8, addend: 0x0, symName: _rsa3072Asn1Header, symObjAddr: 0x1B9C, symBinAddr: 0x1E1C0, symSize: 0x0 }
+  - { offset: 0x60366, size: 0x8, addend: 0x0, symName: _rsa4096Asn1Header, symObjAddr: 0x1BB4, symBinAddr: 0x1E1D8, symSize: 0x0 }
+  - { offset: 0x6037C, size: 0x8, addend: 0x0, symName: _ecDsaSecp256r1Asn1Header, symObjAddr: 0x1BCC, symBinAddr: 0x1E1F0, symSize: 0x0 }
+  - { offset: 0x6039E, size: 0x8, addend: 0x0, symName: _ecDsaSecp384r1Asn1Header, symObjAddr: 0x1BE6, symBinAddr: 0x1E20A, symSize: 0x0 }
+  - { offset: 0x60485, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache initWithIdentifier:]', symObjAddr: 0x0, symBinAddr: 0x1154, symSize: 0xF8 }
+  - { offset: 0x60590, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache hashSubjectPublicKeyInfoFromCertificate:]', symObjAddr: 0xF8, symBinAddr: 0x124C, symSize: 0x760 }
+  - { offset: 0x60A19, size: 0x8, addend: 0x0, symName: ___Block_byref_object_copy_, symObjAddr: 0x858, symBinAddr: 0x19AC, symSize: 0x10 }
+  - { offset: 0x60A3E, size: 0x8, addend: 0x0, symName: ___Block_byref_object_dispose_, symObjAddr: 0x868, symBinAddr: 0x19BC, symSize: 0x8 }
+  - { offset: 0x60A5D, size: 0x8, addend: 0x0, symName: '___60-[TSKSPKIHashCache hashSubjectPublicKeyInfoFromCertificate:]_block_invoke', symObjAddr: 0x870, symBinAddr: 0x19C4, symSize: 0x44 }
+  - { offset: 0x60ABC, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48r, symObjAddr: 0x8B4, symBinAddr: 0x1A08, symSize: 0x3C }
+  - { offset: 0x60AE5, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s48r, symObjAddr: 0x8F0, symBinAddr: 0x1A44, symSize: 0x34 }
+  - { offset: 0x60B04, size: 0x8, addend: 0x0, symName: '___60-[TSKSPKIHashCache hashSubjectPublicKeyInfoFromCertificate:]_block_invoke.16', symObjAddr: 0x924, symBinAddr: 0x1A78, symSize: 0x10 }
+  - { offset: 0x60B66, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48s, symObjAddr: 0x934, symBinAddr: 0x1A88, symSize: 0x30 }
+  - { offset: 0x60B8F, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s48s, symObjAddr: 0x964, symBinAddr: 0x1AB8, symSize: 0x30 }
+  - { offset: 0x60BF8, size: 0x8, addend: 0x0, symName: '___60-[TSKSPKIHashCache hashSubjectPublicKeyInfoFromCertificate:]_block_invoke.17', symObjAddr: 0x994, symBinAddr: 0x1AE8, symSize: 0x168 }
+  - { offset: 0x60D07, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32w, symObjAddr: 0xAFC, symBinAddr: 0x1C50, symSize: 0xC }
+  - { offset: 0x60D30, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32w, symObjAddr: 0xB08, symBinAddr: 0x1C5C, symSize: 0x8 }
+  - { offset: 0x60D4F, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache loadSPKICacheFromFileSystem]', symObjAddr: 0xB10, symBinAddr: 0x1C64, symSize: 0x16C }
+  - { offset: 0x60DD7, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache copyPublicKeyFromCertificate:]', symObjAddr: 0xC7C, symBinAddr: 0x1DD0, symSize: 0xEC }
+  - { offset: 0x60F81, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache SPKICachePath]', symObjAddr: 0xD68, symBinAddr: 0x1EBC, symSize: 0xB4 }
+  - { offset: 0x60FCA, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache spkiCache]', symObjAddr: 0xE1C, symBinAddr: 0x1F70, symSize: 0x8 }
+  - { offset: 0x61001, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache setSpkiCache:]', symObjAddr: 0xE24, symBinAddr: 0x1F78, symSize: 0xC }
+  - { offset: 0x61042, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache lockQueue]', symObjAddr: 0xE30, symBinAddr: 0x1F84, symSize: 0x8 }
+  - { offset: 0x61079, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache setLockQueue:]', symObjAddr: 0xE38, symBinAddr: 0x1F8C, symSize: 0xC }
+  - { offset: 0x610BA, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache spkiCacheFilename]', symObjAddr: 0xE44, symBinAddr: 0x1F98, symSize: 0x8 }
+  - { offset: 0x610F1, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache setSpkiCacheFilename:]', symObjAddr: 0xE4C, symBinAddr: 0x1FA0, symSize: 0xC }
+  - { offset: 0x61132, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache .cxx_destruct]', symObjAddr: 0xE58, symBinAddr: 0x1FAC, symSize: 0x3C }
+  - { offset: 0x61165, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache(TestSupport) resetSubjectPublicKeyInfoDiskCache]', symObjAddr: 0xE94, symBinAddr: 0x1FE8, symSize: 0x64 }
+  - { offset: 0x61199, size: 0x8, addend: 0x0, symName: '-[TSKSPKIHashCache(TestSupport) getSubjectPublicKeyInfoHashesCache]', symObjAddr: 0xEF8, symBinAddr: 0x204C, symSize: 0x8 }
+  - { offset: 0x61438, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter init]', symObjAddr: 0x0, symBinAddr: 0x2054, symSize: 0xB0 }
+  - { offset: 0x61518, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter init]', symObjAddr: 0x0, symBinAddr: 0x2054, symSize: 0xB0 }
+  - { offset: 0x61586, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter shouldRateLimitReport:]', symObjAddr: 0xB0, symBinAddr: 0x2104, symSize: 0x2B4 }
+  - { offset: 0x61658, size: 0x8, addend: 0x0, symName: '___47-[TSKReportsRateLimiter shouldRateLimitReport:]_block_invoke', symObjAddr: 0x364, symBinAddr: 0x23B8, symSize: 0xF8 }
+  - { offset: 0x616E2, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40r48w, symObjAddr: 0x45C, symBinAddr: 0x24B0, symSize: 0x40 }
+  - { offset: 0x6170B, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40r48w, symObjAddr: 0x49C, symBinAddr: 0x24F0, symSize: 0x34 }
+  - { offset: 0x6172A, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter setLastReportsCacheResetDate:]', symObjAddr: 0x4D0, symBinAddr: 0x2524, symSize: 0xC }
+  - { offset: 0x6176D, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter reportsCache]', symObjAddr: 0x4DC, symBinAddr: 0x2530, symSize: 0x8 }
+  - { offset: 0x617A4, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter setReportsCache:]', symObjAddr: 0x4E4, symBinAddr: 0x2538, symSize: 0xC }
+  - { offset: 0x617E5, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter lastReportsCacheResetDate]', symObjAddr: 0x4F0, symBinAddr: 0x2544, symSize: 0x8 }
+  - { offset: 0x6181C, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter reportsCacheQueue]', symObjAddr: 0x4F8, symBinAddr: 0x254C, symSize: 0x8 }
+  - { offset: 0x61853, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter setReportsCacheQueue:]', symObjAddr: 0x500, symBinAddr: 0x2554, symSize: 0xC }
+  - { offset: 0x61894, size: 0x8, addend: 0x0, symName: '-[TSKReportsRateLimiter .cxx_destruct]', symObjAddr: 0x50C, symBinAddr: 0x2560, symSize: 0x3C }
+  - { offset: 0x61B19, size: 0x8, addend: 0x0, symName: _parseTrustKitConfiguration, symObjAddr: 0x0, symBinAddr: 0x259C, symSize: 0xB10 }
+  - { offset: 0x61B2E, size: 0x8, addend: 0x0, symName: _parseTrustKitConfiguration, symObjAddr: 0x0, symBinAddr: 0x259C, symSize: 0xB10 }
+  - { offset: 0x61E4C, size: 0x8, addend: 0x0, symName: _evaluateCertificateChainTrust, symObjAddr: 0x0, symBinAddr: 0x30AC, symSize: 0x130 }
+  - { offset: 0x61E75, size: 0x8, addend: 0x0, symName: _evaluateCertificateChainTrust, symObjAddr: 0x0, symBinAddr: 0x30AC, symSize: 0x130 }
+  - { offset: 0x61F8A, size: 0x8, addend: 0x0, symName: _getCertificateAtIndex, symObjAddr: 0x130, symBinAddr: 0x31DC, symSize: 0xF4 }
+  - { offset: 0x6215C, size: 0x8, addend: 0x0, symName: _copyKey, symObjAddr: 0x224, symBinAddr: 0x32D0, symSize: 0x4 }
+  - { offset: 0x62188, size: 0x8, addend: 0x0, symName: _copyKey, symObjAddr: 0x224, symBinAddr: 0x32D0, symSize: 0x4 }
+  - { offset: 0x62220, size: 0x8, addend: 0x0, symName: _FindRegistryNode, symObjAddr: 0x0, symBinAddr: 0x32D4, symSize: 0x1BC }
+  - { offset: 0x62248, size: 0x8, addend: 0x0, symName: _g_string_table, symObjAddr: 0x3198, symBinAddr: 0x2A4E8, symSize: 0x0 }
+  - { offset: 0x62268, size: 0x8, addend: 0x0, symName: _g_node_table, symObjAddr: 0x31A0, symBinAddr: 0x2A4F0, symSize: 0x0 }
+  - { offset: 0x622CD, size: 0x8, addend: 0x0, symName: _g_leaf_node_table, symObjAddr: 0x31A8, symBinAddr: 0x2A4F8, symSize: 0x0 }
+  - { offset: 0x622FF, size: 0x8, addend: 0x0, symName: _g_num_root_children, symObjAddr: 0x31B0, symBinAddr: 0x2A500, symSize: 0x0 }
+  - { offset: 0x6231C, size: 0x8, addend: 0x0, symName: _g_leaf_node_table_offset, symObjAddr: 0x31B8, symBinAddr: 0x2A508, symSize: 0x0 }
+  - { offset: 0x6236B, size: 0x8, addend: 0x0, symName: _FindRegistryNode, symObjAddr: 0x0, symBinAddr: 0x32D4, symSize: 0x1BC }
+  - { offset: 0x6257D, size: 0x8, addend: 0x0, symName: _FindNodeInRange, symObjAddr: 0x1E4, symBinAddr: 0x34B8, symSize: 0x150 }
+  - { offset: 0x626B4, size: 0x8, addend: 0x0, symName: _StrDupExceptionComponent, symObjAddr: 0x334, symBinAddr: 0x3608, symSize: 0x60 }
+  - { offset: 0x62732, size: 0x8, addend: 0x0, symName: _HasLeafChildren, symObjAddr: 0x1BC, symBinAddr: 0x3490, symSize: 0x28 }
+  - { offset: 0x627BE, size: 0x8, addend: 0x0, symName: _FindRegistryLeafNode, symObjAddr: 0x394, symBinAddr: 0x3668, symSize: 0x1F0 }
+  - { offset: 0x629F0, size: 0x8, addend: 0x0, symName: _FindLeafNodeInRange, symObjAddr: 0x584, symBinAddr: 0x3858, symSize: 0x140 }
+  - { offset: 0x62B42, size: 0x8, addend: 0x0, symName: _GetHostnamePart, symObjAddr: 0x6C4, symBinAddr: 0x3998, symSize: 0x4C }
+  - { offset: 0x62B86, size: 0x8, addend: 0x0, symName: _SetRegistryTables, symObjAddr: 0x710, symBinAddr: 0x39E4, symSize: 0x2C }
+  - { offset: 0x62C2F, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter initAndRateLimitReports:sharedContainerIdentifier:]', symObjAddr: 0x0, symBinAddr: 0x3A10, symSize: 0x30C }
+  - { offset: 0x62D7E, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter initAndRateLimitReports:sharedContainerIdentifier:]', symObjAddr: 0x0, symBinAddr: 0x3A10, symSize: 0x30C }
+  - { offset: 0x62EFE, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter pinValidationFailedForHostname:port:certificateChain:notedHostname:reportURIs:includeSubdomains:enforcePinning:knownPins:validationResult:expirationDate:]', symObjAddr: 0x30C, symBinAddr: 0x3D1C, symSize: 0x4F4 }
+  - { offset: 0x630DF, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter URLSession:task:didCompleteWithError:]', symObjAddr: 0x800, symBinAddr: 0x4210, symSize: 0x78 }
+  - { offset: 0x63152, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter backgroundSession]', symObjAddr: 0x878, symBinAddr: 0x4288, symSize: 0x8 }
+  - { offset: 0x63189, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setBackgroundSession:]', symObjAddr: 0x880, symBinAddr: 0x4290, symSize: 0xC }
+  - { offset: 0x631CA, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter appBundleId]', symObjAddr: 0x88C, symBinAddr: 0x429C, symSize: 0x8 }
+  - { offset: 0x63201, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setAppBundleId:]', symObjAddr: 0x894, symBinAddr: 0x42A4, symSize: 0xC }
+  - { offset: 0x63242, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter appVersion]', symObjAddr: 0x8A0, symBinAddr: 0x42B0, symSize: 0x8 }
+  - { offset: 0x63279, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setAppVersion:]', symObjAddr: 0x8A8, symBinAddr: 0x42B8, symSize: 0xC }
+  - { offset: 0x632BA, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter appVendorId]', symObjAddr: 0x8B4, symBinAddr: 0x42C4, symSize: 0x8 }
+  - { offset: 0x632F1, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setAppVendorId:]', symObjAddr: 0x8BC, symBinAddr: 0x42CC, symSize: 0xC }
+  - { offset: 0x63332, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter appPlatform]', symObjAddr: 0x8C8, symBinAddr: 0x42D8, symSize: 0x8 }
+  - { offset: 0x63369, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setAppPlatform:]', symObjAddr: 0x8D0, symBinAddr: 0x42E0, symSize: 0xC }
+  - { offset: 0x633AA, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter appPlatformVersion]', symObjAddr: 0x8DC, symBinAddr: 0x42EC, symSize: 0x8 }
+  - { offset: 0x633E1, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setAppPlatformVersion:]', symObjAddr: 0x8E4, symBinAddr: 0x42F4, symSize: 0xC }
+  - { offset: 0x63422, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter rateLimiter]', symObjAddr: 0x8F0, symBinAddr: 0x4300, symSize: 0x8 }
+  - { offset: 0x63459, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setRateLimiter:]', symObjAddr: 0x8F8, symBinAddr: 0x4308, symSize: 0xC }
+  - { offset: 0x6349A, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter shouldRateLimitReports]', symObjAddr: 0x904, symBinAddr: 0x4314, symSize: 0x8 }
+  - { offset: 0x634D1, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter setShouldRateLimitReports:]', symObjAddr: 0x90C, symBinAddr: 0x431C, symSize: 0x8 }
+  - { offset: 0x6350C, size: 0x8, addend: 0x0, symName: '-[TSKBackgroundReporter .cxx_destruct]', symObjAddr: 0x914, symBinAddr: 0x4324, symSize: 0x6C }
+  - { offset: 0x636F7, size: 0x8, addend: 0x0, symName: '+[TSKNSURLSessionDelegateProxy swizzleNSURLSessionConstructors:]', symObjAddr: 0x0, symBinAddr: 0x4390, symSize: 0xB8 }
+  - { offset: 0x6397B, size: 0x8, addend: 0x0, symName: '+[TSKNSURLSessionDelegateProxy swizzleNSURLSessionConstructors:]', symObjAddr: 0x0, symBinAddr: 0x4390, symSize: 0xB8 }
+  - { offset: 0x639E4, size: 0x8, addend: 0x0, symName: '___64+[TSKNSURLSessionDelegateProxy swizzleNSURLSessionConstructors:]_block_invoke', symObjAddr: 0xB8, symBinAddr: 0x4448, symSize: 0xAC }
+  - { offset: 0x63A5E, size: 0x8, addend: 0x0, symName: '___64+[TSKNSURLSessionDelegateProxy swizzleNSURLSessionConstructors:]_block_invoke_2', symObjAddr: 0x164, symBinAddr: 0x44F4, symSize: 0x160 }
+  - { offset: 0x63B99, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s, symObjAddr: 0x2C4, symBinAddr: 0x4654, symSize: 0x28 }
+  - { offset: 0x63BC2, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s, symObjAddr: 0x2EC, symBinAddr: 0x467C, symSize: 0x28 }
+  - { offset: 0x63BE1, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s, symObjAddr: 0x314, symBinAddr: 0x46A4, symSize: 0x8 }
+  - { offset: 0x63C08, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s, symObjAddr: 0x31C, symBinAddr: 0x46AC, symSize: 0x8 }
+  - { offset: 0x63C27, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy initWithTrustKit:sessionDelegate:]', symObjAddr: 0x324, symBinAddr: 0x46B4, symSize: 0xD4 }
+  - { offset: 0x63CA9, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy respondsToSelector:]', symObjAddr: 0x3F8, symBinAddr: 0x4788, symSize: 0x7C }
+  - { offset: 0x63CF0, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy forwardingTargetForSelector:]', symObjAddr: 0x474, symBinAddr: 0x4804, symSize: 0x8 }
+  - { offset: 0x63D33, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy common_URLSession:challenge:completionHandler:]', symObjAddr: 0x47C, symBinAddr: 0x480C, symSize: 0x178 }
+  - { offset: 0x63DD5, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy URLSession:didReceiveChallenge:completionHandler:]', symObjAddr: 0x5F4, symBinAddr: 0x4984, symSize: 0xBC }
+  - { offset: 0x63E58, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy URLSession:task:didReceiveChallenge:completionHandler:]', symObjAddr: 0x6B0, symBinAddr: 0x4A40, symSize: 0xE0 }
+  - { offset: 0x63EEB, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy originalDelegate]', symObjAddr: 0x790, symBinAddr: 0x4B20, symSize: 0x8 }
+  - { offset: 0x63F22, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy setOriginalDelegate:]', symObjAddr: 0x798, symBinAddr: 0x4B28, symSize: 0xC }
+  - { offset: 0x63F63, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy trustKit]', symObjAddr: 0x7A4, symBinAddr: 0x4B34, symSize: 0x8 }
+  - { offset: 0x63F9A, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy setTrustKit:]', symObjAddr: 0x7AC, symBinAddr: 0x4B3C, symSize: 0xC }
+  - { offset: 0x63FDB, size: 0x8, addend: 0x0, symName: '-[TSKNSURLSessionDelegateProxy .cxx_destruct]', symObjAddr: 0x7B8, symBinAddr: 0x4B48, symSize: 0x30 }
+  - { offset: 0x6424B, size: 0x8, addend: 0x0, symName: _GetRegistryLength, symObjAddr: 0x0, symBinAddr: 0x4B78, symSize: 0x10C }
+  - { offset: 0x643A6, size: 0x8, addend: 0x0, symName: _GetRegistryLength, symObjAddr: 0x0, symBinAddr: 0x4B78, symSize: 0x10C }
+  - { offset: 0x6453F, size: 0x8, addend: 0x0, symName: _StrDup, symObjAddr: 0x10C, symBinAddr: 0x4C84, symSize: 0x54 }
+  - { offset: 0x645F5, size: 0x8, addend: 0x0, symName: _GetRegistryLengthImpl, symObjAddr: 0x160, symBinAddr: 0x4CD8, symSize: 0x1CC }
+  - { offset: 0x64A14, size: 0x8, addend: 0x0, symName: _GetNextHostnamePart, symObjAddr: 0x438, symBinAddr: 0x4FB0, symSize: 0xA0 }
+  - { offset: 0x64B33, size: 0x8, addend: 0x0, symName: _GetRegistryLengthAllowUnknownRegistries, symObjAddr: 0x32C, symBinAddr: 0x4EA4, symSize: 0x10C }
+  - { offset: 0x64D7D, size: 0x8, addend: 0x0, symName: _getPinningConfigurationKeyForDomain, symObjAddr: 0x0, symBinAddr: 0x5050, symSize: 0x410 }
+  - { offset: 0x64E16, size: 0x8, addend: 0x0, symName: _getPinningConfigurationKeyForDomain, symObjAddr: 0x0, symBinAddr: 0x5050, symSize: 0x410 }
+  - { offset: 0x64FA0, size: 0x8, addend: 0x0, symName: _ephemeralNSURLSessionConfiguration, symObjAddr: 0x410, symBinAddr: 0x5460, symSize: 0x3C }
+  - { offset: 0x6502A, size: 0x8, addend: 0x0, symName: _DoAssert, symObjAddr: 0x0, symBinAddr: 0x549C, symSize: 0x14 }
+  - { offset: 0x65044, size: 0x8, addend: 0x0, symName: _g_assert_hander, symObjAddr: 0x58, symBinAddr: 0x2A478, symSize: 0x0 }
+  - { offset: 0x6508E, size: 0x8, addend: 0x0, symName: _DoAssert, symObjAddr: 0x0, symBinAddr: 0x549C, symSize: 0x14 }
+  - { offset: 0x650EB, size: 0x8, addend: 0x0, symName: _SetDomainRegistryAssertHandler, symObjAddr: 0x14, symBinAddr: 0x54B0, symSize: 0xC }
+  - { offset: 0x65110, size: 0x8, addend: 0x0, symName: _DefaultAssertHandler, symObjAddr: 0x20, symBinAddr: 0x54BC, symSize: 0x34 }
+  - { offset: 0x651D9, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport initWithAppBundleId:appVersion:appPlatform:appPlatformVersion:appVendorId:trustkitVersion:hostname:port:dateTime:notedHostname:includeSubdomains:enforcePinning:validatedCertificateChain:knownPins:validationResult:expirationDate:]', symObjAddr: 0x0, symBinAddr: 0x54F0, symSize: 0x27C }
+  - { offset: 0x651E7, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport json]', symObjAddr: 0x27C, symBinAddr: 0x576C, symSize: 0x4F4 }
+  - { offset: 0x65211, size: 0x8, addend: 0x0, symName: _json.DateTimeFormatter, symObjAddr: 0x5788, symBinAddr: 0x2A510, symSize: 0x0 }
+  - { offset: 0x65227, size: 0x8, addend: 0x0, symName: _json.DateFormatter, symObjAddr: 0x5790, symBinAddr: 0x2A518, symSize: 0x0 }
+  - { offset: 0x6523D, size: 0x8, addend: 0x0, symName: _json.onceToken, symObjAddr: 0x5798, symBinAddr: 0x2A520, symSize: 0x0 }
+  - { offset: 0x654E3, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport initWithAppBundleId:appVersion:appPlatform:appPlatformVersion:appVendorId:trustkitVersion:hostname:port:dateTime:notedHostname:includeSubdomains:enforcePinning:validatedCertificateChain:knownPins:validationResult:expirationDate:]', symObjAddr: 0x0, symBinAddr: 0x54F0, symSize: 0x27C }
+  - { offset: 0x65648, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport json].cold.1', symObjAddr: 0xA60, symBinAddr: 0x86B0, symSize: 0x14 }
+  - { offset: 0x65664, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport json].cold.1', symObjAddr: 0xA60, symBinAddr: 0x86B0, symSize: 0x14 }
+  - { offset: 0x65676, size: 0x8, addend: 0x0, symName: '___27-[TSKPinFailureReport json]_block_invoke', symObjAddr: 0x770, symBinAddr: 0x5C60, symSize: 0x138 }
+  - { offset: 0x656DB, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport requestToUri:]', symObjAddr: 0x8A8, symBinAddr: 0x5D98, symSize: 0x84 }
+  - { offset: 0x65732, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport appBundleId]', symObjAddr: 0x92C, symBinAddr: 0x5E1C, symSize: 0x8 }
+  - { offset: 0x65769, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport appVersion]', symObjAddr: 0x934, symBinAddr: 0x5E24, symSize: 0x8 }
+  - { offset: 0x657A0, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport appPlatform]', symObjAddr: 0x93C, symBinAddr: 0x5E2C, symSize: 0x8 }
+  - { offset: 0x657D7, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport appPlatformVersion]', symObjAddr: 0x944, symBinAddr: 0x5E34, symSize: 0x8 }
+  - { offset: 0x6580E, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport appVendorId]', symObjAddr: 0x94C, symBinAddr: 0x5E3C, symSize: 0x8 }
+  - { offset: 0x65845, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport trustkitVersion]', symObjAddr: 0x954, symBinAddr: 0x5E44, symSize: 0x8 }
+  - { offset: 0x6587C, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport notedHostname]', symObjAddr: 0x95C, symBinAddr: 0x5E4C, symSize: 0x8 }
+  - { offset: 0x658B3, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport hostname]', symObjAddr: 0x964, symBinAddr: 0x5E54, symSize: 0x8 }
+  - { offset: 0x658EA, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport port]', symObjAddr: 0x96C, symBinAddr: 0x5E5C, symSize: 0x8 }
+  - { offset: 0x65921, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport dateTime]', symObjAddr: 0x974, symBinAddr: 0x5E64, symSize: 0x8 }
+  - { offset: 0x65958, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport includeSubdomains]', symObjAddr: 0x97C, symBinAddr: 0x5E6C, symSize: 0x8 }
+  - { offset: 0x6598F, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport validatedCertificateChain]', symObjAddr: 0x984, symBinAddr: 0x5E74, symSize: 0x8 }
+  - { offset: 0x659C6, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport knownPins]', symObjAddr: 0x98C, symBinAddr: 0x5E7C, symSize: 0x8 }
+  - { offset: 0x659FD, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport validationResult]', symObjAddr: 0x994, symBinAddr: 0x5E84, symSize: 0x8 }
+  - { offset: 0x65A34, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport enforcePinning]', symObjAddr: 0x99C, symBinAddr: 0x5E8C, symSize: 0x8 }
+  - { offset: 0x65A6B, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport knownPinsExpirationDate]', symObjAddr: 0x9A4, symBinAddr: 0x5E94, symSize: 0x8 }
+  - { offset: 0x65AA2, size: 0x8, addend: 0x0, symName: '-[TSKPinFailureReport .cxx_destruct]', symObjAddr: 0x9AC, symBinAddr: 0x5E9C, symSize: 0xB4 }
+  - { offset: 0x65BDE, size: 0x8, addend: 0x0, symName: '+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]', symObjAddr: 0x0, symBinAddr: 0x5F50, symSize: 0x1A0 }
+  - { offset: 0x65F61, size: 0x8, addend: 0x0, symName: '+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]', symObjAddr: 0x0, symBinAddr: 0x5F50, symSize: 0x1A0 }
+  - { offset: 0x66014, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke', symObjAddr: 0x1A0, symBinAddr: 0x60F0, symSize: 0xAC }
+  - { offset: 0x6608E, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke_2', symObjAddr: 0x24C, symBinAddr: 0x619C, symSize: 0xF8 }
+  - { offset: 0x6619E, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke.8', symObjAddr: 0x3A4, symBinAddr: 0x6294, symSize: 0xAC }
+  - { offset: 0x66218, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke_2.9', symObjAddr: 0x450, symBinAddr: 0x6340, symSize: 0x108 }
+  - { offset: 0x6632C, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke.13', symObjAddr: 0x558, symBinAddr: 0x6448, symSize: 0x88 }
+  - { offset: 0x66392, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke_2.14', symObjAddr: 0x5E0, symBinAddr: 0x64D0, symSize: 0xE4 }
+  - { offset: 0x66463, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke.20', symObjAddr: 0x6C4, symBinAddr: 0x65B4, symSize: 0x88 }
+  - { offset: 0x664C9, size: 0x8, addend: 0x0, symName: '___70+[TSKNSURLConnectionDelegateProxy swizzleNSURLConnectionConstructors:]_block_invoke_2.22', symObjAddr: 0x74C, symBinAddr: 0x663C, symSize: 0xD0 }
+  - { offset: 0x665AE, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy initWithTrustKit:connectionDelegate:]', symObjAddr: 0x81C, symBinAddr: 0x670C, symSize: 0xD4 }
+  - { offset: 0x66621, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy respondsToSelector:]', symObjAddr: 0x8F0, symBinAddr: 0x67E0, symSize: 0x38 }
+  - { offset: 0x66668, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy forwardingTargetForSelector:]', symObjAddr: 0x928, symBinAddr: 0x6818, symSize: 0x8 }
+  - { offset: 0x666AB, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy forwardToOriginalDelegateAuthenticationChallenge:forConnection:]', symObjAddr: 0x930, symBinAddr: 0x6820, symSize: 0xEC }
+  - { offset: 0x66702, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy connection:willSendRequestForAuthenticationChallenge:]', symObjAddr: 0xA1C, symBinAddr: 0x690C, symSize: 0x1A8 }
+  - { offset: 0x66794, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy originalDelegate]', symObjAddr: 0xBC4, symBinAddr: 0x6AB4, symSize: 0x8 }
+  - { offset: 0x667CB, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy setOriginalDelegate:]', symObjAddr: 0xBCC, symBinAddr: 0x6ABC, symSize: 0xC }
+  - { offset: 0x6680C, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy trustKit]', symObjAddr: 0xBD8, symBinAddr: 0x6AC8, symSize: 0x8 }
+  - { offset: 0x66843, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy setTrustKit:]', symObjAddr: 0xBE0, symBinAddr: 0x6AD0, symSize: 0xC }
+  - { offset: 0x66884, size: 0x8, addend: 0x0, symName: '-[TSKNSURLConnectionDelegateProxy .cxx_destruct]', symObjAddr: 0xBEC, symBinAddr: 0x6ADC, symSize: 0x30 }
+  - { offset: 0x66D27, size: 0x8, addend: 0x0, symName: _TSKLog, symObjAddr: 0x0, symBinAddr: 0x6B0C, symSize: 0x84 }
+  - { offset: 0x66D46, size: 0x8, addend: 0x0, symName: __loggerBlock, symObjAddr: 0x7948, symBinAddr: 0x2A558, symSize: 0x0 }
+  - { offset: 0x66DC6, size: 0x8, addend: 0x0, symName: '+[TrustKit initSharedInstanceWithConfiguration:sharedContainerIdentifier:]', symObjAddr: 0xD0, symBinAddr: 0x6BDC, symSize: 0xD8 }
+  - { offset: 0x66DEC, size: 0x8, addend: 0x0, symName: '_initSharedInstanceWithConfiguration:sharedContainerIdentifier:.onceToken', symObjAddr: 0x7958, symBinAddr: 0x2A530, symSize: 0x0 }
+  - { offset: 0x66E6E, size: 0x8, addend: 0x0, symName: '-[TrustKit initWithConfiguration:sharedContainerIdentifier:isSingleton:]', symObjAddr: 0x2D0, symBinAddr: 0x6D8C, symSize: 0x2AC }
+  - { offset: 0x66E98, size: 0x8, addend: 0x0, symName: '_initWithConfiguration:sharedContainerIdentifier:isSingleton:.onceToken', symObjAddr: 0x7960, symBinAddr: 0x2A538, symSize: 0x0 }
+  - { offset: 0x66F72, size: 0x8, addend: 0x0, symName: _sharedTrustKit, symObjAddr: 0x7950, symBinAddr: 0x2A528, symSize: 0x0 }
+  - { offset: 0x671C1, size: 0x8, addend: 0x0, symName: _sharedHashCache, symObjAddr: 0x7968, symBinAddr: 0x2A540, symSize: 0x0 }
+  - { offset: 0x671EC, size: 0x8, addend: 0x0, symName: _kTSKPinFailureReporterQueueLabel, symObjAddr: 0x15F0, symBinAddr: 0x1E238, symSize: 0x0 }
+  - { offset: 0x67215, size: 0x8, addend: 0x0, symName: _TSKLog, symObjAddr: 0x0, symBinAddr: 0x6B0C, symSize: 0x84 }
+  - { offset: 0x67280, size: 0x8, addend: 0x0, symName: '+[TrustKit sharedInstance]', symObjAddr: 0x84, symBinAddr: 0x6B90, symSize: 0x44 }
+  - { offset: 0x672B3, size: 0x8, addend: 0x0, symName: '+[TrustKit initSharedInstanceWithConfiguration:]', symObjAddr: 0xC8, symBinAddr: 0x6BD4, symSize: 0x8 }
+  - { offset: 0x67332, size: 0x8, addend: 0x0, symName: '___74+[TrustKit initSharedInstanceWithConfiguration:sharedContainerIdentifier:]_block_invoke', symObjAddr: 0x1A8, symBinAddr: 0x6CB4, symSize: 0xC8 }
+  - { offset: 0x6737D, size: 0x8, addend: 0x0, symName: '-[TrustKit initWithConfiguration:]', symObjAddr: 0x2C0, symBinAddr: 0x6D7C, symSize: 0x8 }
+  - { offset: 0x673C0, size: 0x8, addend: 0x0, symName: '-[TrustKit initWithConfiguration:sharedContainerIdentifier:]', symObjAddr: 0x2C8, symBinAddr: 0x6D84, symSize: 0x8 }
+  - { offset: 0x67440, size: 0x8, addend: 0x0, symName: '-[TrustKit initWithConfiguration:sharedContainerIdentifier:isSingleton:].cold.1', symObjAddr: 0xBFC, symBinAddr: 0x86C4, symSize: 0x24 }
+  - { offset: 0x6746E, size: 0x8, addend: 0x0, symName: '___72-[TrustKit initWithConfiguration:sharedContainerIdentifier:isSingleton:]_block_invoke', symObjAddr: 0x57C, symBinAddr: 0x7038, symSize: 0x38 }
+  - { offset: 0x67495, size: 0x8, addend: 0x0, symName: '___72-[TrustKit initWithConfiguration:sharedContainerIdentifier:isSingleton:]_block_invoke_2', symObjAddr: 0x5B4, symBinAddr: 0x7070, symSize: 0x168 }
+  - { offset: 0x6755F, size: 0x8, addend: 0x0, symName: '___72-[TrustKit initWithConfiguration:sharedContainerIdentifier:isSingleton:]_block_invoke_3', symObjAddr: 0x71C, symBinAddr: 0x71D8, symSize: 0x14 }
+  - { offset: 0x675D6, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48s56b, symObjAddr: 0x730, symBinAddr: 0x71EC, symSize: 0x44 }
+  - { offset: 0x675FF, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s40s48s56s, symObjAddr: 0x774, symBinAddr: 0x7230, symSize: 0x38 }
+  - { offset: 0x6761E, size: 0x8, addend: 0x0, symName: '-[TrustKit sendValidationReport:notedHostname:pinningPolicy:]', symObjAddr: 0x7C0, symBinAddr: 0x7268, symSize: 0x294 }
+  - { offset: 0x676BE, size: 0x8, addend: 0x0, symName: '-[TrustKit setPinningValidatorCallbackQueue:]', symObjAddr: 0xA54, symBinAddr: 0x74FC, symSize: 0x6C }
+  - { offset: 0x67719, size: 0x8, addend: 0x0, symName: '+[TrustKit setLoggerBlock:]', symObjAddr: 0xAC0, symBinAddr: 0x7568, symSize: 0x28 }
+  - { offset: 0x6775A, size: 0x8, addend: 0x0, symName: '-[TrustKit pinningValidator]', symObjAddr: 0xAE8, symBinAddr: 0x7590, symSize: 0x8 }
+  - { offset: 0x67791, size: 0x8, addend: 0x0, symName: '-[TrustKit setPinningValidator:]', symObjAddr: 0xAF0, symBinAddr: 0x7598, symSize: 0xC }
+  - { offset: 0x677D2, size: 0x8, addend: 0x0, symName: '-[TrustKit pinningValidatorCallback]', symObjAddr: 0xAFC, symBinAddr: 0x75A4, symSize: 0x8 }
+  - { offset: 0x67809, size: 0x8, addend: 0x0, symName: '-[TrustKit setPinningValidatorCallback:]', symObjAddr: 0xB04, symBinAddr: 0x75AC, symSize: 0x8 }
+  - { offset: 0x67848, size: 0x8, addend: 0x0, symName: '-[TrustKit pinningValidatorCallbackQueue]', symObjAddr: 0xB0C, symBinAddr: 0x75B4, symSize: 0x8 }
+  - { offset: 0x6787F, size: 0x8, addend: 0x0, symName: '-[TrustKit pinFailureReporter]', symObjAddr: 0xB14, symBinAddr: 0x75BC, symSize: 0x8 }
+  - { offset: 0x678B6, size: 0x8, addend: 0x0, symName: '-[TrustKit setPinFailureReporter:]', symObjAddr: 0xB1C, symBinAddr: 0x75C4, symSize: 0xC }
+  - { offset: 0x678F7, size: 0x8, addend: 0x0, symName: '-[TrustKit pinFailureReporterQueue]', symObjAddr: 0xB28, symBinAddr: 0x75D0, symSize: 0x8 }
+  - { offset: 0x6792E, size: 0x8, addend: 0x0, symName: '-[TrustKit setPinFailureReporterQueue:]', symObjAddr: 0xB30, symBinAddr: 0x75D8, symSize: 0xC }
+  - { offset: 0x6796F, size: 0x8, addend: 0x0, symName: '-[TrustKit configuration]', symObjAddr: 0xB3C, symBinAddr: 0x75E4, symSize: 0x8 }
+  - { offset: 0x679A6, size: 0x8, addend: 0x0, symName: '-[TrustKit .cxx_destruct]', symObjAddr: 0xB44, symBinAddr: 0x75EC, symSize: 0x60 }
+  - { offset: 0x679D9, size: 0x8, addend: 0x0, symName: _initializeWithInfoPlist, symObjAddr: 0xBA4, symBinAddr: 0x764C, symSize: 0x58 }
+  - { offset: 0x67D56, size: 0x8, addend: 0x0, symName: '+[TSKPinningValidator allowsAdditionalTrustAnchors]', symObjAddr: 0x0, symBinAddr: 0x76A4, symSize: 0x8 }
+  - { offset: 0x67D69, size: 0x8, addend: 0x0, symName: '+[TSKPinningValidator allowsAdditionalTrustAnchors]', symObjAddr: 0x0, symBinAddr: 0x76A4, symSize: 0x8 }
+  - { offset: 0x67FCF, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator initWithDomainPinningPolicies:hashCache:ignorePinsForUserTrustAnchors:validationCallbackQueue:validationCallback:]', symObjAddr: 0x8, symBinAddr: 0x76AC, symSize: 0x110 }
+  - { offset: 0x68056, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator evaluateTrust:forHostname:]', symObjAddr: 0x118, symBinAddr: 0x77BC, symSize: 0x3A0 }
+  - { offset: 0x68294, size: 0x8, addend: 0x0, symName: '___49-[TSKPinningValidator evaluateTrust:forHostname:]_block_invoke', symObjAddr: 0x4B8, symBinAddr: 0x7B5C, symSize: 0x44 }
+  - { offset: 0x6830F, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s40s48s56s, symObjAddr: 0x4FC, symBinAddr: 0x7BA0, symSize: 0x38 }
+  - { offset: 0x68338, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator handleChallenge:completionHandler:]', symObjAddr: 0x56C, symBinAddr: 0x7BD8, symSize: 0x184 }
+  - { offset: 0x68412, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator spkiHashCache]', symObjAddr: 0x6F0, symBinAddr: 0x7D5C, symSize: 0x8 }
+  - { offset: 0x68449, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator setSpkiHashCache:]', symObjAddr: 0x6F8, symBinAddr: 0x7D64, symSize: 0xC }
+  - { offset: 0x6848A, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator domainPinningPolicies]', symObjAddr: 0x704, symBinAddr: 0x7D70, symSize: 0x8 }
+  - { offset: 0x684C1, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator ignorePinsForUserTrustAnchors]', symObjAddr: 0x70C, symBinAddr: 0x7D78, symSize: 0x8 }
+  - { offset: 0x684F8, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator validationCallback]', symObjAddr: 0x714, symBinAddr: 0x7D80, symSize: 0x8 }
+  - { offset: 0x6852F, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator validationCallbackQueue]', symObjAddr: 0x71C, symBinAddr: 0x7D88, symSize: 0x8 }
+  - { offset: 0x68566, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidator .cxx_destruct]', symObjAddr: 0x724, symBinAddr: 0x7D90, symSize: 0x48 }
+  - { offset: 0x68779, size: 0x8, addend: 0x0, symName: _convertTrustToPemArray, symObjAddr: 0x0, symBinAddr: 0x7DD8, symSize: 0xFC }
+  - { offset: 0x6878C, size: 0x8, addend: 0x0, symName: _convertTrustToPemArray, symObjAddr: 0x0, symBinAddr: 0x7DD8, symSize: 0xFC }
+  - { offset: 0x688DE, size: 0x8, addend: 0x0, symName: _convertPinsToHpkpPins, symObjAddr: 0xFC, symBinAddr: 0x7ED4, symSize: 0x180 }
+  - { offset: 0x68986, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult initWithServerHostname:serverTrust:validationResult:finalTrustDecision:validationDuration:]', symObjAddr: 0x0, symBinAddr: 0x8054, symSize: 0xC0 }
+  - { offset: 0x68AA8, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult initWithServerHostname:serverTrust:validationResult:finalTrustDecision:validationDuration:]', symObjAddr: 0x0, symBinAddr: 0x8054, symSize: 0xC0 }
+  - { offset: 0x68B57, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult serverHostname]', symObjAddr: 0xC0, symBinAddr: 0x8114, symSize: 0x8 }
+  - { offset: 0x68B8E, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult evaluationResult]', symObjAddr: 0xC8, symBinAddr: 0x811C, symSize: 0x8 }
+  - { offset: 0x68BC5, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult finalTrustDecision]', symObjAddr: 0xD0, symBinAddr: 0x8124, symSize: 0x8 }
+  - { offset: 0x68BFC, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult validationDuration]', symObjAddr: 0xD8, symBinAddr: 0x812C, symSize: 0x8 }
+  - { offset: 0x68C31, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult certificateChain]', symObjAddr: 0xE0, symBinAddr: 0x8134, symSize: 0x8 }
+  - { offset: 0x68C68, size: 0x8, addend: 0x0, symName: '-[TSKPinningValidatorResult .cxx_destruct]', symObjAddr: 0xE8, symBinAddr: 0x813C, symSize: 0x30 }
+  - { offset: 0x68D26, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo getOriginalImplementation]', symObjAddr: 0x0, symBinAddr: 0x816C, symSize: 0xC }
+  - { offset: 0x68D34, size: 0x8, addend: 0x0, symName: _swizzledClassesDictionary, symObjAddr: 0x314, symBinAddr: 0x8480, symSize: 0x30 }
+  - { offset: 0x68D5C, size: 0x8, addend: 0x0, symName: _swizzledClassesDictionary.swizzledClasses, symObjAddr: 0x46B8, symBinAddr: 0x2A548, symSize: 0x0 }
+  - { offset: 0x68D73, size: 0x8, addend: 0x0, symName: _swizzledClassesDictionary.onceToken, symObjAddr: 0x46C0, symBinAddr: 0x2A550, symSize: 0x0 }
+  - { offset: 0x68EAE, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo getOriginalImplementation]', symObjAddr: 0x0, symBinAddr: 0x816C, symSize: 0xC }
+  - { offset: 0x68EF1, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo selector]', symObjAddr: 0xC, symBinAddr: 0x8178, symSize: 0x8 }
+  - { offset: 0x68F28, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo setSelector:]', symObjAddr: 0x14, symBinAddr: 0x8180, symSize: 0x8 }
+  - { offset: 0x68F65, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo impProviderBlock]', symObjAddr: 0x1C, symBinAddr: 0x8188, symSize: 0x8 }
+  - { offset: 0x68F9C, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo setImpProviderBlock:]', symObjAddr: 0x24, symBinAddr: 0x8190, symSize: 0x8 }
+  - { offset: 0x68FDB, size: 0x8, addend: 0x0, symName: '-[RSSwizzleInfo .cxx_destruct]', symObjAddr: 0x2C, symBinAddr: 0x8198, symSize: 0xC }
+  - { offset: 0x6913A, size: 0x8, addend: 0x0, symName: '+[RSSwizzle swizzleInstanceMethod:inClass:newImpFactory:mode:key:]', symObjAddr: 0x38, symBinAddr: 0x81A4, symSize: 0x2DC }
+  - { offset: 0x6937B, size: 0x8, addend: 0x0, symName: _swizzledClassesForKey, symObjAddr: 0x344, symBinAddr: 0x84B0, symSize: 0xA0 }
+  - { offset: 0x6949F, size: 0x8, addend: 0x0, symName: _swizzledClassesDictionary.cold.1, symObjAddr: 0x544, symBinAddr: 0x86E8, symSize: 0x14 }
+  - { offset: 0x694BB, size: 0x8, addend: 0x0, symName: _swizzledClassesDictionary.cold.1, symObjAddr: 0x544, symBinAddr: 0x86E8, symSize: 0x14 }
+  - { offset: 0x694CE, size: 0x8, addend: 0x0, symName: '+[RSSwizzle swizzleClassMethod:inClass:newImpFactory:]', symObjAddr: 0x3E4, symBinAddr: 0x8550, symSize: 0x60 }
+  - { offset: 0x6955D, size: 0x8, addend: 0x0, symName: ___swizzledClassesDictionary_block_invoke, symObjAddr: 0x444, symBinAddr: 0x85B0, symSize: 0x2C }
+  - { offset: 0x69586, size: 0x8, addend: 0x0, symName: ___swizzle_block_invoke, symObjAddr: 0x470, symBinAddr: 0x85DC, symSize: 0x68 }
+  - { offset: 0x6968C, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32r40r, symObjAddr: 0x4D8, symBinAddr: 0x8644, symSize: 0x3C }
+  - { offset: 0x696B5, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32r40r, symObjAddr: 0x514, symBinAddr: 0x8680, symSize: 0x30 }
+...

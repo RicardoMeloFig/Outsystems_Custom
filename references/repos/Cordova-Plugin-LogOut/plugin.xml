@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="com.os.mobile.logout"
+      version="1.0.0">
+    <name>Log Out</name>
+    <description>Log Out Plugn for come back to the login screen</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,outsystems, logout</keywords>
+    <repo></repo>
+    <issue></issue>
+
+    <js-module src="www/LogOut.js" name="LogOut">
+        <clobbers target="cordova.plugins.logOut" />
+        <clobbers target="plugin.logOut" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="LogOut">
+                <param name="ios-package" value="LogOut" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/LogOut.h" />
+        <source-file src="src/ios/LogOut.m" />
+    </platform>
+
+    <!-- Android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="LogOut">
+                <param name="android-package" value="com.os.mobile.logout.LogOut"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/LogOut.java" target-dir="src/com/os/mobile/logout" />
+    </platform>
+
+    <!-- windows -->
+    <platform name="windows">
+        <js-module src="src/windows/LogOutProxy.js" name="LogOutProxy">
+            <merges target="" />
+        </js-module>
+    </platform>
+
+
+</plugin>

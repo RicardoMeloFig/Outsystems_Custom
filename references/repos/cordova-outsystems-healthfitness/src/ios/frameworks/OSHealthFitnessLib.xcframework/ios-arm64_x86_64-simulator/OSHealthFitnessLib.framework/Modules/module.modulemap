@@ -1,0 +1,4 @@
+framework module OSHealthFitnessLib {
+  header "OSHealthFitnessLib-Swift.h"
+  requires objc
+}

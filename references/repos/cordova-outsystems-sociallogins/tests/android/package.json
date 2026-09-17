@@ -1,0 +1,12 @@
+{
+  "name": "OSSocialLoginsTests",
+  "version": "0.0.1",
+  "description": "Android Unit Tests for the plugin OSSocialLogins",
+  "dependencies": {
+    "cordova-android": "^6.1.2"
+  },
+  "scripts": {
+    "test": "cd OSSocialLoginsTest && ./gradlew testDebugUnitTest --continue"
+  },
+  "author": "OutSystems Inc"
+}

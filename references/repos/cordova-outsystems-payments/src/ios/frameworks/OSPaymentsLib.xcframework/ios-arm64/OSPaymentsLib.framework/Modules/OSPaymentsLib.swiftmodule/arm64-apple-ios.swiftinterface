@@ -1,0 +1,57 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OSPaymentsLib
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import PassKit
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum OSPMTError : Swift.Int, Foundation.CustomNSError, Foundation.LocalizedError {
+  case invalidConfiguration
+  case walletNotAvailable
+  case paymentNotAvailable
+  case setupPaymentNotAvailable
+  case invalidDecodeDetails
+  case invalidEncodeScope
+  case paymentTriggerPresentationFailed
+  case paymentCancelled
+  case gatewaySetFailed
+  case stripePaymentMethodCreation
+  case paymentIssue
+  case gatewayNotConfigured
+  case tokenIssue
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias OSPMTConfiguration = [Swift.String : Any]
+public protocol OSPMTCallbackDelegate : AnyObject {
+  func callback(result: Swift.String?, error: OSPaymentsLib.OSPMTError?)
+}
+public protocol OSPMTActionDelegate : AnyObject {
+  func setupConfiguration()
+  func checkWalletSetup()
+  func set(_ details: Swift.String, and accessToken: Swift.String?)
+}
+extension OSPaymentsLib.OSPMTActionDelegate {
+  public func set(_ details: Swift.String)
+}
+@objc @_hasMissingDesignatedInitializers public class OSPMTPayments : ObjectiveC.NSObject {
+  convenience public init(applePayWithDelegate delegate: any OSPaymentsLib.OSPMTCallbackDelegate, andConfiguration configurationSource: OSPaymentsLib.OSPMTConfiguration = Bundle.main.infoDictionary!)
+  @objc deinit
+}
+extension OSPaymentsLib.OSPMTPayments : OSPaymentsLib.OSPMTActionDelegate {
+  public func setupConfiguration()
+  public func checkWalletSetup()
+  public func set(_ details: Swift.String, and accessToken: Swift.String?)
+}
+extension OSPaymentsLib.OSPMTError : Swift.Equatable {}
+extension OSPaymentsLib.OSPMTError : Swift.Hashable {}
+extension OSPaymentsLib.OSPMTError : Swift.RawRepresentable {}

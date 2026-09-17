@@ -1,0 +1,67 @@
+{
+  "name": "cordova-plugin-local-notification",
+  "version": "1.0.0",
+  "description": "Schedules and queries for local notifications",
+  "cordova": {
+    "id": "cordova-plugin-local-notification",
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katzer/cordova-plugin-local-notifications.git"
+  },
+  "keywords": [
+    "appplant",
+    "notification",
+    "local notification",
+    "user notification",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-windows"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.6.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=6.0.0"
+    },
+    {
+      "name": "cordova-windows",
+      "version": ">=4.2.0"
+    },
+    {
+      "name": "android-sdk",
+      "version": ">=26"
+    },
+    {
+      "name": "apple-ios",
+      "version": ">=10.0.0"
+    }
+  ],
+  "author": "Sebastián Katzer",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/katzer/cordova-plugin-local-notifications/issues"
+  },
+  "homepage": "https://github.com/katzer/cordova-plugin-local-notifications#readme",
+  "scripts": {
+    "capacitor:update:after": "node capacitor_hooks/sethandleApplicationNotifications.js"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.2",
+    "semantic-release": "^25.0.2",
+    "xml2js": "^0.6.2"
+  }
+}

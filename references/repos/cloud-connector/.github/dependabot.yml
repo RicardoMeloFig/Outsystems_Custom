@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    rebase-strategy: "disabled"
+    commit-message:
+      prefix: "RDODCP-198"
+    allow:
+      - dependency-type: "all"
+    groups:
+      AllDependencies:
+        patterns:
+          - "*"

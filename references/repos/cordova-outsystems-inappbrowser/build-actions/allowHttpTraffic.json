@@ -1,0 +1,35 @@
+{
+  "variables": {
+    "ALLOW_HTTP_TRAFFIC": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "platforms": {
+    "android": {
+      "xml": [
+        {
+          "file": "app/src/main/res/xml/network_security_config.xml",
+          "target": "/network-security-config/base-config",
+          "attrs": {
+            "cleartextTrafficPermitted": "$ALLOW_HTTP_TRAFFIC"
+          }
+        }
+      ]
+    },
+    "ios": {
+      "plist": [
+        {
+          "file": "App/Info.plist",
+          "entries": [
+            {
+              "NSAppTransportSecurity": {
+                "NSAllowsArbitraryLoadsInWebContent": "$ALLOW_HTTP_TRAFFIC"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

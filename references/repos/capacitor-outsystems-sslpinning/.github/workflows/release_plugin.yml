@@ -1,0 +1,43 @@
+name: Release Capacitor Plugin (GitHub)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+    contents: write
+
+jobs:
+  setup:
+    uses: ./.github/workflows/reusable_setup.yml
+    secrets:
+      THE_GH_RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN_GITHUB }}
+
+  lint:
+    needs: 'setup'
+    uses: ./.github/workflows/reusable_lint.yml
+    secrets:
+      THE_GH_RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN_GITHUB }}
+
+  build:
+    needs: 'setup'
+    uses: ./.github/workflows/reusable_build.yml
+    secrets:
+      THE_GH_RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN_GITHUB }}
+
+  release:
+    needs: ['setup', 'lint', 'build']
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN_GITHUB }}
+      - name: 'Setup Tools'
+        uses: ./.github/actions/setup-tools
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN_GITHUB }}
+        run: npx semantic-release

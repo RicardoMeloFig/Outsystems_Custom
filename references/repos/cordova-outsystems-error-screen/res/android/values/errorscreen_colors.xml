@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- OutSystems Error Screen -->
+    <color name="white_color">#FFFFFF</color>
+    <color name="red_color">#c20</color>
+</resources>

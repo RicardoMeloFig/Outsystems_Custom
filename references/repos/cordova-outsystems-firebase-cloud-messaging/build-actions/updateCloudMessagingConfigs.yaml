@@ -1,0 +1,39 @@
+variables:
+  NOTIFICATION_CHANNEL_DEFAULT_NAME:
+    type: string
+    default: "Channel name"
+  NOTIFICATION_CHANNEL_DEFAULT_DESCRIPTION:
+    type: string
+    default: "Channel description"
+
+platforms:
+  android:
+    xml:
+      - resFile: values/strings.xml
+        target: resources
+        merge: |
+          <resources>
+            <string name="notification_channel_name">$NOTIFICATION_CHANNEL_DEFAULT_NAME</string>
+            <string name="notification_channel_description">$NOTIFICATION_CHANNEL_DEFAULT_DESCRIPTION</string>
+          </resources>
+  ios:
+    builds:
+      Debug:
+        entitlements:
+            entries:
+              - aps-environment: 'development'
+        plist:
+          - replace: true
+            entries:
+              - UIBackgroundModes:
+                - remote-notification
+
+      Release:
+        entitlements:
+            entries:
+              - aps-environment: 'production'
+        plist:
+          - replace: true
+            entries:
+              - UIBackgroundModes:
+                - remote-notification

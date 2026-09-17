@@ -1,0 +1,27 @@
+{
+  "name": "com.outsystems.plugins.barcode",
+  "version": "2.2.0",
+  "description": "Cordova Bridge for the OutSystems Officially Supported Barcode Plugin.",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "cordova": {
+    "id": "com.outsystems.plugins.barcode",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "engines": [],
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.2",
+    "semantic-release": "^25.0.2",
+    "xml2js": "^0.6.2"
+  }
+}

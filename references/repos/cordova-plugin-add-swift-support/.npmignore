@@ -1,0 +1,5 @@
+webpack.config.js
+.travis.yml
+.editorconfig
+.eslintrc
+.npmignore

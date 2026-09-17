@@ -1,0 +1,19 @@
+{
+    "moduleName": "BarcodePlugin",
+    "applicationNames": [
+        "BarcodePlugin",
+        "BarcodeSampleApp"
+    ],
+    "lifetimeVersion": {
+        "applicationName": "BarcodePlugin"
+    },
+    "testPipelineArgs": {
+        "plugin": "",
+        "threads": "3"
+    },
+    "sauceLabsInfo": {
+        "BarcodeSampleApp": {
+            "iosAPIKey": "7819856977554EE5805CFB5CA170AE72"
+        }
+    }
+}

@@ -1,0 +1,69 @@
+name: '🚀 Tag & Release on ODC'
+resources:
+  repositories:
+    - repository: cordova-outsystems-inappbrowser
+      type: github
+      name: OutSystems/cordova-outsystems-inappbrowser
+      endpoint: OutSystems
+    - repository: MobilePluginsODCPipeline
+      type: github
+      name: OutSystems/MobilePluginsODCPipeline
+      endpoint: OutSystems
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-24.04
+variables:
+  - name: StampsInformationFileName
+    value: eng-mobile.StampsInformation.json
+  - group: MobileConfigCredentials
+  - group: ModelAPI_InternalCode
+
+parameters:
+  - name: pluginURL
+    type: string
+  - name: pluginKey
+    type: string
+  - name: forgeVersion
+    type: string
+  - name: mabs
+    type: string
+  - name: releaseNotes
+    type: string
+  
+
+stages:
+  - stage: UpdateWrapper
+    displayName: '✍🏻 Update Plugin Extensibility Configurations'
+    jobs:
+      - job: UpdateWrapper
+        displayName: Update Wrapper's Javascript
+        steps:
+          - checkout: self
+          - checkout: MobilePluginsODCPipeline
+          - template: build/ci/update-wrapper.yaml@MobilePluginsODCPipeline
+            parameters:
+              secretFileName: $(StampsInformationFileName)
+              scriptToRun: UpdateExtensibilityOnPluginWrapper
+              PLUGIN_APP_KEY: ${{ parameters.pluginKey }}
+              PLUGIN_UPDATE_URL: ${{ parameters.pluginURL }}
+              PLUGIN_UPDATE_VERSION: ${{ parameters.forgeVersion }}
+              mabsMin: ${{ parameters.mabs }}
+              workingDirectory: $(System.DefaultWorkingDirectory)/MobilePluginsODCPipeline
+
+  - stage: Release
+    displayName: 🚀 Release on Tenant
+    jobs:
+      - job: Release
+        displayName: Publish Updated OML
+        steps:
+          - checkout: self
+          - checkout: MobilePluginsODCPipeline
+          - template: build/ci/tag-plugin.yaml@MobilePluginsODCPipeline
+            parameters:
+              secretFileName: $(StampsInformationFileName)
+              pluginKey: ${{ parameters.pluginKey }}
+              forgeVersion: ${{ parameters.forgeVersion }}
+              releaseNotes: ${{ parameters.releaseNotes }}              
+              workingDirectory: $(System.DefaultWorkingDirectory)/MobilePluginsODCPipeline

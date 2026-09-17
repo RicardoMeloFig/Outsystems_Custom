@@ -1,0 +1,87 @@
+{
+  "platforms": {
+    "android": {
+      "xml": [
+        {
+          "resFile": "xml/network_security_config.xml",
+          "target": "network-security-config",
+          "inject": "<domain-config>\n  <domain includeSubdomains=\"true\">eng-osrd-mobile-neo1.outsystems.dev</domain>\n  <pin-set>\n    <pin digest=\"SHA-256\">r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=</pin>\n    <pin digest=\"SHA-256\">5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91w=</pin>\n    <pin digest=\"SHA-256\">wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYs=</pin>\n    <pin digest=\"SHA-256\">icCZUwzSur5+rZlkCSgVayzDDf0fOJ5ZR8fnlywxjOY=</pin>\n  </pin-set>\n</domain-config>"
+        },
+        {
+          "resFile": "xml/network_security_config.xml",
+          "target": "network-security-config",
+          "inject": "<domain-config>\n  <domain includeSubdomains=\"true\">eng-mobile-dev.outsystems.app</domain>\n  <pin-set>\n    <pin digest=\"SHA-256\">++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=</pin>\n    <pin digest=\"SHA-256\">f0KW/FtqTjs108NpYj42SrGvOB2PpxIVM8nWxjPqJGE=</pin>\n    <pin digest=\"SHA-256\">NqvDJlas/GRcYbcWE8S/IceH9cq77kg0jVhZeAPXq8k=</pin>\n    <pin digest=\"SHA-256\">9+ze1cZgR9KO1kZrVDxA4HQ6voHRCSVNz4RdTCx4U8U=</pin>\n    <pin digest=\"SHA-256\">KwccWaCgrnaw6tsrrSO61FgLacNgG2MMLq8GE6+oP5I=</pin>\n    <pin digest=\"SHA-256\">ZsLNL7XHjd3j/zw9tJM7r2BzEU2tuse21boClEsCj60=</pin>\n  </pin-set>\n</domain-config>"
+        },
+        {
+          "resFile": "xml/network_security_config.xml",
+          "target": "network-security-config",
+          "inject": "<domain-config>\n  <domain includeSubdomains=\"true\">enmobile11-dev.outsystemsenterprise.com</domain>\n  <pin-set>\n    <pin digest=\"SHA-256\">r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5a=</pin>\n    <pin digest=\"SHA-256\">5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91f=</pin>\n    <pin digest=\"SHA-256\">wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYw=</pin>\n  </pin-set>\n</domain-config>"
+        },
+        {
+          "resFile": "xml/network_security_config.xml",
+          "target": "network-security-config",
+          "inject": "<domain-config>\n  <domain includeSubdomains=\"true\">jsonplaceholder.typicode.com</domain>\n  <pin-set>\n    <pin digest=\"SHA-256\">wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYs=</pin>\n    <pin digest=\"SHA-256\">icCZUwzSur5+rZlkCSgVayzDDf0fOJ5ZR8fnlywxjOY=</pin>\n  </pin-set>\n</domain-config>"
+        }
+      ]
+    },
+    "ios": {
+      "plist": [
+        {
+          "replace": true,
+          "entries": [
+            {
+              "TSKConfiguration": {
+                "TSKSwizzleNetworkDelegates": true,
+                "TSKPinnedDomains": {
+                  "eng-osrd-mobile-neo1.outsystems.dev": {
+                    "TSKDisableDefaultReportUri": true,
+                    "TSKEnforcePinning": true,
+                    "TSKIncludeSubdomains": false,
+                    "TSKPublicKeyHashes": [
+                      "r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=",
+                      "5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91w=",
+                      "wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYs=",
+                      "icCZUwzSur5+rZlkCSgVayzDDf0fOJ5ZR8fnlywxjOY="
+                    ]
+                  },
+                  "eng-mobile-dev.outsystems.app": {
+                    "TSKDisableDefaultReportUri": true,
+                    "TSKEnforcePinning": true,
+                    "TSKIncludeSubdomains": false,
+                    "TSKPublicKeyHashes": [
+                      "++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=",
+                      "f0KW/FtqTjs108NpYj42SrGvOB2PpxIVM8nWxjPqJGE=",
+                      "NqvDJlas/GRcYbcWE8S/IceH9cq77kg0jVhZeAPXq8k=",
+                      "9+ze1cZgR9KO1kZrVDxA4HQ6voHRCSVNz4RdTCx4U8U=",
+                      "KwccWaCgrnaw6tsrrSO61FgLacNgG2MMLq8GE6+oP5I=",
+                      "ZsLNL7XHjd3j/zw9tJM7r2BzEU2tuse21boClEsCj60="
+                    ]
+                  },
+                  "enmobile11-dev.outsystemsenterprise.com": {
+                    "TSKDisableDefaultReportUri": true,
+                    "TSKEnforcePinning": true,
+                    "TSKIncludeSubdomains": false,
+                    "TSKPublicKeyHashes": [
+                      "r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5a=",
+                      "5kJvNEMw0KjrCAu7eXY5HZdvyCS13BbA0VJG1RSP91f=",
+                      "wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYw="
+                    ]
+                  },
+                  "jsonplaceholder.typicode.com": {
+                    "TSKDisableDefaultReportUri": true,
+                    "TSKEnforcePinning": true,
+                    "TSKIncludeSubdomains": false,
+                    "TSKPublicKeyHashes": [
+                      "wBQyMhRmymJ2b9XBo4nHjBqE5KGTT0LUPiNk6rLUSYs=",
+                      "icCZUwzSur5+rZlkCSgVayzDDf0fOJ5ZR8fnlywxjOY="
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

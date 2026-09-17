@@ -1,0 +1,79 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+.DS_Store
+.gradle
+.metadata
+Thumbs.db
+Desktop.ini
+*.tmp
+*.bak
+*.swp
+*.class
+*.jar
+default.properties
+gen
+assets/www/cordova.js
+local.properties
+proguard.cfg
+proguard-project.txt
+example
+/coverage
+/framework/lib
+/framework/build
+/framework/bin
+/framework/assets/www/.DS_Store
+/framework/assets/www/cordova-*.js
+/framework/assets/www/phonegap-*.js
+/framework/libs
+/framework/javadoc-public
+/framework/javadoc-private
+
+**/assets/www/cordova.js
+
+/test/.externalNativeBuild
+/test/androidx/cdv-gradle-config.json
+/test/androidx/repositories.gradle
+/test/androidx/app/repositories.gradle
+/test/androidx/tools
+/test/androidx/build
+/test/assets/www/.tmp*
+/test/assets/www/cordova.js
+/test/bin
+/test/build
+/test/captures
+/test/libs
+tmp/**
+tmp/**/*
+!/spec/fixtures/org.test.plugins.dummyplugin/src/android/TestLib.jar
+# IntelliJ IDEA files
+**/.idea/**/*
+*.iml
+npm-debug.log
+node_modules/
+coverage/
+# Eclipse Buildship files
+.project
+.settings
+.classpath
+
+# ASF release workspace
+.asf-release/
+!.asf-release/.gitkeep
+
+# Gradle problems report, build artifact
+problems-report.html

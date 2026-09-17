@@ -1,0 +1,17 @@
+repositories{
+   flatDir {
+     dirs 'src/main/libs'
+   }
+}
+
+dependencies {
+  implementation (name:'zxing-android-embedded-4.2.0-OS', ext:'aar')
+  implementation 'com.google.zxing:core:3.3.0'
+}
+
+android {
+ packagingOptions {
+  exclude 'META-INF/NOTICE'
+  exclude 'META-INF/LICENSE'
+ }
+}

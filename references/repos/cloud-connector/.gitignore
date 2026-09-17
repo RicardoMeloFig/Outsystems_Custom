@@ -1,0 +1,11 @@
+dist/
+styles/
+rules/
+.vs/*
+.idea/*
+.editorconfig
+.markdownlint.json
+.vale.ini
+outsystemscc
+.claude/*
+!.claude/rules/

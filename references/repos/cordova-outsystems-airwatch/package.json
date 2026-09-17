@@ -1,0 +1,17 @@
+{
+  "name": "com.outsystems.plugins.airwatch",
+  "version": "1.0.7",
+  "description": "OutSystems plugin for AirWatch",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "cordova": {
+    "id": "com.outsystems.plugins.airwatch",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  }
+}

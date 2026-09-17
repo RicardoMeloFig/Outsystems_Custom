@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.2'
+    }
+}
+
+dependencies{
+    implementation("io.ionic.libs:ioninappbrowser-android:2.0.2@aar")
+
+    implementation("androidx.browser:browser:1.8.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // appcompact
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.activity:activity-ktx:1.9.3"
+
+    // constraint layout
+    implementation "androidx.constraintlayout:constraintlayout:2.2.0"
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+android {
+    buildTypes {
+        debug {
+            // do not upload debug versions to crashlytics
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+}

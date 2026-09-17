@@ -1,0 +1,9 @@
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation files("libs/card.io-5.5.1-OS3.aar")
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+}

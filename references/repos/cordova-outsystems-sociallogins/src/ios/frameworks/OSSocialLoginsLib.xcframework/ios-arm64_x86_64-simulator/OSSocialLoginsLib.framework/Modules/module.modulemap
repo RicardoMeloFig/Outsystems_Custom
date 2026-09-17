@@ -1,0 +1,4 @@
+framework module OSSocialLoginsLib {
+  header "OSSocialLoginsLib-Swift.h"
+  requires objc
+}

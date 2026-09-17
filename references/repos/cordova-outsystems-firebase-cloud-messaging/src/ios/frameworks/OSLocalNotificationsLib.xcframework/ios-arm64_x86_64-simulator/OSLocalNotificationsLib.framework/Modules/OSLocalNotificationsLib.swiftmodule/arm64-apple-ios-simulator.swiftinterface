@@ -1,0 +1,128 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OSLocalNotificationsLib
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import UserNotifications
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct OSLCNOInternalEvent : Swift.Codable {
+  public enum CodingKeys : Swift.String, Swift.CodingKey, Swift.CaseIterable {
+    case screenName, parameterArray
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias AllCases = [OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys]
+    public typealias RawValue = Swift.String
+    public static var allCases: [OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys] {
+      get
+    }
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public init(screenName: Swift.String, parameterArray: [OSLocalNotificationsLib.OSLCNOParameter]?)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum OSLCNOError : Swift.Int, Foundation.CustomNSError, Foundation.LocalizedError {
+  case noTitle
+  case triggerError
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct OSLCNOFactory {
+  public static func createUNWrapper() -> any OSLocalNotificationsLib.OSLCNOActionDelegate
+}
+public typealias OSLCNOSound = Swift.String
+public protocol OSLCNOActionDelegate : AnyObject {
+  #if compiler(>=5.3) && $AsyncAwait
+  func triggerNotification(with title: Swift.String, _ body: Swift.String?, _ badge: Swift.Int?, sound: OSLocalNotificationsLib.OSLCNOSound?, actions: [OSLocalNotificationsLib.OSLCNOAction]?, and internalEvent: OSLocalNotificationsLib.OSLCNOInternalEvent?) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func clearNotificationCategory(with id: Swift.String) async
+  #endif
+}
+public struct OSLCNOParameter : Swift.Codable {
+  public init(key: Swift.String, value: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum OSLCNOActionEvent : Swift.String, Swift.Codable {
+  case internalRoute
+  case appRoute
+  case webRoute
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct OSLCNORouteData {
+  public init(deepLinkScheme: Swift.String, identifier: Swift.String? = nil, parameterData: [Swift.String : Swift.String]? = nil, fallbackUrl: Swift.String? = nil)
+}
+extension OSLocalNotificationsLib.OSLCNORouteData : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct OSLCNOAction : Swift.Codable {
+  public init(identifier: Swift.String, label: Swift.String, textField: OSLocalNotificationsLib.OSLCNOActionTextField? = nil, type: OSLocalNotificationsLib.OSLCNOActionType, event: OSLocalNotificationsLib.OSLCNOActionEvent, routeData: OSLocalNotificationsLib.OSLCNORouteData)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension OSLocalNotificationsLib.OSLCNOAction {
+  public func getParameterData(withUserText userText: Swift.String?) throws -> [Swift.String : Swift.String]?
+  #if compiler(>=5.3) && $EffectfulProp
+  public var internalScreenName: Swift.String {
+    get throws
+  }
+  #endif
+}
+extension OSLocalNotificationsLib.OSLCNOAction {
+  public func getRouteURL(withUserText userText: Swift.String?) throws -> Foundation.URL?
+  #if compiler(>=5.3) && $EffectfulProp
+  public var fallbackURL: Foundation.URL? {
+    get throws
+  }
+  #endif
+}
+public enum OSLCNOActionType : Swift.String, Swift.Codable {
+  case standard
+  case destructive
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct OSLCNOActionTextField : Swift.Codable {
+  public init(placeholder: Swift.String, inputTextKey: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys : Swift.Equatable {}
+extension OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys : Swift.Hashable {}
+extension OSLocalNotificationsLib.OSLCNOInternalEvent.CodingKeys : Swift.RawRepresentable {}
+extension OSLocalNotificationsLib.OSLCNOError : Swift.Equatable {}
+extension OSLocalNotificationsLib.OSLCNOError : Swift.Hashable {}
+extension OSLocalNotificationsLib.OSLCNOError : Swift.RawRepresentable {}
+extension OSLocalNotificationsLib.OSLCNOActionEvent : Swift.Equatable {}
+extension OSLocalNotificationsLib.OSLCNOActionEvent : Swift.Hashable {}
+extension OSLocalNotificationsLib.OSLCNOActionEvent : Swift.RawRepresentable {}
+extension OSLocalNotificationsLib.OSLCNOActionType : Swift.Equatable {}
+extension OSLocalNotificationsLib.OSLCNOActionType : Swift.Hashable {}
+extension OSLocalNotificationsLib.OSLCNOActionType : Swift.RawRepresentable {}

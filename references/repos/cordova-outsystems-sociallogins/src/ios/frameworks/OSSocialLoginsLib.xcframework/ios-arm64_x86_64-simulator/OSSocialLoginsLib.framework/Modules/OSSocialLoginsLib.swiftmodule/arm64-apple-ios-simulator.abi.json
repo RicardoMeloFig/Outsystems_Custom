@@ -1,0 +1,3497 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsLinkedInController",
+        "printedName": "SocialLoginsLinkedInController",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(delegate:rootViewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsLinkedInController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsLinkedInController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsLinkedInController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsProtocol",
+                "printedName": "OSSocialLoginsLib.SocialLoginsProtocol",
+                "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB18LinkedInControllerC8delegate08rootViewG0AcA0dB8Protocol_p_So06UIViewG0CSgtcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB18LinkedInControllerC8delegate08rootViewG0AcA0dB8Protocol_p_So06UIViewG0CSgtcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "declAttributes": [
+              "Convenience",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Convenience"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsLinkedInController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB18LinkedInControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "OSSocialLoginsLib.SocialLoginsBaseController",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "UserInfo",
+        "printedName": "UserInfo",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib8UserInfoV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s17OSSocialLoginsLib8UserInfoV6encode2toys7Encoder_p_tKF",
+            "moduleName": "OSSocialLoginsLib",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UserInfo",
+                "printedName": "OSSocialLoginsLib.UserInfo",
+                "usr": "s:17OSSocialLoginsLib8UserInfoV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UserInfo",
+                "printedName": "OSSocialLoginsLib.UserInfo",
+                "usr": "s:17OSSocialLoginsLib8UserInfoV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib8UserInfoV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s17OSSocialLoginsLib8UserInfoV2eeoiySbAC_ACtFZ",
+            "moduleName": "OSSocialLoginsLib",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:17OSSocialLoginsLib8UserInfoV",
+        "mangledName": "$s17OSSocialLoginsLib8UserInfoV",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsErrors",
+        "printedName": "SocialLoginsErrors",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "appleSignInGenericError",
+            "printedName": "appleSignInGenericError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO23appleSignInGenericErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO23appleSignInGenericErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "loginCancelledError",
+            "printedName": "loginCancelledError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO19loginCancelledErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO19loginCancelledErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "missingInputParametersError",
+            "printedName": "missingInputParametersError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO27missingInputParametersErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO27missingInputParametersErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "googleSignInGenericError",
+            "printedName": "googleSignInGenericError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO24googleSignInGenericErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO24googleSignInGenericErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "googleInvalidConfigurationError",
+            "printedName": "googleInvalidConfigurationError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO31googleInvalidConfigurationErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO31googleInvalidConfigurationErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "googleMissingAccessTokenError",
+            "printedName": "googleMissingAccessTokenError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO29googleMissingAccessTokenErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO29googleMissingAccessTokenErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "googleMissingUserIdError",
+            "printedName": "googleMissingUserIdError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO24googleMissingUserIdErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO24googleMissingUserIdErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "googleConfigurationNotValidError",
+            "printedName": "googleConfigurationNotValidError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO32googleConfigurationNotValidErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO32googleConfigurationNotValidErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookSignInGenericError",
+            "printedName": "facebookSignInGenericError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO26facebookSignInGenericErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO26facebookSignInGenericErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookNoTokenFoundError",
+            "printedName": "facebookNoTokenFoundError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO25facebookNoTokenFoundErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO25facebookNoTokenFoundErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookNoResultsError",
+            "printedName": "facebookNoResultsError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO22facebookNoResultsErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO22facebookNoResultsErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookInputParametersError",
+            "printedName": "facebookInputParametersError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO28facebookInputParametersErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO28facebookInputParametersErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookUserDataRequestError",
+            "printedName": "facebookUserDataRequestError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO28facebookUserDataRequestErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO28facebookUserDataRequestErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "facebookConfigurationNotValidError",
+            "printedName": "facebookConfigurationNotValidError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO34facebookConfigurationNotValidErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO34facebookConfigurationNotValidErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInGenericError",
+            "printedName": "linkedInGenericError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO20linkedInGenericErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO20linkedInGenericErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInSignInRequestError",
+            "printedName": "linkedInSignInRequestError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO012linkedInSignG12RequestErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO012linkedInSignG12RequestErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInWebAuthenticationSessionError",
+            "printedName": "linkedInWebAuthenticationSessionError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO37linkedInWebAuthenticationSessionErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO37linkedInWebAuthenticationSessionErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInInputParametersError",
+            "printedName": "linkedInInputParametersError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO28linkedInInputParametersErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO28linkedInInputParametersErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInConfigurationMissingError",
+            "printedName": "linkedInConfigurationMissingError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO33linkedInConfigurationMissingErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO33linkedInConfigurationMissingErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "linkedInConfigurationNotValidError",
+            "printedName": "linkedInConfigurationNotValidError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(OSSocialLoginsLib.SocialLoginsErrors.Type) -> OSSocialLoginsLib.SocialLoginsErrors",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SocialLoginsErrors",
+                        "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO34linkedInConfigurationNotValidErroryA2CmF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO34linkedInConfigurationNotValidErroryA2CmF",
+            "moduleName": "OSSocialLoginsLib"
+          },
+          {
+            "kind": "Var",
+            "name": "errorDescription",
+            "printedName": "errorDescription",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO16errorDescriptionSSSgvp",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO16errorDescriptionSSSgvp",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO16errorDescriptionSSSgvg",
+                "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO16errorDescriptionSSSgvg",
+                "moduleName": "OSSocialLoginsLib",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSSocialLoginsLib.SocialLoginsErrors?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO8rawValueACSgSi_tcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO8rawValueACSgSi_tcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO8rawValueSivp",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO8rawValueSivp",
+            "moduleName": "OSSocialLoginsLib",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO8rawValueSivg",
+                "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO8rawValueSivg",
+                "moduleName": "OSSocialLoginsLib",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB6ErrorsO",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomNSError",
+            "printedName": "CustomNSError",
+            "usr": "s:10Foundation13CustomNSErrorP",
+            "mangledName": "$s10Foundation13CustomNSErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "LocalizedError",
+            "printedName": "LocalizedError",
+            "usr": "s:10Foundation14LocalizedErrorP",
+            "mangledName": "$s10Foundation14LocalizedErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FBSDKLoginKit",
+        "printedName": "FBSDKLoginKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsFacebookController",
+        "printedName": "SocialLoginsFacebookController",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(delegate:rootViewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsFacebookController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsFacebookController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsFacebookController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsProtocol",
+                "printedName": "OSSocialLoginsLib.SocialLoginsProtocol",
+                "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB18FacebookControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB18FacebookControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "declAttributes": [
+              "Convenience",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Convenience"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsFacebookController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB18FacebookControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "OSSocialLoginsLib.SocialLoginsBaseController",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "AuthenticationServices",
+        "printedName": "AuthenticationServices",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleSignIn",
+        "printedName": "GoogleSignIn",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsGoogleController",
+        "printedName": "SocialLoginsGoogleController",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(delegate:rootViewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsGoogleController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsGoogleController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsGoogleController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsProtocol",
+                "printedName": "OSSocialLoginsLib.SocialLoginsProtocol",
+                "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB16GoogleControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB16GoogleControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "declAttributes": [
+              "Convenience",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Convenience"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsGoogleController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB16GoogleControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "OSSocialLoginsLib.SocialLoginsBaseController",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FBSDKLoginKit",
+        "printedName": "FBSDKLoginKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsApplicationDelegate",
+        "printedName": "SocialLoginsApplicationDelegate",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsApplicationDelegate",
+                "printedName": "OSSocialLoginsLib.SocialLoginsApplicationDelegate",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate(cpy)shared",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateC6sharedACvpZ",
+            "moduleName": "OSSocialLoginsLib",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsApplicationDelegate",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsApplicationDelegate",
+                    "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate(cm)shared",
+                "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateC6sharedACvgZ",
+                "moduleName": "OSSocialLoginsLib",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "application",
+            "printedName": "application(_:didFinishLaunchingWithOptions:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIApplication",
+                "printedName": "UIKit.UIApplication",
+                "usr": "c:objc(cs)UIApplication"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[UIKit.UIApplication.LaunchOptionsKey : Any]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[UIKit.UIApplication.LaunchOptionsKey : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LaunchOptionsKey",
+                        "printedName": "UIKit.UIApplication.LaunchOptionsKey",
+                        "usr": "c:@T@UIApplicationLaunchOptionsKey"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate(im)application:didFinishLaunchingWithOptions:",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateC11application_29didFinishLaunchingWithOptionsSbSo13UIApplicationC_SDySo0m6LaunchL3KeyaypGSgtF",
+            "moduleName": "OSSocialLoginsLib",
+            "objc_name": "application:didFinishLaunchingWithOptions:",
+            "declAttributes": [
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "application",
+            "printedName": "application(_:open:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIApplication",
+                "printedName": "UIKit.UIApplication",
+                "usr": "c:objc(cs)UIApplication"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[UIKit.UIApplication.OpenURLOptionsKey : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OpenURLOptionsKey",
+                    "printedName": "UIKit.UIApplication.OpenURLOptionsKey",
+                    "usr": "c:@T@UIApplicationOpenURLOptionsKey"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate(im)application:openURL:options:",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateC11application_4open7optionsSbSo13UIApplicationC_10Foundation3URLVSDySo0J17OpenURLOptionsKeyaypGtF",
+            "moduleName": "OSSocialLoginsLib",
+            "objc_name": "application:openURL:options:",
+            "declAttributes": [
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsApplicationDelegate",
+                "printedName": "OSSocialLoginsLib.SocialLoginsApplicationDelegate",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate(im)init",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateCACycfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsApplicationDelegate",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB19ApplicationDelegateC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FBSDKLoginKit",
+        "printedName": "FBSDKLoginKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsProtocol",
+        "printedName": "SocialLoginsProtocol",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "callBackUserInfo",
+            "printedName": "callBackUserInfo(result:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSSocialLoginsLib.UserInfo?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UserInfo",
+                    "printedName": "OSSocialLoginsLib.UserInfo",
+                    "usr": "s:17OSSocialLoginsLib8UserInfoV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "OSSocialLoginsLib.SocialLoginsErrors?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SocialLoginsErrors",
+                    "printedName": "OSSocialLoginsLib.SocialLoginsErrors",
+                    "usr": "s:17OSSocialLoginsLib06SocialB6ErrorsO"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP16callBackUserInfo6result5erroryAA0hI0VSg_AA0dB6ErrorsOSgtF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB8ProtocolP16callBackUserInfo6result5erroryAA0hI0VSg_AA0dB6ErrorsOSgtF",
+            "moduleName": "OSSocialLoginsLib",
+            "genericSig": "<τ_0_0 where τ_0_0 : OSSocialLoginsLib.SocialLoginsProtocol>",
+            "sugared_genericSig": "<Self where Self : OSSocialLoginsLib.SocialLoginsProtocol>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB8ProtocolP",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FBSDKLoginKit",
+        "printedName": "FBSDKLoginKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "AuthenticationServices",
+        "printedName": "AuthenticationServices",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsAppleController",
+        "printedName": "SocialLoginsAppleController",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "authorizationController",
+            "printedName": "authorizationController(controller:didCompleteWithError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ASAuthorizationController",
+                "printedName": "AuthenticationServices.ASAuthorizationController",
+                "usr": "c:objc(cs)ASAuthorizationController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController(im)authorizationController:didCompleteWithError:",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB15AppleControllerC013authorizationF010controller20didCompleteWithErrorySo015ASAuthorizationF0C_s0L0_ptF",
+            "moduleName": "OSSocialLoginsLib",
+            "objc_name": "authorizationController:didCompleteWithError:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(delegate:rootViewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsAppleController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsAppleController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsProtocol",
+                "printedName": "OSSocialLoginsLib.SocialLoginsProtocol",
+                "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB15AppleControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB15AppleControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "implicit": true,
+            "declAttributes": [
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "authorizationController",
+            "printedName": "authorizationController(controller:didCompleteWithAuthorization:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ASAuthorizationController",
+                "printedName": "AuthenticationServices.ASAuthorizationController",
+                "usr": "c:objc(cs)ASAuthorizationController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ASAuthorization",
+                "printedName": "AuthenticationServices.ASAuthorization",
+                "usr": "c:objc(cs)ASAuthorization"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController(im)authorizationController:didCompleteWithAuthorization:",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB15AppleControllerC013authorizationF010controller28didCompleteWithAuthorizationySo015ASAuthorizationF0C_So0M0CtF",
+            "moduleName": "OSSocialLoginsLib",
+            "objc_name": "authorizationController:didCompleteWithAuthorization:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "presentationAnchor",
+            "printedName": "presentationAnchor(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UIWindow",
+                "printedName": "UIKit.UIWindow",
+                "usr": "c:objc(cs)UIWindow"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ASAuthorizationController",
+                "printedName": "AuthenticationServices.ASAuthorizationController",
+                "usr": "c:objc(cs)ASAuthorizationController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController(im)presentationAnchorForAuthorizationController:",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB15AppleControllerC18presentationAnchor3forSo8UIWindowCSo015ASAuthorizationF0C_tF",
+            "moduleName": "OSSocialLoginsLib",
+            "objc_name": "presentationAnchorForAuthorizationController:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB15AppleControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "OSSocialLoginsLib.SocialLoginsBaseController",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "GoogleSignIn",
+        "printedName": "GoogleSignIn",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsController",
+        "printedName": "SocialLoginsController",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(appleController:googleController:facebookController:linkedInController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsAppleController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsAppleController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsAppleController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsGoogleController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsGoogleController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsGoogleController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsFacebookController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsFacebookController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsFacebookController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsLinkedInController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsLinkedInController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsLinkedInController"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB10ControllerC05appleE006googleE008facebookE008linkedInE0AcA0db5AppleE0C_AA0db6GoogleE0CAA0db8FacebookE0CAA0db6LinkedjE0Ctcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC05appleE006googleE008facebookE008linkedInE0AcA0db5AppleE0C_AA0db6GoogleE0CAA0db8FacebookE0CAA0db6LinkedjE0Ctcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "loginApple",
+            "printedName": "loginApple()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib06SocialB10ControllerC10loginAppleyyF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC10loginAppleyyF",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loginGoogle",
+            "printedName": "loginGoogle()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib06SocialB10ControllerC11loginGoogleyyF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC11loginGoogleyyF",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loginFacebook",
+            "printedName": "loginFacebook()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib06SocialB10ControllerC13loginFacebookyyF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC13loginFacebookyyF",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "loginLinkedIn",
+            "printedName": "loginLinkedIn(state:clientID:redirectURI:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17OSSocialLoginsLib06SocialB10ControllerC13loginLinkedIn5state8clientID11redirectURIySS_S2StF",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC13loginLinkedIn5state8clientID11redirectURIySS_S2StF",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsController"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsController(im)init",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerCACycfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB10ControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "isOpen": true,
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "AuthenticationServices",
+        "printedName": "AuthenticationServices",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SocialLoginsBaseController",
+        "printedName": "SocialLoginsBaseController",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(delegate:rootViewController:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsBaseController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsBaseController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsProtocol",
+                "printedName": "OSSocialLoginsLib.SocialLoginsProtocol",
+                "usr": "s:17OSSocialLoginsLib06SocialB8ProtocolP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17OSSocialLoginsLib06SocialB14BaseControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB14BaseControllerC8delegate08rootViewF0AcA0dB8Protocol_p_So06UIViewF0CSgtcfc",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SocialLoginsBaseController",
+                "printedName": "OSSocialLoginsLib.SocialLoginsBaseController",
+                "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController(im)init",
+            "mangledName": "$s17OSSocialLoginsLib06SocialB14BaseControllerCACycfc",
+            "moduleName": "OSSocialLoginsLib",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@OSSocialLoginsLib@objc(cs)SocialLoginsBaseController",
+        "mangledName": "$s17OSSocialLoginsLib06SocialB14BaseControllerC",
+        "moduleName": "OSSocialLoginsLib",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "OSSocialLoginsLib"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LoginManager",
+        "printedName": "LoginManager",
+        "declKind": "Class",
+        "usr": "c:@M@FBSDKLoginKit@objc(cs)FBSDKLoginManager",
+        "mangledName": "$s13FBSDKLoginKit12LoginManagerC",
+        "moduleName": "FBSDKLoginKit",
+        "objc_name": "FBSDKLoginManager",
+        "declAttributes": [
+          "Final",
+          "ObjC",
+          "ObjCMembers"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "GIDGoogleUser",
+        "printedName": "GIDGoogleUser",
+        "declKind": "Class",
+        "usr": "c:objc(cs)GIDGoogleUser",
+        "moduleName": "GoogleSignIn",
+        "isOpen": true,
+        "objc_name": "GIDGoogleUser",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ASAuthorizationAppleIDCredential",
+        "printedName": "ASAuthorizationAppleIDCredential",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "userIdentifier",
+            "printedName": "userIdentifier",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE14userIdentifierSSSgvp",
+            "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE14userIdentifierSSSgvp",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE14userIdentifierSSSgvg",
+                "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE14userIdentifierSSSgvg",
+                "moduleName": "OSSocialLoginsLib",
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "givenName",
+            "printedName": "givenName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE9givenNameSSSgvp",
+            "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE9givenNameSSSgvp",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE9givenNameSSSgvg",
+                "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE9givenNameSSSgvg",
+                "moduleName": "OSSocialLoginsLib",
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "familyName",
+            "printedName": "familyName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE10familyNameSSSgvp",
+            "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE10familyNameSSSgvp",
+            "moduleName": "OSSocialLoginsLib",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE10familyNameSSSgvg",
+                "mangledName": "$sSo32ASAuthorizationAppleIDCredentialC17OSSocialLoginsLibE10familyNameSSSgvg",
+                "moduleName": "OSSocialLoginsLib",
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)ASAuthorizationAppleIDCredential",
+        "moduleName": "AuthenticationServices",
+        "isOpen": true,
+        "intro_iOS": "13.0",
+        "objc_name": "ASAuthorizationAppleIDCredential",
+        "declAttributes": [
+          "Available",
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Encodable",
+        "printedName": "Encodable",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:SE17OSSocialLoginsLibE6encodeSSyF",
+            "mangledName": "$sSE17OSSocialLoginsLibE6encodeSSyF",
+            "moduleName": "OSSocialLoginsLib",
+            "genericSig": "<τ_0_0 where τ_0_0 : Swift.Encodable>",
+            "sugared_genericSig": "<Self where Self : Swift.Encodable>",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:SE",
+        "mangledName": "$sSE",
+        "moduleName": "Swift",
+        "isExternal": true
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "StringLiteral",
+      "offset": 79,
+      "length": 16,
+      "value": "\"DeepLinkScheme\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "StringLiteral",
+      "offset": 79,
+      "length": 16,
+      "value": "\"DeepLinkScheme\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "StringLiteral",
+      "offset": 380,
+      "length": 14,
+      "value": "\"linkedin.com\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "StringLiteral",
+      "offset": 424,
+      "length": 25,
+      "value": "\"\/oauth\/v2\/authorization\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "Array",
+      "offset": 514,
+      "length": 35,
+      "value": "[\"r_liteprofile\", \"r_emailaddress\"]"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInController.swift",
+      "kind": "StringLiteral",
+      "offset": 581,
+      "length": 6,
+      "value": "\"code\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 139,
+      "length": 3,
+      "value": "100"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 193,
+      "length": 3,
+      "value": "101"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 247,
+      "length": 3,
+      "value": "104"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 301,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 355,
+      "length": 3,
+      "value": "201"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 3,
+      "value": "202"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 463,
+      "length": 3,
+      "value": "203"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 517,
+      "length": 3,
+      "value": "204"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 571,
+      "length": 3,
+      "value": "300"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 625,
+      "length": 3,
+      "value": "302"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 679,
+      "length": 3,
+      "value": "303"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 733,
+      "length": 3,
+      "value": "304"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 787,
+      "length": 3,
+      "value": "305"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 841,
+      "length": 3,
+      "value": "399"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 895,
+      "length": 3,
+      "value": "400"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 949,
+      "length": 3,
+      "value": "401"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1003,
+      "length": 3,
+      "value": "402"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1057,
+      "length": 3,
+      "value": "403"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1111,
+      "length": 3,
+      "value": "406"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1165,
+      "length": 3,
+      "value": "499"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 139,
+      "length": 3,
+      "value": "100"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 193,
+      "length": 3,
+      "value": "101"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 247,
+      "length": 3,
+      "value": "104"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 301,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 355,
+      "length": 3,
+      "value": "201"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 3,
+      "value": "202"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 463,
+      "length": 3,
+      "value": "203"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 517,
+      "length": 3,
+      "value": "204"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 571,
+      "length": 3,
+      "value": "300"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 625,
+      "length": 3,
+      "value": "302"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 679,
+      "length": 3,
+      "value": "303"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 733,
+      "length": 3,
+      "value": "304"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 787,
+      "length": 3,
+      "value": "305"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 841,
+      "length": 3,
+      "value": "399"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 895,
+      "length": 3,
+      "value": "400"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 949,
+      "length": 3,
+      "value": "401"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1003,
+      "length": 3,
+      "value": "402"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1057,
+      "length": 3,
+      "value": "403"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1111,
+      "length": 3,
+      "value": "406"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1165,
+      "length": 3,
+      "value": "499"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 139,
+      "length": 3,
+      "value": "100"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 193,
+      "length": 3,
+      "value": "101"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 247,
+      "length": 3,
+      "value": "104"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 301,
+      "length": 3,
+      "value": "200"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 355,
+      "length": 3,
+      "value": "201"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 3,
+      "value": "202"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 463,
+      "length": 3,
+      "value": "203"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 517,
+      "length": 3,
+      "value": "204"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 571,
+      "length": 3,
+      "value": "300"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 625,
+      "length": 3,
+      "value": "302"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 679,
+      "length": 3,
+      "value": "303"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 733,
+      "length": 3,
+      "value": "304"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 787,
+      "length": 3,
+      "value": "305"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 841,
+      "length": 3,
+      "value": "399"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 895,
+      "length": 3,
+      "value": "400"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 949,
+      "length": 3,
+      "value": "401"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1003,
+      "length": 3,
+      "value": "402"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1057,
+      "length": 3,
+      "value": "403"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1111,
+      "length": 3,
+      "value": "406"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Utils\/SocialLoginsErrors.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1165,
+      "length": 3,
+      "value": "499"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 199,
+      "length": 4,
+      "value": "\"fb\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 242,
+      "length": 15,
+      "value": "\"FacebookAppID\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 296,
+      "length": 21,
+      "value": "\"FacebookClientToken\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 356,
+      "length": 7,
+      "value": "\"fbapi\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 199,
+      "length": 4,
+      "value": "\"fb\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 242,
+      "length": 15,
+      "value": "\"FacebookAppID\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 296,
+      "length": 21,
+      "value": "\"FacebookClientToken\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookController.swift",
+      "kind": "StringLiteral",
+      "offset": 356,
+      "length": 7,
+      "value": "\"fbapi\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/LinkedIn\/SocialLoginsLinkedInUserDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 37,
+      "length": 35,
+      "value": "\"OSSocialLoginsLib.SocialLoginsLinkedInUserDataManager\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Google\/SocialLoginsGoogleController.swift",
+      "kind": "StringLiteral",
+      "offset": 144,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Google\/SocialLoginsGoogleController.swift",
+      "kind": "StringLiteral",
+      "offset": 189,
+      "length": 28,
+      "value": "\"com.googleusercontent.apps\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/SocialLoginsApplicationDelegate.swift",
+      "kind": "Dictionary",
+      "offset": 651,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/OSSLGFacebookLoginManagerDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 4215,
+      "length": 12,
+      "value": "\"first_name\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/OSSLGFacebookLoginManagerDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 4240,
+      "length": 11,
+      "value": "\"last_name\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/OSSLGFacebookLoginManagerDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 4215,
+      "length": 12,
+      "value": "\"first_name\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/OSSLGFacebookLoginManagerDelegate.swift",
+      "kind": "StringLiteral",
+      "offset": 4240,
+      "length": 11,
+      "value": "\"last_name\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookUserDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 146,
+      "length": 4,
+      "value": "\"me\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookUserDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 165,
+      "length": 8,
+      "value": "\"fields\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/Facebook\/SocialLoginsFacebookUserDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 176,
+      "length": 43,
+      "value": "\"id, email, first_name, last_name, picture\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/SocialLoginsController.swift",
+      "kind": "StringLiteral",
+      "offset": 25,
+      "length": 22,
+      "value": "\"OSSocialLoginsLib.SocialLoginsController\""
+    },
+    {
+      "filePath": "\/Users\/rcj\/Documents\/Projects\/SocialLogins Projects\/OSSocialLoginsLib-iOS\/OSSocialLoginsLib\/SocialLoginsBaseController.swift",
+      "kind": "StringLiteral",
+      "offset": 27,
+      "length": 26,
+      "value": "\"OSSocialLoginsLib.SocialLoginsBaseController\""
+    }
+  ]
+}

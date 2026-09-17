@@ -1,0 +1,12 @@
+# appveyor file
+# http://www.appveyor.com/docs/appveyor-yml
+
+clone_folder: c:\projects\cordova-plugin-alljoyn
+
+install:
+  - npm install
+
+build: off
+
+test_script:
+  - npm run build-only

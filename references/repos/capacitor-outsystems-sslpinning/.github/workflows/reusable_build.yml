@@ -1,0 +1,33 @@
+name: "Build Plugin"
+
+on:
+  workflow_call:
+    secrets:
+      THE_GH_RELEASE_TOKEN:
+        required: false
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.THE_GH_RELEASE_TOKEN || github.token }}
+
+      - name: "Setup Tools"
+        uses: ./.github/actions/setup-tools
+
+      - name: "Copy dist in root"
+        run: cp -R dist dist-original
+
+      - name: "Build Packages"
+        run: npm run build
+
+      - name: "Check dist changes"
+        run: |
+          if ! diff -qr dist-original dist >/dev/null; then
+            echo "Detected dist/ changes; run 'npm run build' and commit the updated dist folder."
+            exit 1
+          fi

@@ -1,0 +1,33 @@
+image: Visual Studio 2015
+
+version: 75.1.140-CI{build}
+
+clone_depth: 10
+
+#Skip builing if we only modify text files
+skip_commits:
+  files:
+    - '**/*.md'
+    - '**/*.html'
+    - '**/*.js'
+
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+  - ps: .\build.ps1
+
+# Disable tests
+test: off
+
+artifacts:
+  - path: NuGet\*.nupkg
+    name: nupkgfiles
+
+# Publish to myget.org feed
+deploy:
+  provider: NuGet
+  server: https://www.myget.org/F/cefsharp/api/v2/package
+  api_key:
+    secure: /4s0qE0Jio8mtN87p4e2bnl2J4uIa8nO2Tq/O0mkmWy+zahCmfQM8IB2knN0qhKh
+  skip_symbols: false
+  symbol_server: https://www.myget.org/F/cefsharp/api/v2/package
+  artifact: nupkgfiles

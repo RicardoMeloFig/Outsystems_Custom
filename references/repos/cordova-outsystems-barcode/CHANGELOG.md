@@ -1,0 +1,160 @@
+# [2.2.0](https://github.com/OutSystems/cordova-outsystems-barcode/compare/2.1.2...2.2.0) (2026-09-09)
+
+
+### Features
+
+* **ios:** add Swift Package Manager support ([#55](https://github.com/OutSystems/cordova-outsystems-barcode/issues/55)) ([f3dd78a](https://github.com/OutSystems/cordova-outsystems-barcode/commit/f3dd78ae37716926812d4849b1b8c0ed1b9120dd))
+
+## [2.1.2](https://github.com/OutSystems/cordova-outsystems-barcode/compare/2.1.1...2.1.2) (2026-09-03)
+
+
+### Bug Fixes
+
+* prevent SwiftUICore crash on ios 15/16 ([#54](https://github.com/OutSystems/cordova-outsystems-barcode/issues/54)) ([a8a5154](https://github.com/OutSystems/cordova-outsystems-barcode/commit/a8a5154fac3a8150360e6be0376828e1063e59e7))
+
+## [2.1.1](https://github.com/OutSystems/cordova-outsystems-barcode/compare/2.1.0...2.1.1) (2026-08-07)
+
+
+### Bug Fixes
+
+* **android:** only show camera preview after grating permission ([#52](https://github.com/OutSystems/cordova-outsystems-barcode/issues/52)) ([6b7fe1d](https://github.com/OutSystems/cordova-outsystems-barcode/commit/6b7fe1dc0e772ac38671621a038c57bedc52f40b))
+
+# [2.1.0](https://github.com/OutSystems/cordova-outsystems-barcode/compare/2.0.3...2.1.0) (2026-07-08)
+
+
+### Features
+
+* add optional accessibility label scan parameters ([#49](https://github.com/OutSystems/cordova-outsystems-barcode/issues/49)) ([d947ad6](https://github.com/OutSystems/cordova-outsystems-barcode/commit/d947ad6edd2cfa5e441c5fe33823e3497178faee))
+
+## [2.0.3](https://github.com/OutSystems/cordova-outsystems-barcode/compare/2.0.2...2.0.3) (2026-06-26)
+
+
+### Bug Fixes
+
+* **android:** prevent Expanded Dark Theme color inversion on scanner ([#51](https://github.com/OutSystems/cordova-outsystems-barcode/issues/51)) ([e9b0b4c](https://github.com/OutSystems/cordova-outsystems-barcode/commit/e9b0b4cda64e61825be59510b91888c982f5dc72))
+
+## [2.0.2]
+
+### 13-01-2026
+
+- Chore: Remove unnecessary dependency to `oscore` and `oscordova`.
+
+## [2.0.1]
+
+### 02-10-2025
+
+- Fix: Android - Crash due to `kotlin.UninitializedPropertyAccessException`.
+
+## [2.0.0]
+
+### 01-09-2025
+
+- Feature: Android - provide `hint` and return `format`.
+
+**BREAKING CHANGES**: The `scanBarcode` now returns an object instead of a string.
+
+## [1.2.1]
+
+### 20-08-2025
+- Chore: Android - Update barcode library to fix MLKit memory consumption bug
+
+## [1.2.0]
+
+### 03-12-2024
+- Chore: Android - Bump Kotlin and Gradle versions (https://outsystemsrd.atlassian.net/browse/RMET-3887)
+
+### 26-11-2024
+- Feature: Android - Support Edge-to-Edge on all Android versions.
+
+## [1.1.7]
+
+### 11-11-2024
+- Chore: Android - Remove unneeded `kotlin-kapt` plugin (https://outsystemsrd.atlassian.net/browse/RMET-3803).
+
+### 08-11-2024
+- Fix: Android - Update libraries for supporting 16KB page size (https://outsystemsrd.atlassian.net/browse/RMET-3602)
+
+### 05-11-2024
+- Fix: Android - Edge-to-edge support on Android 15 (https://outsystemsrd.atlassian.net/browse/RMET-3597)
+
+## [1.1.6]
+
+### 22-10-2024
+- Fix: iOS - Make scanner view wider (https://outsystemsrd.atlassian.net/browse/RMET-3683).
+- Fix: Android - Make scanner view wider (https://outsystemsrd.atlassian.net/browse/RMET-3682).
+
+## [1.1.5]
+
+### 27-08-2024
+- Fix: iOS - Use confidence level for code readings (https://outsystemsrd.atlassian.net/browse/RMET-3374).
+
+### 23-08-2024
+- Fix: Android - Stop using runBlocking when scanning a code (https://outsystemsrd.atlassian.net/browse/RMET-3379).
+
+### 22-08-2024
+- Fix: Android - Avoid UI bug on background when layout is portrait (https://outsystemsrd.atlassian.net/browse/RMET-3379).
+
+## [1.1.4]
+
+### iOS
+
+#### Chores
+- Replace `xcframework` by `pod` (https://outsystemsrd.atlassian.net/browse/RMET-3587).
+- Remove `add-swift-support` dependency and use the `SwiftVersion` preference.
+
+## [1.1.3]
+
+### 16-06-2024
+- Fix: [Android] Update dependency to `oscordova`, to fix incompatibility with other plugins (https://outsystemsrd.atlassian.net/browse/RMET-3540)
+
+## [1.1.2]
+
+### 21-05-2024
+- Fix: Updates dependency to `OSBarcodeLib-Android`, adding serializable annotation to avoid problems with code obfuscation (https://outsystemsrd.atlassian.net/browse/RMET-3394).
+
+## [1.1.1]
+
+### 30-04-2024
+- Fix: Improve scanning on Android by updating dependency to OSBarcodeLib-Android higher resolution frames (https://outsystemsrd.atlassian.net/browse/RMET-3399).
+
+## [1.1.0]
+
+### Android
+
+#### Chores
+- Update library to include the zoom feature (https://outsystemsrd.atlassian.net/browse/RMET-2987).
+
+### iOS
+
+#### Chores
+- Update library to include the zoom feature (https://outsystemsrd.atlassian.net/browse/RMET-2986).
+
+#### Refactors
+- Replace `OSBARCArgumentMappable` static method with an initialiser.
+
+## [1.0.0]
+
+### iOS
+
+#### Features
+- Add `scanOrientation` argument to `scanBarcode` (https://outsystemsrd.atlassian.net/browse/RMET-2753).
+- Add `cameraDirection` argument to `scanBarcode` (https://outsystemsrd.atlassian.net/browse/RMET-2754).
+- Add `scanButtonText` argument to `scanBarcode` (https://outsystemsrd.atlassian.net/browse/RMET-2752).
+- Add `scanInstructions` argument to `scanBarcode` (https://outsystemsrd.atlassian.net/browse/RMET-2751).
+- Implement `scanBarcode` (https://outsystemsrd.atlassian.net/browse/RMET-2748).
+
+#### Fixes
+- Fix error codes and messages (https://outsystemsrd.atlassian.net/browse/RMET-3038).
+
+### Android
+
+#### 09-01-2024
+- Update error codes and messages (https://outsystemsrd.atlassian.net/browse/RMET-3037).
+
+#### 08-11-2023
+Android - Scan barcode feature (https://outsystemsrd.atlassian.net/browse/RMET-2758)
+
+### Cordova Wrapper
+
+- Add support for plugin's old version of the `scanBarcode` method (https://outsystemsrd.atlassian.net/browse/RMET-2916).
+- Add `scanBarcode` method (https://outsystemsrd.atlassian.net/browse/RMET-2916).

@@ -1,0 +1,7 @@
+repositories {
+	maven { url 'http://maven.microblink.com' }
+}
+
+dependencies {
+	compile 'com.microblink:blinkid:1.9.0@aar'
+}

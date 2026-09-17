@@ -1,0 +1,6 @@
+framework module OutSystemsMobileECT {
+  umbrella header "OutSystemsMobileECT.h"
+  export *
+
+  module * { export * }
+}

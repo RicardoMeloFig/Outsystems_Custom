@@ -1,0 +1,19 @@
+{
+  "name": "com.chuckytuh.cordova.rsswizzle",
+  "version": "1.1.0",
+  "description": "Cordova plugin for RSSwizzle",
+  "cordova": {
+    "id": "com.chuckytuh.cordova.rsswizzle",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "João Gonçalves",
+  "license": "MIT License",
+  "url" : "https://github.com/Chuckytuh/cordova-plugin-rsswizle"
+, "email" : "chuckynes@gmail.com"
+}

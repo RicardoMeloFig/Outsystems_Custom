@@ -1,0 +1,6 @@
+<resources>
+    <!-- OutSystems Error Screen -->
+    <string name="button_text_retry">TRY AGAIN</string>
+    <string name="image_description">Offline</string>
+    <string name="error_description">The network connection was lost. Make sure you\'re connected and:</string>
+</resources>

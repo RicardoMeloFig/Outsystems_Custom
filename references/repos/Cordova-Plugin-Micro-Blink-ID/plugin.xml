@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="com.os.mobile.blinkid"
+      version="0.0.3">
+    <name>Blink Id Plugin</name>
+    <description>Plugin Read Card ID and to Scan Documents</description>
+    <license>MIT License</license>
+    <keywords>cordova,outsystems, blinkid, microblink, cardID</keywords>
+    <repo></repo>
+    <issue></issue>
+
+    <js-module src="www/BlinkId.js" name="BlinkId">
+        <clobbers target="cordova.plugins.blinkId" />
+        <clobbers target="plugin.blinkId" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BlinkIdPlugin">
+                <param name="ios-package" value="BlinkIdPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/BlinkIdPlugin.h" />
+        <source-file src="src/ios/BlinkIdPlugin.m" />
+        
+    <!-- MicroBlink frameworks -->
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/en.strings" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/IDCard.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/IDCard@2x.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/ocr_model.zzip" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/PPbeep.wav" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchoff_pressed.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchoff_pressed@2x.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchoff.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchoff@2x.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchon_pressed.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchon_pressed@2x.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchon.png" />
+    <resource-file src="src/ios/libs/MicroBlink.embeddedframework/Resources/torchon@2x.png" />
+    <framework src="src/ios/libs/MicroBlink.embeddedframework/MicroBlink.framework" custom="true" />
+    
+    
+    <!-- System frameworks -->
+    <framework src="libc++.dylib" weak="true" />
+    <framework src="libiconv.dylib" weak="true" />
+    <framework src="AVFoundation.framework" weak="true" />
+    <framework src="AudioToolbox.framework" weak="true" />
+    <framework src="CoreMedia.framework" weak="true" />
+    <framework src="OpenGLES.framework" weak="true" />
+    <framework src="QuartzCore.framework" weak="true" /> 
+    <framework src="CoreVideo.framework" weak="true" /> 
+      
+    </platform>
+    
+    <!-- Android -->
+    <platform name="android">
+        
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BlinkIdPlugin">
+                <param name="android-package" value="com.os.mobile.blinkid.BlinkIdPlugin"/>
+            </feature>
+        </config-file>
+        
+        <source-file src="src/android/BlinkIdPlugin.java" target-dir="src/com/os/mobile/blinkid" />
+		<framework src="src/android/microblink.gradle" custom="true" type="gradleReference" />        
+    </platform>
+    
+</plugin>

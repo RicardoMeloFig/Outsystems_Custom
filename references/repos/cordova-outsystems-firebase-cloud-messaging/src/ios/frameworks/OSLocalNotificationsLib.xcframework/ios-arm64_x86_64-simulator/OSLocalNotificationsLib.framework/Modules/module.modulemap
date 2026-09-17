@@ -1,0 +1,4 @@
+framework module OSLocalNotificationsLib {
+  header "OSLocalNotificationsLib-Swift.h"
+  requires objc
+}

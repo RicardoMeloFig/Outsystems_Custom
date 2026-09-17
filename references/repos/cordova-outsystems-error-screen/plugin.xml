@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.outsystems.plugins.errorscreen"
+    version="1.0.0">
+    <name>ErrorScreen</name>
+    <description>Cordova Error Screen Plugin</description>
+    <license>OutSystems</license>
+    <keywords>cordova,error,screen</keywords>
+    <repo>https://github.com/OutSystems/cordova-plugin-error-screen.git</repo>
+    <issue>https://github.com/OutSystems/cordova-plugin-error-screen/issues</issue>
+
+    <js-module src="www/errorscreen.js" name="ErrorScreen">
+        <clobbers target="navigator.errorscreen" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="ErrorScreen">
+          <param name="android-package" value="com.outsystems.plugins.errorscreen.ErrorScreen" />
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/ErrorScreen.java" target-dir="src/com/outsystems/plugins/errorscreen" />
+      <resource-file src="res/android/layout/errorscreen.xml" target="res/layout/errorscreen.xml" />
+      <resource-file src="res/android/drawable/button_background.xml" target="res/drawable/button_background.xml" />
+      <resource-file src="res/android/drawable/button_text_selector.xml" target="res/drawable/button_text_selector.xml" />
+      <resource-file src="res/android/drawable-mdpi/offline.png" target="res/drawable-mdpi/offline.png" />
+      <resource-file src="res/android/drawable-hdpi/offline.png" target="res/drawable-hdpi/offline.png" />
+      <resource-file src="res/android/drawable-xhdpi/offline.png" target="res/drawable-xhdpi/offline.png" />
+      <resource-file src="res/android/drawable-xxhdpi/offline.png" target="res/drawable-xxhdpi/offline.png" />
+      <resource-file src="res/android/drawable-xxxhdpi/offline.png" target="res/drawable-xxxhdpi/offline.png" />
+      <resource-file src="res/android/values/errorscreen_colors.xml" target="res/values/errorscreen_colors.xml" />
+      <resource-file src="res/android/values/errorscreen_dimens.xml" target="res/values/errorscreen_dimens.xml" />
+      <resource-file src="res/android/values/errorscreen_strings.xml" target="res/values/errorscreen_strings.xml" />
+      <resource-file src="res/android/values/errorscreen_styles.xml" target="res/values/errorscreen_styles.xml" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+		    <feature name="ErrorScreen">
+			    <param name="ios-package" value="CDVErrorScreen"/>
+			    <param name="onload" value="true"/>
+		    </feature>
+      </config-file>
+
+      <header-file src="src/ios/CDVErrorScreen.h" />
+      <source-file src="src/ios/CDVErrorScreen.m" />
+      <header-file src="src/ios/ConnectionFailed/ConnectionFailedViewController.h" />
+      <source-file src="src/ios/ConnectionFailed/ConnectionFailedViewController.m" />
+      <header-file src="src/ios/ConnectionFailed/RoundButton.h" />
+      <source-file src="src/ios/ConnectionFailed/RoundButton.m" />
+      <resource-file src="src/ios/ConnectionFailed/ConnectionFailed.xib" />
+      <resource-file src="res/ios/offline.png" />
+      <resource-file src="res/ios/offline@2x.png" />
+      <resource-file src="res/ios/offline@2x~ipad.png" />
+      <resource-file src="res/ios/offline@3x.png" />
+      <resource-file src="res/ios/offline@3x~ipad.png" />
+      <resource-file src="res/ios/offline~ipad.png" />
+    </platform>
+</plugin>

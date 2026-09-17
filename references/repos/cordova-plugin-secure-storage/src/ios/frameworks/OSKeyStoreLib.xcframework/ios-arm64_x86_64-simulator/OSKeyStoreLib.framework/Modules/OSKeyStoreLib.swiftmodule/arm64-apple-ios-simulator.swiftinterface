@@ -1,0 +1,57 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.1 effective-5.10 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name OSKeyStoreLib
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -interface-compiler-version 6.1
+import Foundation
+import LocalAuthentication
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol OSKSTCallbackDelegate : AnyObject {
+  func callback(result: Swift.String?, error: OSKeyStoreLib.OSKSTError?)
+  func callback(error: OSKeyStoreLib.OSKSTError)
+  func callback(text: Swift.String)
+  func callbackSuccess()
+}
+extension OSKeyStoreLib.OSKSTCallbackDelegate {
+  public func callback(error: OSKeyStoreLib.OSKSTError)
+  public func callback(text: Swift.String)
+  public func callbackSuccess()
+}
+public struct OSKSTFactory {
+  public static func createKeystoreWrapper(withDelegate delegate: any OSKeyStoreLib.OSKSTCallbackDelegate) -> any OSKeyStoreLib.OSKSTActionDelegate
+}
+public protocol OSKSTActionDelegate : AnyObject {
+  func save(service: Swift.String, account: Swift.String, data: Foundation.Data, useAccessControl: Swift.Bool, invalidateOnBiometricChange: Swift.Bool)
+  func read(service: Swift.String, account: Swift.String?)
+  func delete(service: Swift.String, account: Swift.String?)
+}
+extension OSKeyStoreLib.OSKSTActionDelegate {
+  public func read(service: Swift.String)
+  public func delete(service: Swift.String)
+}
+public enum OSKSTError : Swift.Int, Foundation.CustomNSError, Foundation.LocalizedError {
+  case badArguments
+  case operationUnimplemented
+  case invalidParameters
+  case memoryAllocation
+  case unavailable
+  case duplicateItem
+  case itemNotFound
+  case userInterationNotAllowed
+  case dataDecode
+  case authenticationFailed
+  case general
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension OSKeyStoreLib.OSKSTError : Swift.Equatable {}
+extension OSKeyStoreLib.OSKSTError : Swift.Hashable {}
+extension OSKeyStoreLib.OSKSTError : Swift.RawRepresentable {}

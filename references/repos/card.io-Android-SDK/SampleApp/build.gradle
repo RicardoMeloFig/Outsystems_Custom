@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.11.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+    google()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    namespace "io.card.development"
+    defaultConfig {
+        applicationId "io.card.development"
+        compileSdk 36
+        minSdkVersion 21
+        targetSdkVersion 36
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+}
+
+dependencies {
+    implementation(files("../aars/card.io-5.5.1-OS3.aar"))
+
+    implementation 'androidx.activity:activity:1.10.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.13'
+
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
+    androidTestImplementation "com.github.lkorth:device-automator:01d85912ec"
+}

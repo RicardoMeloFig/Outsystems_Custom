@@ -1,0 +1,28 @@
+{
+  "name": "com.outsystems.plugins.errorscreen",
+  "version": "1.0.0",
+  "description": "Cordova Error Screen Plugin",
+  "cordova": {
+    "id": "com.outsystems.plugins.errorscreen",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OutSystems/cordova-plugin-error-screen"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "error",
+    "screen",
+    "outsystems",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "OutSystems",
+  "license": "Copyright (c) 2016 OutSystems",
+  "homepage": "https://www.outsystems.com/"
+}

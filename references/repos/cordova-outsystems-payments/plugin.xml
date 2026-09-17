@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="com.outsystems.payments" version="1.2.17" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>OSPayments</name>
+  <description>OutSystems-owned plugin for mobile payments</description>
+  <author>OutSystems Inc</author>
+  <js-module name="OSPayments" src="www/OSPayments.js">
+    <clobbers target="cordova.plugins.OSPayments"/>
+  </js-module>
+
+  <platform name="android">
+
+    <hook type="after_prepare" src="hooks/android/androidCopyPreferences.js" />
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="OSPayments">
+        <param name="android-package" value="com.outsystems.payments.OSPayments"/>
+      </feature>
+      <preference name="GradlePluginKotlinEnabled" value="true" />
+      <preference name="GradlePluginKotlinCodeStyle" value="official" />
+      <preference name="AndroidXEnabled" value="true"/>
+    </config-file>
+
+    <edit-config parent="/manifest/application" target="AndroidManifest.xml">
+      <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true" />
+    </edit-config>
+
+    <source-file src="src/android/com/outsystems/payments/OSPayments.kt" target-dir="app/src/main/kotlin/com/outsystems/payments"/>
+    <framework src="src/android/com/outsystems/payments/build.gradle" custom="true" type="gradleReference" />
+
+  </platform>
+
+  <platform name="ios">
+    <!-- Hooks -->
+    <hook type="after_prepare" src="hooks/ios/iOSCopyPreferences.js" />
+
+    <config-file parent="/*" target="config.xml">
+      <feature name="OSPayments">
+        <param name="ios-package" value="OSPayments"/>
+      </feature>
+      <preference name="SwiftVersion" value="5" />
+    </config-file>
+
+    <config-file target="*-Debug.plist" parent="com.apple.developer.in-app-payments">
+      <array>
+        <string>APPLE_PAY_MERCHANT_ID</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Release.plist" parent="com.apple.developer.in-app-payments">
+      <array>
+        <string>APPLE_PAY_MERCHANT_ID</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayMerchantID">
+         <string>APPLE_PAY_MERCHANT_ID</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayMerchantName">
+         <string>APPLE_PAY_MERCHANT_NAME</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayMerchantCountryCode">
+         <string>APPLE_PAY_MERCHANT_COUNTRY_CODE</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayPaymentAllowedNetworks">
+         <array>APPLE_PAY_PAYMENT_ALLOWED_NETWORKS</array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayPaymentSupportedCapabilities">
+         <array>APPLE_PAY_PAYMENT_SUPPORTED_CAPABILITIES</array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayPaymentSupportedCardCountries">
+         <array>APPLE_PAY_PAYMENT_SUPPORTED_CARD_COUNTRIES</array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayShippingSupportedContacts">
+         <array>APPLE_PAY_SHIPPING_SUPPORTED_CONTACTS</array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayBillingSupportedContacts">
+         <array>APPLE_PAY_BILLING_SUPPORTED_CONTACTS</array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="ApplePayPaymentGateway">
+        <dict>
+          <key>ApplePayPaymentGatewayName</key>
+          <string>APPLE_PAY_PAYMENT_GATEWAY_NAME</string>
+
+          <key>ApplePayRequestURL</key>
+          <string>APPLE_PAY_PAYMENT_REQUEST_URL</string>
+
+          <key>ApplePayStripePublishableKey</key>
+          <string>APPLE_PAY_PAYMENT_STRIPE_PUBLISHABLE_KEY</string>
+        </dict>
+    </config-file>
+
+    <!-- iOS Source Files -->
+    <source-file src="src/ios/OSPayments.swift"/>
+    <framework src="src/ios/frameworks/OSPaymentsLib.xcframework" embed="true" custom="true" />
+  </platform>
+
+</plugin>

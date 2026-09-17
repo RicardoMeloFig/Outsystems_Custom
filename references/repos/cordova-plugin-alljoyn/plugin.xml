@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-alljoyn"
+    version="0.0.5">
+
+    <name>AllJoyn</name>
+    <description>Cordova AllJoyn Plugin</description>
+
+    <engines>
+        <engine name="cordova" version=">=3.1.0" />
+        <engine name="cordova-windows" version=">=3.8.0" />
+    </engines>
+
+    <js-module src="www/AllJoyn.js" name="AllJoyn">
+        <clobbers target="AllJoyn" />
+    </js-module>
+
+    <hook type="before_plugin_install" src="scripts/beforePluginInstall.js" />
+    <!-- <hook type="after_plugin_add" src="scripts/afterPluginInstall.js" /> -->
+
+    <!-- android -->
+    <platform name="android">
+		<hook type="after_platform_add" src="scripts/androidUpdateSettings.js" />
+		<hook type="before_compile" src="scripts/androidBeforeBuild.js" />
+		<hook type="after_compile" src="scripts/androidUpdateSettings.js" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="AllJoyn">
+                <param name="android-package" value="org.allseen.alljoyn.AllJoynCordova"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+        </config-file>
+		
+		<!-- ajtcl -->
+        <source-file src="src/ajtcl/src/aj_about.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_about.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_auth_listener.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_bufio.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_bufio.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_bus.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_bus.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_cert.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_cert.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_config.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_connect.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_connect.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_crc16.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_crc16.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_creds.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_creds.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_crypto.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_crypto.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/crypto/ecc/aj_crypto_ecc.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_crypto_ecc.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/crypto/ecc/aj_crypto_sha2.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_crypto_sha2.h" target-dir="AllJoynLib/src/main/jni" />
+		<source-file src="src/ajtcl/crypto/aj_sw_crypto.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_debug.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_debug.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_disco.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_disco.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_guid.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_guid.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_helper.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_helper.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_init.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_init.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_introspect.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_introspect.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_keyauthentication.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_keyauthentication.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_keyexchange.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_keyexchange.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_link_timeout.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_link_timeout.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_msg.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_msg.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_msg_priv.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_net.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_nvram.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_nvram.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_peer.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_peer.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_serial.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_serial.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_serial_rx.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_serial_rx.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_serial_tx.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_serial_tx.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_serio.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_status.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_std.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_std.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/src/aj_util.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_util.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_version.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/aj_wifi_ctrl.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/inc/alljoyn.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/external/sha2/sha2.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/ajtcl/external/sha2/sha2.h" target-dir="AllJoynLib/src/main/jni" />		
+		
+		<!-- jni -->
+        <source-file src="src/android/jni/aj_net.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/aj_target_crypto.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/aj_target_nvram.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/aj_target_nvram.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/aj_target_util.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/aj_target.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/ifaddrs.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/ifaddrs.h" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/ifc_utils.c" target-dir="AllJoynLib/src/main/jni" />
+        <source-file src="src/android/jni/ifc.h" target-dir="AllJoynLib/src/main/jni" />
+
+		<!-- java -->
+        <source-file src="src/android/java/AllJoynCordova.java" target-dir="src/org/allseen/alljoyn" />
+		
+		<!-- swig -->
+		<source-file src="src/android/swig/aj_about.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_auth_listener.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_bufio.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_bus.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_cert.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_config.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_connect.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_debug.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_helper.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_init.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_introspect.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_msg.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_net.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_status.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_std.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_target.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_util.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/aj_version.i" target-dir="AllJoynLib/swig" />
+		<source-file src="src/android/swig/alljoyn.i" target-dir="AllJoynLib/swig" />	
+		
+		<!-- gradle -->
+		<source-file src="src/android/gradle/build.gradle" target-dir="AllJoynLib" />
+		<source-file src="src/android/gradle/AndroidManifest.xml" target-dir="AllJoynLib/src/main" />
+    </platform>
+   
+    <!-- ios -->
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="AllJoyn">
+                <param name="ios-package" value="AllJoyn_Cordova" />
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <framework src="Security.framework" />
+
+        <source-file src="src/ajtcl/src/aj_about.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_about.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_auth_listener.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_bufio.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_bufio.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_bus.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_bus.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_cert.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_cert.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_config.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_connect.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_connect.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_crc16.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_crc16.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_creds.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_creds.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_crypto.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_crypto.h" target-dir="." />
+        <source-file src="src/ajtcl/crypto/ecc/aj_crypto_ecc.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_crypto_ecc.h" target-dir="." />
+        <source-file src="src/ajtcl/crypto/ecc/aj_crypto_sha2.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_crypto_sha2.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_debug.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_debug.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_disco.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_disco.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_guid.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_guid.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_helper.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_helper.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_init.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_init.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_introspect.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_introspect.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_keyauthentication.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_keyauthentication.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_keyexchange.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_keyexchange.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_link_timeout.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_link_timeout.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_msg.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_msg.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_msg_priv.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_net.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_nvram.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_nvram.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_peer.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_peer.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_serial.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_serial.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_serial_rx.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_serial_rx.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_serial_tx.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_serial_tx.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_serio.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_status.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_std.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_std.h" target-dir="." />
+        <source-file src="src/ajtcl/src/aj_util.c" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_util.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_version.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/aj_wifi_ctrl.h" target-dir="." />
+        <header-file src="src/ajtcl/inc/alljoyn.h" target-dir="." />
+        <source-file src="src/ajtcl/external/sha2/sha2.c" target-dir="." />
+        <header-file src="src/ajtcl/external/sha2/sha2.h" target-dir="." />
+
+        <source-file src="src/ios/aj_net.c" target-dir="." />
+        <source-file src="src/ios/aj_sw_crypto.c" target-dir="." />
+        <source-file src="src/ios/aj_target_nvram.c" target-dir="." />
+        <header-file src="src/ios/aj_target_nvram.h" target-dir="." />
+        <source-file src="src/ios/aj_target_serial.c" target-dir="." />
+        <source-file src="src/ios/aj_target_util.c" target-dir="." />
+        <header-file src="src/ios/aj_target.h" target-dir="." />
+
+        <header-file src="src/ios/AllJoyn_Cordova.h" target-dir="." />
+        <source-file src="src/ios/AllJoyn_Cordova.m" target-dir="." />
+
+        <hook type="after_plugin_install" src="scripts/iOSAfterPluginInstall.js" />
+    </platform>
+
+    <!-- windows -->
+    <platform name="windows">
+        <js-module src="src/windows/AllJoynProxy.js" name="AllJoynProxy">
+            <merges target="" />
+        </js-module>
+        <framework src="src/windows/AllJoynWinRTComponent/AllJoynWinRTComponent.Windows.vcxproj" custom="true" type="projectReference" target="windows" />
+        <framework src="src/windows/AllJoynWinRTComponent/AllJoynWinRTComponent.WindowsPhone.vcxproj" custom="true" type="projectReference" target="phone" />
+        <config-file target="package.windows80.appxmanifest" parent="/Package/Capabilities">
+            <Capability Name="internetClientServer" />
+        </config-file>
+        <config-file target="package.windows.appxmanifest" parent="/Package/Capabilities">
+            <Capability Name="internetClientServer" />
+        </config-file>
+    </platform>
+
+</plugin>

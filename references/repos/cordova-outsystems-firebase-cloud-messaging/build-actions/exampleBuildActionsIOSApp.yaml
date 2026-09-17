@@ -1,0 +1,7 @@
+platforms:
+  ios:
+    plist:
+      - entries:
+        - LSApplicationQueriesSchemes:
+          - comgooglemaps
+          - appcustomscheme

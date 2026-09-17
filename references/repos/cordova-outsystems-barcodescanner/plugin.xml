@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="com.outsystems.plugins.barcodescanner" version="1.0.11" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>OSBarcodeScanner</name>
+  <description>Outsystems Plugin to scann barcodes</description>
+  <author>OutSystems Inc</author>
+  <js-module name="OSBarcodeScanner" src="www/OSBarcodeScanner.js">
+    <clobbers target="cordova.plugins.OSBarcodeScanner"/>
+  </js-module>
+
+  <platform name="android">
+
+    <hook type="before_plugin_install" src="hooks/installDependencies.js" />
+    <hook type="after_prepare" src="hooks/androidSetToolsTag.js" />
+
+    <config-file target="AndroidManifest.xml" parent="application">        
+      <activity android:name="com.outsystems.plugins.barcodescanner.CustomScannerActivity"
+              android:screenOrientation="fullSensor"
+              android:stateNotNeeded="true"
+              android:exported="false"
+              android:theme="@style/zxing_CaptureTheme"
+              android:windowSoftInputMode="stateAlwaysHidden"></activity>    
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+    </config-file>  
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
+      </feature>
+    </config-file>
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="OSBarcodeScanner">
+        <param name="android-package" value="com.outsystems.plugins.barcodescanner.OSBarcodeScanner"/>
+      </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/OSBarcodeScanner.java" target-dir="src/com/outsystems/plugins/barcodescanner"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/CustomScannerActivity.java" target-dir="src/com/outsystems/plugins/barcodescanner"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/drawable/ic_close.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/drawable/ic_flash.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/drawable/ic_scan.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/drawable/scan_button.xml" target-dir="res/drawable"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/layout/activity_custom_scanner.xml" target-dir="res/layout"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/layout/custom_barcode_scanner.xml" target-dir="res/layout"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/layout-land/activity_custom_scanner.xml" target-dir="res/layout-land"/>
+    <source-file src="src/android/com/outsystems/plugins/barcodescanner/res/layout-land/custom_barcode_scanner.xml" target-dir="res/layout-land"/>
+    
+    <framework src="build-extras-zxing.gradle" custom="true" type="gradleReference" />
+    <resource-file src="src/android/com/outsystems/plugins/barcodescanner/lib/zxing-android-embedded-4.2.0-OS.aar" target="libs/zxing-android-embedded-4.2.0-OS.aar" />
+    
+  </platform>
+
+  <platform name="ios">
+
+    <preference name="CAMERA_USAGE_DESCRIPTION" default=" " />
+    <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+        <string>$CAMERA_USAGE_DESCRIPTION</string>
+    </config-file>
+
+    <config-file parent="/*" target="config.xml">
+      <feature name="OSBarcodeScanner">
+        <param name="ios-package" value="OSBarcodeScanner"/>
+      </feature>
+    </config-file>
+    <source-file src="src/ios/CDVBarcodeOptions.m"/>
+    <header-file src="src/ios/CDVBarcodeOptions.h"/>
+    <source-file src="src/ios/OSBarcodeScanner.m"/>
+    <header-file src="src/ios/OSBarcodeScanner.h"/>
+    <source-file src="src/ios/OSBarcodeErrors.m"/>
+    <header-file src="src/ios/OSBarcodeErrors.h"/>
+    <source-file src="src/ios/ScannerViewController.m"/>
+    <header-file src="src/ios/ScannerViewController.h"/>
+    <source-file src="src/ios/ScannerViewController.xib"/>
+    <resource-file src="src/ios/BarcodeLocal.xcassets"/>
+    
+    <podspec>
+        <pods>
+            <pod name="ZXingObjC" git="https://github.com/OutSystems/ZXingObjC.git" tag="3.6.4+1.0.0" />
+        </pods>
+    </podspec>
+    
+  </platform>
+</plugin>

@@ -1,0 +1,251 @@
+import OSHealthFitnessLib
+
+@objc(OSHealthFitness)
+class OSHealthFitness: CDVPlugin {
+    var plugin: HealthFitnessPlugin?
+
+    override func pluginInitialize() {
+        plugin = HealthFitnessPlugin()
+    }
+    
+    @objc(requestPermissions:)
+    func requestPermissions(command: CDVInvokedUrlCommand) {
+        let customPermissions = command.arguments[0] as? String ?? ""
+        let allVariables = command.arguments[1] as? String ?? ""
+        let fitnessVariables = command.arguments[2] as? String ?? ""
+        let healthVariables = command.arguments[3] as? String ?? ""
+        let profileVariables = command.arguments[4] as? String ?? ""
+        let workoutVariables = command.argument(at: 6) as? String ?? ""
+        let variable = VariableStruct(allVariables: allVariables, fitnessVariables: fitnessVariables, healthVariables: healthVariables, profileVariables: profileVariables, workoutVariables: workoutVariables)
+        
+        self.plugin?.requestPermissions(customPermissions:customPermissions, variable: variable) { [weak self] authorized, error in
+            guard let self = self else { return }
+            self.sendResult(result: "", error: !authorized ? error : nil, callBackID: command.callbackId)
+        }
+    }
+    
+    @objc(writeData:)
+    func writeData(command: CDVInvokedUrlCommand) {
+        guard let variable = command.arguments[0] as? String else {
+            return sendResult(result: "", error: HealthKitErrors.badParameterType as NSError, callBackID: command.callbackId)
+        }
+        
+        guard let value = command.arguments[1] as? Double else {
+            return sendResult(result: "", error: HealthKitErrors.badParameterType as NSError, callBackID: command.callbackId)
+        }
+        
+        plugin?.writeData(variable: variable, value: value) { [weak self] success, error in
+            guard let self = self else { return }
+            if let err = error {
+                self.sendResult(result: "", error: err, callBackID: command.callbackId)
+            }
+            if success {
+                self.sendResult(result: "", error: nil, callBackID: command.callbackId)
+            }
+        }
+    }
+    
+    @objc(updateBackgroundJob:)
+    func updateBackgroundJob(command: CDVInvokedUrlCommand) {
+        let queryParameters = command.arguments[0] as? String ?? ""
+        if let parameters = parseUpdateParameters(parameters: queryParameters) {
+            plugin?.updateBackgroundJob(
+                id: parameters.id,
+                notificationFrequency: (parameters.notificationFrequency, parameters.notificationFrequencyGrouping),
+                condition: parameters.condition,
+                value: parameters.value,
+                notificationText: (parameters.notificationHeader, parameters.notificationBody),
+                isActive: parameters.isActive
+            ) { [weak self] success, error in
+                guard let self = self else { return }
+                self.sendResult(result: "", error: !success ? error : nil, callBackID: command.callbackId)
+            }
+        }
+    }
+    
+    private func parseUpdateParameters(parameters: String) -> BackgroundJobParameters? {
+        let data = parameters.data(using: .utf8)!
+        if let jsonData = try? JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any> {
+            
+            // I'm doing this mess because Outsystems
+            // seams to be sending the parameters as strings.
+            let id = Int64(jsonData["Id"] as? String ?? "")
+            let notificationFrequency = jsonData["NotificationFrequency"] as? String
+            let notificationFrequencyGrouping = jsonData["NotificationFrequencyGrouping"] as? Int
+            let condition = jsonData["Condition"] as? String
+            let value = jsonData["Value"] as? Double
+            let notificationHeader = jsonData["NotificationHeader"] as? String
+            let notificationBody = jsonData["NotificationBody"] as? String
+            var isActive: Bool? = nil
+            let activeString = jsonData["IsActive"] as? String ?? ""
+            if activeString != "" {
+                isActive = activeString.lowercased() == "true"
+            }
+            
+            return BackgroundJobParameters(id: id,
+                                           variable: nil,
+                                           timeUnit: nil,
+                                           timeUnitGrouping: nil,
+                                           notificationFrequency: notificationFrequency,
+                                           notificationFrequencyGrouping: notificationFrequencyGrouping,
+                                           jobFrequency: nil,
+                                           condition: condition,
+                                           value: value,
+                                           notificationHeader: notificationHeader,
+                                           notificationBody: notificationBody,
+                                           isActive: isActive)
+        }
+        return nil
+    }
+    
+    @objc(getLastRecord:)
+    func getLastRecord(command: CDVInvokedUrlCommand) {
+        let variable = command.arguments[0] as? String ?? ""
+        
+        plugin?.advancedQuery(
+            variable: variable,
+            date: (Date.distantPast, Date()),
+            timeUnit: "",
+            operationType: "MOST_RECENT",
+            mostRecent: true,
+            onlyFilledBlocks: true,
+            resultType: .rawDataType,
+            timeUnitLength: 1
+        ) { [weak self] success, result, error in
+            guard let self = self else { return }
+            
+            if success {
+                self.sendResult(result: result, error: nil, callBackID: command.callbackId)
+            } else {
+                self.sendResult(result: nil, error: error, callBackID: command.callbackId)
+            }
+        }
+    }
+    
+    @objc(deleteBackgroundJob:)
+    func deleteBackgroundJob(command: CDVInvokedUrlCommand) {
+        let id = command.arguments[0] as? String ?? ""
+        
+        plugin?.deleteBackgroundJobs(id: id) { [weak self] error in
+            guard let self = self else { return }
+            
+            self.sendResult(result: error == nil ? "" : nil, error: error, callBackID: command.callbackId)
+        }
+    }
+    
+    @objc(listBackgroundJobs:)
+    func listBackgroundJobs(command: CDVInvokedUrlCommand) {
+        let result = plugin?.listBackgroundJobs()
+        sendResult(result: result, error: nil, callBackID: command.callbackId)
+    }
+    
+    @objc(setBackgroundJob:)
+    func setBackgroundJob(command: CDVInvokedUrlCommand) {
+        let queryParameters = command.arguments[0] as? String ?? ""
+        if let params = queryParameters.decode() as BackgroundJobParameters? {
+            
+            let variable = params.variable ?? ""
+            let timeUnitGrouping = params.timeUnitGrouping ?? 0
+            let condition = params.condition ?? ""
+            let timeUnit = params.timeUnit ?? ""
+            let jobFrequency = params.jobFrequency ?? ""
+            let notificationFrequency = params.notificationFrequency ?? ""
+            let notificationFrequencyGrouping = params.notificationFrequencyGrouping ?? 0
+            let value = params.value ?? 0
+            let notificationHeader = params.notificationHeader ?? ""
+            let notificationBody = params.notificationBody ?? ""
+            
+            plugin?.setBackgroundJob(
+                variable: variable,
+                timeUnit: (timeUnit,  timeUnitGrouping),
+                notificationFrequency: (notificationFrequency, notificationFrequencyGrouping),
+                jobFrequency: jobFrequency,
+                condition: condition,
+                value: value,
+                notificationText: (notificationHeader, notificationBody)
+            ) { [weak self] success, result, error in
+                guard let self = self else { return }
+                
+                if success {
+                    self.sendResult(result: result, error: nil, callBackID: command.callbackId)
+                } else {
+                    self.sendResult(result: nil, error: error, callBackID: command.callbackId)
+                }
+            }
+        }
+    }
+    
+    @objc(getData:)
+    func getData(command: CDVInvokedUrlCommand) {
+        let queryParameters = command.arguments[0] as? String ?? ""
+        if let params = queryParameters.decode() as AdvancedQueryParameters? {
+            
+            let variable = params.variable ?? ""
+            let startDate = params.startDate ?? ""
+            let endDate = params.endDate ?? ""
+            let timeUnit = params.timeUnit ?? ""
+            let operationType = params.operationType ?? ""
+            let timeUnitLength = params.timeUnitLength ?? 1
+            let onlyFilledBlocks = params.advancedQueryReturnType == AdvancedQueryReturnTypeEnum.removeEmptyDataBlocks.rawValue
+            let resultType = AdvancedQueryResultType.get(with: params.advancedQueryResultType ?? "")
+            
+            self.plugin?.advancedQuery(
+                variable: variable,
+                date: (Date(startDate), Date(endDate)),
+                timeUnit: timeUnit,
+                operationType: operationType,
+                mostRecent: false,
+                onlyFilledBlocks: onlyFilledBlocks,
+                resultType: resultType,
+                timeUnitLength: timeUnitLength
+            ) { [weak self] success, result, error in
+                guard let self = self else { return }
+                
+                if success {
+                    self.sendResult(result: result, error: nil, callBackID: command.callbackId)
+                } else {
+                    self.sendResult(result: nil, error: error, callBackID: command.callbackId)
+                }
+            }
+        }
+    }
+    
+    @objc(getWorkoutData:)
+    func getWorkoutData(command: CDVInvokedUrlCommand) {
+        guard let arg = command.argument(at: 0) as? String, let queryParameters = arg.decode() as WorkoutAdvancedQueryParameters? else { return }
+        let workoutTypeVariableDictionary = queryParameters.workoutTypeVariableDictionary
+        let startDate = Date(queryParameters.startDate ?? "")
+        let endDate = Date(queryParameters.endDate ?? "")
+        
+        plugin?.workoutAdvancedQuery(workoutTypeVariableDictionary: workoutTypeVariableDictionary, date: (startDate, endDate), completion: { [weak self] success, result, error in
+            guard let self = self else { return }
+            
+            if success {
+                self.sendResult(result: result, error: nil, callBackID: command.callbackId)
+            } else {
+                self.sendResult(result: nil, error: error, callBackID: command.callbackId)
+            }
+        })
+    }
+    
+    private func sendResult(result: String?, error: NSError?, callBackID: String) {
+        var pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR);
+        
+        if let error = error {
+            if !error.localizedDescription.isEmpty {
+                let errorCode = String(error.code)
+                let errorMessage = error.localizedDescription
+                let errorDict = ["code": errorCode, "message": errorMessage]
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: errorDict);
+            }
+        } else if let result = result {
+            if result.isEmpty {
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK)
+            } else {
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: result)
+            }
+        }
+        
+        self.commandDelegate!.send(pluginResult, callbackId: callBackID);
+    }
+}

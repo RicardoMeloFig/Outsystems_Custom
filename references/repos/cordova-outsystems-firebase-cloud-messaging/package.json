@@ -1,0 +1,23 @@
+{
+  "name": "com.outsystems.firebase.cloudmessaging",
+  "version": "2.6.1",
+  "description": "Outsystems plugin for Firebase Cloud Messaging",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "cordova": {
+    "id": "com.outsystems.firebase.cloudmessaging",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "scripts": {
+    "capacitor:update:after": "node build-actions/capacitor_hooks_update_after.js"
+  },
+  "dependencies": {
+    "adm-zip": "0.5.12"
+  }
+}
