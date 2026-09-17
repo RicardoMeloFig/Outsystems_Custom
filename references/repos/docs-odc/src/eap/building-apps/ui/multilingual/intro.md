@@ -1,0 +1,46 @@
+---
+summary: Multilingual apps in OutSystems Developer Cloud (ODC) let you translate screens, messages, and static entities, with session-bound language switching.
+tags:
+  - Multi-language
+  - Translation
+locale: en-us
+guid: ab798636-66c7-4ca9-88df-313bfa5cf8ef
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - odc studio
+coverage-type:
+  - understand
+topic:
+  - translating-apps
+---
+
+# Multilingual apps
+
+With Multilingual web and mobile apps you can translate an app to other languages. Once the translations are available in the app, you can switch the language automatically or let users do it.
+
+When translating apps, note the following important information about language codes:
+
+* The default language code is **en-US**.
+* The current language is bound to the user session and when the user logs out, the language code automatically changes to the default language code.
+* The list of selectable language codes is obtained through the operating system. As a result, the options displayed may be influenced by your local system configurations.
+* Language codes are **case sensitive**.
+
+## Getting started
+
+Here's how to get started:
+
+* For instructions on how to translate your app directly in ODC Studio, see [Translate your app](translate-your-app.md).
+* If you want to extract text for sending it to a translation service, see [Translation management](translation-management.md).
+
+You can translate the following elements of your app:
+
+* Screen titles
+* Text in buttons, links, and screens
+* Text literals in expressions
+* Validation messages, widget confirmation messages, and empty state messages
+* Static entities. Check [Working with Static Entities](translate-your-app.md#working-with-static-entities) for important notes.

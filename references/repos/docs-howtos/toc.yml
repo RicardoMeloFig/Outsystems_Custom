@@ -1,0 +1,153 @@
+# Development
+- href: development/intro.md
+- topics:
+    - href: development/create-lifetime-plugin/faq.md
+    - href: development/mobile-deep-links/faq.md
+    - href: development/feature-flags/feature-flags.md
+    - href: development/reduce-size-espace/faq.md        
+    - href: development/list-sort-sql/faq.md
+    - href: development/clone-module/faq.md
+    - href: development/ext-jj-auth0/ext-jj-auth0.md
+    - href: development/ext-ff-report-html-pdf/report-html-pdf-ff.md
+    - href: development/hierarchical-roles/faq.md
+    - topics:
+        - href: development/hierarchical-roles/hierarchical-and-static-roles.md
+        - href: development/hierarchical-roles/hands-on.md
+        - href: development/hierarchical-roles/demo.md        
+    - href: development/build-multi-tenant-app/build-multi-tenant-app.md     
+    - href: development/integrated-auth-webservices/integrated-auth-webservices.md         
+
+# Front-End
+- href: front-end/intro.md
+- topics:
+# Migrating UI of the Silk Web applications to OutSystems UI Framework
+    - href: front-end/ui-migration-guide/intro.md
+    - topics:
+        - href: front-end/ui-migration-guide/migrate-patterns.md
+        - href: front-end/ui-migration-guide/migrate-structure.md
+        - href: front-end/ui-migration-guide/migration-reference-tables.md
+    - href: front-end/add-video-to-applications/faq.md
+    - href: front-end/call-block-action-mobile/faq.md
+    - href: front-end/create-search-autocomplete/faq.md
+    - href: front-end/dropdown-filter-attribute/dropdown-filter-attribute.md
+    - href: front-end/dropdown-filter-list/dropdown-filter-list.md
+    - href: front-end/dropdown-with-flags/dropdown-with-flags.md
+    - href: front-end/ext-rb-create-styled-dialogs/ext-rb-create-styled-dialogs.md         
+    - href: front-end/front-end-architecture/front-end-architecture.md
+    - href: front-end/hide-scrollbar-listbox/faq.md
+    - href: front-end/html-tags/faq.md
+    - href: front-end/improve-list-slowness-low-end-devices/faq.md
+    - href: front-end/input-upper/faq.md
+    - href: front-end/london-header-scroll/faq.md
+    - href: front-end/maintain-state-mobile/faq.md
+    - href: front-end/multiline-inputs-editable-table/faq.md
+    - href: front-end/order-set-default-value-combo-box/faq.md
+    - href: front-end/remove-add-delete-editable-table/faq.md
+    - href: front-end/resize-a-popup-window/faq.md
+    - href: front-end/reuse-web-screens-in-mobile-apps/faq.md
+    - href: front-end/save-restore-active-tab-silk/faq.md
+    - href: front-end/screenaction-as-callback/screenaction-as-callback.md
+    - href: front-end/set-favicon-reactive/faq.md
+    - href: front-end/set-inputs-dynamically/faq.md
+    - href: front-end/show-records-side-by-side-list-record-widget/faq.md
+    - href: front-end/table-records-fixed-header/faq.md
+    - href: front-end/validation-messages-location/faq.md
+    - href: front-end/migrate-multilingual/faq.md
+    - href: front-end/prevent-download/prevent-download.md 
+    - href: front-end/pagination-pattern/pagination-pattern.md
+
+# Logic How-tos
+- href: logic/intro.md
+- topics:  
+    - href: logic/contains-index/faq.md   
+    - href: logic/email-sent-when/faq.md
+    - href: logic/large-strings-stringbuilder/faq.md
+    - href: logic/link-variable-send-email/faq.md
+    - href: logic/users-login-extra/faq.md
+    - href: logic/translate-email/faq.md
+    - href: logic/regular-expressions/faq.md
+    - href: logic/validate-file-upload/faq.md
+
+# Data How-tos
+- href: data/intro.md
+- topics:
+    - href: data/bootstrap-data-Excel/faq.md
+    - href: data/clean-data/faq.md  
+    - href: data/concurrent-updates/faq.md
+    - href: data/customize-excel/faq.md
+    - href: data/export-entity-data-excel/faq.md
+    - href: data/insert-null-value-db-record/faq.md        
+    - href: data/parse-xml/faq.md
+    - href: data/update-bootstrap-reference-identifier/faq.md
+    - href: data/using-spreadsheet-data-source/faq.md
+
+    # Data Migration
+    - href: data/data-migration/intro.md
+    - topics:
+        - href: data/data-migration/sections/01-entity-types-classification.md
+        - href: data/data-migration/sections/02-factory-application-modules.md
+        - href: data/data-migration/sections/03-factory-database.md
+        - href: data/data-migration/sections/04-applicational-entities.md
+        - href: data/data-migration/sections/05-application-users-groups-roles.md
+        - href: data/data-migration/sections/06-static-entities.md
+        - href: data/data-migration/sections/07-business-process-technology-bpt.md
+        - href: data/data-migration/10-data-migration-guide.md
+        - href: data/data-migration/11-how-to-migrate-data.md
+
+# Processes How-tos
+- href: processes/intro.md
+- topics:
+    - href: processes/archive-bpt/faq.md
+    - href: processes/configure-epa-taskbox/faq.md
+    - href: processes/reactive-taskbox/intro.md
+
+# DevOps How-tos
+- href: devops/intro.md
+- topics:
+    - href: devops/build-cd-pipeline/faq.md
+    - href: devops/integrate-version-control/integrate-version-control.md
+    - href: devops/create-alerts/create-alerts.md
+    - href: devops/on-track/on-track.md
+    - href: devops/solution-creating-all-comp/solution-creating-all-comp.md 
+    - href: devops/log-service/log-service-clean.md
+    # Migrate to the new Firebase-based mobile plugins        
+    - href: devops/migrate-to-firebase-plugins/intro.md
+
+# Integrations How-tos
+- href: integrations/intro.md
+- topics:
+    - href: integrations/call-SOAP-authentication/faq.md
+    - href: integrations/config-pushwoosh-ios/faq.md
+    - href: integrations/consume-webservice-integration-studio/faq.md
+    - href: integrations/does-outsystems-support-cocoapods/faq.md
+    - href: integrations/include-jquery-plugin/faq.md
+    - href: integrations/lotus-notes/faq.md
+    - href: integrations/map-ad-groups-outsystems-roles/faq.md
+    - href: integrations/sap-odata-service/faq.md
+    - href: integrations/use-netstandard-lib-extension/faq.md
+    - href: integrations/use-push-notifications-with-onesignal/faq.md
+    - href: integrations/use-push-notifications-with-pushwoosh/faq.md
+    - href: integrations/workato-connector/faq.md
+    - href: integrations/migrate-postgresql/faq.md
+
+# Infrastructure How-tos
+- href: infrastructure/intro.md
+- topics:
+    - href: infrastructure/redis-in-memory-sessions/intro.md
+    - topics:
+        - href: infrastructure/redis-in-memory-sessions/requirements.md
+        - href: infrastructure/redis-in-memory-sessions/setup-non-prod.md
+        - href: infrastructure/redis-in-memory-sessions/architecture-high-availability.md
+        - href: infrastructure/redis-in-memory-sessions/setup-prod.md
+        - href: infrastructure/redis-in-memory-sessions/cluster-failover-test.md
+        - href: infrastructure/redis-in-memory-sessions/cluster-add-nodes.md
+        - href: infrastructure/redis-in-memory-sessions/setup-platform-server-redis.md
+        - href: infrastructure/redis-in-memory-sessions/setup-enable-ssl.md        
+    # Using OutSystems in Reverse Proxy Scenarios
+    - href: infrastructure/reverse-proxy/intro.md
+    - topics:
+        - href: infrastructure/reverse-proxy/requirements.md
+        - href: infrastructure/reverse-proxy/reverse-proxy-config.md
+        - href: infrastructure/reverse-proxy/reverse-proxy-use-cases.md
+        - href: infrastructure/reverse-proxy/reverse-proxy-apache-config.md
+    - href: infrastructure/azure-trial/azure-trial.md

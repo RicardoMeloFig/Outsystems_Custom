@@ -1,0 +1,22 @@
+---
+summary: OutSystems 11 (O11) front-end development how-to guides covering UI design, web apps, and mobile app interfaces.
+guid: 8cc4c0d5-01bb-40c2-bc30-a2535ce485ff
+locale: en-us
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma:
+tags:
+  - Front-End
+  - Mobile app
+  - UI
+  - Web
+audience:
+  - Front-end developer
+  - Developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - apply
+---
+
+# Front-End

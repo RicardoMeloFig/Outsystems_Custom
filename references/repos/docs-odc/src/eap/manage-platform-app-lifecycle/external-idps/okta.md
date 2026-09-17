@@ -1,0 +1,153 @@
+---
+summary: OutSystems Developer Cloud (ODC) allows admins to configure Okta as an external identity provider through its portal interface.
+tags:
+  - Authentication
+  - End-user Authentication
+  - External Authentication
+  - IdP
+  - OIDC
+  - Security
+locale: en-us
+guid: 0a284428-86c4-4b57-b912-b122674b69e4
+app_type: mobile apps, reactive web apps
+figma: https://www.figma.com/file/KpEoUxciqaFLGLlZxo7Hiu/User-management?type=design&node-id=3405%3A545&mode=design&t=Oyyu3fjPlmIYwh5h-1
+platform-version: odc
+audience:
+  - Platform administrator
+outsystems-tools:
+  - odc portal
+coverage-type:
+  - apply
+topic:
+  - external-idps
+isautopublish: true
+---
+
+# Add Okta for use as an external identity provider
+
+<div class="warning" markdown="1">
+
+This page is provided as a reference. For the latest instructions about adding Okta as an external IdP, refer to the official [Okta documentation](https://help.okta.com/en-us/content/index.htm?cshid=csh-index).
+
+</div>
+
+## Prerequisites
+
+* Review the [System considerations](intro.md#system-considerations) for external identity providers.
+
+* You must have the [**Manage authentication**](../../user-management/roles.md#permissions-registry) permission.
+
+* Your identity provider's endpoints (Discovery, JWKS, token, and userinfo) must be reachable by ODC. ODC validates tokens by retrieving signing keys from the JWKS endpoint. Either expose these endpoints publicly, or restrict access by allowlisting the ODC identity egress IP addresses in your firewall. For the list of IPs, refer to [Allowlisting ODC public IP addresses](../odc-public-ips.md#authentication-external-idp). For background on the network requirements and the protocol-based security model, refer to [Network considerations](intro.md#network-considerations).
+
+## Configure Okta
+
+<div class="info" markdown="1">
+
+In a multi-portfolio organization, you add an Okta provider once at the organization level and then assign it to stages in one or more portfolios. For more information about portfolio-scoped IdP assignment, refer to [Identity provider management with multiple portfolios](../portfolios/portfolios-identity-providers.md).
+
+</div>
+
+ODC admins can configure Okta as an external IdP by going to the ODC Portal and selecting the **Identity providers** tab.
+
+To open the **New provider** configuration screen, click the **Add Provider** > **OpenID Connect** button. Now follow these steps:
+
+1. Enter a name for the new provider in the **Provider name** field. This can be any name less than 255 characters and can't include symbols or non-alphanumeric characters.
+
+1. Login to the [**Okta Portal**](https://login.okta.com/). In the **Admin Console**, go to the **Applications > Applications** screen and click **Create App Integration** to create a new app.
+
+    ![Okta dashboard highlighting the 'Create App Integration' button.](images/create-app-integration-ok.png "Okta Create App Integration")
+
+1. In the **Create a new app integration** wizard, select **OIDC - OpenID Connect** under Sign-in method and **Web Application** under **Application type**. Click **Next**.
+
+    ![Okta 'Create a new app integration' wizard with 'OIDC - OpenID Connect' and 'Web Application' selected.](images/config-app-integration-ok.png "Okta App Integration Configuration")
+
+1. Add a name for your app and select **Skip group assignment for now** in the assignments section. Click **Save**.
+
+1. Navigate to the **Security > API** screen and click **default** under the entry for the new application.
+
+    ![Okta Security settings showing the API section with 'default' selected.](images/security-api-ok.png "Okta Security API")
+
+1. Copy the URL from the **Metadata URI** field and paste it into the **Discovery endpoint** field in ODC Portal.
+
+    ![Okta Authorization Server settings displaying the 'Metadata URI' field.](images/metadata-uri-ok.png "Okta Metadata URI")
+
+1. Click **Get details** in **ODC Portal**. This retrieves the JSON of the Okta OpenID configuration and shows a preview.
+
+1. Copy the value of the **Client ID** field from the main screen of the new app in Okta Portal and paste it into the **Client ID** field in ODC Portal. Repeat for the **Client Secret** field.
+
+    ![Okta application details showing the 'Client ID' and 'Client Secret' fields.](images/add-client-id-secret-ok.png "Okta Client ID and Secret")
+
+    <div class="info" markdown="1">
+    ODC safely stores the configuration details in a secret manager.
+    </div>
+
+1. Complete the configuration in the ODC Portal:
+    1. Confirm **PKCE** is set to **SHA-256**.
+    1. In the **Organization user email verification** section, choose one of the options for handling email verification.  
+    For more information about email verification methods, refer to [Email verification logic](identity-claims-email-verification.md#email-verification-logic).
+    1. In the **User profile matching** section, select the attribute (fallback option) ODC uses to match external logins to ODC profiles when a subject match isn't found.
+    For more information about the options and when to use each one, refer to [Profile matching for external IdPs](identity-claims-email-verification.md#profile-matching-external-idps).
+    1. Confirm the fields in the **Claim Mapping** section are set to the default values: **username**, **email**, **name**, and **picture**.
+    1. Click **Save**.  
+    The **Configuration** tab for the newly created IdP opens.
+
+ODC tests the configuration and on success adds Okta to the list of available providers. If the test fails, a notification with the error displays.
+
+To enable the newly added Okta provider for your organization or apps, follow the instructions in [Assign an external IdP](assign-idp.md).
+
+## Configure the redirect URIs { #setup-redirect-urls }
+
+To add permitted redirects for the Okta provider, follow these steps:
+
+1. Click **Applications > Applications** in Okta Portal to navigate to the main screen of the new app.
+
+1. Select **General settings** and click **Edit**.
+
+1. From ODC Portal, for the Platform or each app stage you applied the Okta provider, copy the **Authentication** URL(s) and paste them as individual URIs in the **Sign-in redirect URIs** section in Okta Portal. You should copy the URL(s) for both the built-in domain and any active [custom domains](../domains/custom-domains.md).
+
+1. Now for the Platform or each app stage you applied the Okta provider, copy the **Logout** URL(s) and then paste them as individual URIs in the **Sign-out redirect URIs** section in Okta Portal. You should copy the URL(s) for both the built-in domain and any active [custom domains](../domains/custom-domains.md).
+
+    ![Okta application settings with fields for 'Sign-in redirect URIs' and 'Sign-out redirect URIs'.](images/login-logout-uris-ok.png "Okta Login and Logout URIs")
+
+1. Click **Save**.
+
+## Assign the app to users
+
+1. In **Okta Portal**, open **Applications > Applications** and select the app you created.
+
+1. Open the **Assign Users to App** tab and click **Assign**.
+
+1. Choose **People** or **Groups**, pick the intended users or groups, and click **Assign**.
+
+1. Click **Done** after completing the assignments.
+
+## Create an access policy
+
+1. In **Okta Portal**, go to **Security > API** and open **Authorization Servers**.
+
+1. Select **default** (or the authorization server you use) and open the **Access Policies** tab.
+
+1. Click **Add Policy**, enter a name.
+
+1. Set **Assign to** to **The following clients**, and select your app.
+
+1. Click **Create Policy**.
+
+1. For the new policy, click **Add rule**.
+
+1. In **Grant type is**, enable **Authorization Code**.
+
+1. In **Scopes**, allow the following scopes: `openid`, `profile`, and `email` (add any others your app requires). Click **Create rule**.
+
+1. Ensure the new rule is enabled and appears before any more restrictive rules in the list (Okta evaluates access policy rules top-to-bottom).
+
+## Next step
+
+* For end-users: [Use an IdP in your apps](intro.md#use-an-idp-in-your-apps)
+
+* Optional: [Add an end-user group mapping](end-user-group-mapping.md)
+
+## Related resources
+
+* [IdP and end-user group mapping](end-user-group-mapping.md)
+* [Configure authentication with external identity providers](intro.md)

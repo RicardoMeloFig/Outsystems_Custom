@@ -1,0 +1,118 @@
+---
+summary: CSP unsafe directives removal in OutSystems Developer Cloud (ODC) impacts charts, data grids, maps, and mobile UI, with workarounds for each issue.
+tags:
+  - CSS
+  - JavaScript
+  - OutSystems UI
+  - Security
+  - UI
+  - UI Patterns
+
+guid: 6c2f1c26-58b9-46a6-ba0f-f7c432c6a4bc
+locale: en-us
+app_type: reactive web apps
+platform-version: odc
+helpids: 30702
+figma:
+audience:
+  - Developer
+  - Front-end developer
+  - Platform administrator
+outsystems-tools:
+  - odc portal
+coverage-type:
+  - understand
+  - unblock
+isautopublish: true
+---
+
+# Impacts of removing unsafe directives
+
+The content security policy (CSP) is a critical security feature designed to mitigate risks such as cross-site scripting (XSS) and data injection attacks. By removing the `unsafe-eval` and `unsafe-inline` directives from your CSP configuration, you can significantly enhance the security of your apps. However, this change may affect the functionality of your apps.
+
+* **`unsafe-eval`**: Permits the use of `eval()` and similar methods for executing JavaScript code. Removing this directive prevents the execution of dynamically generated code, enhancing security.
+
+* **`unsafe-inline`**: Permits the use of inline JavaScript and CSS. Removing this directive ensures that all scripts and styles must be loaded from external files.
+
+This document examines the potential consequences of removing these directives and provides practical guidance on how to address them effectively.
+
+## Impacts on OutSystems components
+
+### OutSystems charts
+
+* **Issue**: Version 1 of the Charts component may experience runtime issues.
+
+    * **Recommendation**: Migrate each chart block to the new Charts component versions in your app (for example, replace `DonutChart_V1` with `DonutChart`). In ODC Studio you will see blocks with the '_V1' suffix and blocks without it; migrate your implementation to the non-suffixed blocks. For more information, see [Charts FAQs](https://charts.outsystems.com/).
+
+For more information about OutSystems Charts, refer to [OutSystems Charts](../reference/apis/chart-intro.md).
+
+### OutSystems data grid
+
+* **Versions earlier than 2.23.0**
+    * **Issue**: **Calculated Column** won't work.
+    * **Workaround**: Avoid using **Calculated Columns**.
+
+* **Version 2.23.0 or higher**
+    * No known issues related to removing unsafe CSP directives.
+
+For more information about OutSystems Data Grid, refer to [OutSystems Data Grid](../building-apps/ui/patterns/interaction/data-grid/data-grid-overview.md).
+
+### OutSystems maps
+
+The following table summarizes the OutSystems map and Leaflet map functionality when the unsafe CSP directives are removed.
+
+| Feature | Google Maps | Leaflet Maps |
+| ------------------------------ | ------------- | -------------- |
+| Loads the map | No functionality lost | Image ``'<URL>'`` doesn't load because it violates the following CSP directive: "img-src 'self' data: blob: ". |
+| Map center | No functionality lost | Not possible to view, as the map tiles are not visible. |
+| Change Map Center | No functionality lost | Not possible to view, as the map tiles are not visible. |
+| Marker | No functionality lost | Marker is visible but map tiles are not. |
+| Marker: change (API) | No functionality lost | Marker is visible but map tiles are not. |
+| Marker: events | No events are triggered, and the elements cannot be interacted with. | Marker is visible but map tiles are not |
+| Localization | Not available in version 1.7.0 | Feature not available |
+| Shapes | No functionality lost | Not possible to view where as the map tiles are not visible. |
+| Shapes: change (API) | No functionality lost | Not possible to view where as the map tiles are not visible. |
+| Shapes: events | No events are triggered, and the elements cannot be interacted with. | Not possible to view where as the map tiles are not visible. |
+| Drawing shapes | Drawing tools appear, but it’s not possible to draw any of them in the map | Not possible to view where as the map tiles are not visible. |
+| Drawing shapes: change (API) | No functionality lost | Not possible to view shapes as the map tiles are not visible. |
+| Drawing shapes: events | No event is triggered | Not possible to view where as the map tiles are not visible. |
+
+#### Google maps
+
+* **Issue**: Interaction and visual issues
+
+    * **Workaround**: Change CSP rules. For more information, refer to [Google's Content Security Policy guide](https://developers.google.com/maps/documentation/javascript/content-security-policy#example).
+
+#### Leaflet maps
+
+* **Issue**: Leaflet map tiles not visible
+
+    * **Workaround**: Missing in the CSP configuration the following domain: ``tile.openstreetmap.org``
+
+* **Issue:** Leaflet map directions not working
+
+    * **Workaround**: Add the [api.mapbox.com](https://api.mapbox.com/) domain to the `connect-src` directive.
+
+For more information about OutSystems Maps, refer to [OutSystems Maps](../building-apps/ui/patterns/interaction/map/intro.md).
+
+### Mobile UI
+
+* **Versions earlier than 1.1.1**
+    * **Issues**: Some patterns, such as **Icon**, **Card**, **Date Picker**, **Input OTP**, and **Text Area**, may lose some styling or some icons may fail to load in the application.
+    * **Workarounds**:
+
+        * **Card**: Add`'unsafe-inline'` to the `style-src` directive
+
+        * **Date Picker**: Add `'unsafe-inline'` and `connect-src: data:` to the `style-src` directive
+
+        * **Input OTP**: Add `'unsafe-inline'` to the `style-src` directive
+
+        * **Text Area**: Add `'unsafe-inline'` to the `style-src` directive
+
+        * **Icon**: Add `'blob'` to the `connect-src` directive
+
+    Some patterns may break visually due to missing CSS. Adjust the CSP configuration as needed to restore functionality.
+
+* **Version 1.1.1 or higher**
+    * **Issues**: **Icon** may fail to load in the application.
+    * **Workaround**: Add `'blob'` to the `connect-src` directive.

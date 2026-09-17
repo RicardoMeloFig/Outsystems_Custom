@@ -1,0 +1,21 @@
+build:
+    title:
+    input-folder: src
+    output-folder: build
+    related-title: See Also   
+publish:
+    url: https://success.outsystems.com/
+    root_path: documentation/outsystems-developer-cloud
+    toc_url: https://success.outsystems.com/
+    toc_root_path: documentation/outsystems-developer-cloud
+    skip_toc_publish: False
+    skip_edit_links: True
+reference:
+    assemble-folder: 
+        - src/ref/lang/auto
+        - src/ref/apis/auto
+checktoc:
+    url: https://success.outsystems.com/
+    root_path: ""
+    mindtouch-toc-path: documentation/outsystems-developer-cloud
+    auto-toc-path: documentation/outsystems-developer-cloud

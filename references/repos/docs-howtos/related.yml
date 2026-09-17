@@ -1,0 +1,164 @@
+# --- Integrations ---
+
+- integrations/use-push-notifications-with-onesignal/faq.md:
+    - external:
+        - "OneSignal Plugin Sample": 
+            https://www.outsystems.com/forge/component-overview/4198/onesignal-plugin-sample
+
+- integrations/consume-webservice-integration-studio/faq.md:
+    - external:
+        - "Consuming SOAP Web Services": 
+            https://success.outsystems.com/Documentation/11/Extensibility_and_Integration/SOAP/Consuming_SOAP_Web_Services
+
+- front-end/front-end-architecture/front-end-architecture.md:
+    - external:
+        - "Front-End Architecture Best Practices": 
+            https://success.outsystems.com/Documentation/Best_Practices/Front-End_Architecture_Best_Practices
+        - "Design UI":
+            https://success.outsystems.com/Documentation/11/Developing_an_Application/Design_UI
+
+- integrations/include-jquery-plugin/faq.md:
+    - external:
+        - "Using JavaScript":
+            https://success.outsystems.com/Documentation/11/Extensibility_and_Integration/JavaScript
+        - "About resources":
+            https://success.outsystems.com/Documentation/11/Reference/OutSystems_Language/Data/Handling_Data/Resource
+        - "Expression":
+            https://success.outsystems.com/Documentation/11/Reference/OutSystems_Language/Data/Handling_Data/Resource
+            
+- data/concurrent-updates/faq.md:
+    - external:
+        - "Handling Transactions": 
+            https://success.outsystems.com/Documentation/11/Reference/OutSystems_Language/Data/Database_Reference/Handling_Transactions
+            
+- front-end/add-video-to-applications/faq.md:
+    - external:
+        - "OutSystems UI Video Pattern": 
+            https://success.outsystems.com/Documentation/11/Developing_an_Application/Design_UI/Patterns/Using_Web_Patterns/Controls/Video
+        - "OutSystems UI Iframe Pattern":
+            https://success.outsystems.com/Documentation/11/Developing_an_Application/Design_UI/Patterns/Using_Web_Patterns/Utilities/Iframe
+
+- data/parse-xml/faq.md:
+    - external:
+        - "W3Schools: XPath Tutorial":
+            https://www.w3schools.com/xml/xpath_intro.asp
+        - "MDN Web Docs: XSLT/XPath Reference":
+            https://developer.mozilla.org/en-US/docs/Web/XPath
+        - "CodeBeautify XPath Tester":
+            https://codebeautify.org/Xpath-Tester
+        - "ExtendClass XPath Tester":
+            https://extendsclass.com/xpath-tester.html
+        - "FreeFormatter XPath Tester":
+            https://www.freeformatter.com/xpath-tester.html
+
+# --- Hierarchical roles ---
+
+- development/hierarchical-roles/faq.md:
+    - development/hierarchical-roles/hierarchical-and-static-roles.md
+    - development/hierarchical-roles/hands-on.md
+    - development/hierarchical-roles/demo.md
+
+- development/hierarchical-roles/hierarchical-and-static-roles.md:            
+    - development/hierarchical-roles/hands-on.md
+    - development/hierarchical-roles/demo.md
+
+- development/hierarchical-roles/hands-on.md:
+    - development/hierarchical-roles/demo.md
+
+# --- Regular expressions ---
+
+- logic\regular-expressions/faq.md:
+    - external: 
+        - "Microsoft: .NET regular expressions":
+            https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expressions
+        - "Microsoft: Regular Expression Language - Quick Reference":
+            https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference
+        - "Regex Storm .NET regular expression tester":
+            http://regexstorm.net/tester
+        - "RegEx101 regular expression tester":
+            https://regex101.com/
+
+# --- Data Grid ---
+
+- data-grid\reactive/data-grid.md:
+    - external:
+        - "Known issues with the Data Grid component for Reactive Web apps":
+           https://success.outsystems.com/Support/Enterprise_Customers/Troubleshooting/Known_issues_with_the_Data_Grid_component_for_Reactive_Web_apps 
+        - "Data Grid Reactive APIs":
+           https://success.outsystems.com/Documentation/11/Reference/OutSystems_Language/Interfaces/Patterns/Data_Grid_Reactive_APIs
+
+# Using Redis for in-memory session storage
+- infrastructure/redis-in-memory-sessions/intro.md:
+    - infrastructure/redis-in-memory-sessions/requirements.md
+    - infrastructure/redis-in-memory-sessions/setup-non-prod.md
+    - infrastructure/redis-in-memory-sessions/setup-platform-server-redis.md
+    - infrastructure/redis-in-memory-sessions/architecture-high-availability.md
+    - infrastructure/redis-in-memory-sessions/setup-prod.md
+    - infrastructure/redis-in-memory-sessions/cluster-failover-test.md
+    - infrastructure/redis-in-memory-sessions/cluster-add-nodes.md
+    - infrastructure/redis-in-memory-sessions/setup-enable-ssl.md
+
+- infrastructure/redis-in-memory-sessions/setup-prod.md:
+    - infrastructure/redis-in-memory-sessions/requirements.md
+    - infrastructure/redis-in-memory-sessions/setup-platform-server-redis.md
+    - infrastructure/redis-in-memory-sessions/cluster-failover-test.md
+    - infrastructure/redis-in-memory-sessions/architecture-high-availability.md
+    - infrastructure/redis-in-memory-sessions/cluster-add-nodes.md
+
+- infrastructure/redis-in-memory-sessions/setup-non-prod.md:
+    - infrastructure/redis-in-memory-sessions/requirements.md
+    - infrastructure/redis-in-memory-sessions/setup-platform-server-redis.md
+
+# Data migration
+
+- data/data-migration/intro.md:
+    - data/data-migration/sections/01-entity-types-classification.md
+    - data/data-migration/sections/02-factory-application-modules.md
+    - data/data-migration/sections/03-factory-database.md
+    - data/data-migration/sections/04-applicational-entities.md
+    - data/data-migration/sections/05-application-users-groups-roles.md
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/01-entity-types-classification.md:
+    - data/data-migration/sections/02-factory-application-modules.md
+    - data/data-migration/sections/03-factory-database.md
+    - data/data-migration/sections/04-applicational-entities.md
+    - data/data-migration/sections/05-application-users-groups-roles.md
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/02-factory-application-modules.md:
+    - data/data-migration/sections/03-factory-database.md
+    - data/data-migration/sections/04-applicational-entities.md
+    - data/data-migration/sections/05-application-users-groups-roles.md
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/03-factory-database.md:
+    - data/data-migration/sections/04-applicational-entities.md
+    - data/data-migration/sections/05-application-users-groups-roles.md
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/04-applicational-entities.md:
+    - data/data-migration/sections/05-application-users-groups-roles.md
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/05-application-users-groups-roles.md:
+    - data/data-migration/sections/06-static-entities.md
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/06-static-entities.md:
+    - data/data-migration/sections/07-business-process-technology-bpt.md
+    - data/data-migration/11-how-to-migrate-data.md
+
+- data/data-migration/sections/07-business-process-technology-bpt.md:
+    - data/data-migration/11-how-to-migrate-data.md

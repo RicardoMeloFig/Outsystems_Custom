@@ -1,0 +1,26 @@
+---
+tags:
+  - Front-End
+  - Mobile app
+  - OutSystems UI
+  - UI
+  - UI Patterns
+  - UX
+summary: Explore design patterns for mobile and reactive web apps on OutSystems Developer Cloud (ODC) to enhance user experience and interface design.
+locale: en-us
+guid: e9ff1e1e-bda3-4146-8d4e-797ee3ed73c9
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - odc studio
+coverage-type:
+  - none
+topic:
+  - add-widget-ui-pattern
+---
+
+# Patterns

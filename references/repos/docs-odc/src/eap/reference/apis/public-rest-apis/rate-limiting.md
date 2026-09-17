@@ -1,0 +1,51 @@
+---
+tags: REST
+guid: 00b00239-a7db-4759-be9c-47c3d59255fb
+locale: en-us
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+outsystems-tools:
+  - none
+content-type:
+  - best practice
+  - conceptual
+audience:
+  - Developer
+  - Platform administrator
+coverage-type:
+  - remember
+  - understand
+topic:
+  - handle-rate-limit-errors
+  - odc-api-rate-limits
+isautopublish: true
+summary: OutSystems Developer Cloud (ODC) API rate limits define per-domain and per-endpoint request caps, managing traffic for user, portfolio, build, and deployment APIs.
+---
+# Rate limits for the APIs
+
+API rate limits work at two levels:
+
+* **Domain-wide limits**: All requests to endpoints within an API domain share a total request pool per minute.
+* **Specific endpoint limits**: Some endpoints have individual limits. If an endpoint isn't listed, it uses the domain-wide limit. These requests still count toward the domain-wide limit.
+
+The rate limits per organization are as follows:
+
+| API Domain | Domain-wide limit (requests per minute) | Specific endpoint limits (requests per minute) |
+| :--- | :--- | :--- |
+| [User and access management](../identity-v1.md) | 100 | `POST /users/bulk`: **5** |
+| [Portfolio](../portfolio-v2.md) | 100 | None |
+| [Build operations](https://www.outsystems.com/tk/redirect?g=a359bc7f-74a0-4723-9f13-ca851718dc89) | 100 | `POST` methods: **10** (per endpoint) |
+| [Deployments](https://www.outsystems.com/tk/redirect?g=acf7cd06-3fe1-4bd3-85e8-06cd11aa0a7d) | 100 | `POST` methods: **10** (per endpoint) |
+| [Asset repository](https://www.outsystems.com/tk/redirect?g=9598cb1d-a50e-48d7-a43a-6582e43fd48b) | 100 | `POST /assets`: **10** |
+| [Asset configurations](https://www.outsystems.com/tk/redirect?g=cb142916-250b-42b9-a983-7ccdaa028480) | 100 | None |
+| [Dependency management](https://www.outsystems.com/tk/redirect?g=8a687cef-649f-4387-85e3-027954ac92cf) | 100 | None |
+| [Environment configurations](../env-config-v1.md) | 10 | None |
+| [External library generation](https://www.outsystems.com/tk/redirect?g=47875596-0618-4d20-824a-fbbaea2d353b) | 100 | `POST` methods: **10** (per endpoint) |
+| [Code quality](https://www.outsystems.com/tk/redirect?g=56511d24-4834-4a34-aed7-226f63891109) | 100 | `POST /code-analyses`: **10** |
+| [Native mobile build](../native-mobile-builds-api-v1.md) | 100 | `POST` methods: **5** (per endpoint)<br/>`PATCH` methods: **10** (per endpoint) |
+| [Subscription](../subscription-v1.md) | 100 | None |
+
+## Exceeding the rate limit
+
+If you exceed the rate limit, you will receive an output `429 Too Many Requests` response.

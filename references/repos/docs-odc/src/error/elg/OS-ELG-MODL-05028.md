@@ -1,0 +1,35 @@
+---
+summary: OS-ELG-MODL-05028 error in ODC occurs when a file in your external library ZIP package can't be uncompressed. Remove unnecessary files or contact Support.
+tags: error handling, c# development, zip file processing, outsystems deployment, outsystems support
+guid: b1599188-83e3-4a9c-91ec-383cdf7be74f
+locale: en-us
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - odc studio
+coverage-type:
+  - unblock
+---
+
+# OS-ELG-MODL-05028
+
+## Error message
+
+`The file <FileName> can not be uncompressed.`
+
+## Cause
+
+The file contained in the compressed high code package can't be uncompressed.
+
+## Impact
+
+You must fix this error in your C# project before you can publish the external library. Once you've fixed it, you must upload the new ZIP file.
+
+## Recommended action
+
+* Ensure that the compressed folder only contains the necessary assemblies and not the entire source code of your dotnet solution.
+* If the file isn't necessary for your high code package, remove it. If the file is necessary, or the problem persists, create a case with [OutSystems Support](https://www.outsystems.com/support/portal/open-support-case?ErrorCode=OS-ELG-MODL-05028).

@@ -1,0 +1,12 @@
+name: Update ALL Visual Assets
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1-5"
+
+jobs:
+  visual-assets-update-all:
+    name: Update ALL Visual Assets
+    uses: OutSystems/tk-cicd/.github/workflows/visual-assets-update-all.yml@main
+    secrets: inherit

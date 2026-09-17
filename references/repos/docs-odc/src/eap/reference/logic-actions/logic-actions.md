@@ -1,0 +1,25 @@
+---
+summary: OutSystems Developer Cloud (ODC) logic actions include Client Actions, Server Actions, and Service Actions, all accessible from ODC Studio.
+locale: en-us
+guid: F524155C-B4F2-417F-8354-9883628332B0
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+tags:
+  - Logic
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - odc studio
+coverage-type:
+  - remember
+---
+
+# Logic Actions
+
+When designing the business logic of your apps, you can use actions. In ODC you have:
+
+* [**Client Actions**](client-action.md). Available on the Logic tab in ODC Studio.
+* [**Server Actions**](server-action.md). Available on the Logic tab in ODC Studio.
+* [**Service Actions**](../service-actions/intro.md). Available on the Logic tab in ODC Studio.

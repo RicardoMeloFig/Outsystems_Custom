@@ -1,0 +1,21 @@
+name: Evergreen
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+    - cron: '0 13 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - knowledge-needs.yaml
+
+jobs:
+  metadata-refresh:
+    name: Metadata
+    uses: OutSystems/tk-cicd/.github/workflows/evergreen.yml@main
+    with:
+      path: "src"
+      required-key: "guid"
+    secrets: inherit

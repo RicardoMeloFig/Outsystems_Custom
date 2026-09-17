@@ -1,0 +1,95 @@
+---
+summary: Learn how to save and restore the active tab in SilkUIFramework using JavaScript and session variables in OutSystems 11 (O11).
+guid: 898aad86-1277-4840-bcbc-91db6dea61ab
+locale: en-us
+app_type: traditional web apps, mobile apps, reactive web apps
+platform-version: o11
+figma: https://www.figma.com/file/kY6LwaHBP6HdTslYHlSadB/Front-End?node-id=844:76
+tags: session management, javascript, ui customization, client-side logic, state persistence
+audience:
+  - Front-end developer
+  - Developer
+outsystems-tools:
+  - service studio
+coverage-type:
+  - apply
+topic:
+  - prevent-tab-cache-reload
+  - save-active-tab-state
+---
+
+# How to save and restore the active tab on SilkUIFramework
+
+## Question
+
+How can I restore the active tab between visits on SilkUIFramework?
+
+Should I use the RichWidgets "Tabs_ClientSide" component instead?
+
+## Answer
+
+To restore the active tab on the SilkUIFramework, use a Javascript onclick handler to:
+
+* Save the tab number in a hidden input
+
+* Submit it to the server with a hidden button, and set a session variable.
+
+For example:
+
+1. Add a session variable for keeping the current tab (e.g. _SelectedTab_), with data type: _Tabs Identifier_.
+
+1. Add an Input field to the screen or web block, with properties:
+
+    1. Style Classes = _RememberTabInput_
+
+    1. Extended properties: name = _style_, value = "display:none;"
+
+    1. Also set the Variable (create a new one, e.g. _TabNumber_)
+
+1. Add a Button to the screen or web block, with properties:
+
+    1. Style Classes = _RememberTabButton_
+
+    1. Method = _Ajax Submit_
+
+    1. Extended properties: name = _style_, value = "display:none;"
+
+1. Add this script to an Expression with property Escape Content = _No_:
+
+```
+"<script language='javascript'>
+ $('.Tabs__tab').click(                                                  
+    function() {                                       
+        var  activeTabNumber = $(this).attr('value');      
+        $('.RememberTabInput')[0].value = activeTabNumber; 
+        $('.RememberTabButton')[0].click(); 
+    }
+)             
+</script>"
+```
+
+1. Add a screen action as destination for the button created in step 3. The variable associated to the input will hold the tab number (1, 2, 3...). Add some logic to set the session variable created in step 1.
+
+1. In your Tab widget, fill in parameter *ActiveTab*with the session variable created in step 1 (e.g. _Session.ActiveTab_).
+
+## Improved answer
+
+This solution will work well when navigating back to the page. However, the browser will show a cached version of the page if:
+
+* The user reloads the page;
+
+* The user returns to the page through the browser history.
+
+Add a response header to avoid caching the page. For example, add the header `*Cache-Control="NO-STORE"*`.
+
+On the Preparation of the screen with the tabs, add the action _HttpRequestHandler_ > ***_AddHeader_** action, as shown below.
+
+![Screenshot of HttpRequestHandler with AddHeader action to set Cache-Control to NO-STORE.](images/How-to-save-and-restore-the-active-tab-on-SilkUIFramework_0.png "HttpRequestHandler AddHeader Action")
+
+### More information
+
+Read the following for more information on browser caching:
+
+* [http://blog.maskalik.com/asp-net/resolving-browser-back-button-with-caching-pages/](http://blog.maskalik.com/asp-net/resolving-browser-back-button-with-caching-pages/)
+
+* [http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/](http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/)

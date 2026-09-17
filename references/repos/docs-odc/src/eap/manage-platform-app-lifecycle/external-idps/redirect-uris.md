@@ -1,0 +1,82 @@
+---
+summary: Set up redirect URIs for OpenID Connect external identity providers in OutSystems Developer Cloud (ODC).
+locale: en-us
+guid: 52d83cda-27cb-4f02-aad6-c8b0876e5d10
+audience:
+  - Platform administrator
+platform-version: odc
+topic:
+  - external-idps
+  - idp-openidp
+coverage-type:
+  - apply
+figma:
+app_type: reactive web apps,mobile apps
+tags:
+  - Authentication
+  - End-user Authentication
+  - External Authentication
+  - IdP
+  - OIDC
+  - SSO
+outsystems-tools:
+  - odc portal
+helpids:
+isautopublish: true
+---
+# Configure redirect URIs for an external IdP { #idp-configure-uri }
+
+This procedure applies to OpenID Connect (OIDC) providers, including social providers added with accelerators, because they use OIDC flows.
+
+Redirect URIs tell the identity provider where to send users after login or logout. You must register these URIs in your IdP so ODC can complete authentication.
+
+<div class="info" markdown="1">
+
+If you plan to change the domain of a stage or your organization, redirect URIs must be updated for all affected OIDC providers. Read [Planning domain changes](../domains/domain-planning.md#oidc) for guidance.
+
+</div>
+
+## Prerequisites
+
+Before you begin, ensure the following:
+
+* You already [added the external IdP](intro.md#add-an-external-idp) in the ODC Portal.
+* You have access to the external IdP application registration (for example, a Microsoft Entra ID app registration or an Okta application).
+
+## Set up redirect URIs for your provider
+
+1. In the ODC Portal go to **Management** > **Govern** > **Identity providers**.
+
+1. Click the provider for which you want to configure the redirect URIs.
+
+1. Go to the **Redirect URLs** tab, and copy the **Login URL** and **Logout URL** for the built-in domain.  
+
+   If you're using a [custom domain](../domains/custom-domains.md), copy the corresponding **Login URL** and **Logout URL** as well.
+
+    <div class="info" markdown="1">
+
+    Copy the URLs for either your **Organization** or the app stage you want (for example, **Apps in Development**, **Apps in QA**, or **Apps in Production**). You can add more later. In a multi-portfolio organization, copy the URLs for each stage you want the provider to cover.
+
+    </div>
+
+1. In your provider's portal, open your app registration and paste the redirect URIs.
+
+    <div class="info" markdown="1">
+
+    If you are prompted to choose a platform, select **web**.
+
+    </div>
+
+    If you're configuring [Okta](okta.md#setup-redirect-urls), you can follow the embedded link for specific guidance. Otherwise, refer to your provider's support documentation for further guidance (for example, [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-redirect-uri)).
+
+1. Save the app registration changes in your provider's portal.
+
+## Next step
+
+Proceed to assign the provider to the desired scopes: [Assign an external identity provider](assign-idp.md).
+
+## Related resources
+
+* [Configuring authentication with external identity providers](intro.md)
+* [Assign an external identity provider](assign-idp.md)
+* [Use external identity providers in an app](apps.md)

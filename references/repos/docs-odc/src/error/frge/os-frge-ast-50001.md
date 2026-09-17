@@ -1,0 +1,35 @@
+---
+summary: OS-FRGE-AST-50001 is an OutSystems Developer Cloud (ODC) internal error with no specific cause, blocking your request until the issue is resolved.
+tags:
+  - Troubleshooting
+guid: 4f7706c9-3888-4590-b06b-d5824cfc6c83
+locale: en-us
+app_type: mobile apps, reactive web apps
+platform-version: odc
+figma:
+audience:
+  - Developer
+  - Front-end developer
+outsystems-tools:
+  - odc studio
+coverage-type:
+  - unblock
+---
+
+# OS-FRGE-AST-50001
+
+## Error message
+
+`An error occurred on our side, and we’re not sure why. If the problem persists, let us know.`
+
+## Cause
+
+There was an internal error that was not handled.
+
+## Impact
+
+You won't be able to continue with your request.
+
+## Recommended action
+
+If the problem persists, create a case with [OutSystems Support](https://www.outsystems.com/support/portal/open-support-case?ErrorCode=OS-FRGE-AST-50001).
