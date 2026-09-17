@@ -1,0 +1,14 @@
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Transient build artifacts (if anyone builds inside this baseline folder)
+_render/
+docs/site/

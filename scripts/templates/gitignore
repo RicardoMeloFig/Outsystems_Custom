@@ -1,0 +1,34 @@
+# IDE / editor
+*.user
+.vs/
+.idea/
+
+# Local environment (never commit)
+.env
+
+# Generated extraction output (docs/<ModuleName>/) and rendered site.
+# Hand-written docs (docs/*.md) and authored fragments (docs/site-src/) are tracked.
+docs/*/
+!docs/site-src/
+docs/site/
+
+# OutSystems binaries (OMLs kept locally, not tracked)
+*.oml
+*.oap
+
+# Logs & local debug screenshots
+*.log
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local drop folder (skeleton kept via .gitkeep)
+open/*
+!open/.gitkeep

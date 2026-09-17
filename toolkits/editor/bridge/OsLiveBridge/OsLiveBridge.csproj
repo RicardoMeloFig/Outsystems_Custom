@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>ServiceStudio.Plugin.OsLiveBridge</AssemblyName>
+    <RootNamespace>OsLiveBridge</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <SSDir Condition="'$(SSDir)' == ''">C:\Program Files\OutSystems\Service Studio 11\Service Studio</SSDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="OsLiveBridgeDescriptor.cs" />
+    <Compile Include="OsLiveBridgeProvider.cs" />
+    <Compile Include="BridgeHost.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStudio.PluginAPI">
+      <HintPath>$(SSDir)\ServiceStudio.PluginAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="OutSystems.Model.Plugins">
+      <HintPath>$(SSDir)\OutSystems.Model.Plugins.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <Target Name="CopyToPlugins" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)ServiceStudio.Plugin.OsLiveBridge.dll" DestinationFolder="$(SSDir)\Plugins\ServiceStudio\" SkipUnchangedFiles="true" Condition="'$(SkipCopy)' != 'true'" />
+  </Target>
+</Project>

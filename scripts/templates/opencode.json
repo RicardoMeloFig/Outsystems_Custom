@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md", "__BASELINE__/AGENTS.md"],
+  "subagent_depth": 2,
+  "watcher": {
+    "ignore": [
+      "**/publish/**",
+      "**/node_modules/**"
+    ]
+  },
+  "mcp": {
+    "outsystems-tools": {
+      "type": "local",
+      "command": ["__BASELINE__/toolkits/extraction/mcp/outsystems-tools/publish/OutSystemsMcp.exe"],
+      "enabled": true
+    },
+    "outsystems-logic": {
+      "type": "local",
+      "command": ["__BASELINE__/toolkits/extraction/mcp/outsystems-logic/publish/OutSystemsMcpLogic.exe"],
+      "enabled": true
+    },
+    "outsystems-ui": {
+      "type": "local",
+      "command": ["__BASELINE__/toolkits/extraction/mcp/outsystems-ui/publish/OutSystemsMcpUi.exe"],
+      "enabled": true
+    },
+    "outsystems-omleditor": {
+      "type": "local",
+      "command": ["__BASELINE__/toolkits/editor/mcp/outsystems-omleditor/publish/OutSystemsMcpOmlEditor.exe"],
+      "enabled": true
+    },
+    "outsystems-liveeditor": {
+      "type": "local",
+      "command": ["__BASELINE__/toolkits/editor/mcp/outsystems-liveeditor/publish/OutSystemsMcpLiveEditor.exe"],
+      "enabled": true
+    }
+  },
+  "permission": {
+    "outsystems-*": "deny",
+    "external_directory": {
+      "__BASELINE__/**": "allow"
+    }
+  },
+  "references": {
+    "outsystems-toolkit": {
+      "path": "__BASELINE__",
+      "description": "Shared OutSystems automation baseline (Outsystems_Custom): toolkit runbooks in toolkits/*/AGENTS.md, build/verify scripts, and the catalog/topics.md reference-library map. Use for toolkit and reference questions; search narrowly, never bulk-read references/repos."
+    }
+  },
+  "skills": {
+    "paths": [
+      "__BASELINE__/toolkits/extraction/.opencode/skills",
+      "__BASELINE__/toolkits/editor/.opencode/skills",
+      "__BASELINE__/toolkits/html-docs/.opencode/skills"
+    ]
+  }
+}

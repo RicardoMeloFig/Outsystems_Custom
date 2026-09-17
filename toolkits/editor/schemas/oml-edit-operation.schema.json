@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://opencode.ai/outsystems-omleditor/oml-edit-operation.schema.json",
+  "title": "OML edit operation arguments",
+  "description": "Common argument shape for outsystems-omleditor write tools (create_service_action, add_dependency, regen_and_write).",
+  "type": "object",
+  "required": ["omlPath", "outOml"],
+  "properties": {
+    "omlPath": {
+      "type": "string",
+      "description": "Path to the source .oml file (the module's saved .oml; have the user Ctrl+S in SS first)."
+    },
+    "outOml": {
+      "type": "string",
+      "description": "Path to write the modified .oml. Use a NEW file (SS locks the source while the module is open); the user reloads this in SS."
+    },
+    "name": {
+      "type": "string",
+      "description": "New element name (e.g. service action name). Must be unique across action types in the module."
+    },
+    "templateName": {
+      "type": "string",
+      "description": "Existing element to clone (omit to clone the first / build from scratch)."
+    },
+    "referenceXml": {
+      "type": "string",
+      "description": "A <Reference ...>...</Reference> element XML to insert (add_dependency)."
+    }
+  }
+}

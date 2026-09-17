@@ -1,0 +1,42 @@
+# Build output
+bin/
+obj/
+publish/
+
+# IDE / editor
+*.user
+.vs/
+.idea/
+
+# Local environment (module name) - never commit
+.env
+
+# Machine-specific path to the OutSystems ground-of-truth repo - never commit
+references/source-path.txt
+
+# Generated extraction output (docs/<ModuleName>/)
+# Hand-written docs (docs/*.md) are still tracked.
+docs/*/
+
+# OutSystems binaries
+*.oml
+*.oap
+
+# Logs & local debug screenshots
+*.log
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local drop / generated output dirs (folder skeleton kept via .gitkeep)
+open/*
+!open/.gitkeep
+tools/ModuleInfoExtractor/module-info/*
+!tools/ModuleInfoExtractor/module-info/.gitkeep

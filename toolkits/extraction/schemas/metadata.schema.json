@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://outsystems-extraction/schemas/metadata.schema.json",
+  "title": "OutSystems Module UI Metadata",
+  "description": "Generic schema for metadata.json: the definition of every Screen and Web Block in an OutSystems module - their parameters, local variables, and events. Excludes the widget tree, CSS, and client-action flows (those live in ui-tree.txt, <ThemeName>.css, and client-actions.json respectively). Module-agnostic; no module name is hardcoded.",
+  "type": "object",
+  "required": ["module", "extractedAt", "source", "screens", "webBlocks"],
+  "additionalProperties": false,
+  "properties": {
+    "module": { "type": "string", "description": "Name of the extracted OutSystems module (runtime input, never hardcoded)." },
+    "extractedAt": { "type": "string", "description": "ISO-style timestamp of extraction." },
+    "source": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string", "description": "Extraction method, e.g. 'ClrMD' (live heap walk)." },
+        "pid": { "type": ["integer", "null"], "description": "Service Studio process id, when live." }
+      }
+    },
+    "screens": { "type": "array", "items": { "$ref": "#/$defs/screenOrBlock" } },
+    "webBlocks": { "type": "array", "items": { "$ref": "#/$defs/screenOrBlock" } }
+  },
+  "$defs": {
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "dataType": { "type": ["string", "null"] },
+        "direction": { "type": "string", "enum": ["In", "Out", "In/Out"] },
+        "defaultValue": { "type": ["string", "null"] },
+        "isMandatory": { "type": ["boolean", "null"] },
+        "description": { "type": ["string", "null"] }
+      }
+    },
+    "variable": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "dataType": { "type": ["string", "null"] },
+        "kind": { "type": ["string", "null"], "description": "e.g. LocalVariable, ClientVariable." }
+      }
+    },
+    "eventHandler": {
+      "type": "object",
+      "description": "A system lifecycle or custom block event and the action that handles it.",
+      "properties": {
+        "name": { "type": "string", "description": "Event name, e.g. OnInitialize, OnReady, OnParametersChanged, or a custom event name." },
+        "kind": { "type": "string", "enum": ["System", "Custom"] },
+        "handler": { "type": ["string", "null"], "description": "Name of the destination client action / flow, or null if unset." }
+      }
+    },
+    "screenOrBlock": {
+      "type": "object",
+      "required": ["name", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["Screen", "WebBlock"] },
+        "description": { "type": ["string", "null"] },
+        "urlPath": { "type": ["string", "null"], "description": "URL path / page name for screens." },
+        "isPublic": { "type": ["boolean", "null"] },
+        "permissions": { "type": "array", "items": { "type": "string" }, "description": "Role / security permissions." },
+        "inputParameters": { "type": "array", "items": { "$ref": "#/$defs/parameter" } },
+        "outputParameters": { "type": "array", "items": { "$ref": "#/$defs/parameter" } },
+        "localVariables": { "type": "array", "items": { "$ref": "#/$defs/variable" } },
+        "events": { "type": "array", "items": { "$ref": "#/$defs/eventHandler" } }
+      }
+    }
+  }
+}

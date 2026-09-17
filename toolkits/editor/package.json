@@ -1,0 +1,7 @@
+{
+  "name": "ai-outsystems-automation-editor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OutSystems 11 editor baseline — headless .oml editing (outsystems-omleditor MCP) + live in-process editing (outsystems-liveeditor MCP via OsLiveBridge plugin). No UI, no productKey.",
+  "license": "MIT"
+}

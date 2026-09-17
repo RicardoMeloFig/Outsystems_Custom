@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "watcher": {
+    "ignore": [
+      "references/repos/**",
+      ".cache/**",
+      "**/publish/**",
+      "**/node_modules/**"
+    ]
+  },
+  "mcp": {
+    "outsystems-tools": {
+      "type": "local",
+      "command": ["./toolkits/extraction/mcp/outsystems-tools/publish/OutSystemsMcp.exe"],
+      "enabled": true
+    },
+    "outsystems-logic": {
+      "type": "local",
+      "command": ["./toolkits/extraction/mcp/outsystems-logic/publish/OutSystemsMcpLogic.exe"],
+      "enabled": true
+    },
+    "outsystems-ui": {
+      "type": "local",
+      "command": ["./toolkits/extraction/mcp/outsystems-ui/publish/OutSystemsMcpUi.exe"],
+      "enabled": true
+    },
+    "outsystems-omleditor": {
+      "type": "local",
+      "command": ["./toolkits/editor/mcp/outsystems-omleditor/publish/OutSystemsMcpOmlEditor.exe"],
+      "enabled": true
+    },
+    "outsystems-liveeditor": {
+      "type": "local",
+      "command": ["./toolkits/editor/mcp/outsystems-liveeditor/publish/OutSystemsMcpLiveEditor.exe"],
+      "enabled": true
+    }
+  },
+  "subagent_depth": 2,
+  "permission": {
+    "outsystems-*": "deny"
+  },
+  "skills": {
+    "paths": [
+      "toolkits/extraction/.opencode/skills",
+      "toolkits/editor/.opencode/skills",
+      "toolkits/html-docs/.opencode/skills"
+    ]
+  }
+}

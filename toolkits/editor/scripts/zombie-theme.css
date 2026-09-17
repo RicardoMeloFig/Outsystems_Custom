@@ -1,0 +1,163 @@
+/* ===== ZombieLand campaign theme for FitnessManager ===== */
+body {
+    background: #0b0b0f url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48cGF0aCBkPSJNMzAgMTBhMTAgMTAgMCAwIDEgMTAgMTAgMCAwIDEtMTAgMTAgMCAwIDEtMTAtMTAgMCAwIDEgMTAtMTB6IiBmaWxsPSIjMGEzYzBjIiBvcGFjaXR5PSIwLjYiLz48L3N2Zz4=) repeat;
+    background-color: #0b0b0f;
+    color: #d7e0d7;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.zombie-hero {
+    background: linear-gradient(135deg, #0e3d0e 0%, #0b2a0b 40%, #140d0d 100%);
+    border: 2px solid #3fae4a;
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(63, 174, 74, 0.35), inset 0 0 40px rgba(0,0,0,0.6);
+    padding: 32px;
+    color: #e8ffe8;
+}
+
+.zombie-hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 18px #3fae4a, 0 2px 4px #000;
+    margin: 0 0 8px 0;
+    color: #a5ffb0;
+}
+
+.zombie-hero .tagline {
+    font-size: 18px;
+    color: #c9e8c9;
+    margin: 0 0 20px 0;
+}
+
+.zombie-panel {
+    background: #14181c;
+    border: 1px solid #2e5a30;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+.zombie-panel h2 {
+    color: #7fe08a;
+    font-size: 20px;
+    margin-top: 0;
+    border-bottom: 1px dashed #2e5a30;
+    padding-bottom: 8px;
+}
+
+.zombie-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #3fae4a 0%, #25752e 100%);
+    color: #ffffff !important;
+    border: 1px solid #6ed97a;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 0 14px rgba(63, 174, 74, 0.5);
+    transition: all 0.2s ease;
+}
+
+.zombie-btn:hover {
+    background: linear-gradient(180deg, #57c862 0%, #2f8a39 100%);
+    box-shadow: 0 0 22px rgba(63, 174, 74, 0.8);
+    transform: translateY(-2px);
+}
+
+.zombie-btn-danger {
+    background: linear-gradient(180deg, #8a2e2e 0%, #5a1b1b 100%);
+    border-color: #c95b4a;
+    box-shadow: 0 0 14px rgba(200, 80, 60, 0.4);
+}
+
+.zombie-btn-danger:hover {
+    background: linear-gradient(180deg, #a53a3a 0%, #6b2121 100%);
+    box-shadow: 0 0 22px rgba(200, 80, 60, 0.7);
+}
+
+.zombie-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.zombie-stat {
+    background: #0e1910;
+    border: 1px solid #2e5a30;
+    border-radius: 8px;
+    padding: 14px 18px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.zombie-stat .num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #a5ffb0;
+}
+
+.zombie-stat .lbl {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7f9b83;
+}
+
+.zombie-menu {
+    background: #0d120d;
+    border-bottom: 2px solid #3fae4a;
+    padding: 10px 24px;
+}
+
+.zombie-menu a, .zombie-menu .link {
+    color: #9fe8a9;
+    margin-right: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.zombie-menu a:hover, .zombie-menu .link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #3fae4a;
+}
+
+.zombie-blood {
+    color: #c0392b;
+    font-weight: 700;
+    text-shadow: 0 0 12px rgba(192, 57, 43, 0.6);
+}
+
+.zombie-muted {
+    color: #7f9b83;
+    font-size: 13px;
+}
+
+.zombie-divider {
+    border: 0;
+    border-top: 1px dashed #2e5a30;
+    margin: 24px 0;
+}
+
+.zombie-badge {
+    display: inline-block;
+    background: #1c1c24;
+    border: 1px solid #3fae4a;
+    color: #a5ffb0;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.zombie-footer {
+    border-top: 1px solid #2e5a30;
+    margin-top: 30px;
+    padding-top: 14px;
+    color: #5f7a63;
+    font-size: 12px;
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://outsystems-extraction/schemas/client-actions.schema.json",
+  "title": "OutSystems Module Client Actions",
+  "description": "Generic schema for client-actions.json: the client-side flow logic of every Screen and Web Block in an OutSystems module. Contains client action flows, JS nodes, assignments, step sequences, and scoped variables. Module-agnostic; no module name is hardcoded.",
+  "type": "object",
+  "required": ["module", "extractedAt", "screens", "webBlocks"],
+  "additionalProperties": false,
+  "properties": {
+    "module": { "type": "string", "description": "Name of the extracted OutSystems module (runtime input, never hardcoded)." },
+    "extractedAt": { "type": "string", "description": "ISO-style timestamp of extraction." },
+    "screens": { "type": "array", "items": { "$ref": "#/$defs/actionsForElement" } },
+    "webBlocks": { "type": "array", "items": { "$ref": "#/$defs/actionsForElement" } }
+  },
+  "$defs": {
+    "parameter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "dataType": { "type": ["string", "null"] },
+        "direction": { "type": "string", "enum": ["In", "Out", "In/Out"] },
+        "defaultValue": { "type": ["string", "null"] },
+        "isMandatory": { "type": ["boolean", "null"] },
+        "description": { "type": ["string", "null"] }
+      }
+    },
+    "variable": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "dataType": { "type": ["string", "null"] },
+        "kind": { "type": ["string", "null"] }
+      }
+    },
+    "flowStep": {
+      "type": "object",
+      "description": "A single node in a link-traced client action flow (DFS from Start).",
+      "properties": {
+        "step": { "type": "integer", "description": "Sequential step number." },
+        "indent": { "type": "integer", "description": "Nesting depth (0 = main flow; >0 = inside a branch/cycle)." },
+        "nodeType": { "type": "string", "description": "Flow node type, e.g. Start, End, Assign, If, ExecuteAction, ExecuteClientAction, WebDestination, JavascriptNode, FeedbackMessage, ErrorHandler, Comment, RefreshQuery." },
+        "label": { "type": ["string", "null"], "description": "Branch label, e.g. True, False, Condition, Otherwise, Cycle, Unvisited." },
+        "name": { "type": ["string", "null"], "description": "Node name (if any)." },
+        "actionRef": { "type": ["string", "null"], "description": "For ExecuteAction/ExecuteClientAction: the called action's name." },
+        "assignments": { "type": "array", "items": { "type": "string" }, "description": "For Assign nodes: 'variable = value' expressions." },
+        "details": { "type": ["string", "null"], "description": "For Comment nodes: the text; for JavascriptNode: the source code." }
+      }
+    },
+    "clientAction": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": ["string", "null"] },
+        "inputs": { "type": "array", "items": { "$ref": "#/$defs/parameter" } },
+        "outputs": { "type": "array", "items": { "$ref": "#/$defs/parameter" } },
+        "localVariables": { "type": "array", "items": { "$ref": "#/$defs/variable" } },
+        "flow": { "type": "array", "items": { "$ref": "#/$defs/flowStep" } }
+      }
+    },
+    "actionsForElement": {
+      "type": "object",
+      "description": "A screen or web block and its owned client actions.",
+      "properties": {
+        "name": { "type": "string" },
+        "clientActions": { "type": "array", "items": { "$ref": "#/$defs/clientAction" } }
+      }
+    }
+  }
+}

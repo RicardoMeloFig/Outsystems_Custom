@@ -1,0 +1,14 @@
+{
+  "name": "outsystems-ui-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generic, parameterized OutSystems UI (presentation-layer) extractor. Captures themes, CSS, screens, web blocks, the hierarchical widget tree, events/handlers, and screen-scoped client actions from any module open in Service Studio.",
+  "scripts": {
+    "extract-ui": "dotnet run --project tools/UiExtractor -c Release --",
+    "extract-ui:ps": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/extract-ui.ps1",
+    "build": "dotnet build tools/UiExtractor/UiExtractor.csproj -c Release"
+  },
+  "engines": {
+    "dotnet": ">=10.0"
+  }
+}

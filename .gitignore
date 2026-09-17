@@ -1,0 +1,27 @@
+# Build outputs
+**/bin/
+**/obj/
+**/publish/
+*.user
+
+# Node / generated
+**/node_modules/
+
+# Workspace caches and scratch
+.cache/
+
+# Extraction outputs (per-consumer docs land in projects/*/docs)
+docs/*/
+projects/*/docs/
+
+# Generated documentation sites (track site-src, not the built site)
+projects/*/docs/site/
+projects/*/docs/site/assets/
+
+# Machine-specific pointers
+references/source-path.txt
+toolkits/extraction/references/source-path.txt
+
+# OS noise
+Thumbs.db
+desktop.ini

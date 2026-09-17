@@ -1,0 +1,21 @@
+# .NET build output (gitignored; rebuild via scripts\Build-All.ps1)
+bin/
+obj/
+publish/
+publish_new/
+
+# User-specific
+.env
+*.user
+
+# Extraction/editor output (per-module working files)
+docs/*/
+!docs/.gitkeep
+open/*
+!open/.gitkeep
+
+# OS / IDE
+Thumbs.db
+.vs/
+.idea/
+*.suo
