@@ -1,0 +1,97 @@
+@Library('odc-devops-lib@main') _
+
+pipeline {
+  agent any
+  options {
+    timestamps()
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+    disableConcurrentBuilds()
+    skipDefaultCheckout(true)
+  }
+
+  environment {
+    // Host is the same for BASE_URL and TOKEN_URL (TOKEN_URL keeps full realm path) <replace - mandatory>
+    BASE_URL  = '' // e.g., 'https://os.yourtenant.dev'
+    TOKEN_URL = '' // e.g., 'https://os.yourtenant.dev/auth/realms/823142b7e-7230-123a7-913d-0113412re59251/protocol/openid-connect/token'
+
+    // Environment keys <replace - mandatory>
+    QA_ENVIRONMENT_KEY      = '' // e.g., '86c44c87-4592-45df-a076-5e8a0caf48c1'
+    STAGING_ENVIRONMENT_KEY = '' // e.g., 'b924d212-d5ca-46e9-ada6-b3660cc5d6d1'
+    PRD_ENVIRONMENT_KEY     = '' // e.g., 'caf42e10-74f8-4810-9907-701672ebfd01'
+
+    // Asset key to be promoted <replace - mandatory>
+    ASSET_KEY = '' // e.g. 'e051e113-6ae2-4ef8-895d-a6682e6f8f76'
+
+    // Optional approvers for the “Select revision” prompt <replace - optional>
+    SUBMITTERS = '' // e.g., 'john,alice'
+  }
+
+  stages {
+
+    stage('Select revision') {
+      steps {
+        script {
+          // Uses env.TOKEN_URL, env.BASE_URL, env.ASSET_KEY and default API paths
+          selectRevision(
+            submitters: env.SUBMITTERS,
+            timeoutMinutes: 0  // 0 => wait indefinitely for selection
+          )
+          // After this, env.REVISION_SELECTED and env.BUILD_KEY are set
+        }
+      }
+    }
+
+    stage('Promote to QA') {
+      when { expression { return env.REVISION_SELECTED?.trim() } }
+      steps {
+        script {
+          deployToEnv(environmentKey: env.QA_ENVIRONMENT_KEY)
+        }
+      }
+    }
+
+    stage('Approval: Passed QA tests?') {
+      when { expression { return env.REVISION_SELECTED?.trim() } }
+      steps {
+        script {
+          input(
+            message: 'Has this revision passed QA tests and is approved to deploy to STAGING?',
+            ok: 'Yes, deploy to STAGING'
+          )
+        }
+      }
+    }
+
+    stage('Promote to STAGING') {
+      when { expression { return env.REVISION_SELECTED?.trim() } }
+      steps {
+        script {
+          deployToEnv(environmentKey: env.STAGING_ENVIRONMENT_KEY)
+        }
+      }
+    }
+
+    stage('Approval: Release to Production?') {
+      when { expression { return env.REVISION_SELECTED?.trim() } }
+      steps {
+        script {
+          // waits indefinitely for approval & inputs
+          releaseApproval(
+            // submitters: 'joao,alice',   // optional
+            debug: true                   // <-- turn on detailed debug
+          )
+          // Now env.RELEASE_VERSION and env.RELEASE_NOTES are set
+        }
+      }
+    }
+
+    stage('Promote to PRD') {
+      when { expression { return env.REVISION_SELECTED?.trim() } }
+      steps {
+        script {
+          deployToEnv(environmentKey: env.PRD_ENVIRONMENT_KEY)
+        }
+      }
+    }
+  }
+}

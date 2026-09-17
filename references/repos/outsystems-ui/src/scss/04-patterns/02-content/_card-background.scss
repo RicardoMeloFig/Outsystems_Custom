@@ -1,0 +1,116 @@
+@use '../../00-abstract/index' as *;
+@use '../../tokens/variables';
+
+/* Patterns - Content - Card Background */
+////
+/// @group Patterns-Card_Background
+/// Patterns - Content - Card Background
+
+///
+.card-background {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-card-background-border-color: #{variables.$token-border-subtle};
+	--osui-card-background-border-width: #{variables.$token-border-size-025};
+	--osui-card-background-border-radius: var(--border-radius-xl, #{variables.$token-shape-soft-xl});
+	// ───────────────────────────────────────────────────────────────────
+
+	align-items: center;
+	border: var(--osui-card-background-border-width) solid var(--osui-card-background-border-color);
+	border-radius: var(--osui-card-background-border-radius);
+	color: var(--color-text-light);
+	display: flex;
+	overflow: hidden;
+	padding: variables.$token-scale-600;
+	position: relative;
+
+	// Service Studio Preview
+	& {
+		-servicestudio-height: auto !important;
+	}
+
+	&-content {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		position: relative;
+		width: 100%;
+		z-index: var(--layer-local-tier-1);
+
+		// Service Studio Preview
+		& {
+			-servicestudio-display: initial;
+		}
+
+		&.top-left,
+		&.center-left,
+		&.bottom-left {
+			text-align: start;
+		}
+
+		&.top-center,
+		&.center,
+		&.bottom-center {
+			text-align: center;
+		}
+
+		&.top-right,
+		&.center-right,
+		&.bottom-right {
+			text-align: end;
+		}
+	}
+
+	&-image,
+	&-color {
+		@include absolute-left-top();
+
+		height: 100%;
+		width: 100%;
+	}
+
+	&-image {
+		img {
+			height: 100%;
+			object-fit: cover;
+			object-position: center center;
+			width: 100%;
+		}
+	}
+
+	&-color {
+		opacity: 0.6;
+
+		&:after {
+			background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+			content: '';
+			height: 100%;
+			inset-inline-start: 0;
+			opacity: 1;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: var(--layer-local-tier-1);
+		}
+	}
+}
+
+///
+.remove-card-gradient {
+	.card-background-color {
+		&:after {
+			background: none;
+		}
+	}
+}
+
+///
+.layout-native {
+	.card-background {
+		padding: variables.$token-scale-400;
+
+		&.padding-none {
+			padding: variables.$token-scale-0;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+namespace OSFramework.Maps.Configuration {
+	/**
+	 * Used to translate configurations from OS to Provider
+	 * Defines the basic structure for HeatmapLayer objects
+	 */
+	export interface IConfigurationHeatmapLayer extends IConfiguration {
+		gradient: Array<string | OSStructures.HeatmapLayer.Color>;
+		maxIntensity: number;
+		opacity: number;
+		points: Array<OSStructures.HeatmapLayer.Points>;
+		radius: number;
+	}
+}

@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>$(TargetDotnetVersion)</TargetFramework>
+    <RollForward>LatestMajor</RollForward>
+    <Configurations>Debug;Release;ReleaseAvalonia;ReleaseWPF</Configurations>
+    <RuntimeIdentifiers>osx-x64;win-x64;osx-arm64;win-arm64</RuntimeIdentifiers>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="App.xaml" />
+    <None Remove="MainView\Tasks.png" />
+    <None Remove="MainWindow.xaml" />
+    <None Remove="Users\User1.png" />
+    <None Remove="Users\User2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="App.xaml" />
+    <EmbeddedResource Include="MainView\Tasks.png" />
+    <AvaloniaResource Include="MainWindow.xaml" />
+    <EmbeddedResource Include="Users\User1.png" />
+    <EmbeddedResource Include="Users\User2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DefaultStyleSheet Include="Styles\LightTheme.scss" />
+    <DefaultStyleSheet Include="Styles\DarkTheme.scss" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="ViewGenerator">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ViewGeneratorCore">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="WebViewControl-Avalonia$(WebViewPackageSuffix)" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ReactViewControl.Avalonia\ReactViewControl.Avalonia.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="tsconfig.json">
+      <Visible>True</Visible>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ts2lang.json">
+      <Visible>True</Visible>
+    </None>
+  </ItemGroup>
+
+  <Import Project="Build\GenerateWebpackDevServerScript.targets" />
+</Project>

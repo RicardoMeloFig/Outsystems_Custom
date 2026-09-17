@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(TargetDotnetVersion)</TargetFramework>
+    <OutputPath>$(MSBuildProjectDirectory)\bin\</OutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <PlatformTarget>$(Platform)</PlatformTarget>
+    <IsPackable>false</IsPackable>
+    <Configurations>Debug;Release;ReleaseAvalonia;ReleaseWPF</Configurations>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
+    <WP_OptimizeBundle>false</WP_OptimizeBundle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReactViewControl.Avalonia\ReactViewControl.Avalonia.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="nunit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="ViewGenerator">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <EmbeddedResource Include="TestAppView\imgs\image.png" />
+    <DefaultStyleSheet Include="TestAppView\Default.scss" />
+    <DefaultStyleSheet Include="TestAppView\Default_2.scss" />
+    <Content Update="tsconfig.json">
+      <Visible>True</Visible>
+    </Content>
+    <Content Update="ts2lang.json">
+      <Visible>True</Visible>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WebViewControl-Avalonia$(WebViewPackageSuffix)" />
+  </ItemGroup>
+  
+</Project>

@@ -1,0 +1,94 @@
+@use "../../tokens/variables";
+
+/* Patterns - Content - List Item Content */
+////
+/// @group Patterns-List_Item_Content
+/// Patterns - Content - List Item Content
+
+///
+.list-item-content {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-list-item-content-title-color: var(--color-text);
+	--osui-list-item-content-text-color: #{variables.$token-text-subtlest};
+	// Figma says 21px; the scale's nearest step is 20px.
+	--osui-list-item-content-text-line-height: #{variables.$token-font-line-height-500};
+	--osui-list-item-content-icon-size: #{variables.$token-scale-500};
+	--osui-list-item-content-icon-color: #{variables.$token-icon-subtlest};
+	// ───────────────────────────────────────────────────────────────────
+
+	align-items: center;
+	display: flex;
+
+	&-left {
+		max-width: 120px;
+		padding-inline-end: variables.$token-space-400;
+	}
+
+	&-center {
+		flex: 1;
+		overflow: hidden;
+	}
+
+	&-right {
+		padding-inline-start: variables.$token-space-600;
+
+		// Trailing icon renders in a 20px box (Figma CaretRight); `line-height: 1`
+		// keeps the glyph box square instead of inheriting the row's line-height.
+		// The selected row overrides the color via --osui-list-item-selected-icon-color.
+		.icon {
+			color: var(--osui-list-item-content-icon-color);
+			font-size: var(--osui-list-item-content-icon-size);
+			line-height: 1;
+		}
+	}
+
+	&-title,
+	&-text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&-title {
+		color: var(--osui-list-item-content-title-color);
+		font-size: variables.$token-font-size-400;
+		font-weight: variables.$token-font-weight-semi-bold;
+		line-height: variables.$token-font-line-height-600;
+	}
+
+	&-text {
+		color: var(--osui-list-item-content-text-color);
+		font-size: variables.$token-font-size-350;
+		line-height: var(--osui-list-item-content-text-line-height);
+	}
+}
+
+///
+.layout-native {
+	.list-item-content {
+		&-left {
+			padding-inline-end: variables.$token-space-400;
+		}
+
+		&-right {
+			padding-inline-start: variables.$token-space-600;
+		}
+	}
+}
+
+// IsRTL -------------------------------------------------------------------------
+///
+.is-rtl {
+
+	[data-list-item] {
+		.list-item-float {
+			&-left {
+				float: right;
+			}
+
+			&-right {
+				float: left;
+			}
+		}
+	}
+}

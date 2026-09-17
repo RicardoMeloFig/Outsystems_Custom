@@ -1,0 +1,4 @@
+include ':MobileECT'
+include ':AndroidUniversalImageLoaderLib'
+include ':OutSystems:platforms:android'
+include ':OutSystems:platforms:android:CordovaLib'

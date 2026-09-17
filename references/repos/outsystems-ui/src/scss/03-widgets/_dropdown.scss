@@ -1,0 +1,247 @@
+@use "../tokens/variables";
+
+/* Widgets - Dropdown */
+////
+/// @group Widgets-Dropdown
+/// Widgets - Dropdown
+
+.dropdown {
+	&-container {
+		// ─── Component CSS API ─────────────────────────────────────────────
+		--osui-dropdown-background: var(--color-background-input);
+		--osui-dropdown-border-color: var(--color-border-input);
+		--osui-dropdown-border-width: #{variables.$token-border-size-025};
+		--osui-dropdown-color: var(--color-text);
+		--osui-dropdown-border-radius: var(--border-radius-xs, #{variables.$token-shape-soft-xs});
+		--osui-dropdown-popup-border-radius: var(--border-radius-lg, #{variables.$token-shape-soft-lg});
+		--osui-dropdown-hover-border-color: var(--color-border-input-hover);
+		--osui-dropdown-prompt-color: var(--color-text-subtlest);
+		--osui-dropdown-list-background: var(--color-background-surface);
+		--osui-dropdown-list-border-color: var(--color-border);
+		--osui-dropdown-list-max-height: 240px;
+		--osui-dropdown-list-shadow: #{variables.$token-elevation-3};
+		--osui-dropdown-focus-border-color: var(--color-border-primary);
+		--osui-dropdown-focus-ring-color: #{variables.$token-border-focus-default};
+		--osui-dropdown-arrow-color: #{variables.$token-icon-subtlest};
+		--osui-dropdown-arrow-size: #{variables.$token-scale-400};
+		// ───────────────────────────────────────────────────────────────────
+
+		cursor: initial;
+		position: relative;
+
+		& > .dropdown-display:after {
+			content: none;
+		}
+
+		& > div,
+		& > select {
+			&.dropdown-display {
+				align-items: center;
+				background-color: var(--osui-dropdown-background);
+				border: var(--osui-dropdown-border-width) solid var(--osui-dropdown-border-color);
+				border-radius: var(--osui-dropdown-border-radius);
+				color: var(--osui-dropdown-color);
+				cursor: pointer;
+				display: flex;
+				font-size: variables.$token-font-size-350;
+				height: variables.$token-scale-1000;
+				padding-block: variables.$token-scale-0;
+				padding-inline: variables.$token-scale-400;
+				width: 100%;
+
+				&:hover {
+					border-color: var(--osui-dropdown-hover-border-color);
+				}
+
+				&:focus {
+					border: var(--osui-dropdown-border-width) solid var(--osui-dropdown-focus-border-color);
+					box-shadow: 0 0 0 variables.$token-border-size-050 var(--osui-dropdown-focus-ring-color);
+					outline: none;
+				}
+			}
+		}
+
+		// Prompt (empty) state for the native <select> variant — muted by default,
+		// darkens to text-default on hover (matches Figma). Detected by the empty-value
+		// prompt option being the checked one.
+		& > select.dropdown-display:has(option:checked[value='']) {
+			color: var(--osui-dropdown-prompt-color);
+
+			&:hover {
+				color: var(--osui-dropdown-color);
+			}
+		}
+
+		&.not-valid {
+			div.dropdown-display,
+			& > select.dropdown-display {
+				border: var(--osui-dropdown-border-width) solid variables.$token-border-danger-default;
+			}
+		}
+
+		&.dropdown-expanded > div.dropdown-display {
+			border: var(--osui-dropdown-border-width) solid var(--osui-dropdown-focus-border-color);
+			box-shadow: 0 0 0 variables.$token-border-size-050 var(--osui-dropdown-focus-ring-color);
+		}
+
+		& > div.dropdown-list {
+			background-color: var(--osui-dropdown-list-background);
+			border: var(--osui-dropdown-border-width) solid var(--osui-dropdown-list-border-color);
+			border-radius: var(--osui-dropdown-popup-border-radius, var(--osui-dropdown-border-radius));
+			box-shadow: var(--osui-dropdown-list-shadow);
+			inset-inline-start: 0 !important;
+			max-height: var(--osui-dropdown-list-max-height);
+			overflow-y: auto;
+			position: absolute;
+			width: 100% !important;
+
+			&::-webkit-scrollbar {
+				width: 5px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: var(--color-border);
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: var(--color-text-disabled);
+			}
+		}
+
+		.dropdown-popup-row {
+			align-items: center;
+			color: var(--color-text);
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			padding-block: #{variables.$token-scale-200};
+			padding-inline: #{variables.$token-scale-400};
+
+			&:hover,
+			&-selected:hover {
+				background: var(--color-border-subtle);
+			}
+
+			&-selected {
+				background: none;
+				color: var(--color-text);
+
+				// Right-side checkmark — requires --osui-icon-check + --osui-icon-font-family (icon library)
+				&::after {
+					color: variables.$token-semantics-primary-base;
+					content: var(--osui-icon-check);
+					flex-shrink: 0;
+					font-family: var(--osui-icon-font-family);
+					font-size: variables.$token-font-size-400;
+					margin-inline-start: variables.$token-scale-200;
+				}
+			}
+
+			span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+
+		.scrollable-list-with-scroll {
+			background: none;
+			max-height: 100%;
+			overflow-y: hidden;
+			padding: variables.$token-scale-0;
+
+			&:before,
+			&:after {
+				content: none;
+			}
+		}
+	}
+
+	// Is expanded
+	&-expanded {
+		&-down div.dropdown-list {
+			margin-block-start: variables.$token-scale-100;
+			top: 100% !important;
+		}
+
+		&-up div.dropdown-list {
+			bottom: 100% !important;
+			margin-block-end: variables.$token-scale-100;
+			top: auto !important;
+		}
+	}
+}
+
+div,
+select {
+	&.dropdown-display {
+		// Platform sets font-weight: bold as inline style — !important required to override it
+		font-weight: variables.$token-font-weight-regular !important;
+
+		&.dropdown-disabled,
+		&[disabled] {
+			background-color: var(--color-background-input-disabled);
+			border: variables.$token-border-size-025 solid var(--color-border);
+			color: var(--color-text-disabled);
+			pointer-events: none;
+		}
+	}
+}
+
+div {
+	&.dropdown-display-content {
+		width: 100%;
+
+		& > span,
+		& > div {
+			font-size: variables.$token-font-size-350;
+		}
+	}
+}
+
+select.dropdown-display[disabled] {
+	opacity: 1;
+}
+
+// Responsive --------------------------------------------------------------------
+.tablet,
+.phone {
+	div.dropdown-display,
+	select.dropdown-display {
+		font-size: variables.$token-font-size-400;
+		height: variables.$token-scale-1200;
+
+		.dropdown-display-content {
+			& > span,
+			& > div {
+				font-size: variables.$token-font-size-400;
+			}
+		}
+	}
+}
+
+// Accessibility -----------------------------------------------------------------
+///
+.has-accessible-features {
+	.dropdown-container {
+		&.dropdown-expanded {
+			& > div.dropdown-display {
+				border-color: var(--color-focus-inner);
+				box-shadow: 0 0 0 variables.$token-border-size-075 var(--color-focus-outer);
+			}
+		}
+
+		& > div,
+		& > select {
+			&.dropdown-display {
+				border-color: var(--color-border-input);
+			}
+		}
+
+		& > select {
+			&.dropdown-display:focus {
+				border-color: var(--color-focus-inner);
+			}
+		}
+	}
+}

@@ -1,0 +1,141 @@
+@use '../00-abstract/index' as *;
+@use '../tokens/variables';
+
+////
+/// @group Root
+/// Framework theme layer
+///
+
+:root {
+	// ─── Theme layer · surfaces ──────────────────────────────────────────
+	--color-background-body: #{variables.$token-bg-body};
+	--color-background-surface: #{variables.$token-bg-surface-default}; // cards, popups, menus, panels…
+	--color-background-header: #{variables.$token-bg-surface-default};
+	--color-background-sidemenu: #{variables.$token-bg-surface-default};
+	--color-background-footer: #{variables.$token-bg-surface-default};
+	--color-background-login: #{variables.$token-bg-surface-default};
+	--color-background-input: #{variables.$token-bg-input-default};
+	--color-background-input-disabled: #{variables.$token-bg-input-disabled};
+
+	// ─── Theme layer · text ──────────────────────────────────────────────
+	--color-text: #{variables.$token-text-default};
+	--color-text-subtle: #{variables.$token-text-subtle};
+	--color-text-subtlest: #{variables.$token-text-subtlest};
+	--color-text-disabled: #{variables.$token-text-disabled};
+	--color-text-inverse: #{variables.$token-text-inverse};
+	--color-text-light: #{variables.$token-text-light};
+	--color-text-dark: #{variables.$token-text-dark};
+
+	// ─── Theme layer · borders ───────────────────────────────────────────
+	--color-border: #{variables.$token-border-default};
+	--color-border-subtle: #{variables.$token-border-subtle};
+	--color-border-subtlest: #{variables.$token-border-subtlest};
+	--color-border-input: #{variables.$token-border-input-default};
+	--color-border-input-hover: #{variables.$token-border-input-hover};
+	--color-border-input-press: #{variables.$token-border-input-press};
+	--color-border-primary: #{variables.$token-border-primary};
+	// Focus ring pair (dev's $osui-colors-focus), read by .has-accessible-features
+	// :focus — `outer` is the translucent wash, `inner` the solid line on top.
+	--color-focus-outer: color-mix(in srgb, #{variables.$token-semantics-primary-base} 22%, transparent);
+	--color-focus-inner: #{variables.$token-border-boldest};
+
+	// ─── Theme layer · brand / status / neutral ──────────────────────────
+	--color-primary: #{variables.$token-semantics-primary-base};
+	--color-primary-hover: #{variables.$token-semantics-primary-800};
+	--color-primary-selected: #{variables.$token-semantics-primary-900};
+	--color-primary-active: #{variables.$token-semantics-primary-900};
+	--color-secondary: #{variables.$token-bg-neutral-bold-default};
+	--color-neutral: #{variables.$token-primitives-neutral-500};
+	--color-neutral-0: #{variables.$token-primitives-neutral-100};
+	--color-neutral-1: #{variables.$token-primitives-neutral-200};
+	--color-neutral-2: #{variables.$token-primitives-neutral-300};
+	--color-neutral-3: #{variables.$token-primitives-neutral-400};
+	--color-neutral-4: #{variables.$token-primitives-neutral-500};
+	--color-neutral-5: #{variables.$token-primitives-neutral-600};
+	--color-neutral-6: #{variables.$token-primitives-neutral-700};
+	--color-neutral-7: #{variables.$token-primitives-neutral-800};
+	--color-neutral-8: #{variables.$token-primitives-neutral-900};
+	--color-neutral-9: #{variables.$token-primitives-neutral-1100};
+	--color-neutral-10: #{variables.$token-primitives-neutral-1200};
+	--color-error: #{variables.$token-semantics-danger-base};
+	--color-warning: #{variables.$token-semantics-warning-base};
+	--color-success: #{variables.$token-semantics-success-base};
+	--color-info: #{variables.$token-semantics-info-base};
+
+	// ─── Theme layer · extended palette ──────────────────────────────────
+	// The 12 Color-entity families (Red…Pink) only — the base ('') entry of each,
+	// token-backed via $osui-colors-extended. Without these,
+	// GetColorValueFromColorType falls through to the bare entity name: Progress
+	// rendered the CSS keyword `red` (#ff0000) instead of the token red, and
+	// `grape` — not a CSS colour — rendered nothing.
+	// dev's light/dark variants are deliberately NOT roles: no entity record, so
+	// their utility classes read $token-* directly.
+	// The entity's 26th record, Transparent, is deliberately NOT declared: the
+	// helper's `return colorName` fallback resolves it to the CSS keyword, which
+	// keeps it non-overridable. Declaring it would let an app theme `transparent`
+	// into an actual colour. dev enforced the same thing in code
+	// (`@if ($colorName == 'transparent') { @return transparent; }`).
+	@each $color, $variations in $osui-colors-extended {
+		@each $type, $value in $variations {
+			@if ($type == '') {
+				--color-#{$color}: #{$value};
+			}
+		}
+	}
+
+	// ─── Theme layer · radius ────────────────────────────────────────────
+	// Shape tier slots — soft-profile defaults. `.shape-*` utilities remap all tiers.
+	--border-radius-2xs: var(--border-radius-default, #{variables.$token-shape-soft-2xs});
+	--border-radius-xs: var(--border-radius-default, #{variables.$token-shape-soft-xs}); // 8px · controls
+	--border-radius-sm: var(--border-radius-default, #{variables.$token-shape-soft-sm}); // 12px · surfaces
+	--border-radius-md: var(--border-radius-default, #{variables.$token-shape-soft-md}); // 16px
+	--border-radius-lg: var(--border-radius-default, #{variables.$token-shape-soft-lg});
+	--border-radius-xl: var(--border-radius-default, #{variables.$token-shape-soft-xl});
+	--border-radius-2xl: var(--border-radius-default, #{variables.$token-shape-soft-2xl});
+	// Legacy aliases — read by TS `GetBorderRadiusValueFromShapeType` (`ShapeTypes`: none | soft | rounded).
+	--border-radius-none: #{variables.$token-border-radius-0}; // 0px
+	--border-radius-soft: #{variables.$token-shape-soft-xs}; // 8px
+	--border-radius-rounded: #{variables.$token-border-radius-full}; // 999px · fixed pill/circle chrome
+
+	// ─── Theme layer · space scale ───────────────────────────────────────
+	@each $type, $value in $osui-space-token-vars {
+		--space-#{$type}: #{$value};
+	}
+
+	// ─── Theme layer · layout sizes ──────────────────────────────────────
+	--header-size: #{$header-size};
+	--header-size-content: #{$header-size-content};
+	--side-menu-size: #{$side-menu-size};
+	--bottom-bar-size: #{$bottom-bar-size};
+	--footer-height: #{$footer-height};
+
+	// ─── Theme layer · safe areas ────────────────────────────────────────
+	--os-safe-area-top: #{safe-area(top)};
+	--os-safe-area-right: #{safe-area(right)};
+	--os-safe-area-bottom: #{safe-area(bottom)};
+	--os-safe-area-left: #{safe-area(left)};
+
+	// ─── Theme layer · z-index system ────────────────────────────────────
+	--layer-system-scale: 100;
+	--layer-above: var(--layer-system-scale);
+	--layer-below: calc(-1 * var(--layer-system-scale));
+	--layer-global-screen: #{variables.$token-z-index-0};
+	--layer-global-elevated: #{variables.$token-z-index-100};
+	--layer-global-navigation: #{variables.$token-z-index-200};
+	--layer-global-off-canvas: #{variables.$token-z-index-300};
+	--layer-global-instant-interaction: #{variables.$token-z-index-400};
+	--layer-global-negative: -1;
+	--layer-global-auto: auto;
+	--layer-local-tier-1: 1;
+	--layer-local-tier-2: 2;
+	--layer-local-tier-3: 3;
+	--layer-local-tier-4: 4;
+	--layer-local-tier-5: 5;
+
+	// Portaled / cross-pattern layer vars (read off-DOM)
+	--osui-bottom-sheet-layer: var(--layer-global-off-canvas);
+	--osui-notification-layer: var(--layer-global-instant-interaction);
+	--osui-popup-layer: var(--layer-global-off-canvas);
+	--osui-sidebar-layer: var(--layer-global-off-canvas);
+	--osui-menu-layer: calc(var(--layer-global-navigation) + var(--layer-local-tier-2));
+}

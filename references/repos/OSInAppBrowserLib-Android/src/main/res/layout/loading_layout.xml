@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="124dp"
+    android:orientation="vertical"
+    android:theme="@style/AppTheme.WebView"
+    android:background="?attr/toolbarColor" >
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:indeterminate="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter {
+            content {
+                // https://youtrack.jetbrains.com/issue/IDEA-261387
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+}
+
+subprojects {
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+        jcenter {
+            content {
+                // https://youtrack.jetbrains.com/issue/IDEA-261387
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
+    }
+
+    version = '4.2.0'
+    group = 'com.journeyapps'
+
+    ext.androidTargetSdk = 28
+    ext.zxingCore = 'com.google.zxing:core:3.4.0'
+}

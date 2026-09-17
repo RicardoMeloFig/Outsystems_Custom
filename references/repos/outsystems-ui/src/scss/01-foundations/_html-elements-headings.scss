@@ -1,0 +1,58 @@
+@use "sass:list";
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* HTML Elements - Headings */
+////
+/// @group HTML_Elements-Headings
+/// HTML Elements - Headings (h1 to h6 and font-size-display)
+
+// Maps heading level → (desktop, tablet, phone) role triples.
+// Tier values that equal the previous tier mean "inherit" and emit nothing.
+$osui-heading-tiers: (
+	1: (variables.$token-heading-h1-semi-bold, variables.$token-heading-h2-semi-bold, variables.$token-heading-h2-semi-bold),
+	2: (variables.$token-heading-h2-semi-bold, variables.$token-heading-h2-semi-bold, variables.$token-heading-h3-semi-bold),
+	3: (variables.$token-heading-h3-semi-bold, variables.$token-heading-h3-semi-bold, variables.$token-heading-h4-semi-bold),
+	4: (variables.$token-heading-h4-semi-bold, variables.$token-heading-h4-semi-bold, variables.$token-heading-h5-semi-bold),
+	5: (variables.$token-heading-h5-semi-bold, variables.$token-heading-h5-semi-bold, variables.$token-heading-h6-semi-bold),
+	6: (variables.$token-heading-h6-semi-bold, variables.$token-heading-h6-semi-bold, variables.$token-heading-h6-semi-bold),
+);
+
+/// Shared default for every heading element and utility class
+h1,
+.heading1,
+h2,
+.heading2,
+h3,
+.heading3,
+h4,
+.heading4,
+h5,
+.heading5,
+h6,
+.heading6,
+.font-size-display {
+	margin: 0;
+}
+
+/// Per-level responsive rules — desktop baseline + optional .tablet / .phone overrides
+@each $level, $tiers in $osui-heading-tiers {
+	$desktop: list.nth($tiers, 1);
+	$tablet: list.nth($tiers, 2);
+	$phone: list.nth($tiers, 3);
+
+	h#{$level},
+	.heading#{$level},
+	.font-size-h#{$level} {
+		@include apply-typography-responsive($desktop, $tablet, $phone);
+	}
+}
+
+/// Display — uses display role maps, not heading roles
+.font-size-display {
+	@include apply-typography-responsive(
+		$desktop: variables.$token-display-lg-regular,
+		$tablet: variables.$token-display-sm-regular,
+		$phone: variables.$token-display-sm-regular
+	);
+}

@@ -1,0 +1,648 @@
+@use '../tokens/variables';
+
+////
+/// @group Root
+/// Icon library CSS variables (FontAwesome vs Phosphor) and component overrides.
+/// When :root has .icon-library-Phosphor or .icon-library-FontAwesome, icons use the matching font.
+///
+
+/// // ---------------------------------------------------------------------------
+// FontAwesome icon library (default fallback)
+// ---------------------------------------------------------------------------
+:root {
+	--osui-icon-font-family: 'FontAwesome';
+
+	// Dropdown / caret (angle-down)
+	--osui-icon-arrow-down: '\f107';
+
+	// Caret up (TimePicker)
+	--osui-icon-arrow-up: '\f106';
+
+	// Arrow Left/Right
+	--osui-icon-arrow-left: '\f104';
+	--osui-icon-arrow-right: '\f105';
+
+	// Search
+	--osui-icon-search: '\f002';
+
+	// Clear / close (times)
+	--osui-icon-clear: '\f00d';
+
+	// Chevrons
+	--osui-icon-chevron-right: '\f054';
+	--osui-icon-chevron-left: '\f053';
+
+	// Checkbox check
+	--osui-icon-check: '\f00c';
+
+	// Alert
+	--osui-icon-info: '\f05a';
+	--osui-icon-success: '\f058';
+	--osui-icon-error: '\f057';
+	--osui-icon-warning: '\f071';
+
+	// ChatMessage
+	--osui-icon-sent: '\f00c';
+	--osui-icon-time: '\f017';
+
+	// Checkbox
+	--osui-icon-checkbox-checked: '\f00c';
+
+	// Lightbox
+	--osui-icon-arrow-next: '\f061';
+	--osui-icon-arrow-previous: '\f060';
+	--osui-icon-zoom-in: '\f00e'; // fa-search-plus
+
+	// Password Policy
+	--osui-icon-circle-x: '\f057';
+	--osui-icon-circle-check: '\f058';
+}
+
+// ---------------------------------------------------------------------------
+// Phosphor icon library
+// ---------------------------------------------------------------------------
+:root.iconLibrary-phosphor,
+// fallback for IDE DesignTime
+body.iconLibrary-phosphor {
+	--osui-icon-font-family: 'Phosphor';
+
+	// Dropdown / caret (angle-down)
+	--osui-icon-arrow-down: '\e136';
+
+	// Caret up (TimePicker)
+	--osui-icon-arrow-up: '\e13c';
+
+	// Search
+	--osui-icon-search: '\e30c';
+
+	// Clear / close (times, X)
+	--osui-icon-clear: '\e4f6';
+
+	// Chevrons
+	--osui-icon-chevron-right: '\e13a';
+	--osui-icon-chevron-left: '\e138';
+
+	--osui-icon-arrow-left: '\e138';
+	--osui-icon-arrow-right: '\e13a';
+
+	// Checkbox check
+	--osui-icon-check: '\e182';
+
+	// Alert
+	--osui-icon-info: '\e2ce';
+	--osui-icon-success: '\e184';
+	--osui-icon-error: '\e4f8';
+	--osui-icon-warning: '\e4e0';
+
+	// ChatMessage
+	--osui-icon-sent: '\e182';
+	--osui-icon-time: '\e19a';
+
+	// Checkbox
+	--osui-icon-checkbox-checked: '\e182';
+
+	// Lightbox
+	--osui-icon-arrow-next: '\e06c';
+	--osui-icon-arrow-previous: '\e058';
+	--osui-icon-zoom-in: '\e310'; // ph-magnifying-glass-plus
+
+	// Password Policy
+	--osui-icon-circle-x: '\e4f8';
+	--osui-icon-circle-check: '\e184';
+}
+
+// ---------------------------------------------------------------------------
+// Component selectors – use CSS variables (with FontAwesome as fallback when no library class is set)
+// ---------------------------------------------------------------------------
+.icon.ph {
+	display: inline-block;
+}
+
+// Accordion – caret icon
+.osui-accordion-item__icon--caret:after {
+	content: var(--osui-icon-arrow-down);
+	font-family: var(--osui-icon-font-family);
+}
+
+// Search – search icon (ported from dev #1188/#1191, retokenized: --space-base → $token-scale-400,
+// --space-xl → $token-scale-1000, --color-neutral-6 → $token-icon-subtlest)
+.osui-search .osui-search__input > span {
+	position: relative;
+
+	&::after {
+		color: variables.$token-icon-subtlest;
+		content: var(--osui-icon-search);
+		font-family: var(--osui-icon-font-family);
+		inset-inline-start: variables.$token-scale-400;
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.form-control[data-input] {
+		padding-inline-start: variables.$token-scale-1000;
+	}
+}
+
+// Submenu – header arrow
+.osui-submenu {
+	&__header__icon {
+		// Visibility (display/--is-dropdown) lives in _submenu.scss — platform-agnostic
+		// behaviour; this file owns only the glyph.
+		margin-inline-start: variables.$token-scale-200;
+		transition: transform 200ms ease;
+		transform-origin: center;
+
+		&:after {
+			content: var(--osui-icon-arrow-down);
+			font-family: var(--osui-icon-font-family);
+		}
+	}
+
+	&--is-open {
+		.osui-submenu__header__icon {
+			transform: rotate(180deg);
+		}
+	}
+}
+
+// Dropdown Widget
+.dropdown-container:after {
+	align-items: center;
+	color: var(--osui-dropdown-arrow-color, #{variables.$token-icon-subtlest});
+	content: var(--osui-icon-arrow-down);
+	cursor: pointer;
+	display: flex;
+	font-family: var(--osui-icon-font-family);
+	font-size: var(--osui-dropdown-arrow-size, #{variables.$token-scale-400});
+	height: var(--osui-dropdown-arrow-size, #{variables.$token-scale-400});
+	justify-content: center;
+	line-height: 1;
+	pointer-events: none;
+	position: absolute;
+	inset-inline-end: variables.$token-scale-400;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: transform 200ms ease;
+	width: var(--osui-dropdown-arrow-size, #{variables.$token-scale-400});
+}
+
+.dropdown-expanded.dropdown-container {
+	&:after {
+		transform: translateY(-50%) rotate(180deg);
+		transform-origin: center;
+	}
+}
+
+.form {
+	.dropdown-container[class*='ThemeGrid_Width']:has(select):after {
+		top: calc(50% - var(--token-scale-600, 24px) / 2);
+	}
+}
+
+// Table Widget - Sortable Icon
+.sortable-icon {
+	align-items: center;
+	display: inline-flex;
+	flex-direction: column;
+	font-family: var(--osui-icon-font-family);
+	font-size: variables.$token-font-size-300;
+	height: 11px;
+	justify-content: center;
+	line-height: 0.5; // compress each glyph's line-box so the up/down chevrons stack without overlapping
+	margin-inline-start: variables.$token-scale-200;
+	position: relative;
+	vertical-align: middle;
+	width: 10px;
+
+	&:before {
+		content: var(--osui-icon-arrow-up);
+	}
+
+	&:after {
+		content: var(--osui-icon-arrow-down);
+	}
+}
+
+// MasterDetail – close chevron
+.split-right-close-icon {
+	position: relative;
+
+	&:after {
+		content: var(--osui-icon-chevron-left);
+		font-family: var(--osui-icon-font-family);
+		font-size: variables.$token-font-size-450;
+	}
+}
+
+// Alert
+.alert {
+	&-icon {
+		height: 24px;
+		position: relative;
+		width: 24px;
+
+		&:after {
+			font-family: var(--osui-icon-font-family);
+			font-size: 24px;
+			height: 100%;
+			inset-inline-start: 0;
+			line-height: 1;
+			position: absolute;
+			top: 0;
+		}
+	}
+
+	&-info {
+		.alert-icon {
+			&:after {
+				content: var(--osui-icon-info);
+			}
+		}
+	}
+
+	&-warning {
+		.alert-icon {
+			&:after {
+				content: var(--osui-icon-warning);
+			}
+		}
+	}
+
+	&-success {
+		.alert-icon {
+			&:after {
+				content: var(--osui-icon-success);
+			}
+		}
+	}
+
+	&-error {
+		.alert-icon {
+			&:after {
+				content: var(--osui-icon-error);
+			}
+		}
+	}
+}
+
+// ChatMessage
+.chat-message-wrapper .chat-message-status {
+	display: inline-flex;
+	gap: variables.$token-scale-100;
+}
+
+.chat-message-status {
+	&_icon {
+		position: relative;
+		height: 18px;
+
+		&:after {
+			content: var(--osui-icon-sent);
+			position: absolute;
+			top: 0;
+			inset-inline-start: 0;
+			font-family: var(--osui-icon-font-family);
+		}
+
+		&.is-read {
+			color: #37b24d;
+		}
+
+		&-time {
+			height: 12px;
+			position: relative;
+			width: 12px;
+
+			&:after {
+				content: var(--osui-icon-time);
+				font-family: var(--osui-icon-font-family);
+				inset-inline-start: 0;
+				position: absolute;
+				top: 0;
+			}
+		}
+	}
+}
+
+// DropdownServerSide
+.osui-dropdown-serverside__selected-values:after {
+	content: var(--osui-icon-arrow-down);
+	font-family: var(--osui-icon-font-family);
+	font-size: var(--osui-dropdown-ss-arrow-size, #{variables.$token-scale-400});
+}
+
+// DropdownSearch (VirtualSelect)
+.vscomp-toggle-button:after,
+.vscomp-search-clear:after,
+.vscomp-ele .vscomp-clear-icon:after {
+	font-family: var(--osui-icon-font-family);
+	font-style: normal;
+}
+
+.vscomp-toggle-button:after {
+	content: var(--osui-icon-arrow-down);
+	font-size: var(--vscomp-toogle-btn-arrow-size);
+}
+
+.vscomp-search-clear:after,
+.vscomp-ele .vscomp-clear-icon:after {
+	content: var(--osui-icon-clear);
+	font-size: 13px;
+}
+
+.vscomp-wrapper.multiple .vscomp-option.selected .checkbox-icon:after {
+	border: none;
+	content: var(--osui-icon-checkbox-checked);
+	font-family: var(--osui-icon-font-family);
+	color: variables.$token-primitives-base-white;
+	transform: none !important; // !important required to override the element from provider
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 1px;
+	font-size: variables.$token-font-size-300;
+	line-height: 1;
+	display: flex;
+	inset-inline-start: 1px;
+}
+
+.osui-dropdown-search {
+	// Service Studio Preview
+	&-ss-preview {
+		-servicestudio-background-color: variables.$token-primitives-base-white;
+		-servicestudio-border-radius: variables.$token-border-radius-200;
+		-servicestudio-border: variables.$token-border-size-025 solid variables.$token-primitives-neutral-500;
+		-servicestudio-color: variables.$token-text-subtlest;
+		-servicestudio-display: inline-flex;
+		-servicestudio-justify-content: space-between;
+		-servicestudio-height: 40px;
+		-servicestudio-line-height: 40px;
+		-servicestudio-min-width: 180px;
+		-servicestudio-padding: 0 variables.$token-scale-400;
+		-servicestudio-position: relative;
+		-servicestudio-vertical-align: middle;
+		-servicestudio-width: 100%;
+		-servicestudio-align-items: center;
+
+		&__arrow-icon {
+			-servicestudio-position: relative;
+			-servicestudio-width: 12px;
+
+			&::after {
+				-servicestudio-color: variables.$token-primitives-neutral-700;
+				-servicestudio-position: absolute;
+				-servicestudio-top: 50%;
+				-servicestudio-left: 0;
+				-servicestudio-content: var(--osui-icon-arrow-down);
+				-servicestudio-font-family: var(--osui-icon-font-family);
+				-servicestudio-transform: translateY(-50%);
+				-servicestudio-font-size: variables.$token-font-size-500;
+			}
+		}
+	}
+}
+
+.osui-dropdown-tags {
+	// Service Studio Preview
+	&-ss-preview {
+		-servicestudio-justify-content: space-between;
+		-servicestudio-background-color: variables.$token-primitives-base-white;
+		-servicestudio-border-radius: variables.$token-border-radius-200;
+		-servicestudio-border: variables.$token-border-size-025 solid variables.$token-primitives-neutral-500;
+		-servicestudio-color: variables.$token-text-subtlest;
+		-servicestudio-display: flex;
+		-servicestudio-height: 40px;
+		-servicestudio-min-width: 180px;
+		-servicestudio-padding: 0 variables.$token-scale-400;
+		-servicestudio-position: relative;
+		-servicestudio-vertical-align: middle;
+		-servicestudio-width: 100%;
+		-servicestudio-align-items: center;
+
+		&-as-tag {
+			-servicestudio-align-items: center;
+			-servicestudio-justify-content: space-between;
+			-servicestudio-background-color: variables.$token-primitives-neutral-300;
+			-servicestudio-border-radius: 30px;
+			-servicestudio-color: variables.$token-primitives-neutral-700;
+			-servicestudio-display: flex;
+			-servicestudio-font-size: variables.$token-font-size-350;
+			-servicestudio-font-weight: variables.$token-font-weight-semi-bold;
+			-servicestudio-height: 30px;
+			-servicestudio-padding: 8px;
+			-servicestudio-position: relative;
+			-servicestudio-top: 50%;
+			-servicestudio-transform: translateY(-50%);
+			-servicestudio-width: 70px;
+
+			&__clear-icon {
+				-servicestudio-position: relative;
+				-servicestudio-font-weight: normal;
+
+				&::after {
+					-servicestudio-position: absolute;
+					-servicestudio-top: 50%;
+					-servicestudio-left: 0;
+					-servicestudio-content: var(--osui-icon-clear);
+					-servicestudio-font-family: var(--osui-icon-font-family);
+					-servicestudio-transform: translateY(-50%);
+				}
+			}
+
+			&__arrow-icon {
+				-servicestudio-align-self: center;
+				-servicestudio-color: variables.$token-primitives-neutral-700;
+				-servicestudio-position: relative;
+				-servicestudio-font-size: variables.$token-font-size-500;
+				-servicestudio-font-weight: normal;
+				-servicestudio-width: 12px;
+
+				&::after {
+					-servicestudio-position: absolute;
+					-servicestudio-top: 50%;
+					-servicestudio-left: 0;
+					-servicestudio-content: var(--osui-icon-arrow-down);
+					-servicestudio-font-family: var(--osui-icon-font-family);
+					-servicestudio-transform: translateY(-50%);
+				}
+			}
+		}
+	}
+}
+
+.form {
+	// Service Studio Preview
+	.dropdown-container:has(> select.dropdown-display):after {
+		-servicestudio-top: calc(50% - #{variables.$token-scale-600} / 2);
+	}
+}
+
+// Carousel
+.osui-carousel .splide__arrow svg {
+	display: none;
+}
+
+.splide__arrow--next:after,
+.splide__arrow--prev:after {
+	font-family: var(--osui-icon-font-family);
+	position: absolute;
+	font-size: variables.$token-font-size-600;
+	color: variables.$token-primitives-neutral-1000;
+}
+
+// Splide swaps the arrow BUTTONS when it runs RTL (`.splide__arrows--rtl`), but the glyph
+// is `content` on ::after and does not follow — leaving both arrows pointing inward.
+// Swap the glyphs to match the buttons.
+.splide--rtl {
+	.splide__arrow--next:after {
+		content: var(--osui-icon-chevron-left);
+		transform: translateX(-1px);
+	}
+
+	.splide__arrow--prev:after {
+		content: var(--osui-icon-chevron-right);
+		transform: translateX(1px);
+	}
+}
+
+.splide__arrow--next:after {
+	content: var(--osui-icon-chevron-right);
+	transform: translateX(1px);
+}
+
+.splide__arrow--prev:after {
+	content: var(--osui-icon-chevron-left);
+	transform: translateX(-1px);
+}
+
+// DatePicker / MonthPicker (Flatpickr)
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+	display: none;
+}
+
+.flatpickr-months .flatpickr-prev-month:before,
+.flatpickr-months .flatpickr-next-month:before {
+	color: variables.$token-semantics-primary-base;
+	font-family: var(--osui-icon-font-family);
+}
+
+.icon-library-FontAwesome .flatpickr-months .flatpickr-prev-month:before,
+.icon-library-FontAwesome .flatpickr-months .flatpickr-next-month:before {
+	font-size: variables.$token-font-size-500;
+}
+
+.icon-library-Phosphor .flatpickr-months .flatpickr-prev-month:before,
+.icon-library-Phosphor .flatpickr-months .flatpickr-next-month:before {
+	font-weight: variables.$token-font-weight-semi-bold;
+}
+
+.flatpickr-prev-month:before {
+	content: var(--osui-icon-arrow-left);
+}
+
+.flatpickr-next-month:before {
+	content: var(--osui-icon-arrow-right);
+}
+
+// TimePicker – up/down arrows
+.numInputWrapper span.arrowUp:after,
+.numInputWrapper span.arrowDown:after {
+	border: none !important;
+	font-family: var(--osui-icon-font-family);
+}
+
+.numInputWrapper span.arrowUp:after {
+	content: var(--osui-icon-arrow-up);
+}
+
+.numInputWrapper span.arrowDown:after {
+	content: var(--osui-icon-arrow-down);
+}
+
+// Lightbox
+// Drop the vendor sprite so the glyphs below show through. On the button itself the
+// `background` shorthand is fine, but NOT on the arrow pseudo-elements: default-skin.css
+// paints both the sprite AND the arrows' translucent square in that one shorthand, so
+// resetting it wholesale silently removes the square too (see the arrow rule below).
+.pswp__button {
+	background: none !important;
+}
+
+// Top-bar buttons share one glyph box so they stay aligned with each other; only
+// the `content` differs. `.pswp__button` is `position: relative` in photoswipe.css,
+// which is what these absolute glyphs are positioned against.
+.pswp__button.pswp__button--close:before,
+.pswp__button.pswp__button--zoom:before {
+	color: variables.$token-icon-inverse;
+	font-family: var(--osui-icon-font-family);
+	font-size: variables.$token-font-size-700;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
+}
+
+.pswp__button.pswp__button--close:before {
+	content: var(--osui-icon-clear);
+}
+
+.pswp__button.pswp__button--zoom:before {
+	content: var(--osui-icon-zoom-in);
+}
+
+// The arrows' translucent square lives on the pseudo-element; the button itself is
+// only a 70x100 hit area. Only the sprite is dropped here — `background-image`, not
+// the shorthand, which would take the square with it. `!important` is required
+// because `.pswp--svg …:before` swaps in the SVG sprite at higher specificity.
+//
+// Geometry is 32x32 inset 4px, replacing the vendor's 30x32 inset 6px. 32px is the
+// design's icon container (an 18x18 glyph with 7px padding all round); the 4px inset is
+// measured off the design frame and snapped to the ramp. Centred with
+// `top: 50%`/`translateY` rather than the vendor's hardcoded `top: 35px`, so the
+// square stays centred regardless of the button's height.
+.pswp__button--arrow--right:before,
+.pswp__button--arrow--left:before {
+	align-items: center;
+	background-color: variables.$token-backdrop;
+	background-image: none !important;
+	color: variables.$token-icon-inverse;
+	display: flex;
+	font-family: var(--osui-icon-font-family);
+	font-size: variables.$token-font-size-450;
+	height: variables.$token-scale-800;
+	justify-content: center;
+	top: 50%;
+	transform: translateY(-50%);
+	width: variables.$token-scale-800;
+}
+
+.pswp__button--arrow--right:before {
+	content: var(--osui-icon-arrow-next);
+	inset-inline-end: variables.$token-scale-100;
+}
+
+.pswp__button--arrow--left:before {
+	content: var(--osui-icon-arrow-previous);
+	inset-inline-start: variables.$token-scale-100;
+}
+
+// Password Policy
+.password-policy_icon {
+	min-width: 11px;
+	position: relative;
+
+	&::after {
+		position: absolute;
+		content: var(--osui-icon-circle-x);
+		font-family: var(--osui-icon-font-family);
+		top: 0;
+		inset-inline-start: 0;
+	}
+
+	&.is-valid::after {
+		content: var(--osui-icon-circle-check);
+		color: #267d36;
+	}
+}

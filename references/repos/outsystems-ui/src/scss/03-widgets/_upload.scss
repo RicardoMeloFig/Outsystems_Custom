@@ -1,0 +1,77 @@
+@use "../tokens/variables";
+
+/* Widgets - Upload */
+////
+/// @group Widgets-Upload
+/// Widgets - Upload
+
+///
+[data-upload] {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-upload-background:     var(--color-background-surface);
+	--osui-upload-border-color:   var(--color-border);
+	--osui-upload-border-width:   #{variables.$token-border-size-025};
+	--osui-upload-color:          #{variables.$token-text-primary};
+	--osui-upload-border-radius:  var(--border-radius-xl, #{variables.$token-shape-soft-xl});
+	--osui-upload-padding:        #{variables.$token-scale-400};
+	--osui-upload-icon-color:     #{variables.$token-icon-subtlest};
+	// ───────────────────────────────────────────────────────────────────
+
+	align-items: center;
+	background: var(--osui-upload-background);
+	border: var(--osui-upload-border-width) solid var(--osui-upload-border-color);
+	border-radius: var(--osui-upload-border-radius);
+	color: var(--osui-upload-color);
+	display: flex;
+	font-size: variables.$token-font-size-350;
+	font-weight: variables.$token-font-weight-medium;
+	margin-block-end: 0;
+	min-height: auto;
+	padding: var(--osui-upload-padding);
+	position: relative;
+
+	&.upload-image,
+	&.upload-image-withoverlay {
+		--osui-upload-image-border-radius: var(--border-radius-lg, #{variables.$token-shape-soft-lg});
+		border-radius: var(--osui-upload-image-border-radius);
+	}
+
+	&.upload-image-withoverlay {
+		flex-direction: column;
+
+		.change-image {
+			background-color: transparent;
+			color: variables.$token-semantics-primary-base;
+			height: auto;
+			margin-block-start: variables.$token-scale-400;
+			opacity: 1;
+			position: relative;
+		}
+	}
+
+	&.uploaded {
+		[data-icon] {
+			background-color: transparent;
+		}
+	}
+
+	[data-icon] {
+		background-color: transparent;
+		color: var(--osui-upload-icon-color);
+		line-height: 1;
+		margin-inline-end: variables.$token-scale-200;
+		width: auto;
+	}
+
+	&:focus-visible {
+		border: variables.$token-border-size-025 solid variables.$token-semantics-primary-base;
+	}
+}
+
+/* Accessibility -------------------------------------------------------------- */
+///
+.has-accessible-features {
+	[data-upload] {
+		border: variables.$token-border-size-025 solid var(--color-border-input);
+	}
+}

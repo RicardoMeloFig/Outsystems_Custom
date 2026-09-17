@@ -1,0 +1,159 @@
+---
+trigger: none
+pr: none
+pool: Default
+
+parameters:
+- name: resourceRegion
+  displayName: Resource Region
+  type: string
+  default: westeurope
+- name: clientName
+  displayName: Client Name
+  type: string
+- name: coachingPersons
+  type: string
+- name: adminUser
+  displayName: Enter the admin username that is to be used to access the servers. Please dont use a generic username such as admin or administrator
+  type: string
+- name: adminPass
+  displayName: Password must have 3 of the following - 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long
+  type: string 
+- name: stopVMSchedule
+  displayName: Scheduled hour in Portugal Timezone to shutdown VMs. If no autoshutdown is desired please input NotDefined 
+  type: string
+  default: 6pm
+  values:
+    - 1am
+    - 2am
+    - 3am
+    - 4am
+    - 5am
+    - 6am
+    - 7am
+    - 8am
+    - 9am
+    - 10am
+    - 11am
+    - 12am
+    - 1pm
+    - 2pm
+    - 3pm
+    - 4pm
+    - 5pm
+    - 6pm
+    - 7pm
+    - 8pm
+    - 9pm
+    - 10pm
+    - 11pm
+    - 12pm
+    - NotDefined
+- name: startVMSchedule
+  displayName: Scheduled hour in Portugal Timezone to start VMs. If no autostart is desired please input NotDefined
+  type: string
+  default: 8am
+  values:
+    - 1am
+    - 2am
+    - 3am
+    - 4am
+    - 5am
+    - 6am
+    - 7am
+    - 8am
+    - 9am
+    - 10am
+    - 11am
+    - 12am
+    - 1pm
+    - 2pm
+    - 3pm
+    - 4pm
+    - 5pm
+    - 6pm
+    - 7pm
+    - 8pm
+    - 9pm
+    - 10pm
+    - 11pm
+    - 12pm
+    - NotDefined
+
+resources:
+  repositories:
+  - repository: OutSystems/opscloud-opscoaching
+    type: github
+    endpoint: 'Coaching Infrastructure Provisioning'
+    name: 'OutSystems/opscloud-opscoaching'
+
+jobs:
+- job: os_infra_bootup
+  displayName: 'OutSystems Infra bootup'
+  workspace:
+    clean: all
+  steps:
+
+  - checkout: OutSystems/opscloud-opscoaching
+    clean: true
+    displayName: 'Checkout Infrastucture Scripts'
+  
+
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'ospsopscloud'
+      ScriptType: 'ps'
+      scriptLocation: 'InlineScript'
+      inlineScript: 'terraform init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)\terraform\'
+    displayName: 'Init Terraform Script'
+
+
+  - task: TerraformCLI@0
+    inputs:
+      command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)\terraform\'
+      environmentServiceName: 'ospsopscloud'
+      commandOptions: '-auto-approve -var="client-name=${{ parameters.clientName }}" -var="location=${{ parameters.resourceRegion }}" -var="coaching-persons=${{ parameters.coachingPersons }}" -var="admin-user=${{ parameters.adminUser }}" -var="admin-password=${{ parameters.adminPass }}"'
+      allowTelemetryCollection: false
+    displayName: 'Run Terraform Script'
+    
+
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        if ($${{ parameters.stopVMSchedule }} -ne "NotDefined")
+        {
+          $argument = "-Command `"& 'C:\Scripts\PowerShell\AutoStopVMs.ps1' -RGName '${{ parameters.clientName }}-Coaching'`""
+          $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $argument
+          $daysOfWeek = "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+          $trigger = New-ScheduledTaskTrigger -Weekly -At ${{ parameters.stopVMSchedule }} -DaysOfWeek $daysOfWeek
+          $sp = New-ScheduledTaskPrincipal -GroupId "NT AUTHORITY\SYSTEM" -RunLevel Highest
+          $stset = New-ScheduledTaskSettingsSet
+          $st = New-ScheduledTask -Action $action -Trigger $trigger -Principal $sp -Settings $stset
+          Register-ScheduledTask '${{ parameters.clientName }}-Coaching-Stop' -InputObject $st
+        }
+      workingDirectory: '$(System.DefaultWorkingDirectory)\terraform\'
+    displayName: 'Stop VMs Scheduled Task'
+
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        if ($${{ parameters.startVMSchedule }} -ne "NotDefined")
+        {
+          $argument = "-Command `"& 'C:\Scripts\PowerShell\AutoStartVMs.ps1' -RGName '${{ parameters.clientName }}-Coaching'`""
+          $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $argument
+          $daysOfWeek = "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+          $trigger = New-ScheduledTaskTrigger -Weekly -At ${{ parameters.startVMSchedule }} -DaysOfWeek $daysOfWeek
+          $sp = New-ScheduledTaskPrincipal -GroupId "NT AUTHORITY\SYSTEM" -RunLevel Highest
+          $stset = New-ScheduledTaskSettingsSet
+          $st = New-ScheduledTask -Action $action -Trigger $trigger -Principal $sp -Settings $stset
+          Register-ScheduledTask '${{ parameters.clientName }}-Coaching-Start' -InputObject $st
+        }
+      workingDirectory: '$(System.DefaultWorkingDirectory)\terraform\'
+    displayName: 'Start VMs Scheduled Task'
+...

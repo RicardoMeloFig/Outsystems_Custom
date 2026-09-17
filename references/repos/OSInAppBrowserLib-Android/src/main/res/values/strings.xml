@@ -1,0 +1,8 @@
+<resources>
+    <string name="title_activity_osiabweb_view">OSIABWebViewActivity</string>
+    <string name="start_button">Start Button</string>
+    <string name="close_button">Close</string>
+    <string name="end_button">End Button</string>
+    <string name="error_screen_text">Couldn\'t load the page content.</string>
+    <string name="reload_button_text">Reload page</string>
+</resources>

@@ -1,0 +1,37 @@
+@use "../../tokens/variables";
+
+/* Patterns - Utilities - Margin Container */
+////
+/// @group Patterns-Margin_Container
+/// Patterns - Utilities - Margin Container
+
+///
+.margin-container {
+	padding: variables.$token-scale-600;
+}
+
+///
+.layout-native {
+	.margin-container {
+		padding: variables.$token-scale-800;
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.tablet {
+	.layout-native {
+		.margin-container {
+			padding: variables.$token-scale-600;
+		}
+	}
+}
+
+///
+.phone {
+	.layout-native {
+		.margin-container {
+			padding: variables.$token-scale-400;
+		}
+	}
+}

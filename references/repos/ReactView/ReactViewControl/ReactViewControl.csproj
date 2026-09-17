@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(TargetDotnetVersion)-windows</TargetFramework>
+    <RootNamespace>ReactViewControl</RootNamespace>
+    <AssemblyTitle>ReactViewControl WPF</AssemblyTitle>
+    <Description>ReactViewControl for WPF powered by CefGlue</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>ReactViewControl-WPF$(PackageSuffix)</PackageId>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <Configurations>Debug;Release;ReleaseAvalonia;ReleaseWPF</Configurations>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseWPF'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WebViewControl-WPF$(WebViewPackageSuffix)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReactViewResources\ReactViewResources.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeInNugetPackage>true</IncludeInNugetPackage>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('IncludeInNugetPackage', 'true'))" />
+    </ItemGroup>
+  </Target>
+</Project>

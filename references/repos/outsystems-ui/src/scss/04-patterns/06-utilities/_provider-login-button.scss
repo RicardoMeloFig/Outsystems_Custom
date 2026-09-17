@@ -1,0 +1,87 @@
+@use "../../tokens/variables";
+
+/*! Patterns - Utilities - Provider Login Button */
+////
+/// @group Utilities-Provider_Login_Button
+/// Patterns - Utilities - Provider Login Button
+
+.btn.btn-provider-login {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-provider-login-button-background:    var(--color-background-surface);
+	--osui-provider-login-button-border-color:  var(--color-border-input);
+	--osui-provider-login-button-color:         #{variables.$token-primitives-neutral-700};
+	// ───────────────────────────────────────────────────────────────────
+
+	background: var(--osui-provider-login-button-background);
+	border-color: var(--osui-provider-login-button-border-color);
+	border-radius: 0;
+	&-logo {
+		&-only {
+			padding: 10px;
+			.btn-provider-login-text {
+				display: none;
+				-servicestudio-display: none !important;
+			}
+		}
+		svg {
+			height: 100%;
+			width: 100%;
+		}
+	}
+	&.btn- {
+		&small {
+			padding-block: 0;
+			padding-inline: 16px;
+			&.btn-provider-login-logo-only {
+				padding: 5px;
+			}
+		}
+		&large {
+			padding-block: 10px;
+			padding-inline: 15px;
+		}
+	}
+	&.soft {
+		border-radius: variables.$token-border-radius-100;
+	}
+	&.rounded {
+		border-radius: var(--border-radius-rounded);
+	}
+	.btn-provider-login {
+		&-logo {
+			border-radius: 50%;
+			height: variables.$token-scale-500;
+			width: variables.$token-scale-500;
+		}
+		&-text {
+			color: var(--osui-provider-login-button-color);
+			margin-inline-start: 10px;
+			white-space: nowrap;
+		}
+	}
+}
+
+.phone .layout {
+	.btn.btn-provider-login {
+		&.btn-provider-login-logo-only {
+			width: 50px;
+			&.btn- {
+				&small {
+					width: variables.$token-scale-1000;
+				}
+				&large {
+					width: 55px;
+				}
+			}
+		}
+		.btn-provider-login-text-name {
+			text-align: start;
+			width: 70px;
+			-servicestudio-display: inline-block;
+		}
+
+		&.btn-small .btn-provider-login-text-name {
+			width: 53px;
+		}
+	}
+}

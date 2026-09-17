@@ -1,0 +1,151 @@
+@use "../tokens/variables";
+
+/* Usefull - Display Flex */
+////
+/// @group UsefullClasses-Display_Flex
+/// Usefull - Display Flex
+
+///
+.display-flex {
+	display: flex;
+}
+
+///
+.flex {
+	@for $index from 1 through 3 {
+		// Generate .flex1
+		&#{$index} {
+			flex: #{$index};
+		}
+	}
+
+	&-direction {
+		&-column {
+			flex-direction: column;
+
+			&-reverse {
+				flex-direction: column-reverse;
+			}
+		}
+
+		&-row {
+			flex-direction: row;
+
+			&-reverse {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	&-wrap {
+		flex-wrap: wrap;
+
+		&-reverse {
+			flex-wrap: wrap-reverse;
+		}
+	}
+
+	&-nowrap {
+		flex-wrap: nowrap;
+	}
+}
+
+.justify {
+	&-content {
+		&-flex-end {
+			justify-content: flex-end;
+		}
+
+		&-flex-start {
+			justify-content: flex-start;
+		}
+
+		&-center {
+			justify-content: center;
+		}
+
+		&-space-between {
+			justify-content: space-between;
+		}
+
+		&-space-around {
+			justify-content: space-around;
+		}
+
+		&-space-evenly {
+			justify-content: space-evenly;
+		}
+	}
+}
+
+.gap {
+	&-xs {
+		gap: variables.$token-scale-100;
+	}
+	&-s {
+		gap: variables.$token-scale-200;
+	}
+	&-base {
+		gap: variables.$token-scale-400;
+	}
+	&-m {
+		gap: variables.$token-scale-600;
+	}
+	&-l {
+		gap: variables.$token-scale-800;
+	}
+	&-xl {
+		gap: variables.$token-scale-1000;
+	}
+	&-xxl {
+		gap: variables.$token-scale-1200;
+	}
+}
+
+.row-gap {
+	&-xs {
+		row-gap: variables.$token-scale-100;
+	}
+	&-s {
+		row-gap: variables.$token-scale-200;
+	}
+	&-base {
+		row-gap: variables.$token-scale-400;
+	}
+	&-m {
+		row-gap: variables.$token-scale-600;
+	}
+	&-l {
+		row-gap: variables.$token-scale-800;
+	}
+	&-xl {
+		row-gap: variables.$token-scale-1000;
+	}
+	&-xxl {
+		row-gap: variables.$token-scale-1200;
+	}
+}
+
+.column-gap {
+	&-xs {
+		column-gap: variables.$token-scale-100;
+	}
+	&-s {
+		column-gap: variables.$token-scale-200;
+	}
+	&-base {
+		column-gap: variables.$token-scale-400;
+	}
+	&-m {
+		column-gap: variables.$token-scale-600;
+	}
+	&-l {
+		column-gap: variables.$token-scale-800;
+	}
+	&-xl {
+		column-gap: variables.$token-scale-1000;
+	}
+	&-xxl {
+		column-gap: variables.$token-scale-1200;
+	}
+}

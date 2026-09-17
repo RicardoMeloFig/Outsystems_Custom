@@ -1,0 +1,83 @@
+/* KeyFrames - Feedback Message */
+////
+/// @group KeyFrames-Feedback_Message
+/// KeyFrames - Feedback Message
+
+///
+@keyframes feedbackMessageSlideDownThenUp {
+	0% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+	5% {
+		transform: translateY(24px) translateX(-50%) translateZ(0);
+	}
+	95% {
+		transform: translateY(24px) translateX(-50%) translateZ(0);
+	}
+	100% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+}
+
+///
+@keyframes feedbackMessageSlideDown {
+	0% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+	100% {
+		transform: translateY(24px) translateX(-50%) translateZ(0);
+	}
+}
+
+///
+@keyframes feedbackMessageSlideDownThenUpPhone {
+	0% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+	5% {
+		transform: translateY(0) translateX(-50%) translateZ(0);
+	}
+	95% {
+		transform: translateY(0) translateX(-50%) translateZ(0);
+	}
+	100% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+}
+
+///
+@keyframes feedbackMessageSlideDownPhone {
+	0% {
+		transform: translateY(-100%) translateX(-50%) translateZ(0);
+	}
+	100% {
+		transform: translateY(0) translateX(-50%) translateZ(0);
+	}
+}
+
+///
+@keyframes feedbackMessageSlideDownThenUpPhoneRTL {
+	0% {
+		transform: translateY(-100%) translateX(0) translateZ(0);
+	}
+	5% {
+		transform: translateY(0) translateX(0) translateZ(0);
+	}
+	95% {
+		transform: translateY(0) translateX(0) translateZ(0);
+	}
+	100% {
+		transform: translateY(-100%) translateX(0) translateZ(0);
+	}
+}
+
+///
+@keyframes feedbackMessageSlideDownPhoneRTL {
+	0% {
+		transform: translateY(-100%) translateX(0) translateZ(0);
+	}
+
+	100% {
+		transform: translateY(0) translateX(0) translateZ(0);
+	}
+}

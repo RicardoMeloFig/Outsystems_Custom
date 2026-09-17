@@ -1,0 +1,327 @@
+@use '../tokens/variables';
+
+// ---------------------------------------------------------------------------
+// FontAwesome icon values — O11
+// ---------------------------------------------------------------------------
+// O11 has NO icon-library switching: IconLibrary.ts is excluded from the O11 JS
+// bundle, so unlike _icon-library-odc.scss there is no Phosphor variant and no
+// .iconLibrary-* class handling here. These are static FontAwesome values.
+//
+// The :root block below exists because shared (platform-agnostic) partials of
+// the new theme draw some glyphs through var(--osui-icon-*) — pagination
+// chevrons, dropdown/server-side/VirtualSelect selected checkmarks, the submenu
+// arrow, and the date/month-picker Service Studio previews.
+:root {
+	--osui-icon-font-family: 'FontAwesome';
+
+	// Dropdown / caret (angle-down)
+	--osui-icon-arrow-down: '\f107';
+
+	// Caret up (TimePicker)
+	--osui-icon-arrow-up: '\f106';
+
+	// Arrow Left/Right
+	--osui-icon-arrow-left: '\f104';
+	--osui-icon-arrow-right: '\f105';
+
+	// Search
+	--osui-icon-search: '\f002';
+
+	// Clear / close (times)
+	--osui-icon-clear: '\f00d';
+
+	// Chevrons
+	--osui-icon-chevron-right: '\f054';
+	--osui-icon-chevron-left: '\f053';
+
+	// Checkbox check
+	--osui-icon-check: '\f00c';
+
+	// Alert
+	--osui-icon-info: '\f05a';
+	--osui-icon-success: '\f058';
+	--osui-icon-error: '\f057';
+	--osui-icon-warning: '\f071';
+
+	// ChatMessage
+	--osui-icon-sent: '\f00c';
+	--osui-icon-time: '\f017';
+
+	// Checkbox
+	--osui-icon-checkbox-checked: '\f00c';
+
+	// Lightbox
+	--osui-icon-arrow-next: '\f061';
+	--osui-icon-arrow-previous: '\f060';
+	--osui-icon-zoom-in: '\f00e'; // fa-search-plus
+
+	// Password Policy
+	--osui-icon-circle-x: '\f057';
+	--osui-icon-circle-check: '\f058';
+}
+
+// ---------------------------------------------------------------------------
+// FontAwesome icon library
+// ---------------------------------------------------------------------------
+
+// Accordion – caret icon
+.osui-accordion-item__icon--caret:after {
+	content: '\f107';
+}
+
+// Search – search icon
+.osui-search {
+	&__input {
+		input[data-input] {
+			background-image: url(data:image/svg+xml;base64,PHN2ZyBpZD0iU3ZnanNTdmcxMDAxIiB3aWR0aD0iMjg4IiBoZWlnaHQ9IjI4OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpzdmdqcz0iaHR0cDovL3N2Z2pzLmNvbS9zdmdqcyI+PGRlZnMgaWQ9IlN2Z2pzRGVmczEwMDIiPjwvZGVmcz48ZyBpZD0iU3ZnanNHMTAwOCI+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjY0IDE2NjQiIHdpZHRoPSIyODgiIGhlaWdodD0iMjg4Ij48cGF0aCBmaWxsPSIjYWRiNWJkIiBkPSJNMTE1MiA3MDRxMC0xODUtMTMxLjUtMzE2LjVUNzA0IDI1NlQzODcuNSAzODcuNVQyNTYgNzA0dDEzMS41IDMxNi41VDcwNCAxMTUydDMxNi41LTEzMS41VDExNTIgNzA0em01MTIgODMycTAgNTItMzggOTB0LTkwIDM4cS01NCAwLTkwLTM4bC0zNDMtMzQycS0xNzkgMTI0LTM5OSAxMjRxLTE0MyAwLTI3My41LTU1LjV0LTIyNS0xNTB0LTE1MC0yMjVUMCA3MDR0NTUuNS0yNzMuNXQxNTAtMjI1dDIyNS0xNTBUNzA0IDB0MjczLjUgNTUuNXQyMjUgMTUwdDE1MCAyMjVUMTQwOCA3MDRxMCAyMjAtMTI0IDM5OWwzNDMgMzQzcTM3IDM3IDM3IDkweiIgY2xhc3M9ImNvbG9yY3VycmVudENvbG9yIHN2Z1NoYXBlIj48L3BhdGg+PC9zdmc+PC9nPjwvc3ZnPg==);
+			background-position: left variables.$token-scale-400 center;
+			background-repeat: no-repeat;
+			background-size: 14px auto;
+		}
+	}
+}
+
+// Dropdown Widget
+.dropdown {
+	&-container {
+		&:after {
+			border: variables.$token-border-size-050 solid variables.$token-primitives-neutral-700;
+			// physical sides: these borders draw the chevron glyph under a physical
+			// rotate transform, and its position is deliberately physical (right: 16px)
+			border-right: variables.$token-border-size-0 !important;
+			border-top: variables.$token-border-size-0 !important;
+			bottom: 0;
+			box-sizing: border-box;
+			content: '';
+			height: 8px;
+			left: auto;
+			pointer-events: none;
+			position: absolute;
+			right: 16px;
+			top: 15px;
+			transform: rotate(-45deg) translateY(0) translateX(0);
+			transition: all 300ms ease-in-out;
+			width: 8px;
+		}
+	}
+
+	&-expanded {
+		&.dropdown-container:after {
+			border: variables.$token-border-size-050 solid variables.$token-semantics-primary-base;
+			transform: rotate(135deg) translateY(-3px) translateX(3px);
+		}
+	}
+}
+
+.not-valid {
+	&.dropdown-expanded {
+		&.dropdown-container {
+			&:after {
+				border: variables.$token-border-size-050 solid variables.$token-primitives-neutral-700;
+				// physical sides: chevron glyph under a physical rotate (see above)
+				border-right: variables.$token-border-size-0 !important;
+				border-top: variables.$token-border-size-0 !important;
+				transform: rotate(-45deg) translateY(0) translateX(0);
+			}
+		}
+	}
+}
+
+.tablet,
+.phone {
+	.dropdown-container {
+		&:after {
+			top: 20px;
+		}
+	}
+}
+
+// IsRTL — the chevron's base position is deliberately physical (right: 16px,
+// paired with a physical rotate), so it needs a hand-written mirror
+.is-rtl {
+	.dropdown-container {
+		&:after {
+			left: 16px;
+			right: auto;
+		}
+	}
+}
+
+// Table Widget - Sortable Icon
+.sortable-icon {
+	display: inline-block;
+	height: 11px;
+	margin-inline-start: variables.$token-scale-200;
+	position: relative;
+	width: 10px;
+
+	&:before,
+	&:after {
+		border-inline-start: 4px solid transparent;
+		border-inline-end: 4px solid transparent;
+		content: '';
+		inset-inline-start: 0;
+		position: absolute;
+	}
+
+	// currentColor keeps the arrow in lockstep with the header text color
+	// (default/hover/.sorted) without a separate state rule per color
+	&:before {
+		border-block-end: 4px solid currentColor;
+	}
+
+	&:after {
+		border-block-start: 4px solid currentColor;
+		bottom: 0;
+	}
+}
+
+.osui-datepicker-calendar-ss-preview, 
+.osui-monthpicker-ss-preview {
+	--osui-icon-font-family: 'FontAwesome';
+	--osui-icon-arrow-left: '\f104';
+	--osui-icon-arrow-right: '\f105';
+}
+
+// DropdownServerSide
+.osui-dropdown-serverside {
+	&__balloon {
+		// Search placeholder
+		&-search {
+			&:before {
+				content: '\f002';
+				font: normal normal normal 14px/1 FontAwesome;
+			}
+		}
+	}
+}
+
+.osui-dropdown-serverside {
+	&__selected-values {
+		&:after {
+			content: '\f107';
+			font: normal normal normal 20px/1 FontAwesome;
+		}
+	}
+}
+
+// DropdownSearch (VirtualSelect)
+// VirtualSelect overriding styles
+// Parent wrapper container
+.vscomp {
+	&-ele .vscomp-clear-icon:after,
+	&-search-clear:after {
+		content: '\f00d';
+		font: normal normal normal 13px/1 FontAwesome;
+	}
+}
+
+.vscomp-toggle-button {
+	&:after {
+		content: '\f107';
+		font: normal normal normal var(--vscomp-toogle-btn-arrow-size) / 1 FontAwesome;
+	}
+}
+
+/* Patterns - Interaction - DropdownSearch */
+////
+/// @group Patterns-DropdownSearch
+/// Patterns - Interaction - DropdownSearch
+
+///
+.osui-dropdown-search {
+	// Service Studio Preview
+	&-ss-preview {
+		-servicestudio-background-color: variables.$token-primitives-base-white;
+		-servicestudio-border-radius: variables.$token-border-radius-100;
+		-servicestudio-border: variables.$token-border-size-025 solid variables.$token-primitives-neutral-500;
+		-servicestudio-color: variables.$token-primitives-neutral-300;
+		-servicestudio-display: inline-block;
+		-servicestudio-height: 40px;
+		-servicestudio-line-height: 40px;
+		-servicestudio-min-width: 180px;
+		-servicestudio-padding-left: variables.$token-scale-200;
+		-servicestudio-position: relative;
+		-servicestudio-vertical-align: middle;
+		-servicestudio-width: 100%;
+
+		.icon {
+			-servicestudio-color: variables.$token-primitives-neutral-700;
+			-servicestudio-font-size: variables.$token-font-size-550;
+			-servicestudio-position: absolute;
+			-servicestudio-right: 16px;
+			-servicestudio-top: 8px;
+		}
+	}
+}
+
+.osui-dropdown-tags {
+	// Service Studio Preview
+	&-ss-preview {
+		-servicestudio-background-color: variables.$token-primitives-base-white;
+		-servicestudio-border-radius: variables.$token-border-radius-100;
+		-servicestudio-border: variables.$token-border-size-025 solid variables.$token-primitives-neutral-500;
+		-servicestudio-color: variables.$token-primitives-neutral-300;
+		-servicestudio-display: inline-block;
+		-servicestudio-height: 40px;
+		-servicestudio-min-width: 180px;
+		-servicestudio-padding-left: variables.$token-scale-200;
+		-servicestudio-position: relative;
+		-servicestudio-vertical-align: middle;
+		-servicestudio-width: 100%;
+
+		& > .icon {
+			-servicestudio-color: variables.$token-primitives-neutral-700;
+			-servicestudio-font-size: variables.$token-font-size-550;
+			-servicestudio-position: absolute;
+			-servicestudio-right: 16px;
+			-servicestudio-top: 8px;
+		}
+
+		& > div {
+			-servicestudio-background-color: variables.$token-primitives-neutral-300;
+			-servicestudio-border-radius: 30px;
+			-servicestudio-color: variables.$token-primitives-neutral-700;
+			-servicestudio-display: inline-block;
+			-servicestudio-font-size: variables.$token-font-size-350;
+			-servicestudio-font-weight: variables.$token-font-weight-semi-bold;
+			-servicestudio-height: 30px;
+			-servicestudio-padding: 5px 35px 5px 10px;
+			-servicestudio-position: relative;
+			-servicestudio-top: 50%;
+			-servicestudio-transform: translateY(-50%);
+
+			span {
+				-servicestudio-margin: variables.$token-scale-0;
+			}
+
+			& > .icon {
+				-servicestudio-background-color: variables.$token-primitives-neutral-700;
+				-servicestudio-border-radius: 100%;
+				-servicestudio-color: variables.$token-primitives-base-white;
+				-servicestudio-display: block;
+				-servicestudio-font-size: variables.$token-font-size-350;
+				-servicestudio-height: 15px;
+				-servicestudio-line-height: 1;
+				-servicestudio-margin: 0;
+				-servicestudio-position: absolute;
+				-servicestudio-right: 10px;
+				-servicestudio-text-align: center;
+				-servicestudio-top: 50%;
+				-servicestudio-transform: translateY(-50%);
+				-servicestudio-width: 15px;
+
+				&:before {
+					-servicestudio-content: '˟';
+					-servicestudio-display: inline-block;
+					-servicestudio-font-size: variables.$token-font-size-650;
+					-servicestudio-height: 20px;
+					-servicestudio-left: 50%;
+					-servicestudio-position: absolute;
+					-servicestudio-top: 50%;
+					-servicestudio-transform: translate(-50%, -50%);
+				}
+			}
+		}
+	}
+}

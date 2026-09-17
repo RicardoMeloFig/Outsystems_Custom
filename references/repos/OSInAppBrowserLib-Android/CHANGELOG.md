@@ -1,0 +1,125 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.2]
+
+### Fixes
+
+- Send the `BrowserFinished` event from `onDestroy`, so it is no longer lost when the WebView is closed while the app is in the background. Previously the event was only sent from `onStop`, which Android skips when `finish()` is called on an already stopped activity, leaving the browser closed without notifying the app and blocking any new browser from opening until app restart ([RMET-5394](https://outsystemsrd.atlassian.net/browse/RMET-5394)).
+
+## [2.0.1]
+
+### Fixes
+
+- Explicitly grant `FLAG_GRANT_READ_URI_PERMISSION` and `FLAG_GRANT_WRITE_URI_PERMISSION` when launching the photo/video capture intents from the WebView file chooser, required for Android 18's implicit URI grant restriction ([RMET-5241](https://outsystemsrd.atlassian.net/browse/RMET-5241)).
+
+## [2.0.0]
+
+### Fixes
+
+- Isolate WebView local storage and cookies from the main app by default on Android 28+ [RMET-4918](https://outsystemsrd.atlassian.net/browse/RMET-4918)
+
+### BREAKING CHANGES
+
+- WebView storage is now isolated by default on Android 28+. Apps that need to share the main app WebView's `localStorage` or cookies must set `isIsolated` to `false`.
+
+## [1.6.2]
+
+### Fixes
+
+- Replace HEAD / GET request for checking if file is PDF, with WebKit's [DownloadListener](https://developer.android.com/reference/android/webkit/DownloadListener). This makes sure that for non-PDF urls, no extra request is done [RMET-5141](https://outsystemsrd.atlassian.net/browse/RMET-5141) / [RPM-6744](https://outsystemsrd.atlassian.net/browse/RPM-6744)
+
+## [1.6.1]
+
+### Fixes
+
+- Do not show error when web page has a resource that is unresolvable [RMET-4937](https://outsystemsrd.atlassian.net/browse/RMET-4937)
+
+## [1.6.0]
+
+### Features
+
+- Allow for photo and video capturing, and filter for media type for file uploads (`onShowFileChooser`) [RMET-4466](https://outsystemsrd.atlassian.net/browse/RMET-4466)
+
+## [1.5.0]
+
+### Features
+
+- Add support for PDF files in the WebView via PDF.js [RMET-2053](https://outsystemsrd.atlassian.net/browse/RMET-2053)
+
+## [1.4.1]
+
+### Features
+
+- Added support for predictive back navigation for Android 13+ (https://outsystemsrd.atlassian.net/browse/RMET-4335)
+
+### Fixes
+
+- Migrate back button navigation on `OSIABWebViewActivity` to support apps targeting Android 16 (https://outsystemsrd.atlassian.net/browse/RMET-4335)
+
+## [1.4.0]
+
+### Features
+
+- Add support for passing custom headers to `WebView` (only for the openInWebView option). [RMET-4287](https://outsystemsrd.atlassian.net/browse/RMET-4287).
+
+### Chores
+
+- Migrate publishing from OSSRH to Central Portal (https://outsystemsrd.atlassian.net/browse/RMET-4217)
+
+## 1.3.0
+
+### Features
+
+- Add `onBrowserPageNavigationCompleted` event callback to WebView (https://outsystemsrd.atlassian.net/browse/RMET-4121)
+
+### Chores
+
+- Update `publish-android` workflow to publish library under io.ionic.libs (https://outsystemsrd.atlassian.net/browse/RMET-3982)
+
+## 1.2.1
+
+- Remove unnecessary permissions from AndroidManifest (https://outsystemsrd.atlassian.net/browse/RMET-3987)
+
+## 1.2.0
+
+- Bump Kotlin and Gradle versions (https://outsystemsrd.atlassian.net/browse/RMET-3887)
+
+## 1.1.0
+
+### Features
+- Handle Edge-to-Edge on all Android versions.
+
+## 1.0.2
+
+### Fixes
+- Fix issue where the custom tabs browser wasn't being closed when navigating back to the app (https://outsystemsrd.atlassian.net/browse/RMET-3684)
+- Fix race condition that caused the `BrowserFinished` event to not be fired in some instances with the system browser.
+
+## 1.0.1
+
+### Fixes
+- Fix issue where some URLs weren't being open in Custom Tabs and the External Browser (https://outsystemsrd.atlassian.net/browse/RMET-3680)
+
+## 1.0.0
+
+### Fixes
+- Fix position of elements in bottom toolbar when `isLeftRight` is true in `OpenInWebView` (https://outsystemsrd.atlassian.net/browse/RMET-3560)
+
+### Features
+- Add `Close` feature for WebView and System Browser (https://outsystemsrd.atlassian.net/browse/RMET-3428).
+- Add permissions requests and opening file chooser to `OpenInWebView` feature (https://outsystemsrd.atlassian.net/browse/RMET-3534).
+- Add error and loading screens for `OpenInWebView` feature (https://outsystemsrd.atlassian.net/browse/RMET-3492).
+- Add browser events to `OpenInSystemBrowser` feature (https://outsystemsrd.atlassian.net/browse/RMET-3431).
+- Add `OpenInSystemBrowser` (https://outsystemsrd.atlassian.net/browse/RMET-3424).
+- Add UI customizations to`OpenInWebView` (https://outsystemsrd.atlassian.net/browse/RMET-3490).
+- Add `OpenInWebView` with current features and default
+  UI (https://outsystemsrd.atlassian.net/browse/RMET-3426).
+- Add browser events to `OpenInWebView` feature (https://outsystemsrd.atlassian.net/browse/RMET-3432).
+- Add `OpenInExternalBrowser` (https://outsystemsrd.atlassian.net/browse/RMET-3422).
+
+### Chores
+- Add content to `README` (https://outsystemsrd.atlassian.net/browse/RMET-3473).

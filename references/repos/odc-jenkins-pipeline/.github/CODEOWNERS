@@ -1,0 +1,5 @@
+# Deployments API - Maestro
+# Asset Repository API - Theseus
+# Build Operations API - Build Services
+# User and Access Management API - Identity Business
+* @OutSystems/rd-maestro-team @OutSystems/rd-platform-services-theseus-team @OutSystems/rd-build-services-team @OutSystems/platform-identity-business

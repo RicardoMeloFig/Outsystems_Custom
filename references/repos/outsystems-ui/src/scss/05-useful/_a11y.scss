@@ -1,0 +1,64 @@
+@use "../tokens/variables";
+
+/* Usefull - a11y (Accessibility) */
+////
+/// @group Patterns-a11y
+/// Usefull - a11y (Accessibility)
+
+///
+.wcag-hide-text {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+
+	// Service Studio Preview
+	& {
+		-servicestudio-display: none;
+	}
+}
+
+/* Used to stop underlying page from scrolling */
+///
+.wcag-hide-text.focus-trap-top,
+.wcag-hide-text.focus-trap-bottom {
+    position: fixed;
+}
+
+/* Skip-nav link used on Accessibility*/
+///
+.skip-nav {
+	inset-inline-start: variables.$token-scale-1000;
+	opacity: 0;
+	padding-block: variables.$token-scale-200;
+	padding-inline: variables.$token-scale-400;
+	pointer-events: none;
+	position: absolute;
+	text-transform: uppercase;
+	top: 10px;
+	z-index: var(--layer-global-instant-interaction);
+
+	&[data-showskipcontent='false'] {
+		display: none;
+	}
+
+	&[data-showskipcontent='true'] {
+		display: block;
+	}
+}
+
+///
+.has-accessible-features {
+	.skip-nav {
+		&:focus,
+		&:active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
+}

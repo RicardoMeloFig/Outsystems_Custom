@@ -1,0 +1,219 @@
+@use '../../00-abstract/index' as *;
+@use "../../tokens/variables";
+
+/* Patterns - Interaction - Action Sheet */
+////
+/// @group Patterns-Action_Sheet
+/// Patterns - Interaction - Action Sheet
+
+///
+.action-sheet {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-action-sheet-background: var(--color-background-surface);
+	--osui-action-sheet-border-radius: var(--border-radius-lg, #{variables.$token-shape-soft-lg});
+	--osui-action-sheet-cancel-color: #{variables.$token-text-primary};
+	--osui-action-sheet-color: #{variables.$token-text-primary};
+	--osui-action-sheet-divider-color: #{variables.$token-border-subtle};
+	--osui-action-sheet-shadow: #{variables.$token-elevation-3};
+	// ───────────────────────────────────────────────────────────────────
+
+	bottom: 0;
+	inset-inline-start: 0;
+	margin-block-start: 0;
+	padding-bottom: calc(var(--os-safe-area-bottom) + variables.$token-scale-400);
+	padding-left: calc(var(--os-safe-area-left) + variables.$token-scale-400);
+	padding-right: calc(var(--os-safe-area-right) + variables.$token-scale-400);
+	padding-block-start: variables.$token-scale-400;
+	pointer-events: auto;
+	position: absolute;
+	transform: translateY(100%);
+	width: 100%;
+	will-change: transform;
+	z-index: var(--layer-global-off-canvas);
+
+	// Service Studio Preview
+	& {
+		-servicestudio--webkit-transform: translateY(0);
+		-servicestudio-transform: translateY(0);
+	}
+
+	&-container {
+		// ─── Component CSS API ─────────────────────────────────────────────
+		// Declared here (not on .action-sheet): the backdrop ::after below reads
+		// it, and .action-sheet is a child — custom properties don't inherit upward.
+		--osui-action-sheet-overlay-background: #{variables.$token-backdrop};
+		// ───────────────────────────────────────────────────────────────────
+
+		height: 100%;
+		inset-inline-start: 0;
+		overflow: hidden;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: var(--layer-global-off-canvas);
+
+		// Service Studio Preview
+		& {
+			-servicestudio-margin-top: -20px;
+		}
+
+		&:after {
+			background-color: var(--osui-action-sheet-overlay-background);
+			content: '';
+			display: block;
+			height: 100%;
+			inset-inline-start: 0;
+			opacity: 0;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			transition: opacity variables.$token-transition-time-300 variables.$token-transition-curve-quick;
+			width: 100%;
+			will-change: opacity;
+
+			// Service Studio Preview
+			& {
+				-servicestudio-opacity: 1;
+			}
+		}
+
+		&--visible {
+			pointer-events: auto;
+
+			&.action-sheet-container:after {
+				opacity: 1;
+			}
+
+			.action-sheet {
+				transform: none;
+			}
+
+			&.action-sheet-container--animatable .action-sheet {
+				transition: all variables.$token-transition-time-300 variables.$token-transition-curve-quick;
+			}
+		}
+
+		&--animatable {
+			.action-sheet {
+				-webkit-transition: all variables.$token-transition-time-150 variables.$token-transition-curve-base;
+				transition: all variables.$token-transition-time-150 variables.$token-transition-curve-base;
+			}
+		}
+	}
+
+	&-buttons {
+		background-color: var(--osui-action-sheet-divider-color);
+		border-radius: var(--osui-action-sheet-border-radius);
+		box-shadow: var(--osui-action-sheet-shadow);
+		display: block;
+		overflow: hidden;
+		position: relative;
+		transform: translateZ(0);
+	}
+
+	&-actions {
+		// Service Studio Preview
+		& {
+			-servicestudio-min-height: 40px;
+		}
+
+		.btn {
+			--osui-btn-background: var(--osui-action-sheet-background);
+			--osui-btn-border-radius: 0;
+			--osui-btn-color: var(--osui-action-sheet-color);
+			--osui-btn-height: #{variables.$token-scale-1100};
+			--osui-btn-hover-background: #{variables.$token-bg-neutral-subtlest-hover};
+			--osui-btn-active-background: #{variables.$token-bg-neutral-subtlest-press};
+
+			@include apply-typography(variables.$token-body-action-sm);
+
+			border: none;
+			margin-block-start: 1px;
+			width: 100%;
+		}
+
+		&:first-child .btn {
+			margin-block-start: 0;
+		}
+	}
+
+	&-cancel {
+		margin-block-start: variables.$token-scale-200;
+
+		.btn {
+			--osui-btn-background: var(--osui-action-sheet-background);
+			--osui-btn-border-radius: var(--osui-action-sheet-border-radius);
+			--osui-btn-color: var(--osui-action-sheet-cancel-color);
+			--osui-btn-height: #{variables.$token-scale-1100};
+			--osui-btn-hover-background: #{variables.$token-bg-neutral-subtlest-hover};
+			--osui-btn-active-background: #{variables.$token-bg-neutral-subtlest-press};
+
+			@include apply-typography(variables.$token-body-action-sm);
+
+			border: none;
+			box-shadow: var(--osui-action-sheet-shadow);
+			width: 100%;
+		}
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.desktop {
+	.action-sheet {
+		&-buttons,
+		&-cancel {
+			max-width: 500px;
+		}
+	}
+}
+
+.desktop,
+.tablet {
+	.action-sheet {
+		&-buttons,
+		&-cancel {
+			margin-block: variables.$token-scale-0;
+			margin-inline: auto;
+		}
+
+		&-cancel {
+			margin-block: variables.$token-scale-400 variables.$token-scale-0;
+			margin-inline: auto;
+		}
+	}
+}
+
+.tablet {
+	.action-sheet {
+		&-buttons,
+		&-cancel {
+			max-width: 600px;
+		}
+	}
+}
+
+// OS HighContrast Enabled -------------------------------------------------------
+///
+.os-high-contrast {
+	.action-sheet-container--visible .action-sheet {
+		background-color: var(--osui-action-sheet-background);
+		box-shadow: inset 0 0 0 variables.$token-border-size-075 var(--color-focus-outer);
+	}
+
+	.action-sheet-actions {
+		--osui-action-sheet-actions-layer: 0;
+
+		position: relative;
+		z-index: var(--osui-action-sheet-actions-layer);
+
+		&:has(.btn:focus) {
+			z-index: calc(var(--osui-action-sheet-actions-layer) + var(--layer-local-tier-1));
+		}
+	}
+
+	.action-sheet-buttons {
+		overflow: visible;
+	}
+}

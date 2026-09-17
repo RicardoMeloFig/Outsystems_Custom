@@ -1,0 +1,22 @@
+pr:
+  branches:
+    include:
+    - '*'
+
+stages: 
+- stage: Build
+  displayName: 'Build'
+  jobs:
+  - job: Build_Validate
+    displayName: 'Build and validate minify require.js'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: npmAuthenticate@0
+        inputs:
+          workingFile: '.npmrc'
+          customEndpoint: 'NPM Authentication Token'
+      - script: | 
+          npm i -y
+          npx uglifyjs require.js -mc --comments -o ./output.txt
+        displayName: Bundling requirejs

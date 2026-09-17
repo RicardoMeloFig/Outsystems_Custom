@@ -1,0 +1,119 @@
+@use '../../00-abstract/index' as *;
+@use "../../tokens/variables";
+
+/* Patterns - Content - Section */
+////
+/// @group Patterns-Section
+/// Patterns - Content - Section
+
+///
+.section {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-section-title-color:         var(--color-text);
+	--osui-section-title-border-color:  var(--color-border);
+	--osui-section-content-color:       var(--color-text-subtlest);
+	// Figma says 25px / 21px; the scale's nearest steps are 24px / 20px.
+	--osui-section-title-line-height:   #{variables.$token-font-line-height-600};
+	--osui-section-content-line-height: #{variables.$token-font-line-height-500};
+	// ───────────────────────────────────────────────────────────────────
+
+	&-title {
+		background-color: transparent;
+		border-block-end: variables.$token-border-size-025 solid var(--osui-section-title-border-color);
+		color: var(--osui-section-title-color);
+		font-size: variables.$token-font-size-500;
+		font-weight: variables.$token-font-weight-semi-bold;
+		line-height: var(--osui-section-title-line-height);
+		padding-block: variables.$token-scale-0 variables.$token-space-200;
+		padding-inline: variables.$token-scale-0;
+		position: relative;
+		text-transform: none;
+		width: 100%;
+	}
+
+	&-content {
+		color: var(--osui-section-content-color);
+		line-height: var(--osui-section-content-line-height);
+		padding-block: variables.$token-space-200 variables.$token-scale-0;
+		padding-inline: variables.$token-scale-0;
+	}
+
+	&-group {
+		// ─── Component CSS API ─────────────────────────────────────────────
+		--osui-section-group-gap: #{variables.$token-space-400};
+		// ───────────────────────────────────────────────────────────────────
+
+		display: flex;
+		flex-direction: column;
+		gap: var(--osui-section-group-gap);
+
+		&.is--sticky {
+			.section-title {
+				position: -webkit-sticky; //Fix for older iPhones
+				position: sticky;
+				top: calc(var(--section-top-position) + var(--os-safe-area-top));
+				z-index: calc(var(--layer-below) + var(--layer-global-navigation));
+			}
+		}
+
+		.section-title {
+			background-color: var(--background-color-body, var(--color-background-body));
+		}
+	}
+}
+
+///
+.layout-native {
+	.section {
+		&-title {
+			padding-block: variables.$token-scale-200;
+			padding-inline: variables.$token-scale-400;
+		}
+
+		&-content {
+			padding: 0;
+		}
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.android {
+	.section-group {
+		&.is--sticky {
+			.section-title {
+				top: calc(var(--section-top-position) + #{android-safe-area-top()});
+			}
+		}
+	}
+}
+
+///
+.ios {
+	.section-group {
+		&.is--sticky {
+			.section-title {
+				top: 0;
+			}
+		}
+	}
+}
+
+///
+.ios {
+	.layout-native {
+		.section-group {
+			.sticky {
+				position: static;
+			}
+		}
+	}
+}
+
+///
+.tablet,
+.phone {
+	.section-title {
+		font-size: variables.$token-font-size-500;
+	}
+}

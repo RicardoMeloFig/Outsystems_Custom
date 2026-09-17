@@ -1,0 +1,21 @@
+{
+  "name": "outsystems-plugin-disable-backup",
+  "version": "1.0.2",
+  "description": "Changes AndroidManifest.xml to disable auto backup by setting android:allowBackup to false.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OutSystemsExperts/outsystems-plugin-disable-backup.git"
+  },
+  "keywords": [
+    "cordova"
+  ],
+  "author": "João Gonçalves",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OutSystemsExperts/outsystems-plugin-disable-backup.git/issues"
+  },
+  "homepage": "https://github.com/OutSystemsExperts/outsystems-plugin-disable-backup#readme"
+}

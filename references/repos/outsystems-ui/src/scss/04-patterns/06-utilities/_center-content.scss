@@ -1,0 +1,48 @@
+/* Patterns - Utilities - Center Content */
+////
+/// @group Patterns-Center_Content
+/// Patterns - Utilities - Center Content
+
+///
+.center-content {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+
+	// Service Studio Preview
+	& {
+		-servicestudio-height: auto !important;
+	}
+
+	&-header {
+		width: 100%;
+	}
+
+	&-container {
+		align-items: center;
+		display: flex;
+		flex: 1;
+		justify-content: center;
+		width: 100%;
+
+		> div {
+			width: 100%;
+		}
+	}
+
+	&-bottom {
+		width: 100%;
+	}
+}
+
+///
+.animate {
+	.center-content {
+		// Service Studio Preview
+		& {
+			-servicestudio-display: table;
+		}
+	}
+}

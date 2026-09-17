@@ -1,0 +1,31 @@
+@use "../tokens/variables";
+
+/* Usefull - Images */
+////
+/// @group UsefullClasses-Image
+/// Usefull - Images
+
+///
+.img-cover {
+	height: 100%;
+	object-fit: cover;
+}
+
+///
+img {
+	&.img {
+		&-rounded {
+			border-radius: 10px;
+		}
+
+		&-circle {
+			border-radius: 50%;
+		}
+	}
+
+	&.thumbnail {
+		background-color: variables.$token-bg-surface-default;
+		border: variables.$token-border-size-025 solid var(--color-border);
+		padding: variables.$token-scale-100;
+	}
+}

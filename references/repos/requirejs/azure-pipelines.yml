@@ -1,0 +1,58 @@
+trigger: none
+##  branches:
+##    include:
+##      outsystems
+pr: none
+
+variables:
+  SourcesDirectory: '$(Build.SourcesDirectory)'
+  Project: 'requirejs'
+  BuildConfiguration: 'Release'
+  Config: '--configuration=$(BuildConfiguration)'
+  CakePathLocation: '$(System.DefaultWorkingDirectory)'
+  ReportDir: '$(Common.TestResultsDirectory)\coverage_report'
+  TagName: 'v$(Build.BuildNumber)'
+  
+stages: 
+- stage: Deploy
+  displayName: 'Deploy'
+  jobs:
+  - deployment: Deploy
+    displayName: 'Deploy to npm private repository and creates a git release'
+    timeoutInMinutes: 8
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: Automatic-Release
+    strategy: 
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - script: | 
+              git fetch
+              git branch
+              git pull
+            displayName: Fetching assets
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: '.npmrc'
+              customEndpoint: 'NPM Authentication Token'
+          - script: | 
+              npm version prerelease --preid=outsystems --no-git-tag-version
+              git branch --no-color --show-current
+              VERSION=`cat "package.json" | jq -r ".version"`
+              sed -i "s/version = '.*',/version = '$VERSION',/g" require.js
+            displayName: Bumping version
+          - script: | 
+              npm i -y
+              mkdir -p ./bin
+              npx uglifyjs require.js -mc --comments -o ./bin/r.js
+            displayName: Bundling requirejs
+          - script: |
+              VERSION=`cat "package.json" | jq -r ".version"` 
+              newBranch="bump/$VERSION"
+              git checkout -b $newBranch
+              git add -u
+              git commit -m "[Pipeline] Bump version to $VERSION"
+              git push -u origin $newBranch
+            displayName: Creating pull request

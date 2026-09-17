@@ -1,0 +1,47 @@
+# Architecture Decision Records (ADRs)
+
+This directory contains Architecture Decision Records (ADRs) for this project.
+ADRs are short documents that capture important architectural decisions, along with their context and consequences.
+
+## Purpose
+
+- To document significant architectural decisions.
+- To provide context for why decisions were made.
+- To help onboard new team members.
+- To facilitate future architectural discussions and evolution.
+- To provide context to AI-powered development assistants.
+
+## Format
+
+Each ADR should follow the template in `ADR-0000-Title-of-ADR.md`.
+
+## Process
+
+1.  **Propose:** Copy `ADR-0000-Title-of-ADR.md` to a new file named `ADR-NNNN-title-of-adr.md`, where `NNNN` is the next sequential number and the rest is a dash-separated, lowercase version of the title.
+2.  **Discuss:** Fill out the ADR and discuss it with the team.
+3.  **Decide:** Once a decision is reached, update the status in the ADR (e.g., "Accepted", "Rejected", "Superseded").
+4.  **Commit:** Commit the ADR to the repository.
+
+## ADR Log
+
+| ADR Number | Title                                                                  | Status   | Date       |
+| :--------- | :--------------------------------------------------------------------- | :------- | :--------- |
+| ADR-0000   | Template for ADRs                                                      | Meta     | 2026-07-29 |
+| ADR-0001   | Replace JS-forced pixel viewport height with CSS viewport units on iOS | Proposed | 2026-07-29 |
+| ADR-0002   | VirtualSelect 1.4.0 upgrade and OSUI validation ownership              | Accepted | 2026-08-11 |
+| ADR-0003   | Public-repo readiness for the Storybook harness                        | Superseded by ADR-0009 | 2026-08-12 |
+| ADR-0004   | Chromatic visual testing on a long-living branch                       | Accepted | 2026-08-12 |
+| ADR-0005   | Reconciling the new-theme branch with `dev`                            | Accepted | 2026-08-12 |
+| ADR-0006   | O11 SCSS bundle and per-platform icon libraries                        | Accepted | 2026-08-12 |
+| ADR-0007   | Build and tooling hygiene                                              | Accepted | 2026-08-12 |
+| ADR-0008   | Chromatic baseline builds on `ROU-12714` and the widget-story dependency | Accepted (§C resolved by ADR-0009) | 2026-08-13 |
+| ADR-0009   | Static widget stories and zero private dependencies                    | Accepted | 2026-08-21 |
+| ADR-0010   | Border-radius theme layer and shape tier slots                         | Accepted | 2026-09-04 |
+
+> The **"Make Great UI"** initiative (epic ROU-12776) also kept a phase-by-phase decision
+> history (`D-n` numbers) in its `specs/` working notes. That folder was removed once the
+> migration landed and survives only in git history, so a `D-n` citation in an older commit
+> or ADR refers there — those numbers were per-document and independent of the `ADR-NNNN`
+> series here. The durable outcome lives in `CSS-ARCHITECTURE.md` and `.claude/rules/scss.md`;
+> ADR-0003…0007 record the cross-cutting decisions from that initiative which do not belong
+> to a single migration phase.

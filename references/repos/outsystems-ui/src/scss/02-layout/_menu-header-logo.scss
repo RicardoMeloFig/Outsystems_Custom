@@ -1,0 +1,25 @@
+@use "../tokens/variables";
+
+/* Page Layout - Menu - Header Logo */
+////
+/// @group Layout-Menu-Header_Logo
+/// Page Layout - Menu - Header Logo
+
+///
+.layout-side {
+	.header-logo {
+		height: var(--header-size);
+		padding-block: variables.$token-scale-0;
+		padding-inline: variables.$token-scale-600;
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+.tablet,
+.phone {
+	.header-logo {
+		height: var(--header-size);
+		padding-block: variables.$token-scale-0;
+		padding-inline: variables.$token-scale-600;
+	}
+}

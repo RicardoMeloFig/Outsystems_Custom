@@ -1,0 +1,82 @@
+@use "sass:map";
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Usefull - Typography */
+////
+/// @group UsefullClasses-Typography
+/// Usefull - Typography
+
+// Maps old typography size names to token SCSS variables
+$osui-typography-size-token-vars: (
+	'base': variables.$token-font-size-400,
+	's': variables.$token-font-size-350,
+	'xs': variables.$token-font-size-300,
+	'label': variables.$token-font-size-275
+);
+
+// Maps old typography weight names to token SCSS variables
+$osui-typography-weight-token-vars: (
+	'light': variables.$token-font-weight-light,
+	'regular': variables.$token-font-weight-regular,
+	'semi-bold': variables.$token-font-weight-semi-bold,
+	'bold': variables.$token-font-weight-bold
+);
+
+///
+.font {
+	&-size {
+		@each $type, $value in $osui-typography-sizes {
+			@if ($type != 'display') {
+				&-#{$type} {
+					font-size: #{map.get($osui-typography-size-token-vars, $type)};
+				}
+			}
+		}
+	}
+
+	// this & is used to ensure that the scss prettier doesn't move the loop to another position
+	& {
+		@each $type, $value in $osui-typography-weight {
+			&-#{$type} {
+				font-weight: #{map.get($osui-typography-weight-token-vars, $type)};
+			}
+		}
+	}
+}
+
+///
+.bold {
+	font-weight: variables.$token-font-weight-bold;
+}
+
+///
+.italic {
+	font-style: italic;
+}
+
+///
+.oblique {
+	font-style: oblique;
+}
+
+///
+.text {
+	&-lowercase {
+		text-transform: lowercase;
+	}
+
+	&-uppercase {
+		text-transform: uppercase;
+	}
+
+	&-capitalize {
+		text-transform: capitalize;
+	}
+
+	&-ellipsis {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}

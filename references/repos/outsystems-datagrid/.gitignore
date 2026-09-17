@@ -1,0 +1,28 @@
+node_modules
+/*.bat
+
+# MacOS folder icon (hidden file)
+**/Icon?
+**/.DS_Store
+
+package-lock.json
+
+# gta artifact
+new-version-artf.txt
+
+# Distribution files folder
+dist/**
+
+# Generated TypeDoc output (keep ADRs)
+docs/*
+!docs/adr/
+
+# Extension compiled files
+/**/Bin/**
+/**/obj/**
+
+# Ignoring .vs folder
+/**/.vs/**
+
+# Ignoring DataGridUtils backups
+/extension/DataGridUtils/Backups/**

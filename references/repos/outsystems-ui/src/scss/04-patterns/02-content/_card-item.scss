@@ -1,0 +1,42 @@
+@use "../../tokens/variables";
+
+/* Patterns - Content - CardItem */
+////
+/// @group Patterns-Card_Item
+/// Patterns - Content - CardItem
+
+///
+.card-detail {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-card-detail-title-color: var(--color-text);
+	--osui-card-detail-text-color: var(--color-text-subtlest);
+	// ───────────────────────────────────────────────────────────────────
+
+	align-items: center;
+	display: flex;
+
+	&-left {
+		max-width: 120px;
+		padding-inline-end: variables.$token-scale-400;
+	}
+
+	&-center {
+		flex: 1;
+	}
+
+	&-right {
+		padding-inline-start: variables.$token-scale-400;
+	}
+
+	&-title {
+		color: var(--osui-card-detail-title-color);
+		font-size: variables.$token-font-size-500;
+		font-weight: variables.$token-font-weight-semi-bold;
+	}
+
+	&-text {
+		color: var(--osui-card-detail-text-color);
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}

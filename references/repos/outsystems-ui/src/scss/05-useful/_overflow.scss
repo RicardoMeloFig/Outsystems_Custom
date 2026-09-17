@@ -1,0 +1,33 @@
+/* Usefull - Overflow */
+////
+/// @group UsefullClasses-Overflow
+/// Usefull - Overflow
+
+///
+.overflow {
+	&-hidden {
+		overflow: hidden;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-overflow: visible;
+		}
+	}
+
+	&-horizontal {
+		overflow-x: auto;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-overflow: visible;
+		}
+	}
+
+	&-vertical {
+		overflow-y: auto;
+		// Service Studio Preview
+		& {
+			-servicestudio-overflow: visible;
+		}
+	}
+}

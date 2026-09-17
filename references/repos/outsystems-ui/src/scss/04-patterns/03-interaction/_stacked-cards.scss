@@ -1,0 +1,251 @@
+@use "../../tokens/variables";
+
+/* Patterns - Interaction - Stacked Cards */
+////
+/// @group Patterns-StackedCards
+/// Patterns - Interaction - Stacked Cards
+
+///
+.stackedcards {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-stacked-cards-background: var(--color-background-surface);
+	--osui-stacked-cards-overlay-color: var(--color-text-inverse);
+	--osui-stacked-cards-overlay-top-background: var(--color-info);
+	--osui-stacked-cards-overlay-right-background: var(--color-success);
+	--osui-stacked-cards-overlay-left-background: var(--color-error);
+	// ───────────────────────────────────────────────────────────────────
+
+	position: relative;
+
+	* {
+		user-select: none;
+	}
+
+	.stackedcards-container {
+		.OSAutoMarginTop {
+			margin-block-start: variables.$token-scale-0;
+		}
+
+		.list.list-group {
+			background-color: transparent;
+			height: 100%;
+			z-index: var(--layer-global-screen);
+
+			& > :nth-child(1) {
+				display: block;
+				position: relative;
+			}
+		}
+
+		& > .list {
+			&:not([data-virtualization-disabled]),
+			&:not([data-animation-disabled]) {
+				// Service Studio Preview
+				& > * {
+					-servicestudio-display: none !important;
+				}
+			}
+
+			&:not([data-virtualization-disabled]),
+			&:not([data-animation-disabled]) {
+				// Service Studio Preview
+				& {
+					-servicestudio-min-height: 225px; // design-spec: SS preview fixed height
+					-servicestudio-pointer-events: none;
+				}
+			}
+
+			&:not([data-virtualization-disabled]):after,
+			&:not([data-animation-disabled]):after {
+				// Service Studio Preview
+				& {
+					-servicestudio-background-color: variables.$token-bg-surface-default;
+					-servicestudio-background-position: center;
+					-servicestudio-background-repeat: no-repeat;
+					-servicestudio-background-size: 291px 225px;
+					-servicestudio-content: ' ';
+					-servicestudio-height: 100%;
+					-servicestudio-left: 0;
+					-servicestudio-min-height: 225px;
+					-servicestudio-position: absolute;
+					-servicestudio-top: 0;
+					-servicestudio-width: 100%;
+				}
+			}
+		}
+
+		// Service Studio Preview
+		&,
+		& .list.list-group > * {
+			-servicestudio-min-height: 80px;
+		}
+
+		& > * {
+			height: 100%;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			will-change: transform, opacity;
+
+			// Service Studio Preview
+			& {
+				-servicestudio-position: relative;
+			}
+		}
+
+		& > :nth-child(1) {
+			display: block;
+			position: relative;
+		}
+	}
+
+	.stackedcards-overlay {
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		will-change: transform, opacity;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-position: relative;
+		}
+	}
+
+	&-overflow {
+		overflow-y: hidden !important;
+	}
+
+	&--animatable {
+		transition:
+			transform,
+			opacity variables.$token-transition-time-300 variables.$token-transition-curve-expressive;
+	}
+
+	.init {
+		opacity: 0;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-opacity: 1;
+		}
+	}
+
+	&-origin-bottom {
+		transform-origin: bottom;
+	}
+
+	&-origin-top {
+		transform-origin: top;
+	}
+
+	&-bottom,
+	&-top,
+	&-none {
+		background-color: var(--osui-stacked-cards-background);
+		height: 100%;
+	}
+
+	& > span {
+		// Service Studio Preview
+		& {
+			-servicestudio-display: block !important;
+		}
+	}
+}
+
+///
+.stackedcards-container {
+	.list.list-group {
+		& > * {
+			height: 100%;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			will-change: transform, opacity;
+
+			// Service Studio Preview
+			& {
+				-servicestudio-position: relative;
+			}
+		}
+	}
+}
+
+///
+.stackedcards-overlay {
+	&.left,
+	&.right,
+	&.top {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		inset-inline-start: 0;
+		opacity: 0;
+		top: 0;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-left: inherit;
+			-servicestudio-opacity: 0.7;
+			-servicestudio-width: 100%;
+		}
+
+		& > div,
+		& > div,
+		& > div {
+			align-items: center;
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			width: 100%;
+		}
+	}
+
+	&.top {
+		background-color: var(--osui-stacked-cards-overlay-top-background);
+		color: var(--osui-stacked-cards-overlay-color);
+
+		// Service Studio Preview
+		& {
+			-servicestudio-background-color: var(--osui-stacked-cards-overlay-top-background);
+			-servicestudio-float: none;
+			-servicestudio-min-height: 80px;
+			-servicestudio-width: 100%;
+			-servicestudio-z-index: var(--layer-local-tier-1);
+		}
+	}
+
+	&.right {
+		background-color: var(--osui-stacked-cards-overlay-right-background);
+		color: var(--osui-stacked-cards-overlay-color);
+
+		// Service Studio Preview
+		& {
+			-servicestudio-background-color: var(--osui-stacked-cards-overlay-right-background);
+			-servicestudio-float: right;
+			-servicestudio-min-height: 80px;
+			-servicestudio-width: 50%;
+			-servicestudio-z-index: var(--layer-local-tier-2);
+		}
+	}
+
+	&.left {
+		background-color: var(--osui-stacked-cards-overlay-left-background);
+		color: var(--osui-stacked-cards-overlay-color);
+
+		// Service Studio Preview
+		& {
+			-servicestudio-background-color: var(--osui-stacked-cards-overlay-left-background);
+			-servicestudio-float: none;
+			-servicestudio-min-height: 80px;
+			-servicestudio-width: 50%;
+			-servicestudio-z-index: var(--layer-local-tier-2);
+		}
+	}
+
+	&-hidden {
+		display: none;
+	}
+}

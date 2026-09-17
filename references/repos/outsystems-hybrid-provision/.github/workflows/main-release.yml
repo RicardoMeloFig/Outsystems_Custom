@@ -1,0 +1,206 @@
+name: Main Branch Ring Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/main-release.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-rings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(git describe --tags --always --abbrev=7)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Prepare ring-specific scripts
+        run: |
+          RINGS=("dev" "test" "stage" "ea" "ga")
+          
+          for ring in "${RINGS[@]}"; do
+            echo "Processing ring: $ring"
+            mkdir -p "ring-scripts/$ring"
+            
+            # Process linux-installer.sh
+            cp scripts/linux-installer.sh "ring-scripts/$ring/linux-installer.sh"
+            sed -i "s/^DEFAULT_ENV=\"[^\"]*\"/DEFAULT_ENV=\"$ring\"/" "ring-scripts/$ring/linux-installer.sh"
+            
+            # Process macos-installer.sh
+            cp scripts/macos-installer.sh "ring-scripts/$ring/macos-installer.sh"
+            sed -i "s/^DEFAULT_ENV=\"[^\"]*\"/DEFAULT_ENV=\"$ring\"/" "ring-scripts/$ring/macos-installer.sh"
+            
+            # Process windows-installer.ps1
+            cp scripts/windows-installer.ps1 "ring-scripts/$ring/windows-installer.ps1"
+            sed -i "s/\[string\]\$env = \"[^\"]*\"/[string]\$env = \"$ring\"/" "ring-scripts/$ring/windows-installer.ps1"
+          done
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Deploy to ring directories
+        run: |
+          RINGS=("dev" "test" "stage" "ea" "ga")
+          
+          for ring in "${RINGS[@]}"; do
+            echo "Deploying $ring ring"
+            mkdir -p "gh-pages/$ring"
+            cp ring-scripts/$ring/* "gh-pages/$ring/"
+          done
+
+      - name: Create index page
+        run: |
+          cat > gh-pages/index.html <<'HTMLEOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="utf-8">
+              <title>OutSystems Hybrid Provision Installers</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                      max-width: 900px;
+                      margin: 50px auto;
+                      padding: 20px;
+                      line-height: 1.6;
+                  }
+                  h1 { color: #333; }
+                  .ring {
+                      background: #f5f5f5;
+                      border-left: 4px solid #0066cc;
+                      padding: 15px;
+                      margin: 20px 0;
+                  }
+                  .ring h2 { margin-top: 0; color: #0066cc; }
+                  .script-list { list-style: none; padding: 0; }
+                  .script-list li { margin: 8px 0; }
+                  .script-list a {
+                      color: #0066cc;
+                      text-decoration: none;
+                      font-family: monospace;
+                  }
+                  .script-list a:hover { text-decoration: underline; }
+                  code {
+                      background: #2d2d2d;
+                      color: #f8f8f2;
+                      padding: 15px;
+                      display: block;
+                      border-radius: 4px;
+                      overflow-x: auto;
+                  }
+              </style>
+          </head>
+          <body>
+              <h1>OutSystems Hybrid Provision Installers</h1>
+              <p>Choose your environment ring and download the appropriate installer script.</p>
+              
+              <div class="ring">
+                  <h2>🟢 Development (dev)</h2>
+                  <ul class="script-list">
+                      <li><a href="./dev/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./dev/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./dev/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+              
+              <div class="ring">
+                  <h2>🔵 Test</h2>
+                  <ul class="script-list">
+                      <li><a href="./test/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./test/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./test/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+
+              <div class="ring">
+                  <h2>🟠 Stage</h2>
+                  <ul class="script-list">
+                      <li><a href="./stage/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./stage/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./stage/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+
+              <div class="ring">
+                  <h2>🟡 Early Access (ea)</h2>
+                  <ul class="script-list">
+                      <li><a href="./ea/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./ea/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./ea/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+              
+              <div class="ring">
+                  <h2>🟣 General Availability (ga)</h2>
+                  <ul class="script-list">
+                      <li><a href="./ga/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./ga/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./ga/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+              
+              <div class="ring">
+                  <h2>🧪 PR Preview</h2>
+                  <p>Preview scripts from pull requests (default: dev)</p>
+                  <ul class="script-list">
+                      <li><a href="./pr/linux-installer.sh">linux-installer.sh</a></li>
+                      <li><a href="./pr/macos-installer.sh">macos-installer.sh</a></li>
+                      <li><a href="./pr/windows-installer.ps1">windows-installer.ps1</a></li>
+                  </ul>
+              </div>
+              
+              <h2>Quick Install</h2>
+              <p>Linux/macOS:</p>
+              <code>curl -fsSL https://outsystems.github.io/outsystems-hybrid-provision/ga/linux-installer.sh | bash</code>
+              
+              <p>Windows PowerShell:</p>
+              <code>irm https://outsystems.github.io/outsystems-hybrid-provision/ga/windows-installer.ps1 | iex</code>
+          </body>
+          </html>
+          HTMLEOF
+
+      - name: Commit and push changes
+        run: |
+          cd gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Deploy ring scripts from ${{ steps.version.outputs.version }}" || echo "No changes"
+          git push
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release ${{ steps.version.outputs.version }}
+          body: |
+            ## 🚀 Ring Deployment
+            
+            All environment rings have been updated with the latest installer scripts.
+            
+            ### Available Rings:
+            - **dev**: https://outsystems.github.io/outsystems-hybrid-provision/dev/
+            - **test**: https://outsystems.github.io/outsystems-hybrid-provision/test/
+            - **stage**: https://outsystems.github.io/outsystems-hybrid-provision/stage/
+            - **ea**: https://outsystems.github.io/outsystems-hybrid-provision/ea/
+            - **ga**: https://outsystems.github.io/outsystems-hybrid-provision/ga/
+            
+            ### Changes:
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

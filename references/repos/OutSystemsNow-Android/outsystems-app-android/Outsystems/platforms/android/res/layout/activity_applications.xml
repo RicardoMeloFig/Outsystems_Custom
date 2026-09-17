@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <GridView
+        android:id="@+id/grid_view_applications"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-1px"
+        android:layout_marginRight="-1px"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+        android:background="@color/divider_color"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="@integer/grid_rows" >
+    </GridView>
+
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+    
+    <com.outsystems.android.widgets.CustomFontTextView
+        android:id="@+id/text_view_label_no_applications"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/label_no_applications"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:visibility="gone"        
+        android:gravity="center"
+        custom:fontStyle="Regular" />
+
+</merge>

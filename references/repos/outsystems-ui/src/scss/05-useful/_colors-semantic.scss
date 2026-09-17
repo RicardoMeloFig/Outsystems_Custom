@@ -1,0 +1,29 @@
+@use '../00-abstract/index' as *;
+
+/* Usefull - Colors Semantic */
+////
+/// @group UsefullClasses-Colors_Semantic
+/// Usefull - Colors Semantic
+
+/*
+	Note:
+	- In order to improve the SASSDOC generated file, the loop was splited in 2!
+*/
+
+///
+.background {
+	@each $type, $value in $osui-colors-semantic {
+		&-#{$type} {
+			background-color: #{$value};
+		}
+	}
+}
+
+///
+.text {
+	@each $type, $value in $osui-colors-semantic {
+		&-#{$type} {
+			color: #{$value};
+		}
+	}
+}

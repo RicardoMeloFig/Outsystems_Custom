@@ -1,0 +1,136 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Page Layout - Header */
+////
+/// @group Layout-Header
+/// Page Layout - Header
+
+///
+.header {
+	background-color: var(--background-color-header, var(--color-background-header));
+	box-shadow: variables.$token-elevation-1;
+	z-index: var(--layer-global-navigation);
+
+	// Service Studio Preview
+	& {
+		-servicestudio-position: relative;
+	}
+
+	&-top {
+		height: var(--header-size);
+	}
+
+	&-logo {
+		padding-inline-end: variables.$token-scale-400;
+
+		.application-name {
+			word-break: break-word;
+		}
+	}
+
+	&-navigation {
+		flex: 1;
+	}
+
+	.header-content {
+		height: 100%;
+
+		& > [data-block*='ApplicationTitle'] .application-name {
+			margin-inline-end: variables.$token-scale-600;
+		}
+	}
+
+	.app-logo {
+		@include app-logo;
+	}
+}
+
+///
+.fixed-header {
+	.header {
+		inset-inline-start: 0;
+		position: -webkit-sticky; //Fix for older iPhones
+		position: sticky;
+		inset-inline-end: 0;
+		top: 0;
+	}
+}
+
+///
+.menu-icon {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	margin-inline-end: variables.$token-space-600;
+	width: variables.$token-scale-600;
+}
+
+///
+.menu-back {
+	color: var(--color-text-subtlest);
+}
+
+///
+.user-info {
+	align-items: center;
+	display: flex;
+	height: 100%;
+
+	div {
+		align-items: center;
+		display: inline-flex;
+	}
+}
+
+///
+.aside-expandable .header .ThemeGrid_Container {
+	max-width: 100%;
+}
+
+///
+.layout-native .app-menu-icon.back .menu-icon,
+.desktop .menu-icon,
+.tablet.landscape .layout-native.aside-visible .menu-icon,
+.app-menu-icon.back .menu-icon,
+.app-menu-icon:not(.back) .menu-back {
+	display: none;
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.desktop {
+	.header-content {
+		& > [data-block*='ApplicationTitle'] .application-name {
+			display: none;
+		}
+	}
+
+	.aside-expandable,
+	.aside-overlay {
+		.menu-icon {
+			display: flex;
+		}
+	}
+}
+
+///
+.tablet,
+.phone {
+	.layout-top .header-navigation {
+		height: 100vh;
+		inset-inline-start: 0;
+		position: fixed;
+		top: 0;
+		z-index: var(--layer-global-navigation);
+	}
+}
+
+// -------------------------------------------------------------------------------
+/* Fix for responsive in safari forcing refresh for events to work */
+.osx.tablet .layout-top:not(.menu-visible) .header-navigation,
+.osx.phone .layout-top:not(.menu-visible) .header-navigation {
+	pointer-events: none;
+}

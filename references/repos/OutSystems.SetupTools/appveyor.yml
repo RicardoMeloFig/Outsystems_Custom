@@ -1,0 +1,32 @@
+version: 4.1.5.{build}
+
+only_commits:
+  files:
+    - 'src/'
+    - 'test/'
+    - appveyor.yml
+    - build.ps1
+    - build.psake.ps1
+    - build.settings.ps1
+    - ScriptAnalyzerSettings.psd1
+
+
+install:
+  - ps: |
+      Install-Module Pester -RequiredVersion 4.10.1 -Scope CurrentUser -Force
+      Install-Module psake -Scope CurrentUser -Force -RequiredVersion 4.7.4
+      Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+      Install-Module platyPS -Scope CurrentUser -Force
+
+build_script:
+    - ps: |
+        $testResultsFile = Join-Path $pwd -ChildPath "$PSScriptRoot/TestResults.xml"
+        Invoke-psake build.psake.ps1 -taskList Test, BuildHelp -properties @{"TestOutputFile" = $testResultsFile}
+        if ($psake.build_success -and (Test-Path $testResultsFile)) {
+            (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", $testResultsFile)
+        }
+        else {
+            # Terminate the script to fail the build
+            $Error | Format-List * -Force
+            exit 1;
+        }

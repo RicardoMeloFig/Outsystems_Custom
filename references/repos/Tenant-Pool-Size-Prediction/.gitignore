@@ -1,0 +1,24 @@
+# Build outputs
+Source/NET/Bin/
+Source/NET/obj/
+**/bin/
+**/obj/
+
+# Visual Studio user data
+**/.vs/
+*.suo
+*.user
+*.userprefs
+
+# Integration Studio backups (timestamped snapshots taken on every Source-edit cycle)
+Backups/
+
+# Empty Integration Studio scaffolding (regenerated on demand)
+Templates/
+
+# Generated XML doc — MSBuild produces it from the /// comments on every build
+Source/NET/OutSystems.NssODCTenantPoolSize.xml
+
+# OS / editor
+Thumbs.db
+.DS_Store

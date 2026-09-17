@@ -1,0 +1,236 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+////
+/// @group Resets
+/// Normalize - Reset default and native styles
+
+/* ============================================================================ */
+/* Global Selector                                                              */
+/* ============================================================================ */
+///
+* {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* ============================================================================ */
+/* Reduced Motion                                                               */
+/* ============================================================================ */
+/// Single global opt-out for users who prefer reduced motion. Near-zero
+/// durations (instead of `none`) keep transitionend / animationend events
+/// firing so JS-driven patterns that await them still complete.
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ============================================================================ */
+/* HTML                                                                         */
+/* ============================================================================ */
+html {
+	color: var(--color-text);
+	font-family: variables.$token-font-family;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+	overflow-x: hidden;
+
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+
+	// ServiceStudio Preview
+	& {
+		-servicestudio-overflow: hidden;
+	}
+}
+
+/* ============================================================================ */
+/* Body                                                                         */
+/* ============================================================================ */
+///
+body {
+	@include apply-typography(variables.$token-body-md-regular);
+	background-color: var(--background-color-body, var(--color-background-body));
+	/// iOS devices loses the direction default value when toggle the RTL on the body element. Added the default property of direction to prevent the issue.
+	direction: ltr;
+	margin: 0;
+}
+
+/* ============================================================================ */
+/* Focus state                                                                  */
+/* ============================================================================ */
+///
+:focus {
+	outline: 0;
+}
+
+///
+::-moz-focus-inner {
+	border: 0;
+}
+
+///
+.has-accessible-features :focus {
+	box-shadow: 0 0 0 variables.$token-border-size-075 var(--color-focus-outer);
+}
+
+///
+.os-high-contrast .has-accessible-features :focus {
+	box-shadow: none;
+	outline: variables.$token-border-size-075 solid var(--color-focus-outer);
+}
+
+/* ============================================================================ */
+/* Abbreviation                                                                 */
+/* ============================================================================ */
+///
+abbr[title] {
+	border-block-end: 0;
+	text-decoration: underline;
+}
+
+/* ============================================================================ */
+/* Style the cursor when a div elem is clickable                                */
+/* ============================================================================ */
+///
+div[onclick] {
+	cursor: pointer;
+}
+
+/* ============================================================================ */
+/* Label                                                                        */
+/* ============================================================================ */
+///
+label {
+	color: var(--color-text-subtlest);
+}
+
+///
+[data-label].mandatory:after {
+	color: variables.$token-semantics-danger-base;
+	margin-inline-start: variables.$token-scale-100;
+}
+
+/* ============================================================================ */
+/* Inputs Styles                                                                */
+/* ============================================================================ */
+///
+input,
+textarea,
+select,
+button {
+	appearance: none;
+	font-family: inherit;
+	font-size: 100%;
+	line-height: 1.25;
+	margin: 0;
+}
+
+///
+[type='checkbox'],
+[type='radio'] {
+	border: 0;
+	padding: 0;
+}
+
+///
+[type='number'] {
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+		height: auto;
+	}
+}
+
+///
+[type='search'] {
+	appearance: textfield;
+	outline-offset: -2px;
+
+	&::-webkit-search-cancel-button,
+	&::-webkit-search-decoration {
+		appearance: none;
+	}
+}
+
+///
+input {
+	&[type='time'],
+	&[type='date'],
+	&[type='datetime'],
+	&[type='datetime-local'],
+	&[type='time']:empty {
+		display: inline-flex;
+	}
+}
+
+///
+.chrome input {
+	&[type='time'],
+	&[type='date'],
+	&[type='datetime'],
+	&[type='datetime-local'],
+	&[type='time']:empty {
+		display: inline-block;
+	}
+}
+
+///
+::-webkit-file-upload-button {
+	appearance: button;
+}
+
+///
+select::-ms-expand {
+	display: none;
+}
+
+///
+input::-ms-clear {
+	display: none;
+}
+
+///
+.is-rtl-device {
+	input[type='date'],
+	input[type='datetime-local'] {
+		/* To fix an issue when: 
+			- The user is using a device with the Arabic Language
+			- The application IS NOT using the Arabic Language
+
+			That makes date type inputs lose the date format and show the date in the wrong format,
+			We must force the text direction to RTL in the input in order to fix it.
+			
+			More info about this in the release notes of ROU-11464.
+		*/
+		direction: rtl;
+	}
+}
+
+/* ============================================================================ */
+/* Button                                                                       */
+/* ============================================================================ */
+///
+button.OSFillParent {
+	display: inline-flex;
+}
+
+/* ============================================================================ */
+/* FocusTrap                                                                    */
+/* ============================================================================ */
+///
+.focus-trap {
+	&-top {
+		top: 0;
+	}
+
+	&-bottom {
+		bottom: 0;
+	}
+}

@@ -1,0 +1,245 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Page Layout - Menu */
+////
+/// @group Layout-Menu
+/// Page Layout - Menu
+
+///
+.app-menu-content {
+	height: 100%;
+
+	// Service Studio Preview
+	& {
+		-servicestudio-background-color: var(--background-color-header, var(--color-background-header));
+		-servicestudio-height: auto !important;
+	}
+}
+
+.app-menu-content {
+	left: calc(-1 * var(--side-menu-size));
+	transform: translateX(0) translateZ(0);
+	transition: transform 130ms ease-in;
+
+	&.is--open {
+		transform: translateX(var(--side-menu-size)) translateZ(0);
+		transition: transform 330ms ease-out;
+	}
+}
+
+///
+.app-menu-overlay {
+	background-color: variables.$token-backdrop;
+	height: 100vh;
+	inset-inline-start: 0;
+	opacity: 0;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	transition: opacity 130ms ease-in;
+	width: 100vw;
+	will-change: opacity;
+	z-index: calc(var(--osui-menu-layer) - var(--layer-local-tier-1));
+
+	// Service Studio Preview
+	& {
+		-servicestudio-display: none;
+	}
+}
+
+///
+.menu-visible {
+	.app-menu-overlay {
+		opacity: 1;
+		pointer-events: auto;
+		transition: opacity 330ms ease-out;
+	}
+}
+
+///
+.layout {
+	.app-menu-content {
+		// Service Studio Preview
+		& {
+			-servicestudio-height: 100% !important;
+		}
+	}
+}
+
+///
+.layout-top {
+	.header-content {
+		// Service Studio Preview
+		& {
+			-servicestudio-align-items: center;
+			-servicestudio-flex-direction: row;
+		}
+	}
+}
+
+///
+.layout-blank {
+	.header-content {
+		// Service Studio Preview
+		& {
+			-servicestudio-align-items: center;
+			-servicestudio-flex-direction: row;
+		}
+	}
+}
+
+///
+.layout-side {
+	.aside-navigation {
+		// Service Studio Preview
+		& {
+			-servicestudio-background-color: variables.$token-bg-surface-default;
+			-servicestudio-height: 100%;
+			-servicestudio-position: fixed;
+			-servicestudio-width: var(--side-menu-size);
+			-servicestudio-z-index: var(--layer-global-navigation);
+		}
+
+		& > div {
+			// Service Studio Preview
+			& {
+				-servicestudio-height: 100%;
+			}
+		}
+	}
+
+	.header {
+		.app-menu-content {
+			// Service Studio Preview
+			& {
+				-servicestudio-flex-direction: row;
+				-servicestudio-position: static;
+				-servicestudio-width: 100%;
+			}
+		}
+
+		.app-menu-links {
+			// Service Studio Preview
+			& {
+				-servicestudio-align-items: center;
+				-servicestudio-flex-direction: row;
+			}
+		}
+	}
+
+	.header-navigation {
+		& > div {
+			// Service Studio Preview
+			& {
+				-servicestudio-height: 100%;
+				-servicestudio-width: 100%;
+			}
+		}
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.desktop {
+	.app-menu-overlay {
+		display: none;
+	}
+
+	.aside-overlay .app-menu-overlay {
+		display: block;
+	}
+
+	.app-menu-content {
+		&,
+		&.is--open {
+			inset-inline-start: 0;
+		}
+	}
+}
+
+///
+.tablet,
+.phone {
+	.app-login-info {
+		padding-block: variables.$token-scale-200;
+		padding-inline: variables.$token-scale-600;
+	}
+
+	.app-menu-content {
+		background-color: variables.$token-bg-surface-default;
+		flex-direction: column;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		width: var(--side-menu-size);
+		will-change: transform;
+		z-index: var(--osui-menu-layer);
+	}
+
+	.layout-side {
+		.header .app-menu-content,
+		.aside-navigation {
+			// Service Studio Preview
+			& {
+				-servicestudio-display: none;
+			}
+		}
+	}
+}
+
+///
+.tablet {
+	&.landscape {
+		.layout-native.aside-expandable .app-menu-overlay {
+			display: none;
+		}
+	}
+}
+
+///
+.phone {
+	.app-menu-content {
+		padding-bottom: var(--os-safe-area-bottom);
+		padding-left: var(--os-safe-area-left);
+	}
+}
+
+///
+.android {
+	&.portrait {
+		.app-menu-content {
+			padding-block-start: #{android-safe-area-top()};
+		}
+	}
+
+	&.landscape {
+		.app-menu-content {
+			padding-left: max(var(--os-safe-area-left), var(--safe-area-status-bar, 0px));
+			padding-right: max(var(--os-safe-area-right), 0px);
+			padding-block-start: var(--safe-area-inset-top, 0px);
+			padding-block-end: var(--safe-area-inset-bottom, 0px);
+		}
+	}
+}
+
+///
+.ios {
+	.app-menu-content {
+		padding-bottom: var(--os-safe-area-bottom);
+		padding-top: var(--os-safe-area-top);
+	}
+}
+
+// IsRTL -------------------------------------------------------------------------
+///
+.is-rtl {
+	.app-menu-content {
+		transition: transform 130ms ease-in;
+	}
+
+	.app-menu-content.is--open {
+		transform: translateX(0) translateZ(0);
+		transition: transform 130ms ease-out;
+	}
+}

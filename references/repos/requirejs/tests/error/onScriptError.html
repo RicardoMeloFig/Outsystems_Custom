@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>require.js: Deep Dependency Error Catch Test</title>
+    <script type="text/javascript" src="../../require.js"></script>
+    <script type="text/javascript" src="../doh/runner.js"></script>
+    <script type="text/javascript" src="../doh/_browserRunner.js"></script>
+    <script type="text/javascript">
+        var master = new doh.Deferred();
+        var testSucceeded = false;
+        const moduleNameList = ['module1', 'module2', 'module3', 'nonExistingModule'];
+
+        function done() {
+            if (testSucceeded) {
+                master.callback(true);
+            }
+        }
+
+        function containsAllElements(arr1, arr2) {
+            return arr1.every(el => arr2.includes(el));
+        }
+        
+        // Define the module dependency chain
+        for(let i = 0; i < moduleNameList.length - 1; i++) {
+            define(moduleNameList[i], [moduleNameList[i + 1]], function(m) {
+                return {};
+            });
+        }
+
+        require([moduleNameList[0]], function (a) {
+        }, function (err) {
+            completeFailedChain = err.requireModules.concat(err.parentModules ?? []);
+            testSucceeded = containsAllElements(moduleNameList, completeFailedChain);
+        });
+
+        setTimeout(done, 500);
+
+        doh.register(
+            "errorDeepChild",
+            [
+                {
+                    name: "errorDeepChild",
+                    timeout: 1000,
+                    runTest: function () {
+                        return master;
+                    }
+                }
+            ]
+        );
+        doh.run();
+    </script>
+</head>
+<body>
+    <h1>require.js: Deep Dependency Error Catch Test</h1>
+    <p>When a module dependency throws an error or is missing, the complete dependency 
+        chain is added to the generated error.</p>
+    <p>Check console for messages</p>
+</body>
+</html>

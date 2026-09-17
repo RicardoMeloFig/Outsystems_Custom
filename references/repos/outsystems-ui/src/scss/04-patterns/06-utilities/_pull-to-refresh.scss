@@ -1,0 +1,105 @@
+@use "../../tokens/variables";
+
+/* Patterns - Utilities - Pull to Refresh */
+////
+/// @group Utilities-Pull_To_Refresh
+/// Patterns - Utilities - Pull to Refresh
+
+///
+.pull-to-refresh {
+	color: var(--color-text-disabled);
+	font-size: variables.$token-font-size-650;
+	inset-inline-start: 0;
+	padding: variables.$token-scale-200;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+
+	// Service Studio Preview
+	& {
+		-servicestudio-display: none;
+	}
+
+	&-loading {
+		display: none;
+		text-align: center;
+	}
+
+	.genericon {
+		transition: all variables.$token-transition-time-300 variables.$token-transition-curve-expressive;
+	}
+}
+
+///
+.ptr {
+	&-loading,
+	&-reset {
+		.content,
+		.pull-to-refresh {
+			transition: all variables.$token-transition-time-300 variables.$token-transition-curve-expressive;
+		}
+
+		.pull-to-refresh {
+			.genericon {
+				display: none;
+			}
+		}
+	}
+
+	&-loading {
+		.pull-to-refresh-loading {
+			display: block;
+		}
+
+		&:not(.osui-bottom-sheet--is-active) .content {
+			transform: translate3D(0, 50px, 0);
+		}
+	}
+
+	&-loading:not(.osui-bottom-sheet--is-active),
+	&-reset:not(.osui-bottom-sheet--is-active) {
+		.osui-bottom-sheet {
+			display: none;
+		}
+	}
+
+	&-reset {
+		transform: translate3D(0, 0, 0);
+	}
+
+	&-refresh {
+		.pull-to-refresh {
+			.genericon {
+				transform: rotate(180deg);
+			}
+		}
+	}
+}
+
+///
+.slide-from-left-enter,
+.slide-from-left-leave,
+.slide-from-right-enter,
+.slide-from-right-leave,
+.slide-from-top-enter,
+.slide-from-top-leave,
+.slide-from-bottom-enter,
+.slide-from-bottom-leave,
+.fade-enter,
+.fade-leave {
+	.layout-native {
+		.pull-to-refresh {
+			display: none;
+		}
+	}
+}
+
+// iOS ---------------------------------------------------------------------------
+///
+.ios.ptr-refresh {
+	.layout-native.ios-bounce {
+		.main {
+			overflow: hidden;
+		}
+	}
+}

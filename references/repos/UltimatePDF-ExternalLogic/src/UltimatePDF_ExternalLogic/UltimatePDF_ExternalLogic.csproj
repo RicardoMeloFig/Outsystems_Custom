@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\version" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HeadlessChromium.Puppeteer.Dotnet.OS.Fork" Version="1.1.1.1" />
+    <PackageReference Include="OutSystems.ExternalLibraries.SDK" Version="1.5.0" />
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources/PrintLayout.png" />
+    <EmbeddedResource Include="resources\version" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>UltimatePDF_ExternalLogic.Test.Helpers</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>UltimatePDF_ExternalLogic.UnitTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

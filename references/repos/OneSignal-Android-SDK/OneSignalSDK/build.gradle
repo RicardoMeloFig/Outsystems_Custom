@@ -1,0 +1,56 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext {
+        buildVersions = [
+                compileSdkVersion: 31,
+                targetSdkVersion: 31
+        ]
+        androidGradlePluginVersion = '7.0.4'
+        googleServicesGradlePluginVersion = '4.3.10'
+        huaweiAgconnectVersion = '1.6.2.300'
+        huaweiHMSPushVersion = '6.3.0.304'
+        huaweiHMSLocationVersion = '4.0.0.300'
+        kotlinVersion = '1.4.32'
+        onesignalGradlePluginVersion = '[0.14.0, 0.99.99]'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+
+        // OneSignal-Gradle-Plugin - Local testing
+        // maven { url uri('../../repo') }
+
+        // OneSignal-Gradle-Plugin - Public version
+        gradlePluginPortal()
+
+        // Huawei maven
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "com.google.gms:google-services:$googleServicesGradlePluginVersion"
+        classpath "com.huawei.agconnect:agcp:$huaweiAgconnectVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+        // OneSignal-Gradle-Plugin - Local testing
+        // classpath 'com.onesignal:onesignal-gradle-plugin:[0.8.1, 0.99.99]'
+
+        // OneSignal-Gradle-Plugin - Public version
+        classpath "gradle.plugin.com.onesignal:onesignal-gradle-plugin:$onesignalGradlePluginVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+        // Huawei maven
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+}

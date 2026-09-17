@@ -1,0 +1,3 @@
+#!/bin/bash
+
+# Everything was already installed by before_install at .travis.yml

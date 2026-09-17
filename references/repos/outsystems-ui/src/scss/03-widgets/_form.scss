@@ -1,0 +1,121 @@
+@use "../tokens/variables";
+
+/* Widgets - Form */
+////
+/// @group Widgets-Form
+/// Widgets - Form
+
+///
+.form {
+	&.OSFillParent {
+		.form-control[class*='ThemeGrid_Width'].not-valid ~ span.validation-message {
+			inset-inline-start: 22px;
+		}
+	}
+
+	label {
+		margin-block-end: variables.$token-scale-200;
+	}
+
+	.dropdown,
+	.search-input,
+	input[data-input],
+	textarea[data-textarea],
+	[data-switch] {
+		margin-block-end: variables.$token-scale-600;
+	}
+
+	span {
+		position: relative;
+
+		&.validation-message {
+			bottom: -32px;
+			inset-inline-start: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 100%;
+		}
+	}
+
+	& > span.input-text {
+		.form-control[class*='ThemeGrid_Width'].not-valid {
+			& + span.validation-message {
+				inset-inline-start: 0;
+			}
+		}
+	}
+
+	textarea[data-textarea] {
+		& + span {
+			&.validation-message {
+				bottom: 7px;
+			}
+		}
+	}
+
+	.upload-file span.validation-message {
+		bottom: variables.$token-scale-200;
+		position: relative;
+	}
+
+	.dropdown-container {
+
+		&[class*='ThemeGrid_Width'].not-valid span.validation-message {
+			bottom: variables.$token-scale-100;
+		}
+
+		&,
+		&.dropdown-expanded {
+			&.not-valid span.validation-message {
+				bottom: -19px;
+			}
+		}
+	}
+
+	.radio-group.not-valid {
+		position: relative;
+
+		span.validation-message {
+			bottom: -10px;
+		}
+	}
+}
+
+///
+.firefox {
+	textarea[data-textarea] {
+		& + span {
+			&.validation-message {
+				bottom: variables.$token-scale-100;
+			}
+		}
+	}
+}
+
+///
+span.validation-message {
+	color: variables.$token-text-danger;
+	font-size: variables.$token-font-size-300;
+	margin-inline-start: variables.$token-scale-0;
+}
+
+///
+.form-control[class*='ThemeGrid_Width'].not-valid + span.validation-message {
+	inset-inline-start: 10px;
+}
+
+// Responsive --------------------------------------------------------------------
+.phone {
+	.layout-native .form.OSFillParent .form-control[class*='ThemeGrid_Width'].not-valid + span.validation-message {
+		inset-inline-start: variables.$token-scale-150;
+	}
+
+	.form.OSFillParent span.input-text .form-control[class*='ThemeGrid_Width'].not-valid + span.validation-message,
+	.form
+		span.input-text
+		.form-control[class*='ThemeGrid_Width'].not-valid.ThemeGrid_MarginGutter
+		+ span.validation-message,
+	.form-control[class*='ThemeGrid_Width'].not-valid + span.validation-message {
+		inset-inline-start: 0;
+	}
+}

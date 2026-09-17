@@ -1,0 +1,5 @@
+install: 
+  - HEALTH="-Dfile=OSHealthFitnessLib-release.aar" 
+  - CORE="-Dfile=OSCore-release.aar" 
+  - mvn install:install-file $HEALTH -Dpackaging=aar -DgeneratePom=true -DpomFile=pom-health.xml
+  - mvn install:install-file $CORE -Dpackaging=aar -DgeneratePom=true -DpomFile=pom-core.xml

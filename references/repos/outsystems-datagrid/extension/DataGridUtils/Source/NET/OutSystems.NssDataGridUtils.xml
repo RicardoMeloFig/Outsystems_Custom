@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OutSystems.NssDataGridUtils</name>
+    </assembly>
+    <members>
+        <member name="M:OutSystems.NssDataGridUtils.CssDataGridUtils.ConvertDataToJSON(System.Object,System.String@,System.String@)">
+            <summary>
+            Converts the data to JSON.
+            </summary>
+            <param name="ssData">The data to convert.</param>
+            <param name="ssDataJSON">The JSON representation of the data.</param>
+            <param name="ssDataMetadata">The metadata of the data.</param>
+        </member>
+        <member name="M:OutSystems.NssDataGridUtils.CssDataGridUtils.MssConvertData2JSON_deprecated(System.Object,System.String@,System.String@)">
+            <summary>
+            Prepares your data to be used in the Data Grid.
+            </summary>
+            <param name="ssData">List or record to get meta data from.</param>
+            <param name="ssDataJSON">JSON with the data for the data grid</param>
+            <param name="ssDataMetadata">JSON with the structure of the object passed.</param>
+        </member>
+        <member name="M:OutSystems.NssDataGridUtils.CssDataGridUtils.MssConvertData2JSON(System.Object,System.String@)">
+            <summary>
+            Prepares your data to be used in the Data Grid.
+            </summary>
+            <param name="ssData">List or record to get meta data from.</param>
+            <param name="ssDataJSON">JSON with the data for the data grid</param>
+        </member>
+        <member name="M:OutSystems.NssDataGridUtils.IssDataGridUtils.MssConvertData2JSON_deprecated(System.Object,System.String@,System.String@)">
+            <summary>
+            DEPRECATED - Prepares your data to be used in the Data Grid.
+            </summary>
+            <param name="ssData">List or record to get meta data from.</param>
+            <param name="ssDataJSON">JSON with the data for the data grid</param>
+            <param name="ssDataMetadata">JSON with the structure of the object passed.</param>
+        </member>
+        <member name="M:OutSystems.NssDataGridUtils.IssDataGridUtils.MssConvertData2JSON(System.Object,System.String@)">
+            <summary>
+            Prepares your data to be used in the Data Grid.
+            </summary>
+            <param name="ssData">List or record to get meta data from.</param>
+            <param name="ssDataJSON">JSON with the data and metadata for the data grid</param>
+        </member>
+    </members>
+</doc>

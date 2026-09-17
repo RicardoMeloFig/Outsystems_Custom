@@ -1,0 +1,31 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+namespace Providers.DataGrid.Wijmo.Feature {
+	export class CellData implements OSFramework.DataGrid.Feature.ICellData {
+		private _data: OSFramework.DataGrid.Grid.AbstractDataSource;
+		private _grid: Providers.DataGrid.Wijmo.Grid.IGridWijmo;
+
+		constructor(
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			grid: Providers.DataGrid.Wijmo.Grid.IGridWijmo,
+			data: OSFramework.DataGrid.Grid.AbstractDataSource
+		) {
+			this._grid = grid;
+			this._data = data;
+		}
+
+		public build(): void {
+			//
+		}
+
+		public setCellData(rowNumber: number, column: OSFramework.DataGrid.Column.IColumn, value: string, valueIsKey: boolean): void {
+			if (column.columnType === OSFramework.DataGrid.Enum.ColumnType.DateTime) {
+				if (!column.config.format.trim().toLowerCase().includes('s')) {
+					value = this._grid.dataSource.trimSecondsFromDate(value);
+				}
+			}
+			// Calls the cells setCellData method to update the cell value
+			// The cells setCellData method is prefered since it allows us to pass a parameter to indicate if the value is a key value of dataMap
+			this._grid.provider.cells.setCellData(rowNumber, column.provider.index, value, true, true, valueIsKey);
+		}
+	}
+}

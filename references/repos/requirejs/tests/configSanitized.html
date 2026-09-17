@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>require.js: sanitizeConfig Test</title>
+    <script type="text/javascript" src="../require.js"></script>
+    <script type="text/javascript" src="doh/runner.js"></script>
+    <script type="text/javascript" src="doh/_browserRunner.js"></script>
+    <script>
+        function sanitizeConfigMock(config) {
+            const denylist = ["unsafeProperty"];
+            for (const key in config) {
+                if (denylist.includes(key)) {
+                    delete config[key];
+                }
+            }
+        return config;
+        }
+        function done() {
+            doh.register(
+                "sanitizeConfig",
+                [
+                    function sanitizeConfigTest(t){
+                        const inputConfig = {
+                            unsafeProperty: 'unsafeValue',
+                            safeProperty: 'safeValue'
+                        };
+                        t.is('unsafeValue', inputConfig.unsafeProperty);
+                        t.is('safeValue', inputConfig.safeProperty);
+                        
+                        const sanitizedConfig = sanitizeConfigMock(inputConfig);
+                        t.is(undefined, sanitizedConfig.unsafeProperty , "Sanitize unsafeProperty");
+                        t.is('safeValue', sanitizedConfig.safeProperty, "Sanitize safeProperty");
+                    }
+                ]
+            );
+            doh.run();
+        }
+        done();
+    </script>
+</head>
+<body>
+    <h1>require.js: sanitizeConfig Test</h1>
+    <p>Tests the sanitizeConfig function.</p>
+    <p>Check console for messages.</p>
+</body>
+</html>

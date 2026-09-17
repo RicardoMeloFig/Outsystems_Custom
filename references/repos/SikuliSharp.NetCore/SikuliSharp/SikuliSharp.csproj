@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>SikuliSharp</AssemblyName>
+    <RootNamespace>SikuliSharp</RootNamespace>
+    <Authors>v.kostyukevich</Authors>
+    <Description>initial repo https://github.com/christianrondeau/SikuliSharp</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>SikuliSharp.NetCore</PackageId>
+    <Product>SikuliSharp.NetCore</Product>
+    <Version>1.1.0</Version>
+  </PropertyGroup>
+
+</Project>

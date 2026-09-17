@@ -1,0 +1,34 @@
+@use "../../tokens/variables";
+
+/* Patterns - Numbers - Counter */
+////
+/// @group Patterns-Counter
+/// Patterns - Numbers - Counter
+
+///
+.counter {
+	display: flex;
+	padding-block: variables.$token-scale-0;
+	padding-inline: variables.$token-scale-600;
+	word-break: keep-all;
+
+	&.background-transparent {
+		border: none;
+	}
+
+	.center-align {
+		align-items: center;
+		display: flex;
+		width: 100%;
+
+		&.flex-direction {
+			&-column {
+				justify-content: center;
+			}
+
+			&-row {
+				justify-content: space-between;
+			}
+		}
+	}
+}

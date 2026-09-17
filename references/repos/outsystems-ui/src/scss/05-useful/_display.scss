@@ -1,0 +1,35 @@
+/* Usefull - Display */
+////
+/// @group UsefullClasses-Display
+/// Usefull - Display
+
+///
+.display {
+	&-none {
+		display: none;
+	}
+
+	&-block {
+		display: block;
+	}
+
+	&-contents {
+		display: contents;
+	}
+
+	&-inline {
+		display: inline;
+	}
+
+	&-inline-block {
+		display: inline-block;
+	}
+
+	&-inline-flex {
+		display: inline-flex;
+	}
+
+	&-grid {
+		display: grid;
+	}
+}

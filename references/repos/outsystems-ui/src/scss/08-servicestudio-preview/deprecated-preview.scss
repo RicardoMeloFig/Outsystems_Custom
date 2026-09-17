@@ -1,0 +1,30 @@
+@use "../tokens/variables";
+
+/* Deprecated block preview */
+/* 
+	Notes:
+	- This section contains several styles that style the deprecated message on the deprecated blocks
+
+	- This sections should not be visible at SASSDOCS.
+*/
+
+.osui-deprecated:before {
+	display: none;
+	-servicestudio-background: #fff1dc;
+	-servicestudio-background: #fef5e5;
+	-servicestudio-border-radius: variables.$token-border-radius-100;
+	-servicestudio-color: variables.$token-text-default;
+	-servicestudio-content: '⚠ DEPRECATED';
+	-servicestudio-font-weight: variables.$token-font-weight-semi-bold;
+	-servicestudio-display: block;
+	-servicestudio-font-size: 9px;
+	-servicestudio-line-height: 8px;
+	-servicestudio-margin-right: -83px;
+	-servicestudio-margin-bottom: -17px;
+	-servicestudio-padding: 4px 6px 4px 5px;
+	-servicestudio-position: relative;
+	-servicestudio-top: -9px;
+	-servicestudio-height: 9px;
+	-servicestudio-width: 72px;
+	-servicestudio-z-index: var(--layer-local-tier-3);
+}

@@ -1,0 +1,31 @@
+/* Patterns - Utilities - Align Center */
+////
+/// @group Patterns-Align_Center
+/// Patterns - Utilities - Align Center
+
+///
+.vertical-align {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+
+	// Fix width of input when is used inside the AlignCenter pattern
+	> span.input-text,
+	> label ~ span {
+		flex: 1;
+	}
+
+	span {
+		display: inherit;
+	}
+}
+
+///
+[style*='text-align: center'] .vertical-align {
+	justify-content: center;
+}
+
+///
+[style*='text-align: right'] .vertical-align {
+	justify-content: flex-end;
+}

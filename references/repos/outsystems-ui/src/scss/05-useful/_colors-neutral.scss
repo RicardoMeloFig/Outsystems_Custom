@@ -1,0 +1,49 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Usefull - Colors Neutral */
+////
+/// @group UsefullClasses-Colors_Neutral
+/// Usefull - Colors Neutral
+
+/*
+	Note:
+	- In order to improve the SASSDOC generated file, the loop was splited in 2!
+*/
+
+///
+.background {
+	@each $type, $value in $osui-colors-neutral {
+		&-neutral {
+			&-#{$type} {
+				// entity colour (Neutral0…10) → inherit the :root role
+				background-color: var(--color-neutral-#{$type});
+
+				&-lightest {
+					background-color: variables.$token-bg-surface-default;
+				}
+			}
+		}
+	}
+}
+
+///
+.text {
+	$i: 0;
+	@each $type, $value in $osui-colors-neutral {
+		&-neutral-#{$type} {
+			// entity colour (Neutral0…10) → inherit the :root role
+			color: var(--color-neutral-#{$type});
+
+			& {
+				@if ($i > 4) {
+					&-darker {
+						// dev emitted the base value here too — keep them identical
+						color: var(--color-neutral-#{$type});
+					}
+				}
+			}
+		}
+		$i: $i + 1;
+	}
+}

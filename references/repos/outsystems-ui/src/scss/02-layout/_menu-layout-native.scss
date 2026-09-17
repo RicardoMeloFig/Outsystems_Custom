@@ -1,0 +1,118 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Page Layout - Layout Native - Menu */
+////
+/// @group Layout-Native-Menu
+/// Page Layout - Layout Native - Menu
+
+///
+.layout-native {
+	&.menu-visible {
+		.app-menu-content {
+			&:after {
+				pointer-events: none;
+			}
+		}
+	}
+
+	.app-menu-content {
+		&:after {
+			background: transparent;
+			content: '';
+			height: 100%;
+			inset-inline-end: -24px;
+			position: absolute;
+			top: calc(var(--header-size) + var(--header-size-content));
+			width: variables.$token-scale-600;
+		}
+	}
+}
+
+// Responsice --------------------------------------------------------------------
+///
+.desktop {
+	.layout {
+		&.layout-native {
+			&.layout-side {
+				&.aside-expandable {
+					.app-menu-content {
+						padding-top: calc(var(--header-size) + var(--header-size-content) + var(--os-safe-area-top));
+					}
+
+					&.hide-header-on-scroll:not(.header-is--visible) {
+						.app-menu-content {
+							padding-block-start: var(--header-size-content);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.layout-native {
+		&.aside {
+			&-visible,
+			&-expandable {
+				.app-menu-content {
+					box-shadow: variables.$token-elevation-2;
+					z-index: var(--osui-menu-layer);
+				}
+			}
+		}
+	}
+}
+
+///
+.desktop,
+.tablet {
+	.layout-native {
+		.landscape {
+			&.android {
+				&.layout-side {
+					&.aside-expandable {
+						.app-menu-content {
+							padding-block-start: calc( var(--header-size) + var(--header-size-content) + #{android-safe-area-top()} );
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+///
+.tablet {
+	&.landscape {
+		.layout-native {
+			&.aside-expandable .app-menu-content {
+				display: none;
+			}
+
+			&.aside {
+				&-visible,
+				&-expandable {
+					.app-menu-content {
+						box-shadow: variables.$token-elevation-2;
+						inset-inline-start: 0;
+						z-index: var(--osui-menu-layer);
+					}
+				}
+			}
+
+			&.layout-side {
+				&.aside-expandable {
+					.app-menu-content {
+						padding-top: calc(var(--header-size) + var(--header-size-content) + var(--os-safe-area-top));
+					}
+				}
+			}
+		}
+
+		.layout-side.layout-native.aside-expandable.hide-header-on-scroll:not(.header-is--visible) {
+			.app-menu-content {
+				padding-block-start: var(--header-size-content);
+			}
+		}
+	}
+}

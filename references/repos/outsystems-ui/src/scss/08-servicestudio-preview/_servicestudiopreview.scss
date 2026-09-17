@@ -1,0 +1,213 @@
+@use '../tokens/variables';
+
+////
+/// @group ServiceStudio_Preview
+/* 
+	Notes:
+	- This section contains several styles that improve the service studio blocks preview
+	- Menu ServiceStudio Hybrid Preview
+
+	- This sections should not be visible at SASSDOCS.
+*/
+
+body > .app-menu-content {
+	-servicestudio-align-items: flex-start;
+	-servicestudio-height: 100% !important;
+	-servicestudio-left: 0 !important;
+	-servicestudio-position: relative !important;
+	-servicestudio-width: 100% !important;
+
+	& .app-menu-links {
+		-servicestudio-align-items: flex-start;
+		-servicestudio-padding: variables.$token-scale-0;
+		-servicestudio-width: 100% !important;
+	}
+}
+
+.tablet,
+.phone {
+	.app-menu-links {
+		a {
+			-servicestudio-margin-left: variables.$token-scale-0;
+			-servicestudio-padding: variables.$token-scale-200 variables.$token-scale-600;
+			-servicestudio-width: 100%;
+		}
+	}
+}
+
+// The application name comes from the platform's ApplicationTitle block. Only
+// layout-side has room for it in the header, so hide it at design time for every
+// other layout. Runtime counterpart: the .desktop rule in 02-layout/_header.scss.
+.layout:not(.layout-side) .header-content > [data-block*='ApplicationTitle'] .application-name {
+	-servicestudio-display: none !important;
+}
+
+// ServiceStudio Hybrid
+html[data-uieditorversion^='1'] {
+	body {
+		&:not(.phone):not(.tablet) .layout-side aside {
+			-servicestudio-background-color: variables.$token-bg-surface-default;
+			-servicestudio-bottom: 0;
+			-servicestudio-position: fixed;
+			-servicestudio-top: 0;
+			-servicestudio-width: var(--side-menu-size);
+			-servicestudio-z-index: var(--layer-global-navigation);
+		}
+
+		.app-menu {
+			&-content {
+				-servicestudio-align-items: flex-start;
+				-servicestudio-height: 100% !important;
+				-servicestudio-left: 0;
+				-servicestudio-position: relative;
+				-servicestudio-width: 100% !important;
+
+				& > * {
+					-servicestudio-align-items: flex-start;
+					-servicestudio-display: flex;
+				}
+
+				.app-login-info {
+					-servicestudio-display: flex;
+				}
+			}
+
+			&-links {
+				-servicestudio-height: auto;
+				-servicestudio-width: 100%;
+			}
+
+			&-overlay {
+				& {
+					pointer-events: none !important;
+				}
+			}
+		}
+	}
+
+	body.phone .layout .app-menu-content,
+	body.tablet .layout .app-menu-content,
+	body:not(.phone):not(.tablet) .layout-side .menu-icon {
+		-servicestudio-display: none;
+	}
+
+	.placeholder-empty:empty {
+		-servicestudio-display: block;
+	}
+
+	.table {
+		tr:empty {
+			-servicestudio-display: block !important;
+		}
+	}
+
+	.blank-slate {
+		> div {
+			-servicestudio-display: flex;
+			-servicestudio-flex-direction: column;
+			-servicestudio-justify-content: space-around;
+			-servicestudio-text-align: center;
+			-servicestudio-width: 100%;
+		}
+	}
+
+	.card-background-image {
+		.card {
+			& {
+				-servicestudio-display: flex;
+			}
+		}
+	}
+
+	.icon-states {
+		.uieditor-if-branch-widget {
+			-servicestudio-display: inline-flex;
+
+			&:empty {
+				-servicestudio-display: none;
+			}
+		}
+	}
+
+	.chat-message-status {
+		&:has(.uieditor-if-widget-container) {
+			-servicestudio-display: inline-flex;
+		}
+
+		.uieditor-if-branch-widget {
+			-servicestudio-display: inline-flex;
+			-servicestudio-align-items: center;
+
+			&:empty {
+				-servicestudio-display: none;
+			}
+		}
+	}
+
+	.phone {
+		.table:not(.table-responsive) {
+			display: block;
+		}
+
+		.layout:not(.layout-native) {
+			.table {
+				-servicestudio-display: block;
+
+				td {
+					-servicestudio-min-width: 10vw;
+				}
+
+				&:not(.table-no-responsive) {
+					th {
+						-servicestudio-display: none;
+					}
+				}
+			}
+
+			.table-no-responsive {
+				thead {
+					& > tr:not(:empty):before {
+						-servicestudio-display: none;
+					}
+				}
+			}
+		}
+	}
+
+	.phone,
+	.tablet {
+		.layout:not(.layout-native) {
+			thead {
+				display: initial;
+
+				& > tr {
+					-servicestudio-position: relative;
+				}
+			}
+
+			table.table > thead > tr {
+				display: none;
+
+				&:empty {
+					display: block;
+				}
+			}
+
+			.table-no-responsive {
+				thead {
+					-servicestudio-display: table-header-group !important;
+				}
+			}
+		}
+	}
+}
+
+html:not([data-uieditorversion^='1']) {
+	.phone td,
+	.tablet td {
+		-servicestudio-display: table-cell;
+	}
+	.table {
+		-servicestudio-white-space: unset;
+	}
+}

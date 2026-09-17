@@ -1,0 +1,63 @@
+{
+  "name": "outsystems-datagrid",
+  "version": "2.24.0",
+  "description": "OutSystems Data Grid for Reactive Web",
+  "author": "UI Components Team",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "gulp createProduction --target && npm run lintfix && npm run lint",
+    "dev": "gulp startDevelopment --target",
+    "docs": "npx typedoc",
+    "lint": "eslint . --ext .ts",
+    "lintfix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --config ./.prettierrc.json --write \"**/*.+(js|ts|css)\"",
+    "setup": "npm i && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update-version": "gulp updateVersion",
+    "gta-update-version": "gulp gtaSetVersion --newVersion"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OutSystems/outsystems-datagrid"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "keywords": [
+    "OutSystems",
+    "OutSystems Datagrid",
+    "Data Grid",
+    "UI Components"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "8.64.0",
+    "@typescript-eslint/parser": "8.64.0",
+    "browser-sync": "^3.0.4",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "gulp": "^5.0.0",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-remove-empty-lines": "^0.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "postcss": "^8.5.6",
+    "postcss-discard-comments": "^5.1.2",
+    "postcss-discard-duplicates": "^5.1.0",
+    "prettier-eslint": "^12.0.0",
+    "prompts": "^2.4.2",
+    "sass": "^1.77.6",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-order": "^6.0.4",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-merge-modules": "^7.0.0",
+    "typedoc-umlclass": "^0.10.2",
+    "typescript": "~5.9.3",
+    "wijmo": "5.20261.52"
+  },
+  "volta": {
+    "node": "24.13.1",
+    "npm": "11.18.0"
+  }
+}

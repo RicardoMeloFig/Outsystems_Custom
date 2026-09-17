@@ -1,0 +1,9 @@
+language: android
+jdk:
+    - oraclejdk8
+before_install:
+    - export TERM=dumb # to get clean gradle output
+    - yes | sdkmanager "platforms;android-28"
+    - ./gradlew androidDependencies
+script:
+    - ./gradlew check

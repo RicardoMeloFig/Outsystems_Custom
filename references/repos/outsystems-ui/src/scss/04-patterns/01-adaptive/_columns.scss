@@ -1,0 +1,126 @@
+@use "sass:map";
+@use '../../00-abstract/index' as *;
+@use "../../tokens/variables";
+
+/* Patterns - Adaptive - Columns */
+////
+/// @group Patterns-Columns
+/// Patterns - Adaptive - Columns
+
+///
+.columns {
+	display: flex;
+	flex-wrap: wrap;
+
+	& > .columns-item {
+		flex: 1;
+		word-break: break-word;
+
+		& > .card {
+			height: 100%;
+		}
+	}
+
+	&:not(.gutter-none) > .columns-item {
+		min-width: 0;
+	}
+
+	&.columns {
+		&-small {
+			&-left > .columns-item:last-child,
+			&-right > .columns-item:first-child {
+				flex: 3;
+			}
+		}
+
+		&-medium {
+			&-left > .columns-item:last-child,
+			&-right > .columns-item:first-child {
+				flex: 2;
+			}
+		}
+	}
+
+	// Gutters -------------------------------------------------------------------
+	& {
+		@each $type, $value in $osui-sizes {
+			&.gutter {
+				&-#{$type} {
+					margin-inline-start: calc(-1 * #{map.get($osui-space-token-vars, $type)} / 2);
+					margin-inline-end: calc(-1 * #{map.get($osui-space-token-vars, $type)} / 2);
+
+					& > .columns-item {
+						margin-block-end: #{map.get($osui-space-token-vars, $type)};
+						padding-block: variables.$token-scale-0;
+						padding-inline: calc(#{map.get($osui-space-token-vars, $type)} / 2);
+					}
+
+					.tablet &.tablet-break {
+						&-first,
+						&-last,
+						&-middle,
+						&-all {
+							&:only-child > .columns-item:not(:last-child) {
+								margin-block-end: #{map.get($osui-space-token-vars, $type)};
+							}
+						}
+					}
+
+					.phone &.phone-break {
+						&-first,
+						&-last,
+						&-middle,
+						&-all {
+							&:only-child > .columns-item:not(:last-child) {
+								margin-block-end: #{map.get($osui-space-token-vars, $type)};
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Override gutters rule
+.columns:only-child > .columns-item {
+	margin-block-end: variables.$token-scale-0;
+}
+
+// Responsive --------------------------------------------------------------------
+///
+@each $osui-device in $osui-devices {
+	@if ($osui-device != 'desktop') {
+		.#{$osui-device} {
+			.columns {
+				&.#{$osui-device}-break-first > .columns-item:first-child,
+				&.#{$osui-device}-break-last > .columns-item:last-child,
+				&.#{$osui-device}-break-all > .columns-item,
+				&.columns2.#{$osui-device}-break-middle > .columns-item,
+				&.columns3.#{$osui-device}-break-middle > .columns-item:last-child,
+				&.columns-small-left.#{$osui-device}-break-middle > .columns-item,
+				&.columns-medium-left.#{$osui-device}-break-middle > .columns-item,
+				&.columns-small-right.#{$osui-device}-break-middle > .columns-item,
+				&.columns-medium-right.#{$osui-device}-break-middle > .columns-item {
+					flex: none;
+					width: 100%;
+				}
+
+				&.columns4.#{$osui-device}-break-middle > .columns-item {
+					flex: none;
+					width: 50%;
+				}
+
+				&.columns5.#{$osui-device}-break-middle > .columns-item:nth-child(1),
+				&.columns5.#{$osui-device}-break-middle > .columns-item:nth-child(2),
+				&.columns5.#{$osui-device}-break-middle > .columns-item:nth-child(3),
+				&.columns6.#{$osui-device}-break-middle > .columns-item:nth-child(1),
+				&.columns6.#{$osui-device}-break-middle > .columns-item:nth-child(2),
+				&.columns6.#{$osui-device}-break-middle > .columns-item:nth-child(3) {
+					flex: none;
+					width: 33.333%;
+				}
+			}
+		}
+	}
+}

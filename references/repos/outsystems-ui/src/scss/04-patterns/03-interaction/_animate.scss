@@ -1,0 +1,91 @@
+/* Patterns - Interaction - Animate */
+////
+/// @group Patterns-Animate
+/// Patterns - Interaction - Animate
+
+/// This selector has been added a not(.flatpickr-calendar) to avoid conflicts with the flatpickr calendar.
+.animate:not(.flatpickr-calendar) {
+	animation-duration: 1000ms;
+	animation-fill-mode: both;
+	display: inline-block;
+	transition-timing-function: ease-out;
+	visibility: hidden;
+	width: 100%;
+	will-change: transform;
+
+	&.slow {
+		animation-duration: 1500ms;
+	}
+
+	&.fast {
+		animation-duration: 500ms;
+	}
+}
+
+///
+.bottom-to-top {
+	animation-name: bottomtotop;
+	visibility: visible !important;
+}
+
+///
+.bounce {
+	animation-name: bounce;
+	visibility: visible !important;
+}
+
+///
+.fade-in {
+	animation-name: fadein;
+	visibility: visible !important;
+}
+
+///
+.left-to-right {
+	animation-name: lefttoright;
+	visibility: visible !important;
+}
+
+///
+.right-to-left {
+	animation-name: righttoleft;
+	visibility: visible !important;
+}
+
+///
+.top-to-bottom {
+	animation-name: toptobottom;
+	visibility: visible !important;
+}
+
+///
+.scale {
+	animation-name: scale;
+	visibility: visible !important;
+}
+
+///
+.scale-down {
+	animation-name: scaledown;
+	visibility: visible !important;
+}
+
+///
+.scale-up {
+	animation-name: scaleup;
+	visibility: visible !important;
+}
+
+///
+.spinner {
+	animation: spinner 1000ms infinite linear;
+	visibility: visible !important;
+
+	&.slow {
+		animation: spinner 1500ms infinite linear;
+	}
+
+	&.fast {
+		animation: spinner 500ms infinite linear;
+	}
+}

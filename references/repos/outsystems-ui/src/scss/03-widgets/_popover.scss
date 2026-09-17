@@ -1,0 +1,51 @@
+@use "../tokens/variables";
+
+/* Widgets - Popover */
+////
+/// @group Widgets-Popover
+/// Widgets - Popover
+
+///
+[data-popover] {
+	[data-icon] {
+		vertical-align: initial;
+	}
+
+	& > .popover {
+		&-top {
+			border: variables.$token-border-size-0;
+			padding: variables.$token-scale-0;
+		}
+
+		&-bottom {
+			// ─── Component CSS API ─────────────────────────────────────────────
+			--osui-popover-background:     var(--color-background-surface);
+			--osui-popover-color:          var(--color-text);
+			--osui-popover-border-radius:  var(--border-radius-xl, #{variables.$token-shape-soft-xl});
+			--osui-popover-shadow:         #{variables.$token-elevation-2};
+			--osui-popover-max-width:      350px;
+			// ───────────────────────────────────────────────────────────────────
+
+			background-color: var(--osui-popover-background);
+			border-radius: var(--osui-popover-border-radius);
+			box-shadow: var(--osui-popover-shadow);
+			color: var(--osui-popover-color);
+			max-width: var(--osui-popover-max-width);
+			min-width: auto;
+			padding: variables.$token-scale-600;
+			z-index: var(--layer-global-elevated);
+		}
+	}
+}
+
+// IsRTL -------------------------------------------------------------------------
+///
+.is-rtl {
+	[data-popover] {
+		& > .popover {
+			&-top {
+				display: inline;
+			}
+		}
+	}
+}

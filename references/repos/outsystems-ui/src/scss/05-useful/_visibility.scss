@@ -1,0 +1,30 @@
+/* Usefull - Visibility */
+////
+/// @group UsefullClasses-Visibility
+/// Usefull - Visibility
+
+///
+.hidden {
+	display: none;
+}
+
+///
+.hide {
+	&-scrollbar {
+		-ms-overflow-style: none; // IE and Edge
+		scrollbar-width: none; // Firefox
+
+		&:hover {
+			cursor: all-scroll;
+		}
+
+		&::-webkit-scrollbar {
+			display: none; // Chrome
+		}
+	}
+}
+
+///
+.hide-on-service-studio {
+	-servicestudio-display: none;
+}

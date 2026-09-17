@@ -1,0 +1,76 @@
+function Test-OSServerHardwareReqs
+{
+    <#
+    .SYNOPSIS
+    Checks if the server has the necessary hardware requirements for the OutSystems platform server.
+
+    .DESCRIPTION
+    This will check if the server has the necessary hardware requirements to run the Outsystems platform. Checks available RAM and the number of available CPUs.
+
+    .PARAMETER MajorVersion
+    Specifies the platform major version.
+    Accepted values: 11
+
+    .EXAMPLE
+    Test-OSServerSoftwareReqs -MajorVersion "11.0"
+
+    #>
+
+    [CmdletBinding()]
+    [OutputType('Outsystems.SetupTools.TestResult')]
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern('11(\.0)?$')]
+        [string]$MajorVersion
+    )
+
+    begin
+    {
+        LogMessage -Function $($MyInvocation.Mycommand) -Phase 0 -Stream 0 -Message "Starting"
+        SendFunctionStartEvent -InvocationInfo $MyInvocation
+
+        # Fix to support the old versioning
+        $MajorVersion = $MajorVersion.Split('.')[0]
+
+        # Initialize the results object
+        $testResult = [pscustomobject]@{
+            PSTypeName = 'Outsystems.SetupTools.TestResult'
+            Result     = $true
+            Message    = "Hardware was validated for Outsystems $MajorVersion"
+        }
+    }
+
+    process
+    {
+        if ($(GetNumberOfCores) -lt $OS11ReqsMinCores)
+        {
+            LogMessage -Function $($MyInvocation.Mycommand) -Phase 1 -Stream 3 -Message "Hardware not supported for Outsystems $MajorVersion. Number of CPU cores is less than $OS11ReqsMinCores"
+            WriteNonTerminalError -Message "Hardware not supported for Outsystems $MajorVersion. Number of CPU cores is less than $OS11ReqsMinCores"
+
+            $testResult.Result = $false
+            $testResult.Message = "Hardware not supported for Outsystems $MajorVersion. Number of CPU cores is less than $OS11ReqsMinCores"
+
+            return $testResult
+        }
+
+        if ([int][Math]::Ceiling($(GetInstalledRAM)) -lt $OS11ReqsMinRAMGB)
+        {
+            LogMessage -Function $($MyInvocation.Mycommand) -Phase 1 -Stream 3 -Message "Hardware not supported. Server has less than $OS11ReqsMinRAMGB GB"
+            WriteNonTerminalError -Message "Hardware not supported for Outsystems $MajorVersion. Server has less than $OS11ReqsMinRAMGB GB"
+
+            $testResult.Result = $false
+            $testResult.Message = "Hardware not supported for Outsystems $MajorVersion. Server has less than $OS11ReqsMinRAMGB GB"
+
+            return $testResult
+        }
+
+        LogMessage -Function $($MyInvocation.Mycommand) -Phase 1 -Stream 0 -Message "Hardware validated for Outsystems $MajorVersion"
+        $testResult
+    }
+
+    end
+    {
+        SendFunctionEndEvent -InvocationInfo $MyInvocation
+        LogMessage -Function $($MyInvocation.Mycommand) -Phase 2 -Stream 0 -Message "Ending"
+    }
+}

@@ -1,0 +1,690 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1BB4F8BC2C36F54800F50A33 /* OSIABErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB4F8BB2C36F54800F50A33 /* OSIABErrorView.swift */; };
+		7506BDD22C622B8D00409255 /* OSIABWebView13WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7506BDD12C622B8D00409255 /* OSIABWebView13WrapperView.swift */; };
+		750949C02C11D992006843E1 /* OSIABToolbarPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949BE2C11D992006843E1 /* OSIABToolbarPosition.swift */; };
+		750949C12C11D992006843E1 /* OSIABWebViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949BF2C11D992006843E1 /* OSIABWebViewOptions.swift */; };
+		750949C32C11D9D0006843E1 /* OSIABWebViewRouterAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C22C11D9D0006843E1 /* OSIABWebViewRouterAdapter.swift */; };
+		750949CA2C11D9E2006843E1 /* OSIABCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C42C11D9E2006843E1 /* OSIABCacheManager.swift */; };
+		750949CB2C11D9E2006843E1 /* OSIABWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C52C11D9E2006843E1 /* OSIABWebView.swift */; };
+		750949CD2C11D9E2006843E1 /* OSIABWebViewWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C72C11D9E2006843E1 /* OSIABWebViewWrapperView.swift */; };
+		750949CE2C11D9E2006843E1 /* OSIABWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C82C11D9E2006843E1 /* OSIABWebViewModel.swift */; };
+		750949CF2C11D9E2006843E1 /* OSIABWebViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949C92C11D9E2006843E1 /* OSIABWebViewRepresentable.swift */; };
+		750949D32C11DD8F006843E1 /* OSIABOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949D22C11DD8F006843E1 /* OSIABOptions.swift */; };
+		750949D82C11F7D1006843E1 /* OSIABWebViewCallbackHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750949D72C11F7D1006843E1 /* OSIABWebViewCallbackHandler.swift */; };
+		75094A052C1213A3006843E1 /* OSIABWebViewRouterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75094A042C1213A3006843E1 /* OSIABWebViewRouterAdapterTests.swift */; };
+		75094A072C121BD9006843E1 /* OSIABCacheManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75094A062C121BD9006843E1 /* OSIABCacheManagerStub.swift */; };
+		750E23BD2C41686300395353 /* OSIABViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E23BC2C41686300395353 /* OSIABViewModifiers.swift */; };
+		754451F02C049AA4003D7361 /* OSIABDismissStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754451EF2C049AA4003D7361 /* OSIABDismissStyle.swift */; };
+		754451F62C04AB69003D7361 /* OSIABViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754451F52C04AB69003D7361 /* OSIABViewStyle.swift */; };
+		754451FB2C04C76C003D7361 /* OSIABAnimationEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754451FA2C04C76C003D7361 /* OSIABAnimationEffect.swift */; };
+		754451FD2C04D38D003D7361 /* OSIABSystemBrowserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754451FC2C04D38D003D7361 /* OSIABSystemBrowserOptions.swift */; };
+		756346482C00DD4700685AA3 /* OSIABSafariViewControllerRouterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756346472C00DD4600685AA3 /* OSIABSafariViewControllerRouterAdapterTests.swift */; };
+		756346622C00F21000685AA3 /* OSIABRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563465D2C00F21000685AA3 /* OSIABRouter.swift */; };
+		756346632C00F21000685AA3 /* OSIABSafariViewControllerRouterAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7563465F2C00F21000685AA3 /* OSIABSafariViewControllerRouterAdapter.swift */; };
+		756346642C00F21000685AA3 /* OSIABApplicationRouterAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756346602C00F21000685AA3 /* OSIABApplicationRouterAdapter.swift */; };
+		756346652C00F21000685AA3 /* OSIABEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756346612C00F21000685AA3 /* OSIABEngine.swift */; };
+		7575CF6A2BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7575CF612BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework */; };
+		7575CF802BFCEEEA008F3FD0 /* OSIABEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7575CF7D2BFCEEEA008F3FD0 /* OSIABEngineTests.swift */; };
+		7575CF812BFCEEEA008F3FD0 /* OSIABRouterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7575CF7F2BFCEEEA008F3FD0 /* OSIABRouterSpy.swift */; };
+		759027B32C1AFBCB00E02498 /* OSIABNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759027B22C1AFBCB00E02498 /* OSIABNavigationView.swift */; };
+		759027B52C1B13B500E02498 /* OSIABWebViewConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759027B42C1B13B500E02498 /* OSIABWebViewConfigurationModel.swift */; };
+		759027B72C1B13CA00E02498 /* OSIABWebViewUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759027B62C1B13CA00E02498 /* OSIABWebViewUIModel.swift */; };
+		75EF1AFB2C13069E005D7164 /* OSIABViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EF1AFA2C13069E005D7164 /* OSIABViewModelTests.swift */; };
+		75EF1AFD2C1306B1005D7164 /* OSIABCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EF1AFC2C1306B1005D7164 /* OSIABCacheManagerTests.swift */; };
+		75EF1B012C134878005D7164 /* OSIABWebViewStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EF1B002C134878005D7164 /* OSIABWebViewStub.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7575CF6B2BFCEE6F008F3FD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7575CF582BFCEE6F008F3FD0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7575CF602BFCEE6F008F3FD0;
+			remoteInfo = OSInAppBrowserLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1BB4F8BB2C36F54800F50A33 /* OSIABErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABErrorView.swift; sourceTree = "<group>"; };
+		7506BDD12C622B8D00409255 /* OSIABWebView13WrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebView13WrapperView.swift; sourceTree = "<group>"; };
+		750949BE2C11D992006843E1 /* OSIABToolbarPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABToolbarPosition.swift; sourceTree = "<group>"; };
+		750949BF2C11D992006843E1 /* OSIABWebViewOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebViewOptions.swift; sourceTree = "<group>"; };
+		750949C22C11D9D0006843E1 /* OSIABWebViewRouterAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebViewRouterAdapter.swift; sourceTree = "<group>"; };
+		750949C42C11D9E2006843E1 /* OSIABCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABCacheManager.swift; sourceTree = "<group>"; };
+		750949C52C11D9E2006843E1 /* OSIABWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebView.swift; sourceTree = "<group>"; };
+		750949C72C11D9E2006843E1 /* OSIABWebViewWrapperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebViewWrapperView.swift; sourceTree = "<group>"; };
+		750949C82C11D9E2006843E1 /* OSIABWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebViewModel.swift; sourceTree = "<group>"; };
+		750949C92C11D9E2006843E1 /* OSIABWebViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABWebViewRepresentable.swift; sourceTree = "<group>"; };
+		750949D22C11DD8F006843E1 /* OSIABOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABOptions.swift; sourceTree = "<group>"; };
+		750949D72C11F7D1006843E1 /* OSIABWebViewCallbackHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebViewCallbackHandler.swift; sourceTree = "<group>"; };
+		75094A042C1213A3006843E1 /* OSIABWebViewRouterAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebViewRouterAdapterTests.swift; sourceTree = "<group>"; };
+		75094A062C121BD9006843E1 /* OSIABCacheManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABCacheManagerStub.swift; sourceTree = "<group>"; };
+		750E23BC2C41686300395353 /* OSIABViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABViewModifiers.swift; sourceTree = "<group>"; };
+		754451EF2C049AA4003D7361 /* OSIABDismissStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABDismissStyle.swift; sourceTree = "<group>"; };
+		754451F52C04AB69003D7361 /* OSIABViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABViewStyle.swift; sourceTree = "<group>"; };
+		754451FA2C04C76C003D7361 /* OSIABAnimationEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABAnimationEffect.swift; sourceTree = "<group>"; };
+		754451FC2C04D38D003D7361 /* OSIABSystemBrowserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABSystemBrowserOptions.swift; sourceTree = "<group>"; };
+		756346472C00DD4600685AA3 /* OSIABSafariViewControllerRouterAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABSafariViewControllerRouterAdapterTests.swift; sourceTree = "<group>"; };
+		7563465D2C00F21000685AA3 /* OSIABRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABRouter.swift; sourceTree = "<group>"; };
+		7563465F2C00F21000685AA3 /* OSIABSafariViewControllerRouterAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABSafariViewControllerRouterAdapter.swift; sourceTree = "<group>"; };
+		756346602C00F21000685AA3 /* OSIABApplicationRouterAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABApplicationRouterAdapter.swift; sourceTree = "<group>"; };
+		756346612C00F21000685AA3 /* OSIABEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABEngine.swift; sourceTree = "<group>"; };
+		7575CF612BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OSInAppBrowserLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7575CF692BFCEE6F008F3FD0 /* OSInAppBrowserLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OSInAppBrowserLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7575CF7D2BFCEEEA008F3FD0 /* OSIABEngineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABEngineTests.swift; sourceTree = "<group>"; };
+		7575CF7F2BFCEEEA008F3FD0 /* OSIABRouterSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABRouterSpy.swift; sourceTree = "<group>"; };
+		759027B22C1AFBCB00E02498 /* OSIABNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSIABNavigationView.swift; sourceTree = "<group>"; };
+		759027B42C1B13B500E02498 /* OSIABWebViewConfigurationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebViewConfigurationModel.swift; sourceTree = "<group>"; };
+		759027B62C1B13CA00E02498 /* OSIABWebViewUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebViewUIModel.swift; sourceTree = "<group>"; };
+		75EF1AFA2C13069E005D7164 /* OSIABViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABViewModelTests.swift; sourceTree = "<group>"; };
+		75EF1AFC2C1306B1005D7164 /* OSIABCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABCacheManagerTests.swift; sourceTree = "<group>"; };
+		75EF1B002C134878005D7164 /* OSIABWebViewStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSIABWebViewStub.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7575CF5E2BFCEE6F008F3FD0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7575CF662BFCEE6F008F3FD0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7575CF6A2BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		750949D02C11DA05006843E1 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				750949D12C11DA23006843E1 /* Views */,
+				750949C82C11D9E2006843E1 /* OSIABWebViewModel.swift */,
+				750949D72C11F7D1006843E1 /* OSIABWebViewCallbackHandler.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		750949D12C11DA23006843E1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				750E23BB2C41686300395353 /* Modifiers */,
+				1BB4F8BB2C36F54800F50A33 /* OSIABErrorView.swift */,
+				759027B22C1AFBCB00E02498 /* OSIABNavigationView.swift */,
+				750949C52C11D9E2006843E1 /* OSIABWebView.swift */,
+				750949C92C11D9E2006843E1 /* OSIABWebViewRepresentable.swift */,
+				7506BDD12C622B8D00409255 /* OSIABWebView13WrapperView.swift */,
+				750949C72C11D9E2006843E1 /* OSIABWebViewWrapperView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		750949D42C11DD91006843E1 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				750949D22C11DD8F006843E1 /* OSIABOptions.swift */,
+				754451FC2C04D38D003D7361 /* OSIABSystemBrowserOptions.swift */,
+				750949BF2C11D992006843E1 /* OSIABWebViewOptions.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		750E23BB2C41686300395353 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				750E23BC2C41686300395353 /* OSIABViewModifiers.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		754451F72C04AB78003D7361 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				750949D42C11DD91006843E1 /* Options */,
+				754451FA2C04C76C003D7361 /* OSIABAnimationEffect.swift */,
+				754451EF2C049AA4003D7361 /* OSIABDismissStyle.swift */,
+				750949BE2C11D992006843E1 /* OSIABToolbarPosition.swift */,
+				754451F52C04AB69003D7361 /* OSIABViewStyle.swift */,
+				759027B42C1B13B500E02498 /* OSIABWebViewConfigurationModel.swift */,
+				759027B62C1B13CA00E02498 /* OSIABWebViewUIModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7563465E2C00F21000685AA3 /* RouterAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				756346602C00F21000685AA3 /* OSIABApplicationRouterAdapter.swift */,
+				7563465F2C00F21000685AA3 /* OSIABSafariViewControllerRouterAdapter.swift */,
+				750949C22C11D9D0006843E1 /* OSIABWebViewRouterAdapter.swift */,
+			);
+			path = RouterAdapters;
+			sourceTree = "<group>";
+		};
+		7575CF572BFCEE6F008F3FD0 = {
+			isa = PBXGroup;
+			children = (
+				7575CF632BFCEE6F008F3FD0 /* OSInAppBrowserLib */,
+				7575CF6D2BFCEE6F008F3FD0 /* OSInAppBrowserLibTests */,
+				7575CF622BFCEE6F008F3FD0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7575CF622BFCEE6F008F3FD0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7575CF612BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework */,
+				7575CF692BFCEE6F008F3FD0 /* OSInAppBrowserLibTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7575CF632BFCEE6F008F3FD0 /* OSInAppBrowserLib */ = {
+			isa = PBXGroup;
+			children = (
+				754451F72C04AB78003D7361 /* Models */,
+				7563465E2C00F21000685AA3 /* RouterAdapters */,
+				750949D02C11DA05006843E1 /* WebView */,
+				750949C42C11D9E2006843E1 /* OSIABCacheManager.swift */,
+				756346612C00F21000685AA3 /* OSIABEngine.swift */,
+				7563465D2C00F21000685AA3 /* OSIABRouter.swift */,
+			);
+			name = OSInAppBrowserLib;
+			path = Sources/OSInAppBrowserLib;
+			sourceTree = "<group>";
+		};
+		7575CF6D2BFCEE6F008F3FD0 /* OSInAppBrowserLibTests */ = {
+			isa = PBXGroup;
+			children = (
+				7575CF7E2BFCEEEA008F3FD0 /* Helper Files */,
+				75EF1AFC2C1306B1005D7164 /* OSIABCacheManagerTests.swift */,
+				7575CF7D2BFCEEEA008F3FD0 /* OSIABEngineTests.swift */,
+				756346472C00DD4600685AA3 /* OSIABSafariViewControllerRouterAdapterTests.swift */,
+				75094A042C1213A3006843E1 /* OSIABWebViewRouterAdapterTests.swift */,
+				75EF1AFA2C13069E005D7164 /* OSIABViewModelTests.swift */,
+			);
+			name = OSInAppBrowserLibTests;
+			path = Tests/OSInAppBrowserLibTests;
+			sourceTree = "<group>";
+		};
+		7575CF7E2BFCEEEA008F3FD0 /* Helper Files */ = {
+			isa = PBXGroup;
+			children = (
+				7575CF7F2BFCEEEA008F3FD0 /* OSIABRouterSpy.swift */,
+				75094A062C121BD9006843E1 /* OSIABCacheManagerStub.swift */,
+				75EF1B002C134878005D7164 /* OSIABWebViewStub.swift */,
+			);
+			path = "Helper Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7575CF5C2BFCEE6F008F3FD0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7575CF602BFCEE6F008F3FD0 /* OSInAppBrowserLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7575CF732BFCEE6F008F3FD0 /* Build configuration list for PBXNativeTarget "OSInAppBrowserLib" */;
+			buildPhases = (
+				7575CF5C2BFCEE6F008F3FD0 /* Headers */,
+				7575CF5D2BFCEE6F008F3FD0 /* Sources */,
+				7575CF5E2BFCEE6F008F3FD0 /* Frameworks */,
+				7575CF5F2BFCEE6F008F3FD0 /* Resources */,
+				7575CF822BFCEEF2008F3FD0 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OSInAppBrowserLib;
+			productName = OSInAppBrowserLib;
+			productReference = 7575CF612BFCEE6F008F3FD0 /* OSInAppBrowserLib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7575CF682BFCEE6F008F3FD0 /* OSInAppBrowserLibTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7575CF762BFCEE6F008F3FD0 /* Build configuration list for PBXNativeTarget "OSInAppBrowserLibTests" */;
+			buildPhases = (
+				7575CF652BFCEE6F008F3FD0 /* Sources */,
+				7575CF662BFCEE6F008F3FD0 /* Frameworks */,
+				7575CF672BFCEE6F008F3FD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7575CF6C2BFCEE6F008F3FD0 /* PBXTargetDependency */,
+			);
+			name = OSInAppBrowserLibTests;
+			productName = OSInAppBrowserLibTests;
+			productReference = 7575CF692BFCEE6F008F3FD0 /* OSInAppBrowserLibTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7575CF582BFCEE6F008F3FD0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					7575CF602BFCEE6F008F3FD0 = {
+						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
+					};
+					7575CF682BFCEE6F008F3FD0 = {
+						CreatedOnToolsVersion = 15.1;
+						LastSwiftMigration = 1510;
+					};
+				};
+			};
+			buildConfigurationList = 7575CF5B2BFCEE6F008F3FD0 /* Build configuration list for PBXProject "OSInAppBrowserLib" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7575CF572BFCEE6F008F3FD0;
+			productRefGroup = 7575CF622BFCEE6F008F3FD0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7575CF602BFCEE6F008F3FD0 /* OSInAppBrowserLib */,
+				7575CF682BFCEE6F008F3FD0 /* OSInAppBrowserLibTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7575CF5F2BFCEE6F008F3FD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7575CF672BFCEE6F008F3FD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7575CF822BFCEEF2008F3FD0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: Swiftlint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7575CF5D2BFCEE6F008F3FD0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				756346652C00F21000685AA3 /* OSIABEngine.swift in Sources */,
+				750949C12C11D992006843E1 /* OSIABWebViewOptions.swift in Sources */,
+				750949CB2C11D9E2006843E1 /* OSIABWebView.swift in Sources */,
+				750949D32C11DD8F006843E1 /* OSIABOptions.swift in Sources */,
+				750E23BD2C41686300395353 /* OSIABViewModifiers.swift in Sources */,
+				759027B32C1AFBCB00E02498 /* OSIABNavigationView.swift in Sources */,
+				750949C02C11D992006843E1 /* OSIABToolbarPosition.swift in Sources */,
+				750949CA2C11D9E2006843E1 /* OSIABCacheManager.swift in Sources */,
+				759027B72C1B13CA00E02498 /* OSIABWebViewUIModel.swift in Sources */,
+				7506BDD22C622B8D00409255 /* OSIABWebView13WrapperView.swift in Sources */,
+				754451F62C04AB69003D7361 /* OSIABViewStyle.swift in Sources */,
+				756346642C00F21000685AA3 /* OSIABApplicationRouterAdapter.swift in Sources */,
+				750949CF2C11D9E2006843E1 /* OSIABWebViewRepresentable.swift in Sources */,
+				754451F02C049AA4003D7361 /* OSIABDismissStyle.swift in Sources */,
+				759027B52C1B13B500E02498 /* OSIABWebViewConfigurationModel.swift in Sources */,
+				754451FB2C04C76C003D7361 /* OSIABAnimationEffect.swift in Sources */,
+				750949CE2C11D9E2006843E1 /* OSIABWebViewModel.swift in Sources */,
+				750949D82C11F7D1006843E1 /* OSIABWebViewCallbackHandler.swift in Sources */,
+				1BB4F8BC2C36F54800F50A33 /* OSIABErrorView.swift in Sources */,
+				750949CD2C11D9E2006843E1 /* OSIABWebViewWrapperView.swift in Sources */,
+				750949C32C11D9D0006843E1 /* OSIABWebViewRouterAdapter.swift in Sources */,
+				754451FD2C04D38D003D7361 /* OSIABSystemBrowserOptions.swift in Sources */,
+				756346632C00F21000685AA3 /* OSIABSafariViewControllerRouterAdapter.swift in Sources */,
+				756346622C00F21000685AA3 /* OSIABRouter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7575CF652BFCEE6F008F3FD0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				756346482C00DD4700685AA3 /* OSIABSafariViewControllerRouterAdapterTests.swift in Sources */,
+				75EF1AFB2C13069E005D7164 /* OSIABViewModelTests.swift in Sources */,
+				7575CF812BFCEEEA008F3FD0 /* OSIABRouterSpy.swift in Sources */,
+				75094A072C121BD9006843E1 /* OSIABCacheManagerStub.swift in Sources */,
+				75EF1AFD2C1306B1005D7164 /* OSIABCacheManagerTests.swift in Sources */,
+				7575CF802BFCEEEA008F3FD0 /* OSIABEngineTests.swift in Sources */,
+				75EF1B012C134878005D7164 /* OSIABWebViewStub.swift in Sources */,
+				75094A052C1213A3006843E1 /* OSIABWebViewRouterAdapterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7575CF6C2BFCEE6F008F3FD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7575CF602BFCEE6F008F3FD0 /* OSInAppBrowserLib */;
+			targetProxy = 7575CF6B2BFCEE6F008F3FD0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7575CF712BFCEE6F008F3FD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 9;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 2.3.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7575CF722BFCEE6F008F3FD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 9;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 2.3.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7575CF742BFCEE6F008F3FD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.3.2;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.outsystems.rd.inappbrowser.OSInAppBrowserLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7575CF752BFCEE6F008F3FD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.3.2;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.outsystems.rd.inappbrowser.OSInAppBrowserLib;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7575CF772BFCEE6F008F3FD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.3.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.outsystems.rd.inappbrowser.OSInAppBrowserLibTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7575CF782BFCEE6F008F3FD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 2.3.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.outsystems.rd.inappbrowser.OSInAppBrowserLibTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7575CF5B2BFCEE6F008F3FD0 /* Build configuration list for PBXProject "OSInAppBrowserLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7575CF712BFCEE6F008F3FD0 /* Debug */,
+				7575CF722BFCEE6F008F3FD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7575CF732BFCEE6F008F3FD0 /* Build configuration list for PBXNativeTarget "OSInAppBrowserLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7575CF742BFCEE6F008F3FD0 /* Debug */,
+				7575CF752BFCEE6F008F3FD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7575CF762BFCEE6F008F3FD0 /* Build configuration list for PBXNativeTarget "OSInAppBrowserLibTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7575CF772BFCEE6F008F3FD0 /* Debug */,
+				7575CF782BFCEE6F008F3FD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7575CF582BFCEE6F008F3FD0 /* Project object */;
+}

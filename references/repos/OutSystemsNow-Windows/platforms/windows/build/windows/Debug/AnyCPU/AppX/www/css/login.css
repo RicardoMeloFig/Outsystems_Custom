@@ -1,0 +1,136 @@
+﻿.loginpage {
+    background: #CC2200;
+    display: -ms-grid;
+    width: 100%;
+    height: 100%;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 70px auto auto 1fr; 
+}
+
+
+
+.loginpage .headerholder{
+    display: -ms-grid;
+    -ms-grid-columns: 80px 1fr 80px;
+    -ms-grid-rows: 1fr;
+}
+
+.loginpage .headertitleholder {
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+    -ms-grid-column-align: center;
+    -ms-grid-row-align: center;
+    text-align: center;
+}
+
+.loginpage .backbutton {    
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+    -ms-grid-column-align: center;
+    -ms-grid-row-align: center;
+}
+
+.loginpage .backButtonPhone{
+    display:none;
+}
+
+.loginpage .backButtonTabletDesktop{
+    display:block;
+}
+
+.loginpage .firstcolumn {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    -ms-grid-column: 1;
+     -ms-grid-row: 1;
+    text-align: center;
+}
+
+.loginpage .loginSection {
+    -ms-grid-column: 1;
+    -ms-grid-row: 3;
+    -ms-grid-column-align: center;
+    -ms-grid-row-align: center;
+    width: 100%;
+    text-align: center;
+    display: -ms-grid;
+    -ms-grid-columns:1fr;
+}
+
+.loginpage .secondcolumn {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    -ms-grid-column: 1;
+    -ms-grid-row: 2;
+    font-family: "Open Sans Bold";
+    font-size: 32px;
+}
+.loginpage .mainform {
+    margin: 20px 20px;
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+    text-align: center;
+}
+
+.loginpage .errormessageholder {
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 15px;
+
+}
+
+.loginpage #loginProgressRing {
+    color: #FFFFFF;
+    width:30px; height:30px;
+    display:none;
+    margin: 15px auto;
+}
+
+.loginpage .loginform {
+    display: block;margin: 0 auto;width: 100%;
+}
+.loginpage .loginbutton {
+    width: 100%
+}
+
+.loginpage .loginform input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top:5px;
+}
+
+ 
+
+@media screen and (min-width: 800px) {
+
+     .loginpage .loginform > div {
+         margin: 10px 0;
+     }
+
+ .loginpage {
+ /*   -ms-grid-columns: 1fr 2fr 1fr; */
+}
+
+ .loginpage .loginSection {
+    -ms-grid-columns:1fr 2fr 1fr;
+}
+
+.loginpage .mainform {
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+}
+
+
+.loginpage  .firstcolumn {
+}
+
+.loginpage .secondcolumn {
+ 
+}
+
+
+}
+
+    

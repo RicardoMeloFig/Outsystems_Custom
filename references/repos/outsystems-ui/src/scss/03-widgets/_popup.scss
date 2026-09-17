@@ -1,0 +1,74 @@
+@use "../tokens/variables";
+
+/* Widgets - Popup */
+////
+/// @group Widgets-Popup
+/// Widgets - Popup
+
+///
+[data-popup] {
+	// Service Studio Preview
+	& {
+		-servicestudio-top: 0;
+	}
+}
+
+///
+[data-popup-backdrop] {
+	z-index: var(--osui-popup-layer);
+}
+
+///
+.popup {
+	&-backdrop {
+		background-color: variables.$token-backdrop;
+	}
+
+	&-dialog {
+		// ─── Component CSS API ─────────────────────────────────────────────
+		--osui-popup-background:    var(--color-background-surface);
+		--osui-popup-border-color:  transparent;
+		--osui-popup-border-width:  #{variables.$token-border-size-025};
+		--osui-popup-border-radius: var(--border-radius-xl, #{variables.$token-shape-soft-xl});
+		--osui-popup-shadow:        #{variables.$token-elevation-4};
+		--osui-popup-padding:       #{variables.$token-scale-600};
+		--osui-popup-max-width:     500px;
+		// ───────────────────────────────────────────────────────────────────
+
+		background-color: var(--osui-popup-background);
+		border: var(--osui-popup-border-width) solid var(--osui-popup-border-color);
+		border-radius: var(--osui-popup-border-radius);
+		box-shadow: var(--osui-popup-shadow);
+		margin: variables.$token-scale-600;
+		max-height: calc(100% - variables.$token-scale-1000);
+		max-width: var(--osui-popup-max-width);
+		overflow: visible;
+		padding: var(--osui-popup-padding);
+		width: 100%;
+
+		// Service Studio Preview
+		& {
+			-servicestudio-margin: auto;
+			-servicestudio-overflow: hidden;
+		}
+	}
+}
+
+///
+.layout-native {
+	.popup {
+		&-backdrop,
+		&-dialog {
+			padding: variables.$token-scale-400;
+		}
+	}
+}
+
+// OS HighContrast Enabled -------------------------------------------------------
+///
+.os-high-contrast {
+	.popup-dialog {
+		border: variables.$token-border-size-025 solid #{variables.$token-bg-surface-default};
+		border-radius: var(--osui-popup-border-radius, var(--border-radius-xl, #{variables.$token-shape-soft-xl}));
+	}
+}

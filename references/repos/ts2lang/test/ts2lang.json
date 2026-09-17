@@ -1,0 +1,12 @@
+{
+    "tasks": [
+        {
+            "input": "*.ts",
+            "output": "-",
+            "template": "../dist/template-runner.js",
+            "parameters": {
+                "extraInfo1": "extraValue1"
+            }
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "outsystems-phonegap-plugin-push",
+  "version": "2.2.0-os",
+  "description": "\n        This plugin allows your application to receive push notifications on Android and iOS.\n        Android uses Firebase Cloud Messaging.\n        iOS uses Apple APNS Notifications.\n    ",
+  "cordova": {
+    "id": "outsystems-phonegap-plugin-push",
+    "platforms": [
+      "android",
+      "browser",
+      "ios",
+      "windows"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OutSystemsExperts/outsystems-phonegap-plugin-push.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-browser",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=6.5.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=6.1.2"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=4.3.1"
+    }
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OutSystemsExperts/outsystems-phonegap-plugin-push/issues"
+  },
+  "homepage": "https://github.com/OutSystemsExperts/outsystems-phonegap-plugin-push#readme"
+}

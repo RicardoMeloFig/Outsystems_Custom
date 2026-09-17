@@ -1,0 +1,24 @@
+.vs
+.vscode
+.claude
+bin
+obj
+
+*.zip
+*.cache
+*.pdf
+*.dll
+*.br
+*.so
+*.pdb
+
+# E2ETests secrets (never commit real credentials)
+src/UltimatePDF_ExternalLogic.E2ETests/appsettings.json
+src/UltimatePDF_ExternalLogic.E2ETests/appsettings.Development.json
+src/UltimatePDF_ExternalLogic.E2ETests/appsettings.local.json
+
+# IDE launch profiles
+src/**/Properties/launchSettings.json
+
+# AI working folder
+specs/

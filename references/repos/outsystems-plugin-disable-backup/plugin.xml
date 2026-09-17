@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin 
+  xmlns="http://www.phonegap.com/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android" 
+  xmlns:amazon="http://schemas.android.com/apk/lib/com.amazon.device.ads" 
+  xmlns:rim="http://www.blackberry.com/ns/widgets" id="outsystems-plugin-disable-backup" version="1.0.2">
+  <name>outsystems-plugin-disable-backup</name>
+  <description>Changes AndroidManifest.xml to disable auto backup by setting android:allowBackup to false.</description>
+  <license>MIT</license>
+  <engines>
+    <engine name="cordova" version=">=6.4.0"/>
+    <engine name="cordova-android" version=">=6.0.0"/>
+  </engines>
+  <hook type="before_plugin_install" src="hooks/dependencyInstaller.js"/>
+  <platform name="android">
+    <!-- <hook type="after_plugin_install" src="hooks/disableAndroidBackup.js"/> -->
+    <!-- <hook type="after_prepare" src="hooks/disableAndroidBackup.js"/> -->
+    <hook type="before_compile" src="hooks/disableAndroidBackup.js"/>
+  </platform>
+</plugin>

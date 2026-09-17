@@ -1,0 +1,31 @@
+@use "../tokens/variables";
+
+/* Page Layout - Menu - App Login Info */
+////
+/// @group Layout-Header-App_Login_Info
+/// Page Layout - Menu - App Login Info
+
+///
+.layout-side {
+	.app-login-info {
+		padding-block: variables.$token-scale-400;
+		padding-inline: variables.$token-scale-600;
+	}
+
+	.user-info {
+		justify-content: space-between;
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+.tablet,
+.phone {
+	.app-login-info {
+		padding-block: variables.$token-scale-400;
+		padding-inline: variables.$token-scale-600;
+	}
+
+	.user-info {
+		justify-content: space-between;
+	}
+}

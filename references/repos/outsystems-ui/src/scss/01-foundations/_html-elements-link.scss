@@ -1,0 +1,69 @@
+@use "../tokens/variables";
+
+/* HTML Elements - Links */
+////
+/// @group HTML_Elements-Link
+/// HTML Elements - Links
+
+///
+a {
+	text-decoration: none;
+
+	-webkit-text-decoration-skip: objects;
+
+	&,
+	&:visited {
+		color: variables.$token-semantics-primary-base;
+		transition: all 180ms linear;
+	}
+
+	&:hover,
+	&:focus {
+		color: variables.$token-semantics-primary-900;
+		text-decoration: underline;
+	}
+
+	&[data-link] {
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+	}
+
+	&[disabled] {
+		color: var(--color-text-disabled);
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.phone,
+.tablet {
+	a {
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+	}
+}
+
+// Accessibility -----------------------------------------------------------------
+///
+.has-accessible-features {
+	a {
+		&:focus {
+			background-color: var(--color-focus-outer);
+			box-shadow: 0 2px var(--color-focus-inner);
+			color: var(--color-text);
+
+			&,
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		&[disabled] {
+			color: var(--color-text-disabled);
+		}
+	}
+}

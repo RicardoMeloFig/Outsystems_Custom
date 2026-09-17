@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navigation_button_dark_theme">#EAEAEA</color>
+    <color name="tool_bar_dark_theme">#292929</color>
+    <color name="tool_bar_light_theme">#FFFFFF</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textPrimaryDark">#FFFFFF</color>
+    <color name="urlPrimary">#3F3F3F</color>
+    <color name="urlPrimaryDark">#EAEAEA</color>
+    <color name="errorText">#626262</color>
+    <color name="errorTextDark">#E7E7E7</color>
+</resources>

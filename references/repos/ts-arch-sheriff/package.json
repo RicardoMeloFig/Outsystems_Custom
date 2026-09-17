@@ -1,0 +1,28 @@
+{
+  "name": "ts-arch-sheriff",
+  "version": "0.0.1",
+  "description": "Tool to verify that typescript module dependencies are according to set of rules.",
+  "main": "bin/arch-sheriff.js",
+  "bin": {
+    "ts-arch-sheriff": "bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OutSystems/ts-arch-sheriff.git"
+  },
+  "keywords": [
+    "typescript",
+    "lint",
+    "architecture",
+    "dependencies"
+  ],
+  "author": "João Neves",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OutSystems/ts-arch-sheriff/issues"
+  },
+  "homepage": "https://github.com/OutSystems/ts-arch-sheriff",
+  "dependencies": {
+    "typescript": "=1.8.10"
+  }
+}

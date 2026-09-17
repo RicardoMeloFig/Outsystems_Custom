@@ -1,0 +1,223 @@
+name: Create and Deploy NPM
+
+on:
+    workflow_dispatch:
+        inputs:
+            branch-name:
+                description: 'Branch to be used as base to create a new one and be published.'
+                type: string
+                required: true
+            delete-branch:
+                description: 'Delete deploy-npm branch at the end of process.'
+                type: boolean
+                default: true
+            run-lint:
+                description: 'Compile and perform lint tests to ensure there is no issues at given branch name.'
+                type: boolean
+                default: true
+    
+permissions:
+    contents: read
+
+jobs:
+    check-repo:
+        runs-on: ubuntu-latest
+
+        outputs:
+            is-real-osui-repo: ${{ steps.check-is-real-osui-repo.outputs.isIt }}
+
+        steps:
+            - name: 🔎 Check if it's outsystems-ui real repository
+              id: check-is-real-osui-repo
+              run: |
+                  echo "isIt=${{ github.event.repository.name == 'outsystems-ui' }}" >> "$GITHUB_OUTPUT"
+
+    run-lint:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        steps:
+            - name: 📥 Checkout into ${{ inputs.branch-name }}
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  ref: ${{ inputs.branch-name }}
+
+            - name: 🕸️ Install project dependencies
+              if: ${{ inputs.run-lint == true }}
+              run: |
+                  npm install
+
+            - name: 🏗️ Run build
+              if: ${{ inputs.run-lint == true }}
+              run: |
+                  npm run build
+
+    create-branch:
+        needs: run-lint
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: write
+
+        steps:
+            - name: 📥 Checkout repository
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+            - name: 🔐 Azure Login
+              uses: ./.github/actions/az-login
+              with:
+                client-id: ${{ secrets.OSUI_AZURE_CLIENT_ID }}
+                tenant-id: ${{ secrets.OSUI_AZURE_TENANT_ID }}
+                subscription-id: ${{ secrets.OSUI_AZURE_SUBSCRIPTION_ID }}
+
+            - name: 🔑 Get GitHub Token from Azure Key Vault
+              id: get-github-token
+              uses: ./.github/actions/az-keyvault-get
+              with:
+                  key-name: o11odc-github-gitpersonal-token-prd
+
+            - name: 📥 Checkout into ${{ inputs.branch-name }}
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  ref: ${{ inputs.branch-name }}
+                  token: ${{ steps.get-github-token.outputs.az-keyvault-value }}
+
+            - name: 📦 Create new deploy-npm branch based on ${{ inputs.branch-name }}
+              run: |
+                  git checkout -b deploy-npm
+                  git push -u origin deploy-npm
+
+    prepare-branch:
+        needs: create-branch
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: write
+
+        steps:
+            # Using remote azure/login action directly to avoid post-action failure
+            # when gulp prepareToDeploy removes the .github folder
+            - name: 🔐 Azure Login
+              uses: azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43 # v3.0.0 # v2.3.0
+              with:
+                client-id: ${{ secrets.OSUI_AZURE_CLIENT_ID }}
+                tenant-id: ${{ secrets.OSUI_AZURE_TENANT_ID }}
+                subscription-id: ${{ secrets.OSUI_AZURE_SUBSCRIPTION_ID }}
+
+            # Using remote azure/cli action directly to avoid post-action failure
+            # when gulp prepareToDeploy removes the .github folder
+            - name: 🔑 Get GitHub Token from Azure Key Vault
+              id: get-github-token
+              uses: azure/cli@9eb25b8360668fb0ecbafa808d40e2197b2f5f52 # v3.0.0
+              with:
+                  inlineScript: |
+                      secretValue=$(az keyvault secret show --name "o11odc-github-gitpersonal-token-prd" --vault-name "kv-ui-components" --query "value" --output tsv)
+                      echo "::add-mask::$secretValue"
+                      echo "az-keyvault-value=$secretValue" >> $GITHUB_OUTPUT
+
+            - name: 🔧 Configure Git with the UiComponentsBot Token
+              run: |
+                  git config --global user.email "sa_git_uicomponents@outsystems.com"
+                  git config --global user.name "UiComponentsBot"
+
+            - name: 📥 Checkout into deploy-npm
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  ref: deploy-npm
+                  token: ${{ steps.get-github-token.outputs.az-keyvault-value }}
+
+            - name: 🕸️ Install project dependencies
+              run: |
+                  npm install
+
+            - name: 🗑️ Remove dist folder from .gitignore
+              run: |
+                  gulp removeDistFromGitIgnore
+
+            - name: 🏗️ Compile into production mode
+              run: |
+                  npm run build
+
+            - name: 🧹 Clean files and folders
+              run: |
+                  gulp prepareToDeploy
+
+            - name: 📤 Commit, remove gitignore and commit again!
+              run: |
+                  git add .
+                  git commit -m 'OK to Deploy into NPM. [skip ci]'
+                  git push origin deploy-npm
+
+                  rm .gitignore
+
+                  git add .
+                  git commit -m 'OK to Deploy into NPM. [skip ci]'
+                  git push origin deploy-npm
+
+    publish-npm:
+        needs: [check-repo, prepare-branch]
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: write
+
+        steps:
+            # Using remote azure/login action directly to avoid post-action failure
+            # when gulp prepareToDeploy removes the .github folder
+            - name: 🔐 Azure Login
+              uses: azure/login@532459ea530d8321f2fb9bb10d1e0bcf23869a43 # v3.0.0 # v2.3.0
+              with:
+                client-id: ${{ secrets.OSUI_AZURE_CLIENT_ID }}
+                tenant-id: ${{ secrets.OSUI_AZURE_TENANT_ID }}
+                subscription-id: ${{ secrets.OSUI_AZURE_SUBSCRIPTION_ID }}
+
+            # Using remote azure/cli action directly to avoid post-action failure
+            # when gulp prepareToDeploy removes the .github folder
+            - name: 🔑 Get GitHub Token from Azure Key Vault
+              id: get-github-token
+              uses: azure/cli@9eb25b8360668fb0ecbafa808d40e2197b2f5f52 # v3.0.0
+              with:
+                  inlineScript: |
+                      secretValue=$(az keyvault secret show --name "o11odc-github-gitpersonal-token-prd" --vault-name "kv-ui-components" --query "value" --output tsv)
+                      echo "::add-mask::$secretValue"
+                      echo "az-keyvault-value=$secretValue" >> $GITHUB_OUTPUT
+
+            - name: 📥 Checkout into deploy-npm
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  ref: deploy-npm
+                  token: ${{ steps.get-github-token.outputs.az-keyvault-value }}
+
+            - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+              name: 📦 Setup Node
+              with:
+                  node-version: 24
+                  registry-url: https://registry.npmjs.org/
+
+            - name: 🔄 Ensure Latest npm
+              run: npm install -g npm@latest
+              shell: bash
+              
+            - name: 🚀 Publish new version to NPM
+              if: ${{ needs.check-repo.outputs.is-real-osui-repo == 'true' }}
+              run: npm publish --provenance
+
+    delete-branch:
+        needs: publish-npm
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: write
+
+        if: ${{ inputs.delete-branch == true }}
+        steps:
+            - name: 📥 Checkout branch dev
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+              with:
+                  ref: dev
+
+            - name: 🗑️ Delete branch deploy-npm
+              shell: bash
+              run: |
+                  git push origin -d deploy-npm

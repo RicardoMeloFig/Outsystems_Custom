@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>PCPTLRS2</Machine>
+    <WindowsUser>lrs</WindowsUser>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>B298AAFA.OutSystemsNow</PackageIdentityName>
+    <IntermediateOutputPath>D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\build\windows\bld\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>12F8D5A566AC15C90F5D8029C381F33CD75371B894A8D78DB8073F1613369174</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>B298AAFA.OutSystemsNow_0.0.1.0_neutral__28bt5vyr9vk80</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>B298AAFA.OutSystemsNow_28bt5vyr9vk80!B298AAFA.OutSystemsNow</RegisteredUserModeAppID>
+    <RegisteredPackageID>B298AAFA.OutSystemsNow</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=4CEDDF8A-590E-4825-9CDA-3890C4DB291F</RegisteredPackagePublisher>
+    <RegisteredVersion>0.0.1.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\build\windows\Debug\AnyCPU\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-06-25T16:36:43.678</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\WindowsRuntimeComponent\bin\Debug\OutsystemsRuntimeComponent.winmd">
+      <PackagePath>OutsystemsRuntimeComponent.winmd</PackagePath>
+      <Modified>2015-05-13T13:31:21.800</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\PushSDK\build\bin\Debug\PushSDK.winmd">
+      <PackagePath>PushSDK.winmd</PackagePath>
+      <Modified>2015-04-06T12:38:36.656</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\plugins\com.phonegap.plugins.barcodescanner\src\windows8\lib\WinRTBarcodeReader.winmd">
+      <PackagePath>WinRTBarcodeReader.winmd</PackagePath>
+      <Modified>2015-04-06T12:38:38.580</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\plugins\com.phonegap.plugins.barcodescanner\src\windows8\lib\ZXing.winmd">
+      <PackagePath>ZXing.winmd</PackagePath>
+      <Modified>2015-04-06T12:38:38.603</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon106.png">
+      <PackagePath>images\icon106.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.509</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon120.png">
+      <PackagePath>images\icon120.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.509</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon150.scale-100.png">
+      <PackagePath>images\icon150.scale-100.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.510</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon170.png">
+      <PackagePath>images\icon170.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.511</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon360.png">
+      <PackagePath>images\icon360.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.511</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon44.scale-100.png">
+      <PackagePath>images\icon44.scale-100.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.512</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon50.png">
+      <PackagePath>images\icon50.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.512</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon71.scale-100.png">
+      <PackagePath>images\icon71.scale-100.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.513</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\SplashScreen.scale-100.png">
+      <PackagePath>images\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\splashscreen480.png">
+      <PackagePath>images\splashscreen480.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.513</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\splashscreen480.scale-100.png">
+      <PackagePath>images\splashscreen480.scale-100.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.514</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\splashscreen620.png">
+      <PackagePath>images\splashscreen620.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.514</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Square150x150Logo.scale-100.png">
+      <PackagePath>images\Square150x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.505</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Square30x30Logo.scale-100.png">
+      <PackagePath>images\Square30x30Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.505</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Square310x310Logo.scale-100.png">
+      <PackagePath>images\Square310x310Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.506</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Square70x70Logo.scale-100.png">
+      <PackagePath>images\Square70x70Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.507</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\StoreLogo.scale-100.png">
+      <PackagePath>images\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.507</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Wide310x150Logo.png">
+      <PackagePath>images\Wide310x150Logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.508</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\Wide310x150Logo.scale-100.png">
+      <PackagePath>images\Wide310x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-04-06T12:38:37.508</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\StoreLogo.scale-240.png">
+      <PackagePath>images\StoreLogo.scale-240.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.508</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\icon_close_small.png">
+      <PackagePath>www\img\icon_close_small.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.586</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\icon_help_small.png">
+      <PackagePath>www\img\icon_help_small.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.587</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon150.scale-240.png">
+      <PackagePath>images\icon150.scale-240.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.510</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon44.scale-240.png">
+      <PackagePath>images\icon44.scale-240.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.512</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\images\icon71.scale-240.png">
+      <PackagePath>images\icon71.scale-240.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.513</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\icon_close.png">
+      <PackagePath>www\img\icon_close.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.586</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\icon_help.png">
+      <PackagePath>www\img\icon_help.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.586</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\NoAppImage.png">
+      <PackagePath>www\img\NoAppImage.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.585</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\logo.png">
+      <PackagePath>www\img\logo.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.587</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\test.png">
+      <PackagePath>www\img\test.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.588</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\img\logo_original.png">
+      <PackagePath>www\img\logo_original.png</PackagePath>
+      <Modified>2015-04-06T12:38:37.588</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\cordova-plugin-network-information\src\windows\NetworkInfoProxy.js">
+      <PackagePath>www\plugins\cordova-plugin-network-information\src\windows\NetworkInfoProxy.js</PackagePath>
+      <Modified>2015-06-25T09:35:55.298</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\cordova-plugin-network-information\www\Connection.js">
+      <PackagePath>www\plugins\cordova-plugin-network-information\www\Connection.js</PackagePath>
+      <Modified>2015-06-25T09:36:25.557</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\cordova-plugin-network-information\www\network.js">
+      <PackagePath>www\plugins\cordova-plugin-network-information\www\network.js</PackagePath>
+      <Modified>2015-06-25T09:36:38.781</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\cordova-plugin-sim\www\sim.js">
+      <PackagePath>www\plugins\cordova-plugin-sim\www\sim.js</PackagePath>
+      <Modified>2015-06-25T09:37:25.132</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.device\src\windows\DeviceProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.device\src\windows\DeviceProxy.js</PackagePath>
+      <Modified>2015-06-25T09:37:25.101</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.device\www\device.js">
+      <PackagePath>www\plugins\org.apache.cordova.device\www\device.js</PackagePath>
+      <Modified>2015-06-25T09:37:25.066</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\src\windows\FileProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\src\windows\FileProxy.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.016</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\DirectoryEntry.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\DirectoryEntry.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.020</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\DirectoryReader.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\DirectoryReader.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.024</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\Entry.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\Entry.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.029</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\File.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\File.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.033</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileEntry.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileEntry.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.037</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileError.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileError.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.040</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileReader.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileReader.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.045</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileSystem.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileSystem.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.047</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\fileSystems.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\fileSystems.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.072</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileUploadOptions.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileUploadOptions.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.051</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileUploadResult.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileUploadResult.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.053</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\FileWriter.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\FileWriter.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.057</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\Flags.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\Flags.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.060</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\LocalFileSystem.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\LocalFileSystem.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.063</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\Metadata.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\Metadata.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.066</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\ProgressEvent.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\ProgressEvent.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.069</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\requestFileSystem.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\requestFileSystem.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.076</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js">
+      <PackagePath>www\plugins\org.apache.cordova.file\www\resolveLocalFileSystemURI.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.079</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\cordova.js">
+      <PackagePath>www\cordova.js</PackagePath>
+      <Modified>2015-05-13T15:30:37.011</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\cordova_plugins.js">
+      <PackagePath>www\cordova_plugins.js</PackagePath>
+      <Modified>2015-06-25T09:34:46.014</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\applist.js">
+      <PackagePath>www\js\applist.js</PackagePath>
+      <Modified>2015-06-24T15:37:56.341</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\environment.js">
+      <PackagePath>www\js\environment.js</PackagePath>
+      <Modified>2015-06-25T13:39:13.152</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\index.js">
+      <PackagePath>www\js\index.js</PackagePath>
+      <Modified>2015-06-25T13:54:29.951</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\login.js">
+      <PackagePath>www\js\login.js</PackagePath>
+      <Modified>2015-06-25T13:39:13.214</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\navigator.js">
+      <PackagePath>www\js\navigator.js</PackagePath>
+      <Modified>2015-04-06T12:38:37.605</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\js\webview.js">
+      <PackagePath>www\js\webview.js</PackagePath>
+      <Modified>2015-06-25T09:14:16.148</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\com.phonegap.plugins.barcodescanner\src\windows8\BarcodeScannerProxy.js">
+      <PackagePath>www\plugins\com.phonegap.plugins.barcodescanner\src\windows8\BarcodeScannerProxy.js</PackagePath>
+      <Modified>2015-05-19T12:53:22.617</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js">
+      <PackagePath>www\plugins\com.phonegap.plugins.barcodescanner\www\barcodescanner.js</PackagePath>
+      <Modified>2015-05-19T12:53:22.624</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\src\windows\CameraProxy.js</PackagePath>
+      <Modified>2015-05-19T12:54:12.713</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.camera\www\Camera.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\www\Camera.js</PackagePath>
+      <Modified>2015-05-19T12:54:12.718</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.camera\www\CameraConstants.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraConstants.js</PackagePath>
+      <Modified>2015-05-19T12:54:12.721</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraPopoverHandle.js</PackagePath>
+      <Modified>2015-05-19T12:54:12.724</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.camera\www\CameraPopoverOptions.js">
+      <PackagePath>www\plugins\org.apache.cordova.camera\www\CameraPopoverOptions.js</PackagePath>
+      <Modified>2015-05-19T12:54:12.728</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.geolocation\src\windows\GeolocationProxy.js">
+      <PackagePath>www\plugins\org.apache.cordova.geolocation\src\windows\GeolocationProxy.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.083</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.geolocation\www\Coordinates.js">
+      <PackagePath>www\plugins\org.apache.cordova.geolocation\www\Coordinates.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.086</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.geolocation\www\geolocation.js">
+      <PackagePath>www\plugins\org.apache.cordova.geolocation\www\geolocation.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.095</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.geolocation\www\Position.js">
+      <PackagePath>www\plugins\org.apache.cordova.geolocation\www\Position.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.089</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\plugins\org.apache.cordova.geolocation\www\PositionError.js">
+      <PackagePath>www\plugins\org.apache.cordova.geolocation\www\PositionError.js</PackagePath>
+      <Modified>2015-05-19T12:54:42.091</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\applist.html">
+      <PackagePath>www\applist.html</PackagePath>
+      <Modified>2015-05-13T14:29:13.145</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\index.html">
+      <PackagePath>www\index.html</PackagePath>
+      <Modified>2015-04-06T12:38:37.589</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\environment.html">
+      <PackagePath>www\environment.html</PackagePath>
+      <Modified>2015-05-22T17:23:21.606</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\login.html">
+      <PackagePath>www\login.html</PackagePath>
+      <Modified>2015-04-10T10:55:03.444</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\webview.html">
+      <PackagePath>www\webview.html</PackagePath>
+      <Modified>2015-04-24T15:40:23.271</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\applist.css">
+      <PackagePath>www\css\applist.css</PackagePath>
+      <Modified>2015-04-10T10:35:06.793</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\environment.css">
+      <PackagePath>www\css\environment.css</PackagePath>
+      <Modified>2015-05-21T10:58:31.745</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\index.css">
+      <PackagePath>www\css\index.css</PackagePath>
+      <Modified>2015-04-06T12:38:37.562</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\login.css">
+      <PackagePath>www\css\login.css</PackagePath>
+      <Modified>2015-04-10T10:32:51.238</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\webview.css">
+      <PackagePath>www\css\webview.css</PackagePath>
+      <Modified>2015-05-13T13:31:22.223</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\css\windows\environment.css">
+      <PackagePath>www\css\windows\environment.css</PackagePath>
+      <Modified>2015-04-06T12:38:37.566</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\opensans-bold-webfont.woff">
+      <PackagePath>www\fonts\opensans-bold-webfont.woff</PackagePath>
+      <Modified>2015-04-06T12:38:37.580</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\opensans-light-webfont.woff">
+      <PackagePath>www\fonts\opensans-light-webfont.woff</PackagePath>
+      <Modified>2015-04-06T12:38:37.583</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\opensans-regular-webfont.woff">
+      <PackagePath>www\fonts\opensans-regular-webfont.woff</PackagePath>
+      <Modified>2015-04-06T12:38:37.584</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\OpenSans-Bold.ttf">
+      <PackagePath>www\fonts\OpenSans-Bold.ttf</PackagePath>
+      <Modified>2015-04-06T12:38:37.572</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\OpenSans-Light.ttf">
+      <PackagePath>www\fonts\OpenSans-Light.ttf</PackagePath>
+      <Modified>2015-04-06T12:38:37.575</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\www\fonts\OpenSans-Regular.ttf">
+      <PackagePath>www\fonts\OpenSans-Regular.ttf</PackagePath>
+      <Modified>2015-04-06T12:38:37.578</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\config.xml">
+      <PackagePath>config.xml</PackagePath>
+      <Modified>2015-05-13T15:28:59.088</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll">
+      <PackagePath>Newtonsoft.Json.dll</PackagePath>
+      <Modified>2015-04-07T16:17:04.289</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Projects\OutSystemsNow\OpenSource\GitHub\OutSystemsNow-Windows\platforms\windows\build\windows\Debug\AnyCPU\ReverseMap\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2015-06-25T16:36:40.751</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Microsoft.WinJS.2.0\1.0\">
+      <Name>Microsoft.WinJS.2.0</Name>
+      <Version>1.0.9600.17018</Version>
+      <Architecture>Neutral</Architecture>
+      <FrameworkIdentity>Name=Microsoft.WinJS.2.0, MinVersion=1.0.9600.17018</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Microsoft.WinJS.2.0\1.0\Microsoft.WinJS.2.0.appx</AppxLocation>
+      <MoreInfo>http://go.microsoft.com/fwlink/%3fLinkId=260891</MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

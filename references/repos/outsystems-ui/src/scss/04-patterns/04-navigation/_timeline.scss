@@ -1,0 +1,113 @@
+@use "../../tokens/variables";
+
+/* Patterns - Navigation - Timeline */
+////
+/// @group Patterns-Timeline
+/// Patterns - Navigation - Timeline
+
+///
+.timeline {
+	// CSS API lives on the item: the platform TimelineItem block has no `.timeline` wrapper.
+	&-item {
+		// ─── Component CSS API ─────────────────────────────────────────────
+		--osui-timeline-content-gap: #{variables.$token-space-100};
+		--osui-timeline-content-spacing: #{variables.$token-space-600};
+		--osui-timeline-font-size: #{variables.$token-font-size-350};
+		--osui-timeline-gap: #{variables.$token-space-200};
+		--osui-timeline-gutter: #{variables.$token-space-400};
+		--osui-timeline-icon-color: var(--color-text-inverse);
+		--osui-timeline-icon-size: #{variables.$token-scale-600};
+		--osui-timeline-icon-background-color: #{variables.$token-bg-neutral-bold-default};
+		--osui-timeline-line-color: var(--color-border);
+		// Figma says 21px; the scale's nearest step is 20px.
+		--osui-timeline-line-height: #{variables.$token-font-line-height-500};
+		--osui-timeline-text-color: var(--color-text-subtlest);
+		--osui-timeline-title-color: var(--color-text);
+		--osui-timeline-title-font-weight: #{variables.$token-font-weight-medium};
+		// ───────────────────────────────────────────────────────────────────
+
+		display: flex;
+		font-size: var(--osui-timeline-font-size);
+		justify-content: space-between;
+		line-height: var(--osui-timeline-line-height);
+		margin-block-end: var(--osui-timeline-gap);
+		position: relative;
+
+		.timeline-content {
+			// The title is the unclassed first child, so the block carries its styling and
+			// .timeline-content-inner opts back out — robust to platform placeholder wrappers.
+			color: var(--osui-timeline-title-color);
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			font-weight: var(--osui-timeline-title-font-weight);
+			gap: var(--osui-timeline-content-gap);
+			padding-block-end: var(--osui-timeline-content-spacing);
+		}
+	}
+
+	&-icon {
+		align-items: center;
+		display: flex;
+		flex-direction: column-reverse;
+		position: relative;
+
+		&-line {
+			background-color: var(--osui-timeline-line-color);
+			flex: 1;
+			margin-block: variables.$token-space-200 variables.$token-space-0;
+			margin-inline: variables.$token-space-0;
+			width: variables.$token-border-size-025;
+		}
+
+		&-container {
+			align-items: center;
+			border-radius: var(--border-radius-rounded);
+			color: var(--osui-timeline-icon-color);
+			display: flex;
+			font-size: variables.$token-font-size-300;
+			height: var(--osui-timeline-icon-size);
+			justify-content: center;
+			margin-block: variables.$token-space-0;
+			margin-inline: var(--osui-timeline-gutter);
+			text-align: center;
+			width: var(--osui-timeline-icon-size, #{variables.$token-scale-600});
+			background-color: var(--osui-timeline-icon-background-color);
+
+			&:empty {
+				height: variables.$token-scale-200; // 8px dot
+				width: variables.$token-scale-200; // 8px dot
+			}
+		}
+	}
+
+	&-left,
+	&-right,
+	&-content-inner {
+		color: var(--osui-timeline-text-color);
+		font-weight: variables.$token-font-weight-regular;
+	}
+
+	&-left,
+	&-right {
+		white-space: nowrap;
+	}
+
+	&-content-inner {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+///
+[data-block='Navigation.TimelineItem'] {
+	&:last-of-type {
+		.timeline-icon {
+			flex-direction: column;
+		}
+
+		.timeline-icon-line {
+			display: none;
+		}
+	}
+}

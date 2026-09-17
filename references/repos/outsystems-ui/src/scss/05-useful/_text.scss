@@ -1,0 +1,39 @@
+/* Usefull - Text */
+////
+/// @group UsefullClasses-Text
+/// Usefull - Text
+
+///
+.break-word {
+	word-break: break-word;
+}
+
+/* The physical `align` attribute has always mirrored in RTL; `start`/`end` keeps that
+   behaviour without an .is-rtl duplicate. */
+[align='left'] {
+	text-align: start;
+}
+
+[align='right'] {
+	text-align: end;
+}
+
+///
+.text-align {
+	&-left {
+		text-align: start;
+	}
+
+	&-center {
+		text-align: center;
+	}
+
+	&-right {
+		text-align: end;
+	}
+}
+
+///
+.white-space-nowrap {
+	white-space: nowrap;
+}

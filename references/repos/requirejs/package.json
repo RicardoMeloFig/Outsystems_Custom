@@ -1,0 +1,38 @@
+{
+  "name": "requirejs",
+  "version": "2.3.7-outsystems.9",
+  "license": "MIT",
+  "volo": {
+    "url": "https://raw.github.com/outsystems/requirejs/{version}/require.js"
+  },
+  "main": "./bin/r.js",
+  "bin": {
+    "r.js": "./bin/r.js",
+    "r_js": "./bin/r.js"
+  },
+  "scripts": {
+    "pretest": "jscs . && jshint require.js",
+    "bump": "node ./scripts/bump-version",
+    "build": "npm install && mkdirp ./bin && npm run copyfile && npm run minifyfile",
+    "copyfile": "copy \"node_modules\\\\requirejs\\\\bin\\\\r.js\" \"bin\"",
+    "minifyfile": "npx uglifyjs require.js -mc --comments -o require.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/outsystems/requirejs.git"
+  },
+  "devDependencies": {
+    "jscs": "^1.12.0",
+    "jshint": "^2.7.0",
+    "mkdirp": "^2.1.3",
+    "requirejs": "^2.3.7"
+  },
+  "dependencies": {
+    "uglify-js": "^3.17.1"
+  },
+  "files": [
+    "require.js",
+    "require.min.js",
+    "bin/r.js"
+  ]
+}

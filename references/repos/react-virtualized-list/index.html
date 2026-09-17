@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no, minimum-scale=1.0">
+    <script data-main="bin/index" src="bin/require.js"></script>
+    <style>
+        body {
+            font-family: "Arial";    
+        }
+        
+        .list {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid gray;
+            line-height: 100px;
+        }
+        
+        .list-item {
+            border-bottom: 1px solid lightsteelblue;
+            background: rgb(230, 230, 230);
+            padding: 10px;
+        }
+        
+        .list-item.odd {
+           background: rgb(150, 150, 150)
+        }
+        
+        .list-item .spacer {
+            height: 600px;
+        }
+         
+        .list-item.odd .spacer {
+            height: 300px;
+        }
+        
+        .list-item img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .list-item.example-appear,
+        .list-item.odd.example-appear,
+        .list-item.example-enter,
+        .list-item.odd.example-enter {
+            height: 0;
+            transform: scale3d(1, 0, 1);
+        }
+
+        .list-item.example-appear-active,
+        .list-item.odd.example-appear-active,
+        .list-item.example-enter-active,
+        .list-item.odd.example-enter-active {
+            transition: all 1s ease-in;
+            transform: scale3d(1, 1, 1);
+        }
+        
+        .list-item.example-leave-active,
+        .list-item.odd.example-leave-active {
+            height: 0px;
+            transition: all 1s ease-in;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container"/>
+</body>
+</html>

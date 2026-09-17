@@ -1,0 +1,127 @@
+@use "../tokens/variables";
+
+/* Widgets - List Item */
+////
+/// @group Widgets-List_Item
+/// Widgets - List Item
+
+///
+.list-item {
+	// ─── Component CSS API ─────────────────────────────────────────────
+	--osui-list-item-border-color:            var(--color-border);
+	--osui-list-item-background:              var(--color-background-surface);
+	--osui-list-item-hover-background:        #{variables.$token-bg-neutral-subtlest-hover};
+	--osui-list-item-active-background:       #{variables.$token-bg-neutral-subtlest-press};
+	--osui-list-item-selected-background:     var(--osui-list-item-background);
+	--osui-list-item-selected-icon-color:     #{variables.$token-icon-select};
+	// ───────────────────────────────────────────────────────────────────
+
+	border-block-end: variables.$token-border-size-025 solid var(--osui-list-item-border-color);
+	padding-block: variables.$token-space-300;
+	padding-inline: variables.$token-space-600;
+	position: relative;
+	transition: background-color variables.$token-transition-time-100 variables.$token-transition-curve-base;
+
+	&:last-of-type {
+		border-block-end: none;
+	}
+
+	// ButtonsEffect.ts still injects a `.scale-animation` span on click and relies on the
+	// `animationend` event to remove it. Click feedback is now the `:active` background
+	// below, so the animation is kept running but paints nothing: a zero-sized transparent
+	// box. 
+	.scale-animation {
+		animation: list-item-scale-animation variables.$token-transition-time-1500;
+		background: transparent;
+		display: block;
+		height: 0;
+		inset-inline-start: 50%;
+		opacity: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		width: 0;
+	}
+}
+
+///
+.list {
+	.list-item {
+		background-color: var(--osui-list-item-background);
+		cursor: pointer;
+
+		// Pressed state, on every device — replaces the legacy ripple animation.
+		&:active {
+			background-color: var(--osui-list-item-active-background);
+		}
+	}
+}
+
+///
+.layout-native {
+	.list-item {
+		padding: variables.$token-scale-400;
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.desktop {
+	.list {
+		.list-item:hover {
+			// `:not(:active)` keeps this higher-specificity rule from masking the pressed state.
+			&:not(.list-item-no-hover):not(.list-item-selected):not(:active) {
+				background-color: var(--osui-list-item-hover-background);
+			}
+		}
+	}
+}
+
+///
+.desktop,
+.tablet.landscape {
+	.list {
+		.list-item-selected {
+			background-color: var(--osui-list-item-selected-background);
+
+			// Restated here so the pressed state also wins over the selected background.
+			&:active {
+				background-color: var(--osui-list-item-active-background);
+			}
+
+			.list-item-content {
+				&-right .icon {
+					color: var(--osui-list-item-selected-icon-color);
+				}
+			}
+		}
+	}
+}
+
+// OS HighContrast Enabled -------------------------------------------------------
+///
+.os-high-contrast {
+	&.desktop,
+	&.tablet.landscape {
+		.list {
+			.list-item:hover,
+			.list-item-selected {
+				position: relative;
+
+				&:before {
+					border: variables.$token-border-size-025 solid variables.$token-semantics-primary-base;
+					border-inline-end-width: variables.$token-border-size-0;
+					border-inline-start-width: variables.$token-border-size-075;
+					bottom: 0;
+					content: '';
+					display: block;
+					inset-inline-start: 0;
+					pointer-events: none;
+					position: absolute;
+					inset-inline-end: 0;
+					top: 0;
+				}
+			}
+		}
+	}
+}

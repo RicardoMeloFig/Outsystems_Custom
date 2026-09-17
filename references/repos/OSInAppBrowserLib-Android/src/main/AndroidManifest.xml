@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.outsystems.plugins.inappbrowser.osinappbrowserlib">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permissions for webcam websites and such, for WebView -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Permissions for websites that request location (e.g. Google Maps), for WebView -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:supportsRtl="true">
+        <activity
+            android:name=".views.OSIABWebViewActivity"
+            android:exported="false"
+            android:process=":OSInAppBrowser"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="OSIABWebViewActivity"
+            android:theme="@style/AppTheme.WebView"
+            android:enableOnBackInvokedCallback="true"
+            tools:targetApi="33" />
+        <activity
+            android:name=".views.OSIABWebViewActivitySharing"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="OSIABWebViewActivity"
+            android:theme="@style/AppTheme.WebView"
+            android:enableOnBackInvokedCallback="true"
+            tools:targetApi="33" />
+        <activity android:name=".views.OSIABCustomTabsControllerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"
+            android:launchMode="singleTask"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
+        <!-- Used for when taking photos/videos when uploading files through WebChromeClient.onShowFileChooser -->
+        <provider
+            android:name="com.outsystems.plugins.inappbrowser.osinappbrowserlib.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="http" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
+</manifest>

@@ -1,0 +1,138 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Page Layout - Layout Native - Header */
+////
+/// @group Layout-Native-Header
+/// Page Layout - Layout Native - Header
+
+///
+.layout-native {
+	&.hide-header-on-scroll .header {
+		top: calc(-1 * (var(--header-size) + var(--os-safe-area-top)));
+	}
+
+	.header {
+		position: -webkit-sticky; //Fix for older iPhones
+		position: sticky;
+		top: 0;
+
+		&-top {
+			padding-block: 0;
+			padding-inline: variables.$token-scale-800;
+		}
+
+		&-title {
+			font-size: variables.$token-font-size-500;
+			font-weight: variables.$token-font-weight-regular;
+
+			// Service Studio Preview
+			& {
+				-servicestudio-text-align: center;
+				-servicestudio-width: 100%;
+			}
+		}
+
+		&-left {
+			flex: 1;
+			margin-inline-end: variables.$token-scale-400;
+		}
+
+		&-right {
+			display: flex;
+			flex: 1;
+			justify-content: flex-end;
+			margin-inline-start: variables.$token-scale-400;
+			margin-inline-end: auto;
+
+			// ServiceStudio Preview
+			& {
+				-servicestudio-min-width: fit-content;
+			}
+		}
+	}
+
+	h1.header-title {
+		// Service Studio Preview
+		& {
+			-servicestudio-text-align: center;
+			-servicestudio-width: 100%;
+		}
+	}
+
+	.content-bottom {
+		bottom: 0;
+		position: -webkit-sticky; //Fix for older iPhones
+		position: sticky;
+		z-index: var(--layer-global-navigation);
+	}
+
+	.menu-icon {
+		margin-inline-end: 0;
+	}
+}
+
+///
+.landscape {
+	.layout.layout-native {
+		.header,
+		&:not(.blank) .main-content,
+		.bottom-bar-wrapper {
+			padding-left: var(--os-safe-area-left);
+			padding-right: var(--os-safe-area-right);
+		}
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.tablet,
+.phone {
+	.layout-native {
+		.header-top {
+			padding-block: 0;
+			padding-inline: variables.$token-scale-600;
+		}
+	}
+}
+
+///
+.tablet {
+	.layout-native {
+		.header-title {
+			font-size: calc(variables.$token-font-size-500 - 1px);
+		}
+	}
+}
+
+///
+.phone {
+	.layout-native {
+		.header-title {
+			font-size: calc(variables.$token-font-size-500 - 2px);
+		}
+	}
+}
+
+///
+.android {
+	.layout-native {
+		&.hide-header-on-scroll .header {
+			top: calc(-1 * (var(--header-size) + #{android-safe-area-top()}));
+		}
+
+		.header,
+		.app-menu-content {
+			padding-block-start: #{android-safe-area-top()};
+			padding-inline-end: var(--safe-area-inset-right, 0px);
+			padding-inline-start: var(--safe-area-inset-left, 0px);
+		}
+	}
+}
+
+///
+.ios {
+	.layout-native .header {
+		padding-top: var(--os-safe-area-top);
+	}
+}

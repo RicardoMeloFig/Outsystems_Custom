@@ -1,0 +1,98 @@
+@use '../00-abstract/index' as *;
+@use "../tokens/variables";
+
+/* Page Layout - Login */
+////
+/// @group Layout-Login
+/// Page Layout - Login
+
+///
+.login {
+	&-screen {
+		align-items: center;
+		background-color: variables.$token-semantics-primary-base;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+
+		& > img {
+			@include absolute-left-top();
+			height: 100%;
+			object-fit: cover;
+			width: 100%;
+		}
+	}
+
+	&-form {
+		background-color: variables.$token-bg-surface-default;
+		border-radius: variables.$token-border-radius-100;
+		box-shadow: variables.$token-elevation-3;
+		min-width: 435px;
+		padding: variables.$token-scale-1200;
+		z-index: var(--layer-global-screen);
+	}
+}
+
+///
+.layout-native {
+	.login {
+		&-screen {
+			background-color: var(--background-color-login, var(--color-background-login));
+			padding: var(--os-safe-area-top) var(--os-safe-area-right) var(--os-safe-area-bottom)
+				var(--os-safe-area-left);
+		}
+
+		&-form {
+			border-radius: 0;
+			box-shadow: none;
+		}
+	}
+}
+
+///
+.login-button {
+	[data-block*='ButtonLoading'] {
+		&,
+		& > div {
+			// Service Studio Preview
+			-servicestudio-width: 100% !important;
+		}
+	}
+}
+
+// Responsive --------------------------------------------------------------------
+///
+.android .layout-native .login-screen {
+	padding-block-start: #{android-safe-area-top()};
+	padding-block-end: var(--safe-area-inset-bottom, 0px);
+	padding-inline-start: var(--safe-area-inset-left, 0px);
+	padding-inline-end: var(--safe-area-inset-right, 0px);
+}
+
+///
+.phone {
+	.login-form {
+		margin-block: variables.$token-scale-0;
+		margin-inline: variables.$token-scale-400;
+		min-width: auto;
+		padding: variables.$token-scale-800;
+		width: 100%;
+	}
+
+	.layout-native {
+		.login {
+			&-form {
+				background: transparent;
+				margin: 0;
+			}
+
+			&-button .btn {
+				padding-bottom: var(--os-safe-area-bottom);
+			}
+		}
+
+		&.blank .login-button .btn {
+			padding-block-end: variables.$token-scale-0;
+		}
+	}
+}
