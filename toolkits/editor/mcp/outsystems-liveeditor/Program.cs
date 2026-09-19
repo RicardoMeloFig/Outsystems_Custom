@@ -444,6 +444,18 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "action", "nodeIndex" } }
         },
         new JsonObject {
+            ["name"] = "live_set_action_arg",
+            ["description"] = "Set ONE argument value on an ExecuteAction node (server/entity/system client action) by parameter name, e.g. set the SimulateBattle_SA 'SAtk' arg to a local var. argName='*' sets all args to the same value. Use when map_action_inputs can't (arguments sourced from locals/vars, not the action's input params).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["action"] = Str("action", "Flow action"),
+                    ["nodeIndex"] = new JsonObject { ["type"] = "integer", ["description"] = "ExecuteAction node index" },
+                    ["argName"] = Str("argName", "Argument/parameter name (or *)"),
+                    ["value"] = Str("value", "Value expression (e.g. SAtk or \"42\")") },
+                ["required"] = new JsonArray { "module", "action", "nodeIndex", "argName", "value" } }
+        },
+        new JsonObject {
             ["name"] = "live_map_action_inputs",
             ["description"] = "Auto-map input arguments on an IExecuteServerActionNode by name. For each Argument on the ExecuteAction node, finds the matching InputParameter on the service action (by name) and sets the Argument's Value via SetValue. When parameter names don't match (e.g. server action uses 'Source' but service action uses 'Client'), falls back to type-aware matching (matches argument's parameter DataType to input param DataType), then single-input fallback. Pass inputParamName to explicitly specify which input parameter to map to (bypasses name matching and fallback — useful when multiple input params exist from cloning). Undo unit (Ctrl+Z).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -1382,14 +1394,14 @@ internal static class Program
         },
         new JsonObject {
             ["name"] = "live_add_nr_widget",
-            ["description"] = "Create ANY Reactive custom widget (label, input, textarea, checkbox, dropdown, radio, radio-group, switch, list, table, image, icon, form, button-group, container, expression, link, html) on a SCREEN or WEB BLOCK - LIVE tree, undo unit. Uses the Button-proven descriptor pattern (<Kind>+Kind.Instance.Descriptor -> CreateWidget(descriptor)). text applies to label/input/textarea. Pass screen=<screen> OR block=<block>; parent nests inside a container.",
+            ["description"] = "Create ANY Reactive custom widget (label, input, textarea, checkbox, dropdown, radio, radio-group, switch, list, table, headercell, rowcell, image, icon, form, button-group, container, expression, link, html) on a SCREEN or WEB BLOCK - LIVE tree, undo unit. Uses the Button-proven descriptor pattern (<Kind>+Kind.Instance.Descriptor -> CreateWidget(descriptor)). text applies to label/input/textarea. Pass screen=<screen> OR block=<block>; parent nests inside a container. Table cells: kind=headercell with parent='Table.HeaderRow' and kind=rowcell with parent='Table.Row' (the table widget must exist first).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
                 ["properties"] = new JsonObject {
                     ["module"] = Str("module", "Open module name"),
                     ["screen"] = Str("screen", "Screen name (OR block - pass one)"),
                     ["block"] = Str("block", "Web block name (OR screen - pass one)"),
                     ["parent"] = Str("parent", "Parent container name (optional)"),
-                    ["kind"] = Str("kind", "Widget kind: label|input|textarea|checkbox|dropdown|radio|radio-group|switch|list|table|image|icon|form|button-group|container|expression|link|html"),
+                    ["kind"] = Str("kind", "Widget kind: label|input|textarea|checkbox|dropdown|radio|radio-group|switch|list|table|headercell|rowcell|image|icon|form|button-group|container|expression|link|html"),
                     ["name"] = Str("name", "New widget name"),
                     ["styleClass"] = Str("styleClass", "CSS class(es) (optional)"),
                     ["text"] = Str("text", "Text/initial value (label/input/textarea, optional)") },
@@ -1527,6 +1539,28 @@ internal static class Program
                     ["propName"] = Str("propName", "CustomProperty name (e.g. Style)"),
                     ["value"] = Str("value", "Plain text value (e.g. header or 'btn btn-primary')") },
                 ["required"] = new JsonArray { "module", "block", "widget", "propName", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_screen_cp_text",
+            ["description"] = "Set a TEXT-LITERAL CustomProperty (e.g. a Container's Style classes) to a plain string on a SCREEN widget in an OPEN module - LIVE tree, undo unit. Screen twin of live_set_block_cp_text. Produces a Text element whose value is EXACTLY the string (no quotes, no expression parsing) - matches SS-created widgets, then forces revalidation so SS's error list is not stale. Use for Style Classes on screen containers; set_style_class / set_screen_cp_parsed with a bare class name parse as arithmetic (invalid ref) or leave stale verify errors.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["screen"] = Str("screen", "Screen name"),
+                    ["widget"] = Str("widget", "Widget name"),
+                    ["propName"] = Str("propName", "CustomProperty name (e.g. Style)"),
+                    ["value"] = Str("value", "Plain text value (e.g. zg-grid or 'btn btn-primary')") },
+                ["required"] = new JsonArray { "module", "screen", "widget", "propName", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_delete_screen_client_action",
+            ["description"] = "Delete a SCREEN-level Client Action (ClientScreenActionFlow) from a screen's ClientActions collection in an OPEN module - LIVE tree, undo unit. Module-level delete_action does NOT cover screen actions (they live on the screen). Use to remove unused no-op handlers (e.g. leftover PurgeNoop2).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["screen"] = Str("screen", "Screen name"),
+                    ["action"] = Str("action", "Client action name") },
+                ["required"] = new JsonArray { "module", "screen", "action" } }
         },
         new JsonObject {
             ["name"] = "live_set_block_cp_image",
@@ -2148,6 +2182,107 @@ internal static class Program
                     ["value"] = Str("value", "Value expression") },
                 ["required"] = new JsonArray { "module", "action", "var", "value" } }
         },
+        new JsonObject {
+            ["name"] = "live_set_entity_prop",
+            ["description"] = "Set a settable property on a server Entity (e.g. Public=True, ExposeReadOnly, Description, PrettyName) in an OPEN module - LIVE tree, undo unit. Bool/int/long/string values auto-converted. ExposeCreateAndChangeActions/IdentifierType are read-only (computed) and return a clean error.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["entity"] = Str("entity", "Entity name"),
+                    ["prop"] = Str("prop", "Property name (e.g. Public)"),
+                    ["value"] = Str("value", "New value (true/false/1/2 or text)") },
+                ["required"] = new JsonArray { "module", "entity", "prop", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_structure_prop",
+            ["description"] = "Set a settable property on a Structure (e.g. Public=True) in an OPEN module - LIVE tree, undo unit. Bool/int/long/string values auto-converted.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["structure"] = Str("structure", "Structure name (e.g. BattleResult)"),
+                    ["prop"] = Str("prop", "Property name (e.g. Public)"),
+                    ["value"] = Str("value", "New value (true/false or text)") },
+                ["required"] = new JsonArray { "module", "structure", "prop", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_server_action_prop",
+            ["description"] = "Set a settable property on a Server/Service Action (e.g. Public=True) in an OPEN module - LIVE tree, undo unit. Use to expose server actions for cross-module consumption.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["action"] = Str("action", "Action name"),
+                    ["prop"] = Str("prop", "Property name (e.g. Public)"),
+                    ["value"] = Str("value", "New value (true/false or text)") },
+                ["required"] = new JsonArray { "module", "action", "prop", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_entity_identifier",
+            ["description"] = "Wire an existing attribute as the entity's Identifier (primary key) in an OPEN module - LIVE tree, undo unit. Sets entity.Identifier then RefreshEntityActions() to regenerate the auto entity actions. Use right after adding the Id attribute to a live-created entity.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["entity"] = Str("entity", "Entity name"),
+                    ["attrName"] = Str("attrName", "Attribute to make the identifier (e.g. Id)") },
+                ["required"] = new JsonArray { "module", "entity", "attrName" } }
+        },
+        new JsonObject {
+            ["name"] = "live_probe_entity_actions",
+            ["description"] = "List the auto-generated entity actions (CreateEntity/UpdateEntity/DeleteEntity/GetEntity/...) with their input/output parameter names and types. Read-only. Call after live_set_entity_identifier to see the regenerated actions.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["entity"] = Str("entity", "Entity name") },
+                ["required"] = new JsonArray { "module", "entity" } }
+        },
+        new JsonObject {
+            ["name"] = "live_create_entity_action_node",
+            ["description"] = "Insert an ExecuteAction node that calls an ENTITY action (CreateEntity/Create, UpdateEntity/Update, DeleteEntity/Delete, GetEntity/Get, CreateOrUpdateEntity...) in an OPEN module - LIVE tree, undo unit. Auto-maps arguments by name against the flow action's input params/locals. where: beforeEnd | afterAnchor (anchorVar/anchorValue) | afterNode (afterNodeIndex).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["action"] = Str("action", "Target flow action"),
+                    ["entity"] = Str("entity", "Entity whose action to call"),
+                    ["entityAction"] = Str("entityAction", "Entity action (e.g. CreateEntity or Create)"),
+                    ["where"] = Str("where", "beforeEnd (default) | afterAnchor | afterNode"),
+                    ["anchorVar"] = Str("anchorVar", "Anchor assign var (afterAnchor)"),
+                    ["anchorValue"] = Str("anchorValue", "Anchor assign value (afterAnchor)"),
+                    ["afterNodeIndex"] = new JsonObject { ["type"] = "integer", ["description"] = "Node index (afterNode)" } },
+                ["required"] = new JsonArray { "module", "action", "entity", "entityAction" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_screen_handler",
+            ["description"] = "Wire a SCREEN lifecycle handler (OnInitialize / OnReady / OnRender / OnDestroy) to a Client Action in an OPEN module - LIVE tree, undo unit. Screens have NO assignable lifecycle reference prop (read-only lifecycle children that own their own flow), so instead of forcing an assignment this inserts an ExecuteAction node INTO the lifecycle flow calling the named screen Client Action (screen ClientActions first, then module actions). The flow tools (live_list_flow etc.) also address the screen lifecycle flow by its name.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["screen"] = Str("screen", "Screen name"),
+                    ["handler"] = Str("handler", "Lifecycle handler name (e.g. OnReady)"),
+                    ["actionName"] = Str("actionName", "Screen Client Action name to call from the lifecycle flow") },
+                ["required"] = new JsonArray { "module", "screen", "handler", "actionName" } }
+        },
+        new JsonObject {
+            ["name"] = "live_wire_button_to_screen",
+            ["description"] = "Set a Button's OnClick Destination DIRECTLY to a screen (click = navigate) in an OPEN module - LIVE tree, undo unit. The Reactive screen implements IClientSideDestination, the exact type of the Button OnClick handler's Destination (verified by reflection), so the screen is assignable like an action is. Optional params maps the destination screen's inputs (comma-separated Name=Value, mirroring live_set_link_params).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["screen"] = Str("screen", "Screen holding the button"),
+                    ["button"] = Str("button", "Button widget name"),
+                    ["targetScreen"] = Str("targetScreen", "Destination screen name"),
+                    ["params"] = Str("params", "Optional comma-separated Name=Value for the target screen's input params (e.g. OrderId=123)") },
+                ["required"] = new JsonArray { "module", "screen", "button", "targetScreen" } }
+        },
+        new JsonObject {
+            ["name"] = "live_move_widget",
+            ["description"] = "Reparent a widget on a SCREEN in an OPEN module - LIVE tree, undo unit. Uses the widget's ChangeParent API. newParent supports the add_nr_widget parent syntax: empty (screen root), container name, IfName:True / IfName:False, LayoutName:MainContent (named placeholder), Table.Row / Table.HeaderRow (dotted table content hosts).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["screen"] = Str("screen", "Screen name"),
+                    ["widget"] = Str("widget", "Widget name to move"),
+                    ["newParent"] = Str("newParent", "New parent (empty = screen root; container name; IfName:True/False; Layout:Placeholder; Table.Row / Table.HeaderRow)") },
+                ["required"] = new JsonArray { "module", "screen", "widget" } }
+        },
     };
 
     static string Dispatch(string name, JsonObject a)
@@ -2182,6 +2317,12 @@ internal static class Program
             "live_set_action_call" => Bridge.SetActionCall(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("serverActionName"), Arg("producerModule")),
             "live_remove_input_param" => Bridge.RemoveInputParam(Arg("module"), Arg("action"), Arg("paramName")),
             "live_remove_output_param" => Bridge.RemoveOutputParam(Arg("module"), Arg("action"), Arg("paramName")),
+            "live_set_entity_prop" => Bridge.SetEntityProp(Arg("module"), Arg("entity"), Arg("prop"), Arg("value")),
+            "live_set_structure_prop" => Bridge.SetStructureProp(Arg("module"), Arg("structure"), Arg("prop"), Arg("value")),
+            "live_set_server_action_prop" => Bridge.SetServerActionProp(Arg("module"), Arg("action"), Arg("prop"), Arg("value")),
+            "live_set_entity_identifier" => Bridge.SetEntityIdentifier(Arg("module"), Arg("entity"), Arg("attrName")),
+            "live_probe_entity_actions" => Bridge.ProbeEntityActions(Arg("module"), Arg("entity")),
+            "live_create_entity_action_node" => Bridge.CreateEntityActionNode(Arg("module"), Arg("action"), Arg("entity"), Arg("entityAction"), Arg("where"), Arg("anchorVar"), Arg("anchorValue"), a?.ContainsKey("afterNodeIndex") == true ? a["afterNodeIndex"]?.GetValue<int>() ?? -1 : -1),
             "live_add_entity_input" => Bridge.AddEntityInput(Arg("module"), Arg("action"), Arg("name"), Arg("entityName"), Arg("producerModule")),
             "live_add_entity_identifier_input" => Bridge.AddEntityIdentifierInput(Arg("module"), Arg("action"), Arg("name"), Arg("entityName"), Arg("producerModule")),
             "live_set_output_param_type" => Bridge.SetOutputParamType(Arg("module"), Arg("action"), Arg("paramName"), Arg("typeName"), Arg("producerModule")),
@@ -2196,6 +2337,7 @@ internal static class Program
             "live_remove_assignment" => Bridge.RemoveAssignment(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("var")),
             "live_set_error_handler_exception" => Bridge.SetErrorHandlerException(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("exceptionName")),
             "live_map_action_inputs" => Bridge.MapActionInputs(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("inputParamName")),
+            "live_set_action_arg" => Bridge.SetActionArg(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("argName"), Arg("value")),
             "live_debug_node_props" => Bridge.DebugNodeProps(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0),
             "live_debug_action_args" => Bridge.DebugActionArgs(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0),
             "live_layout_flow" => Bridge.LayoutFlow(Arg("module"), Arg("action")),
@@ -2215,6 +2357,7 @@ internal static class Program
             "live_add_link" => Bridge.AddLink(Arg("module"), Arg("screen"), Arg("parent"), Arg("name"), Arg("text"), Arg("targetScreen"), Arg("styleClass")),
             "live_add_button" => Bridge.AddButton(Arg("module"), Arg("screen"), Arg("placeholder"), Arg("parent"), Arg("name"), Arg("text"), Arg("styleClass")),
             "live_set_button_onclick" => Bridge.SetButtonOnClick(Arg("module"), Arg("screen"), Arg("button"), Arg("actionName")),
+            "live_wire_button_to_screen" => Bridge.WireButtonToScreen(Arg("module"), Arg("screen"), Arg("button"), Arg("targetScreen"), Arg("params")),
             "live_set_style_class" => Bridge.SetStyleClass(Arg("module"), Arg("screen"), Arg("widget"), Arg("styleClass")),
             "live_set_module_css" => Bridge.SetUserCss(Arg("module"), Arg("css")),
             "live_set_user_css" => Bridge.SetUserCss(Arg("module"), Arg("css")),
@@ -2263,6 +2406,7 @@ internal static class Program
             "live_add_event_to_block" => Bridge.AddEventToBlock(Arg("module"), Arg("block"), Arg("name")),
             "live_add_event_param_to_block" => Bridge.AddEventParamToBlock(Arg("module"), Arg("block"), Arg("event"), Arg("name"), Arg("type")),
             "live_set_block_handler" => Bridge.SetBlockHandler(Arg("module"), Arg("block"), Arg("handler"), Arg("actionName")),
+            "live_set_screen_handler" => Bridge.SetScreenHandler(Arg("module"), Arg("screen"), Arg("handler"), Arg("actionName")),
             "live_add_raise_event_node" => Bridge.AddRaiseEventNode(Arg("module"), Arg("action"), Arg("eventName"), GetInt("afterNodeIndex", -1)),
             "live_set_extended_property" => Bridge.SetHtmlAttr(Arg("module"), Arg("screen"), Arg("widget"), Arg("attrName"), Arg("attrValue")),
             "live_set_screen_layout" => Bridge.SetScreenLayout(Arg("module"), Arg("screen"), Arg("layoutBlock")),
@@ -2289,6 +2433,8 @@ internal static class Program
             "live_set_element_description" => Bridge.SetElementDescription(Arg("module"), Arg("kind"), Arg("name"), Arg("description")),
             "live_set_block_variable_type" => Bridge.SetBlockVariableType(Arg("module"), Arg("block"), Arg("var"), Arg("type"), Arg("default"), Arg("producerModule"), a?["identifier"]?.GetValue<bool>() ?? false, Arg("entityName")),
             "live_set_block_cp_text" => Bridge.SetBlockCpText(Arg("module"), Arg("block"), Arg("widget"), Arg("propName"), Arg("value")),
+            "live_set_screen_cp_text" => Bridge.SetScreenCpText(Arg("module"), Arg("screen"), Arg("widget"), Arg("propName"), Arg("value")),
+            "live_delete_screen_client_action" => Bridge.DeleteScreenClientAction(Arg("module"), Arg("screen"), Arg("action")),
             "live_set_block_cp_image" => Bridge.SetBlockCpImage(Arg("module"), Arg("block"), Arg("widget"), Arg("propName"), Arg("imageName")),
             "live_delete_anon_block_widgets" => Bridge.DeleteAnonBlockWidgets(Arg("module"), Arg("block"), Arg("typeContains"), a?["recursive"]?.GetValue<bool>() ?? false),
             "live_probe_block_cp" => Bridge.ProbeBlockCp(Arg("module"), Arg("block"), Arg("widget"), Arg("propName")),
@@ -2298,6 +2444,7 @@ internal static class Program
             "live_add_aggregate_filter" => Bridge.SetBlockAggregateFilter(Arg("module"), Arg("block"), Arg("name"), Arg("filter")),
             "live_add_if_widget_to_block" => Bridge.AddIfWidgetToBlock(Arg("module"), Arg("block"), Arg("parent"), Arg("name"), Arg("condition")),
             "live_move_widget_in_block" => Bridge.MoveWidgetInBlock(Arg("module"), Arg("block"), Arg("widget"), Arg("newParent")),
+            "live_move_widget" => Bridge.MoveWidget(Arg("module"), Arg("screen"), Arg("widget"), Arg("newParent")),
             "live_set_block_cp" => Bridge.SetBlockCpExpression(Arg("module"), Arg("block"), Arg("widget"), Arg("propName"), Arg("value")),
             "live_set_block_cp_parsed" => Bridge.SetBlockCpParsed(Arg("module"), Arg("block"), Arg("widget"), Arg("propName"), Arg("value")),
             "live_set_screen_cp_parsed" => Bridge.SetScreenCpParsed(Arg("module"), Arg("screen"), Arg("widget"), Arg("propName"), Arg("value")),
@@ -2780,6 +2927,9 @@ internal static class Bridge
     public static string MapActionInputs(string module, string action, int nodeIndex, string inputParamName = null) =>
         RunCmd(module, "{\"cmd\":\"map_action_inputs\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":" + nodeIndex + (inputParamName != null ? ",\"inputParamName\":\"" + Escape(inputParamName) + "\"" : "") + "}", "Mapped action inputs:");
 
+    public static string SetActionArg(string module, string action, int nodeIndex, string argName, string value) =>
+        RunCmd(module, "{\"cmd\":\"set_action_arg\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":" + nodeIndex + ",\"argName\":\"" + Escape(argName) + "\",\"value\":\"" + Escape(value) + "\"}", "Set action arg:");
+
     public static string DebugNodeProps(string module, string action, int nodeIndex) =>
         RunCmd(module, "{\"cmd\":\"debug_node_props\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":\"" + nodeIndex + "\"}", "Node props:");
 
@@ -3050,6 +3200,15 @@ internal static class Bridge
     public static string SetBlockHandler(string module, string block, string handler, string actionName) =>
         RunCmd(module, "{\"cmd\":\"set_block_handler\",\"module\":\"" + Escape(module) + "\",\"block\":\"" + Escape(block ?? "") + "\",\"handler\":\"" + Escape(handler ?? "") + "\",\"actionName\":\"" + Escape(actionName ?? "") + "\"}", "Set block handler:");
 
+    public static string SetScreenHandler(string module, string screen, string handler, string actionName) =>
+        RunCmd(module, "{\"cmd\":\"set_screen_handler\",\"module\":\"" + Escape(module) + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"handler\":\"" + Escape(handler ?? "") + "\",\"actionName\":\"" + Escape(actionName ?? "") + "\"}", "Set screen handler:");
+
+    public static string WireButtonToScreen(string module, string screen, string button, string targetScreen, string pars) =>
+        RunCmd(module, "{\"cmd\":\"wire_button_to_screen\",\"module\":\"" + Escape(module) + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"button\":\"" + Escape(button ?? "") + "\",\"targetScreen\":\"" + Escape(targetScreen ?? "") + "\",\"params\":\"" + Escape(pars ?? "") + "\"}", "Wired button to screen:");
+
+    public static string MoveWidget(string module, string screen, string widget, string newParent) =>
+        RunCmd(module, "{\"cmd\":\"move_widget\",\"module\":\"" + Escape(module) + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"widget\":\"" + Escape(widget ?? "") + "\",\"newParent\":\"" + Escape(newParent ?? "") + "\"}", "Moved widget:");
+
     public static string AddRaiseEventNode(string module, string action, string eventName, int afterNodeIndex) =>
         RunCmd(module, "{\"cmd\":\"add_raise_event_node\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action ?? "") + "\",\"eventName\":\"" + Escape(eventName ?? "") + "\",\"afterNodeIndex\":" + afterNodeIndex + "}", "Added RaiseEvent node:");
 
@@ -3159,6 +3318,12 @@ internal static class Bridge
     public static string SetBlockCpText(string module, string block, string widget, string propName, string value) =>
         RunCmd(module, "{\"cmd\":\"set_block_cp_text\",\"module\":\"" + Escape(module) + "\",\"block\":\"" + Escape(block ?? "") + "\",\"widget\":\"" + Escape(widget ?? "") + "\",\"propName\":\"" + Escape(propName ?? "") + "\",\"value\":" + JsonSerializer.Serialize(value ?? "") + "}", "Set block CP text:");
 
+    public static string SetScreenCpText(string module, string screen, string widget, string propName, string value) =>
+        RunCmd(module, "{\"cmd\":\"set_screen_cp_text\",\"module\":\"" + Escape(module) + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"widget\":\"" + Escape(widget ?? "") + "\",\"propName\":\"" + Escape(propName ?? "") + "\",\"value\":" + JsonSerializer.Serialize(value ?? "") + "}", "Set screen CP text:");
+
+    public static string DeleteScreenClientAction(string module, string screen, string action) =>
+        RunCmd(module, "{\"cmd\":\"delete_screen_client_action\",\"module\":\"" + Escape(module) + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"action\":\"" + Escape(action ?? "") + "\"}", "Delete screen client action:");
+
     public static string SetBlockCpImage(string module, string block, string widget, string propName, string imageName) =>
         RunCmd(module, "{\"cmd\":\"set_block_cp_image\",\"module\":\"" + Escape(module) + "\",\"block\":\"" + Escape(block ?? "") + "\",\"widget\":\"" + Escape(widget ?? "") + "\",\"propName\":\"" + Escape(propName ?? "") + "\",\"imageName\":\"" + Escape(imageName ?? "") + "\"}", "Set block CP image:");
 
@@ -3226,6 +3391,24 @@ internal static class Bridge
 
     public static string DeleteEntity(string module, string name) =>
         RunCmd(module, "{\"cmd\":\"delete_entity\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name ?? "") + "\"}", "Deleted entity:");
+
+    public static string SetEntityProp(string module, string entity, string prop, string value) =>
+        RunCmd(module, "{\"cmd\":\"set_entity_prop\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"prop\":\"" + Escape(prop ?? "") + "\",\"value\":\"" + Escape(value ?? "") + "\"}", "Set entity prop:");
+
+    public static string SetStructureProp(string module, string structure, string prop, string value) =>
+        RunCmd(module, "{\"cmd\":\"set_structure_prop\",\"module\":\"" + Escape(module) + "\",\"structure\":\"" + Escape(structure ?? "") + "\",\"prop\":\"" + Escape(prop ?? "") + "\",\"value\":\"" + Escape(value ?? "") + "\"}", "Set structure prop:");
+
+    public static string SetServerActionProp(string module, string action, string prop, string value) =>
+        RunCmd(module, "{\"cmd\":\"set_server_action_prop\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action ?? "") + "\",\"prop\":\"" + Escape(prop ?? "") + "\",\"value\":\"" + Escape(value ?? "") + "\"}", "Set server action prop:");
+
+    public static string SetEntityIdentifier(string module, string entity, string attrName) =>
+        RunCmd(module, "{\"cmd\":\"set_entity_identifier\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"attrName\":\"" + Escape(attrName ?? "") + "\"}", "Set entity identifier:");
+
+    public static string ProbeEntityActions(string module, string entity) =>
+        RunCmd(module, "{\"cmd\":\"probe_entity_actions\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\"}", "Entity actions:");
+
+    public static string CreateEntityActionNode(string module, string action, string entity, string entityAction, string where, string anchorVar, string anchorValue, int afterNodeIndex) =>
+        RunCmd(module, "{\"cmd\":\"create_entity_action_node\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action ?? "") + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"entityAction\":\"" + Escape(entityAction ?? "") + "\",\"where\":\"" + Escape(where ?? "beforeEnd") + "\",\"anchorVar\":\"" + Escape(anchorVar ?? "") + "\",\"anchorValue\":\"" + Escape(anchorValue ?? "") + "\",\"afterNodeIndex\":" + afterNodeIndex + "}", "Created entity action node:");
 
     public static string GetVerifyErrors(string module, string kind, string name, string screen, string block, string verbose) =>
         RunCmd(module, "{\"cmd\":\"get_verify_errors\",\"module\":\"" + Escape(module) + "\",\"kind\":\"" + Escape(kind ?? "") + "\",\"name\":\"" + Escape(name ?? "") + "\",\"screen\":\"" + Escape(screen ?? "") + "\",\"block\":\"" + Escape(block ?? "") + "\",\"verbose\":\"" + Escape(verbose ?? "") + "\"}", "Verify errors:");

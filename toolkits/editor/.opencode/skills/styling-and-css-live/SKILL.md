@@ -82,6 +82,31 @@ SS's Properties panel. A container with `CustomStyle="..."` instead does not sur
   types through the Style-CustomProperty path; **Links** keep `CustomStyle`
   (correct SS convention).
 
+### Screen-side classes — `set_screen_cp_text` (the ONLY correct screen writer)
+
+`set_block_cp_text` is BLOCK-scoped. For SCREEN widgets (containers, buttons, tables)
+use **`set_screen_cp_text(module, screen, widget, propName, value)`** /
+**`live_set_screen_cp_text`** — the screen twin with the same bare-value semantics
+(quoted literal + surgical element-rewrite to the bare string) **plus**
+`InvalidateSelfVerifyCache` + `ForceValidate`, so SS's error list is not stale.
+
+The four ways to set a screen container class and what each actually does
+(proven on SS 11.55.83, ZombieGame PrettyScreen):
+
+| Call (value `zg-grid`) | Result | Verdict |
+|---|---|---|
+| `live_add_container(..., styleClass='zg-grid')` / raw `styleClass` at creation | Style CP holds an arithmetic expression (`zg - grid`, "Can't identify 'zg'") | BROKEN |
+| `set_style_class` with the RAW class | same arithmetic parse | BROKEN |
+| `set_style_class` / `set_screen_cp_parsed` with a QUOTED `'"zg-grid"'` | Text element whose value KEEPS the quote chars → CSS class is `"zg-grid"` (matches nothing) + 0 verify errors (silently broken!) | BROKEN |
+| `set_screen_cp_parsed` with bare `zg-grid` | Text value IS bare, but verify cache stays stale (`Can't identify 'zg'`) until something revalidates | HALF-WORKING |
+| **`set_screen_cp_text`** bare `zg-grid` | `[Type: Text] [Value: zg-grid]` + revalidated clean | **CORRECT** |
+
+Verify with `live_probe_style_prop(module, screen, widget)` — the `_valueExpression`
+dump must show `[Type: Text]` and a bare value (`[Value: zg-grid`), no surrounding
+quotes, and `get_verify_errors` must stay 0.
+This was the root cause of "classes don't apply but 0 verify errors" — the quoted
+form hides the bug from verification; only the rendered page shows it.
+
 ### Verification
 
 - `live_probe_style_prop(module, screen, widget)` — read-only. Confirms the `Style`

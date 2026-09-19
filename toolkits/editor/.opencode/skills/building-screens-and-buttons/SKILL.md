@@ -23,6 +23,18 @@ the live tree as undo units (`Ctrl+Z`), in-memory until `Ctrl+S`.
    "cannot be converted to IClientSideDestination"). Use
    **`live_create_screen_client_action`** (NOT `live_create_client_action`, which makes a
    global `ClientActionFlow`).
+3. **`parent=<Container>` FAILS for buttons** ("CreateWidget(descriptor) not found on
+   ...Container") — containers don't expose the Button+Kind descriptor. Correct
+   sequence: create the button at `''` (screen root) or a placeholder, then
+   **`live_move_widget(module, screen, widget, newParent)`** to move it inside the
+   container (proven, ZombieGame ZgLayout PURGE button).
+4. **The button's icon/label Text children are auto-created and UNNAMED.**
+   `live_add_button(..., text)` writes the label into the Button's `content`
+   CustomPlaceholderWidget Text child (it reuses the auto-created one — no duplicate).
+   BUT an aggressive anon cleanup (`live_delete_anon_block_widgets(typeContains='Text',
+   recursive)` on the PARENT BLOCK) deletes those label Texts along with every other
+   unnamed Text (incl. nav-link labels) — after such a cleanup you MUST re-add named
+   label Texts.
 
 ## The one-two-three-punch for a wired button
 
@@ -58,6 +70,32 @@ placeholder land under the corresponding placeholder in the layout.
 
 - `live_list_widgets(module, screen)` — dump the full widget tree incl. placeholders
   and their children (each widget's `concreteType`, interfaces, children, `styleClasses`).
+
+### Swapping a screen's layout web block
+
+Screens come with a default layout (e.g. `LayoutTopMenu`). To reuse a custom
+**web block** as the screen's layout (proven — ZombieGame `PrettyScreen` → `ZgLayout`):
+
+```
+live_set_screen_layout(module, screen, layoutBlockName)   # swap
+live_probe_layout_ref(module, screen)                     # read back: layout + its placeholders
+live_list_placeholders(module, screen)                    # confirm MainContent/Header/etc exist
+```
+
+- The swap is live + undoable. After it, the screen's **title placeholder** may be
+  empty — set `live_set_screen_title`/title CP as needed.
+- **Old placeholder fill survives the swap.** The previous layout's `Header`
+  placeholder usually holds an anonymous `Menu` widget; after swapping, that content
+  is orphaned (it lives under a placeholder the new layout doesn't expose in the
+  same way). `live_probe_layout_ref` + `live_list_placeholders` will show it. It is
+  inert (no verify error) — remove it only if it shows in the rendered page; check
+  with `live_delete_anon_block_widgets` on the screen or rebuild the affected area.
+- **Widgets you added to the screen's old placeholder area move with the screen**,
+  not the layout. Build ALL new screen content under the NEW layout's
+  `MainContent` placeholder.
+- If you rebuilt a screen wholesale: delete the old subtree first
+  (`live_delete_from_placeholder` per top-level widget), then rebuild under
+  `MainContent` so no old `pg-*`/`zg-*` mix remains.
 
 ### Filling a placeholder / adding widgets
 
@@ -137,6 +175,17 @@ live_probe_widget_members(FitnessManager, TestScreen, "StartBtn")        # 5. ve
   Check `live_list_widgets` first; clean up with `live_delete_from_placeholder`.
 - `Ctrl+Z` in SS undoes each mutation (undo unit).
 - For CSS classes on containers/themes see `styling-and-css-live`.
+- **Anon cleanup is a sledgehammer:** `live_delete_anon_block_widgets(typeContains=...)`
+  deletes EVERY unnamed widget matching the type substring, recursively — including
+  auto-generated label Texts and ListItemActions. `recursive` must be a real Boolean
+  (`$true`, not the string `"true"`). After using it, re-check labels/icons/link texts
+  and re-add named versions.
+- **Screen-side anon widgets can't always be deleted:** a `List`+`ListItem` auto-creates
+  an anonymous `ListItemAction` that produces "On Click must be set" and there is NO
+  screen-side anon delete / anon OnClick setter — avoid bare Lists on screens (see
+  `building-tables` for the TableRecords alternative).
+- **Screen Client Actions cannot be deleted via `delete_action`** (module-level only).
+  Use `live_delete_screen_client_action(module, screen, action)`.
 
 ## Web blocks: the full widget zoo (proven — WidgetsStressTestBlock, SS 11.55.83)
 

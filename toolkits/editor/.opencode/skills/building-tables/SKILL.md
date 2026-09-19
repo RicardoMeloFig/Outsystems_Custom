@@ -17,6 +17,35 @@ live_get_verify_errors(module, "widget", "OrdersTable", screen)         # expect
 - Table exposes `ShowHeader` (bool), `HeaderRow`/`Row` templates, `OnSort` event,
   `Style/StyleHeader/StyleRow`, `Visible` — probed live, see below for status.
 
+## SCREEN TableRecords — full rebuild pattern (PROVEN 2026-09-19, ZombieGame WaveTbl)
+
+Use TableRecords when a bare `List`+`ListItem` is NOT viable on a screen. Getting a
+fully wired, clickable row on a SCREEN (all 0 verify errors):
+
+```
+# 1. table + source
+live_add_nr_widget(module, screen, parent='MainContent', name="WaveTbl", kind="table")
+live_set_widget_source(module, screen, "WaveTbl", "WavesAgg.List")
+# 2. row cells (dotted parent):
+#    row cells are EXPRESSIONS, not text:
+live_add_nr_widget(module, screen, parent="WaveTbl.Row", name="WaveCellName", kind="expression")
+live_set_screen_cp_parsed(module, screen, "WaveCellName", "Value", "WavesAgg.List.Current.Wave.Name")
+# 3. clickable cell -> link to another screen with a param:
+live_add_nr_widget(module, screen, parent="WaveTbl.Row", name="WaveCellAction", kind="link")
+live_add_inside_placeholder(module, screen, "MainContent", "WaveCellAction", "text", "FightLink", "FIGHT", "Battle")
+live_set_link_params(module, screen, "FightLink", "WaveId", "WavesAgg.List.Current.Wave.Id")
+```
+
+Why NOT `List`/`ListItem` here: `live_add_nr_widget(kind="list")` auto-creates an
+anonymous `ListItemAction` that reports "On Click must be set" and there is **no
+screen-side way to delete the anon action or set its handler** (the anon-delete tool
+is block-scoped). TableRecords rows don't create ListItemActions, and expression
+cells bind cleanly with `set_screen_cp_parsed` (Value CP) — the link-in-cell pattern
+above passes the current record's Id into `Battle` via `set_link_params`.
+Verify: `live_get_verify_errors` on the table (Source + cells) must stay 0.
+
+
+
 ## Sorts live on the AGGREGATE, not the table (PROVEN pattern, scope rules apply)
 
 ```

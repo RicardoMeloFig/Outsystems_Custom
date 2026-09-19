@@ -143,6 +143,7 @@ internal static class BridgeHost
             case "debug_find_exc_handler": return DebugFindExcHandler(GetStr(root, "module"), GetStr(root, "action"));
             case "set_error_handler_exception": { var idx = root.GetProperty("nodeIndex").GetInt32(); var excName = GetStr(root, "exceptionName"); return SetErrorHandlerException(GetStr(root, "module"), GetStr(root, "action"), idx, excName); }
             case "map_action_inputs": { var idx = root.GetProperty("nodeIndex").GetInt32(); return MapActionInputs(GetStr(root, "module"), GetStr(root, "action"), idx, GetStr(root, "inputParamName")); }
+            case "set_action_arg": { var idx = root.GetProperty("nodeIndex").GetInt32(); return SetActionArg(GetStr(root, "module"), GetStr(root, "action"), idx, GetStr(root, "argName"), GetStr(root, "value")); }
             case "remove_input_param": return RemoveInputParam(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "paramName"));
             case "remove_output_param": return RemoveOutputParam(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "paramName"));
             case "debug_action_args": { var idx = root.GetProperty("nodeIndex").GetInt32(); return DebugActionArgs(GetStr(root, "module"), GetStr(root, "action"), idx); }
@@ -199,6 +200,7 @@ internal static class BridgeHost
             case "create_widget_descriptor": return CreateWidgetDescriptor(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "parent"), GetStr(root, "kind"), GetStr(root, "name"), GetStr(root, "styleClass"));
             case "add_button": return AddButton(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "placeholder"), GetStr(root, "parent"), GetStr(root, "name"), GetStr(root, "text"), GetStr(root, "styleClass"));
             case "set_button_onclick": return SetButtonOnClick(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "button"), GetStr(root, "actionName"));
+            case "wire_button_to_screen": return WireButtonToScreen(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "button"), GetStr(root, "targetScreen"), GetStr(root, "params"));
             case "list_placeholders": return ListPlaceholders(GetStr(root, "module"), GetStr(root, "screen"));
             case "probe_layout_ref": return ProbeLayoutRef(GetStr(root, "module"), GetStr(root, "screen"));
             case "set_screen_layout": return SetScreenLayout(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "layoutBlock"));
@@ -233,6 +235,7 @@ internal static class BridgeHost
             case "add_event_to_block": return AddEventToBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "name"));
             case "add_event_param_to_block": return AddEventParamToBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "event"), GetStr(root, "name"), GetStr(root, "type"));
             case "set_block_handler": return SetBlockHandler(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "handler"), GetStr(root, "actionName"));
+            case "set_screen_handler": return SetScreenHandler(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "handler"), GetStr(root, "actionName"));
             case "add_raise_event_node": return AddRaiseEventNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "eventName"), root.TryGetProperty("afterNodeIndex", out var reni) && reni.ValueKind == JsonValueKind.Number ? reni.GetInt32() : -1);
             case "probe_widget_deep": return ProbeWidgetDeep(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "widgetName"));
             case "probe_data_sources": return ProbeDataSources(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "screen"));
@@ -254,9 +257,11 @@ internal static class BridgeHost
             case "set_block_aggregate_filter": return SetBlockAggregateFilter(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "name"), GetStr(root, "filter"));
             case "add_if_widget_to_block": return AddIfWidgetToBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "parent"), GetStr(root, "name"), GetStr(root, "condition"));
             case "move_widget_in_block": return MoveWidgetInBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "newParent"));
+            case "move_widget": return MoveWidgetInScreen(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "widget"), GetStr(root, "newParent"));
                     case "set_block_cp_expression": return SetBlockCpExpression(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
                     case "set_block_cp_parsed": return SetBlockCpParsed(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
             case "set_screen_cp_parsed": return SetScreenCpParsed(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
+            case "set_screen_cp_text": return SetScreenCpText(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
                     case "set_block_cp_value_attr": return SetBlockCpValueAttr(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
                     case "set_block_cp_image": return SetBlockCpImage(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "imageName"));
                     case "set_block_cp_text": return SetBlockCpText(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "widget"), GetStr(root, "propName"), GetStr(root, "value"));
@@ -269,6 +274,12 @@ internal static class BridgeHost
             case "create_entity": return CreateEntity(GetStr(root, "module"), GetStr(root, "name"));
             case "add_entity_attribute": return AddEntityAttribute(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"), GetStr(root, "type"), GetStr(root, "isMandatory"), GetStr(root, "defaultValue"));
             case "set_entity_attribute_type": return SetEntityAttributeType(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"), GetStr(root, "type"));
+            case "set_entity_prop": return SetEntityProp(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "prop"), GetStr(root, "value"));
+            case "set_structure_prop": return SetStructureProp(GetStr(root, "module"), GetStr(root, "structure"), GetStr(root, "prop"), GetStr(root, "value"));
+            case "set_server_action_prop": return SetServerActionProp(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "prop"), GetStr(root, "value"));
+            case "set_entity_identifier": return SetEntityIdentifier(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"));
+            case "probe_entity_actions": return ProbeEntityActions(GetStr(root, "module"), GetStr(root, "entity"));
+            case "create_entity_action_node": return CreateEntityActionNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "entity"), GetStr(root, "entityAction"), GetStr(root, "where"), GetStr(root, "anchorVar"), GetStr(root, "anchorValue"), root.TryGetProperty("afterNodeIndex", out var eani) && eani.ValueKind == JsonValueKind.Number ? eani.GetInt32() : -1);
             case "delete_entity_attribute": return DeleteEntityAttribute(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"));
             case "delete_entity": return DeleteEntity(GetStr(root, "module"), GetStr(root, "name"));
             case "get_verify_errors": return GetVerifyErrors(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "name"), GetStr(root, "screen"), GetStr(root, "block"), GetStr(root, "verbose"));
@@ -314,6 +325,7 @@ internal static class BridgeHost
             case "set_raise_event_arg": return SetRaiseEventArg(GetStr(root, "module"), GetStr(root, "action"), root.TryGetProperty("nodeIndex", out var rei) && rei.ValueKind == JsonValueKind.Number ? rei.GetInt32() : -1, GetStr(root, "argName"), GetStr(root, "value"));
             case "set_action_name": return SetActionName(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "newName"));
             case "delete_action": return DeleteAction(GetStr(root, "module"), GetStr(root, "action"));
+            case "delete_screen_client_action": return DeleteScreenClientAction(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "action"));
             case "probe_obj": return ProbeObj(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "block"), GetStr(root, "screen"), GetStr(root, "name"), GetStr(root, "sub"));
             case "add_js_node": return AddJsNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "js"), GetStr(root, "nodeName"), root.TryGetProperty("afterNodeIndex", out var jsni) && jsni.ValueKind == JsonValueKind.Number ? jsni.GetInt32() : -1);
             case "add_message_node": return AddMessageNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "message"), GetStr(root, "kind"), root.TryGetProperty("afterNodeIndex", out var mni) && mni.ValueKind == JsonValueKind.Number ? mni.GetInt32() : -1);
@@ -469,6 +481,37 @@ internal static class BridgeHost
                         // NREvents lifecycle wrappers (OnParametersChanged etc.) hold the real
                         // flow in their .Destination (a ClientScreenActionFlow) - unwrap it so
                         // flow-editing tools (CreateNode, list_flow, ...) work on the actual flow.
+                        try
+                        {
+                            var dest = GetProp(lf, "Destination");
+                            if (dest != null && dest.GetType().Name.IndexOf("Flow", StringComparison.Ordinal) >= 0)
+                                return dest;
+                        }
+                        catch { }
+                        return lf;
+                    }
+                }
+            }
+        }
+        // Screen lifecycle children (OnInitialize / OnReady / OnRender / OnDestroy) own flows the
+        // same way (NREvents.* wrappers whose Destination is the screen's ClientScreenActionFlow).
+        // Reflection-verified on SS 11.55.83: ServiceStudio.Model.NRNodes/WebScreen implements
+        // IMobileScreen, whose lifecycle props are read-only IUILifeCycleEvent children - screens
+        // have NO assignable action-reference prop, so unwrapping the flow for the flow-editing
+        // tools is the screen counterpart of the block handling above.
+        foreach (var flow in WebFlowsOf(es))
+        {
+            var nodes = GetProp(flow, "Nodes") as IEnumerable;
+            if (nodes == null) continue;
+            foreach (var node in nodes)
+            {
+                if (!IsScreen(node)) continue;
+                foreach (var lifeName in new[] { "OnInitialize", "OnReady", "OnRender", "OnDestroy" })
+                {
+                    object lf = null;
+                    try { lf = GetProp(node, lifeName); } catch { }
+                    if (lf != null && string.Equals(lifeName, name, StringComparison.OrdinalIgnoreCase))
+                    {
                         try
                         {
                             var dest = GetProp(lf, "Destination");
@@ -801,6 +844,45 @@ internal static class BridgeHost
     // Reactive vs Traditional: CreateWebFlow/CreateScreen/CreateWidget<T> dispatch to
     // the right concrete type per module kind; flows are searched across both the
     // WebFlows and NRWebFlows collections so this works for either kind.
+
+    // delete_screen_client_action: delete a SCREEN-level Client Action (ClientScreenActionFlow)
+    // from a screen's own ClientActions collection. Module-level delete_action does NOT cover
+    // these (they live on the screen, not es.ClientActions).
+    static string DeleteScreenClientAction(string moduleName, string screenName, string actionName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var sc = FindScreen(es, screenName);
+        if (sc == null) return Json(new { ok = false, error = "screen not found: " + screenName });
+        object action = null;
+        try
+        {
+            var coll = GetProp(sc, "ClientActions") as IEnumerable;
+            if (coll != null)
+                foreach (var a in coll)
+                {
+                    try { if ((GetProp(a, "Name") as string) == actionName) { action = a; break; } } catch { }
+                }
+        }
+        catch (Exception e) { return Json(new { ok = false, error = "screen ClientActions read failed: " + e.Message }); }
+        if (action == null) return Json(new { ok = false, error = "screen client action not found: " + actionName });
+        string err = null;
+        Action mutate = () =>
+        {
+            try { CallMethod(action, "Delete", null, 0); }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = r.GetType().Name + ": " + r.Message; }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(GetContext(es));
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: delete screen client action", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        return Json(new { ok = err == null, deleted = actionName, screen = screenName, error = err });
+    }
 
     static string RunCmd(string moduleName, string desc, Func<object, string> mutate)
     {
@@ -1753,6 +1835,14 @@ internal static class BridgeHost
     // Map a human widget kind to its NRWidgets plugin concrete class name (the class with a
     // nested Kind exposing Instance.Descriptor, proven live via probe_widget_kinds). All Reactive
     // widgets are plugin CustomWidgets created via CreateWidget(descriptor), NOT CreateWidget<T>.
+    // headercell/rowcell: Reactive table cells. Reflection-verified on SS 11.55.83 -
+    // ServiceStudio.Plugin.NRWidgets.HeaderCell and .RowCell follow the exact Button pattern
+    // (nested Kind with static Instance field + Descriptor -> CustomObjectDescriptor; base
+    // ServiceStudio.Model.NRWebWidgets/CustomWidget, same as Button). The TableRecords class has
+    // NO column/cell factory methods - cells are plain widgets created under the table's
+    // HeaderRow/Row IContent hosts (their only concrete implementation is CustomPlaceholderWidget,
+    // the same host type as containers' 'content' placeholder), addressed by add_nr_widget's
+    // dotted parent syntax: kind=headercell parent="Table.HeaderRow", kind=rowcell parent="Table.Row".
     static readonly Dictionary<string, string> NRWidgetKindClasses = new Dictionary<string, string>
     {
         ["button"] = "Button",
@@ -1767,6 +1857,8 @@ internal static class BridgeHost
         ["list"] = "List",
         ["list-item"] = "ListItem",
         ["table"] = "TableRecords",
+        ["headercell"] = "HeaderCell",
+        ["rowcell"] = "RowCell",
         ["image"] = "Image",
         ["icon"] = "Icon",
         ["form"] = "Form",
@@ -3874,6 +3966,84 @@ internal static class BridgeHost
         }
         if (!done) throw new Exception("could not wire OnClick: Destination not assignable and no SetOnClickHandler found");
         return "set OnClick of button '" + button + "' -> action '" + actionName2 + "' via " + via + " (" + where + ")";
+    }
+
+    // wire_button_to_screen: set a Button's OnClick Destination DIRECTLY to a screen (click =
+    // navigate), with optional input-parameter mapping mirroring set_link_params. Reflection-
+    // verified on SS 11.55.83: ServiceStudio.Model.NRWebWidgetEvents+EventHandler (the Button's
+    // OnClick object) inherits ServiceStudio.Model.NREvents+AbstractClientSideEvent, whose PUBLIC
+    // Destination property is typed ServiceStudio.Model.Interfaces.IClientSideDestination, and
+    // ServiceStudio.Model.NRNodes/WebScreen (the Reactive screen) IMPLEMENTS
+    // IClientSideDestination - so the screen object is assignable to handler.Destination exactly
+    // like a screen-level ClientScreenActionFlow is. params = "Name=Value,..." for the target
+    // screen's input parameters.
+    static string WireButtonToScreen(string module, string screen, string button, string targetScreen, string paramsCsv)
+    {
+        if (string.IsNullOrEmpty(button)) return Json(new { ok = false, error = "button (widget name) required" });
+        if (string.IsNullOrEmpty(targetScreen)) return Json(new { ok = false, error = "targetScreen required" });
+        return RunCmd(module, "wire button to screen", es =>
+        {
+            var sc = FindScreen(es, screen);
+            if (sc == null) throw new Exception("screen not found: " + screen);
+            var w = FindWidget(sc, button) ?? FindWidgetDeep(sc, button);
+            if (w == null) throw new Exception("button widget not found: " + button);
+            var tgt = FindScreen(es, targetScreen);
+            if (tgt == null) throw new Exception("target screen not found: " + targetScreen);
+            object handler = null; try { handler = GetProp(w, "OnClick"); } catch { }
+            if (handler == null) { try { handler = CallMethod(w, "CreateOnClick", null, 0); } catch { } }
+            if (handler == null)
+            {
+                var evHandlers = GetProp(w, "EventHandlers") as IEnumerable;
+                if (evHandlers != null)
+                    foreach (var eh in evHandlers)
+                        try { if ((GetProp(eh, "EventName") as string ?? "") == "OnClick") { handler = eh; break; } } catch { }
+            }
+            if (handler == null) throw new Exception("OnClick handler not found and could not be created on " + button);
+            var destProp = handler.GetType().GetProperty("Destination");
+            if (destProp == null) throw new Exception("OnClick handler has no Destination property (" + handler.GetType().FullName + ")");
+            if (!destProp.PropertyType.IsInstanceOfType(tgt) && !destProp.PropertyType.IsAssignableFrom(tgt.GetType()))
+                throw new Exception("screen '" + targetScreen + "' (" + tgt.GetType().Name + ") is not assignable to OnClick Destination (" + destProp.PropertyType.FullName + ") - use a Link with targetScreen as fallback");
+            SetProp(handler, "Destination", tgt);
+            // Optional input-parameter mapping (mirrors set_link_params): once Destination is
+            // set, the handler's Arguments carry one slot per destination-screen input param.
+            var paramReport = "";
+            if (!string.IsNullOrEmpty(paramsCsv))
+            {
+                var args = GetProp(handler, "Arguments") as IEnumerable;
+                if (args == null) paramReport = " | params NOT set: OnClick has no Arguments collection (destination may have no input params)";
+                else
+                {
+                    var argList = new List<object>();
+                    foreach (var arg in args) argList.Add(arg);
+                    var report = new List<string>();
+                    foreach (var pair in paramsCsv.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        var eq = pair.IndexOf('=');
+                        if (eq < 0) { report.Add(pair.Trim() + ":SKIP(no =)"); continue; }
+                        var an = pair.Substring(0, eq).Trim();
+                        var av = pair.Substring(eq + 1).Trim();
+                        object target = null;
+                        foreach (var arg in argList)
+                        {
+                            var param = GetProp(arg, "Parameter");
+                            var paramName = param != null ? (GetProp(param, "Name") as string ?? "?") : "?";
+                            if (string.Equals(paramName, an, StringComparison.OrdinalIgnoreCase)) { target = arg; break; }
+                        }
+                        if (target == null) { report.Add(an + ":NO-SLOT(" + argList.Count + " args present)"); continue; }
+                        bool mapped = false; string how = null;
+                        try { CallMethod(target, "SetValue", new object[] { av }, 1); mapped = true; how = "SetValue"; }
+                        catch { }
+                        if (!mapped)
+                        {
+                            try { var ve = GetProp(target, "Value"); if (ve != null) { SetProp(ve, "Text", av); mapped = true; how = "Value.Text"; } } catch { }
+                        }
+                        report.Add(an + "=" + av + (mapped ? ":OK(" + how + ")" : ":FAILED"));
+                    }
+                    paramReport = " | params: " + string.Join(";", report);
+                }
+            }
+            return "set OnClick of button '" + button + "' -> screen '" + targetScreen + "' (" + tgt.GetType().Name + ") via handler.Destination" + paramReport;
+        });
     }
 
     // add_button_to_block: create a REAL Button inside a WEB BLOCK's widget tree (or a named
@@ -6733,6 +6903,96 @@ internal static class BridgeHost
         });
     }
 
+    // set_screen_handler: mirror of set_block_handler for SCREEN lifecycle handlers
+    // (OnInitialize / OnReady / OnRender / OnDestroy). Reflection-verified on SS 11.55.83:
+    // ServiceStudio.Model.NRNodes/WebScreen implements IMobileScreen, whose lifecycle props are
+    // READ-ONLY IUILifeCycleEvent children (ServiceStudio.Model.NREvents.* objects owning their
+    // own flow via Destination) - screens have NO assignable action-reference lifecycle prop.
+    // So when the resolved handler is a lifecycle child we do NOT force an assignment (same
+    // do-not-force rule as set_block_handler): instead we insert an ExecuteAction
+    // (IExecuteClientActionNode) node INTO the lifecycle flow calling the named screen Client
+    // Action (screen ClientActions first, then module actions). If a writable
+    // action-reference property is ever found, it is assigned directly like set_block_handler.
+    static string SetScreenHandler(string module, string screen, string handler, string actionName)
+    {
+        if (string.IsNullOrEmpty(screen)) return Json(new { ok = false, error = "screen required" });
+        if (string.IsNullOrEmpty(handler)) return Json(new { ok = false, error = "handler required" });
+        if (string.IsNullOrEmpty(actionName)) return Json(new { ok = false, error = "actionName required" });
+        return RunCmd(module, "set screen handler", es =>
+        {
+            var sc = FindScreen(es, screen);
+            if (sc == null) throw new Exception("screen not found: " + screen);
+            // Case-insensitive prop lookup: class hierarchy first (set_block_handler's scan),
+            // then the interface map - screens expose the lifecycle props ONLY through explicit
+            // IMobileScreen implementations (get-only), which the class scan cannot see.
+            System.Reflection.PropertyInfo found = null; string foundVia = null;
+            foreach (var t in AllTypes(sc.GetType()))
+            {
+                foreach (var p in t.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                {
+                    if (!p.Name.Equals(handler, StringComparison.OrdinalIgnoreCase)) continue;
+                    found = p; foundVia = "class " + t.Name; break;
+                }
+                if (found != null) break;
+            }
+            if (found == null)
+            {
+                foreach (var iface in sc.GetType().GetInterfaces())
+                {
+                    foreach (var p in iface.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        if (!p.Name.Equals(handler, StringComparison.OrdinalIgnoreCase)) continue;
+                        found = p; foundVia = "interface " + iface.Name; break;
+                    }
+                    if (found != null) break;
+                }
+            }
+            if (found == null) throw new Exception("no property named '" + handler + "' found on screen '" + screen + "'");
+            var ptName = found.PropertyType.Name;
+            var ptFull = found.PropertyType.FullName ?? ptName;
+            bool isLifecycle = ptFull.IndexOf("NREvents", StringComparison.Ordinal) >= 0
+                || ptName.StartsWith("On", StringComparison.Ordinal)
+                || ptName.IndexOf("LifeCycleEvent", StringComparison.OrdinalIgnoreCase) >= 0;
+            if (!isLifecycle && found.CanWrite)
+            {
+                // Writable action-reference property (the set_block_handler shape): assign.
+                var action = FindActionInCollection(sc, "ClientActions", actionName) ?? FindAction(es, actionName);
+                if (action == null) throw new Exception("action not found: " + actionName);
+                if (!found.PropertyType.IsInstanceOfType(action))
+                    throw new Exception("action '" + actionName + "' (" + action.GetType().Name + ") is not assignable to handler property '" + found.Name + "' (" + ptName + ")");
+                found.SetValue(sc, action, null);
+                return "set handler " + found.Name + " of screen '" + screen + "' -> action '" + actionName + "' (via " + foundVia + ")";
+            }
+            if (!isLifecycle) throw new Exception("handler property '" + found.Name + "' on screen '" + screen + "' is read-only (" + ptName + ") and not a lifecycle child - cannot assign");
+            // Lifecycle child: report (do not force) + wire by inserting a call node into its flow.
+            var lf = GetProp(sc, found.Name);
+            if (lf == null) throw new Exception("lifecycle child '" + found.Name + "' not readable on screen '" + screen + "'");
+            var flow = GetProp(lf, "Destination");
+            if (flow == null) throw new Exception("lifecycle child '" + found.Name + "' on screen '" + screen + "' has no flow (Destination is null) - open the flow once in SS so it is created, then retry");
+            if (NodeList(flow).Count == 0) throw new Exception("lifecycle flow '" + found.Name + "' on screen '" + screen + "' is EMPTY - node creation on an empty lifecycle flow deadlocks the bridge. Open the flow once in SS (Start/End skeleton) or seed it via add_lifecycle_assign, then retry");
+            var act = FindActionInCollection(sc, "ClientActions", actionName) ?? FindAction(es, actionName);
+            if (act == null) throw new Exception("action not found: " + actionName + " (screen ClientActions searched first, then module actions)");
+            var iasType = FindType("OutSystems.Model.Logic.IActionSignature");
+            if (iasType != null && !iasType.IsInstanceOfType(act))
+                throw new Exception("action '" + actionName + "' (" + act.GetType().Name + ") does not implement IActionSignature - not callable from a flow node");
+            // Resolve End/prev BEFORE creating anything so a wiring miss cannot leave a phantom node.
+            var endNode = NodesOfType(flow, "IEndNode").FirstOrDefault();
+            object prev = null;
+            if (endNode != null)
+                foreach (var n in NodeList(flow))
+                {
+                    var tgt = GetProp(n, "Target");
+                    if (tgt != null && object.ReferenceEquals(tgt, endNode)) { prev = n; break; }
+                }
+            if (endNode == null || prev == null) throw new Exception("End/prev not found in lifecycle flow '" + found.Name + "' on screen '" + screen + "'");
+            var node = CreateNodeGeneric(flow, "OutSystems.Model.Logic.Nodes.IExecuteClientActionNode");
+            SetProp(node, "Action", act);
+            SetProp(node, "Target", endNode);
+            SetProp(prev, "Target", node);
+            return "handler '" + found.Name + "' on screen '" + screen + "' is a lifecycle child (" + lf.GetType().Name + ") that owns its own flow - no reference assignment forced (screens have none). Inserted an ExecuteAction node calling '" + actionName + "' (" + act.GetType().Name + ") before End instead. The flow tools also address this flow by name (FindAction resolves screen lifecycle children).\n" + DumpFlowGraph(flow);
+        });
+    }
+
     // add_raise_event_node: create a Raise-Event node in an action/client-action flow and
     // (best-effort) bind it to an event by name on the containing block. Tries candidate node
     // interfaces (Render/Reactive RaiseEvent surfaces), then SetEvent/EventName/SetEventHandler.
@@ -7114,6 +7374,96 @@ internal static class BridgeHost
             }
             if (via != null) return "moved widget '" + widget + "' in block '" + block + "' onto '" + (string.IsNullOrEmpty(newParent) ? "<block root>" : newParent) + "' via " + via + " (" + w.GetType().Name + ")";
             return "no Move api found for " + w.GetType().Name + " - widget '" + widget + "' is addressable; re-create under '" + newParent + "' with add_widget_to_block/add_nr_widget instead";
+        });
+    }
+
+    // Resolve the destination host for move_widget on a SCREEN. Mirrors the parent-resolution
+    // logic of AddNRWidget: If-branch syntax "IfName:True"/"IfName:False", dotted content
+    // "Table.Row"/"Table.HeaderRow" (ResolveDottedContent), named placeholder
+    // "LayoutName:MainContent"/"Widget:placeholderName", and the default 'content'
+    // CustomPlaceholderWidget of containers. Also descends into a layout WebBlockInstance's
+    // Instance.Placeholders (screens host layout fills there). Empty newParent = screen root.
+    static object ResolveScreenWidgetHost(object screen, string newParent)
+    {
+        if (string.IsNullOrEmpty(newParent)) return screen;
+        var colonIdx = newParent.LastIndexOf(':');
+        var suffix = colonIdx > 0 ? newParent.Substring(colonIdx + 1) : null;
+        var isBranchSyntax = colonIdx > 0 && (string.Equals(suffix, "True", StringComparison.OrdinalIgnoreCase) || string.Equals(suffix, "False", StringComparison.OrdinalIgnoreCase));
+        if (isBranchSyntax)
+        {
+            // Children of an If live in its Branches[0]/[1] (IfBranch), not a content placeholder.
+            var ifName = newParent.Substring(0, colonIdx);
+            var ifWidget = FindWidgetDeep(screen, ifName);
+            if (ifWidget == null) throw new Exception("If widget not found: " + ifName);
+            var branches = GetProp(ifWidget, "Branches") as IEnumerable;
+            if (branches == null) throw new Exception("widget '" + ifName + "' has no Branches collection");
+            int idx = string.Equals(suffix, "True", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
+            object branch = null;
+            int i = 0;
+            foreach (var b in branches) { if (i == idx) { branch = b; break; } i++; }
+            if (branch == null) throw new Exception("branch index " + idx + " not found on '" + ifName + "'");
+            return branch;
+        }
+        var widgetPart = colonIdx > 0 ? newParent.Substring(0, colonIdx) : newParent;
+        var placeholderPart = colonIdx > 0 ? suffix : null;
+        // Dotted content syntax "Table.Row" / "Table.HeaderRow": Row/HeaderRow are IContent
+        // (not FindWidget-addressable); resolve the content object as the host.
+        var dotted = ResolveDottedContent(screen, newParent);
+        if (dotted != null) return dotted;
+        var par = FindWidgetDeep(screen, widgetPart);
+        if (par == null) throw new Exception("new parent not found: " + widgetPart);
+        IEnumerable GetPhColl()
+        {
+            IEnumerable phColl = null;
+            try { phColl = GetProp(par, "Placeholders") as IEnumerable; } catch { }
+            if (phColl == null)
+            {
+                // Layout WebBlockInstance widgets keep their placeholders on the Instance.
+                object inst = null;
+                try { inst = GetProp(par, "Instance"); } catch { }
+                if (inst != null) { try { phColl = GetProp(inst, "Placeholders") as IEnumerable; } catch { } }
+            }
+            return phColl;
+        }
+        var phColl = GetPhColl();
+        if (phColl != null)
+        {
+            // Named placeholder "Widget:placeholderName" (e.g. "LayoutName:MainContent").
+            if (placeholderPart != null)
+            {
+                foreach (var ph in phColl)
+                {
+                    var phName = GetProp(ph, "Name") as string ?? "";
+                    if (string.Equals(phName, placeholderPart, StringComparison.OrdinalIgnoreCase)) return ph;
+                }
+            }
+            // A container's children live on its 'content' CustomPlaceholderWidget.
+            foreach (var ph in phColl)
+            {
+                var phName = GetProp(ph, "Name") as string ?? "";
+                if (string.Equals(phName, "content", StringComparison.OrdinalIgnoreCase)) return ph;
+            }
+        }
+        return par;
+    }
+
+    // move_widget: reparent a widget on a SCREEN - LIVE tree, undo unit. Uses the widget's
+    // ChangeParent method (the API AddNRWidget's fallback uses for IfBranch/Popup hosts).
+    // newParent supports the AddNRWidget parent syntax: "" (screen root) | container name |
+    // "IfName:True"/"IfName:False" | "LayoutName:MainContent" (named placeholder) |
+    // "Table.Row" / "Table.HeaderRow" (dotted content hosts).
+    static string MoveWidgetInScreen(string module, string screen, string widget, string newParent)
+    {
+        if (string.IsNullOrEmpty(screen) || string.IsNullOrEmpty(widget)) return Json(new { ok = false, error = "screen and widget required" });
+        return RunCmd(module, "move widget", es =>
+        {
+            var sc = FindScreen(es, screen);
+            if (sc == null) throw new Exception("screen not found: " + screen);
+            var w = FindWidgetDeep(sc, widget);
+            if (w == null) throw new Exception("widget not found: " + widget + " on screen '" + screen + "'");
+            var newHost = ResolveScreenWidgetHost(sc, newParent);
+            CallMethod(w, "ChangeParent", new object[] { newHost }, 1);
+            return "moved widget '" + widget + "' on screen '" + screen + "' onto '" + (string.IsNullOrEmpty(newParent) ? "<screen root>" : newParent) + "' via ChangeParent (" + w.GetType().Name + " -> " + newHost.GetType().Name + ")";
         });
     }
 
@@ -7568,6 +7918,75 @@ internal static class BridgeHost
         });
     }
 
+    // set_screen_cp_text: SCREEN twin of set_block_cp_text. Sets a text-literal CustomProperty
+    // (e.g. NRWidgets Container 'Style' classes) on a SCREEN widget with the BARE value (no
+    // quotes, no expression parsing), then forces revalidation so SS's error list is not stale.
+    static string SetScreenCpText(string module, string screen, string widget, string propName, string value)
+    {
+        if (string.IsNullOrEmpty(screen)) return Json(new { ok = false, error = "screen required" });
+        if (string.IsNullOrEmpty(widget) || string.IsNullOrEmpty(propName) || value == null) return Json(new { ok = false, error = "widget, propName and value required" });
+        return RunCmd(module, "set screen cp text", es =>
+        {
+            var sc = FindScreen(es, screen);
+            if (sc == null) throw new Exception("screen not found: " + screen);
+            var w = FindWidget(sc, widget);
+            if (w == null) throw new Exception("widget not found: " + widget + " on screen '" + screen + "'");
+            object cp = null;
+            object cps = null;
+            try { cps = GetProp(w, "CustomProperties"); } catch { }
+            if (cps == null) { try { cps = GetField(w, "_customProperties"); } catch { } }
+            if (cps is IEnumerable coll)
+                foreach (var c in coll)
+                {
+                    var pn = GetProp(c, "PropertyName") as string ?? GetFieldStr(c, "_propertyName");
+                    if (pn == propName) { cp = c; break; }
+                }
+            if (cp == null) return "no CustomProperty named '" + propName + "' on " + w.GetType().Name + " '" + widget + "'";
+            var quoted = "\"" + value + "\"";
+            CallMethodTyped(cp, "SetValueExpression", new object[] { quoted });
+            var fixes = new List<string>();
+            try
+            {
+                var ve = GetProp(cp, "ValueExpression");
+                var el = ve != null ? GetField(ve, "expressionElement") : null;
+                if (el != null)
+                {
+                    foreach (var t in AllTypes(el.GetType()))
+                    {
+                        foreach (var f in t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        {
+                            if (f.FieldType != typeof(string)) continue;
+                            try { if ((string)f.GetValue(el) == quoted) { f.SetValue(el, value); fixes.Add(t.Name + "." + f.Name); } } catch { }
+                        }
+                        foreach (var p in t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        {
+                            if (p.PropertyType != typeof(string) || !p.CanWrite) continue;
+                            try { if ((string)p.GetValue(el, null) == quoted) { p.SetValue(el, value, null); fixes.Add(t.Name + "." + p.Name + "(prop)"); } } catch { }
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { fixes.Add("fix failed: " + e.Message); }
+            // Raw backing-field writes bypass SS change notifications - clear the stale verification.
+            try { CallMethod(w, "InvalidateSelfVerifyCache", null, 0); } catch { }
+            try { CallMethod(w, "ForceValidate", null, 0); } catch { }
+            string elementDump = "null"; string messages = "";
+            try
+            {
+                var ve = GetProp(cp, "ValueExpression");
+                if (ve != null)
+                {
+                    var el = GetField(ve, "expressionElement");
+                    elementDump = el?.ToString() ?? "null";
+                    var vc = GetField(ve, "verifyCache");
+                    messages = vc?.ToString() ?? "";
+                }
+            }
+            catch (Exception e) { elementDump = "dump failed: " + e.Message; }
+            return "set CP '" + propName + "' = '" + value + "' on '" + widget + "'. Element: " + elementDump + " | Verify: " + messages + (fixes.Count > 0 ? " | fixed fields: " + string.Join(", ", fixes) : " | NO quoted-value fields found to fix");
+        });
+    }
+
     // probe_block_cp: dump a single CustomProperty's internals - its methods (full signatures),
     // the ValueExpression object's type/methods/fields, and the _value/_valueExpression fields.
     // Diagnostic: understand WHY SetValueExpression fails (IImageSignature overload confusion).
@@ -7859,8 +8278,28 @@ internal static class BridgeHost
     // Resolve an attribute DataType the same way AddStructureAttribute does (basic
     // es.<type>Type, then es.ListTypes by Name, then es.Structures by Name), plus
     // es.Entities by Name so reference attributes resolve too.
+    // FK Identifier syntax: "<Entity> Identifier" (e.g. "Wave Identifier") strips the suffix
+    // (case-insensitive), resolves the entity in LOCAL es.Entities and returns its
+    // IdentifierType (ServiceStudio.Model.EntityIdentifierType - an AbstractType, i.e. a real
+    // DataType, reflection-verified: EntityIdentifierType : AbstractConstantDBType : ... :
+    // AbstractType; AbstractEntity.IdentifierType : EntityIdentifierType). Throws naming the
+    // entity when it is not found or has no IdentifierType. All other type strings keep the
+    // pre-existing resolution behavior. Extends set_entity_attribute_type / add_entity_attribute.
     static object ResolveAttrDataType(object es, string type)
     {
+        if (!string.IsNullOrEmpty(type))
+        {
+            const string idSuffix = " Identifier";
+            if (type.Length > idSuffix.Length && type.EndsWith(idSuffix, StringComparison.OrdinalIgnoreCase))
+            {
+                var entityName = type.Substring(0, type.Length - idSuffix.Length).TrimEnd();
+                var ent = FindEntity(es, entityName);
+                if (ent == null) throw new Exception("entity '" + entityName + "' not found in module (resolving FK Identifier type '" + type + "') - only LOCAL entities resolve for Identifier types; check spelling");
+                var idType = GetProp(ent, "IdentifierType");
+                if (idType == null) throw new Exception("entity '" + entityName + "' has no IdentifierType (resolving FK Identifier type '" + type + "') - wire its identifier attribute first (set_entity_identifier)");
+                return idType;
+            }
+        }
         object dataType = null;
         TryGetProp(es, type + "Type", out dataType);
         if (dataType == null)
@@ -7875,6 +8314,14 @@ internal static class BridgeHost
             var structs = GetProp(es, "Structures") as IEnumerable;
             if (structs != null)
                 foreach (var s in structs)
+                    try { if ((GetProp(s, "Name") as string) == type) { dataType = s; break; } } catch { }
+        }
+        if (dataType == null)
+        {
+            // Entity record types live as anonymous singleton structures (e.g. "SurvivorType Record").
+            var anonStructs = GetProp(es, "AnonymousStructures") as IEnumerable;
+            if (anonStructs != null)
+                foreach (var s in anonStructs)
                     try { if ((GetProp(s, "Name") as string) == type) { dataType = s; break; } } catch { }
         }
         if (dataType == null)
@@ -7992,6 +8439,256 @@ internal static class BridgeHost
         {
             SetProp(attr, "DataType", dataType);
             return "set " + entity + "." + attrName + " DataType -> " + type + " (" + TypeLabel(dataType) + ")";
+        });
+    }
+
+    // set_entity_prop: set a settable string/bool/int property on a server Entity
+    // (Public, ExposeReadOnly, Description, PrettyName, IsStaticEntity, UpdateBehavior, ...).
+    // ExposeCreateAndChangeActions / IdentifierType / EntityActions are read-only (computed)
+    // and throw a clean error here. Undo unit. Verified by read-back.
+    static string SetEntityProp(string module, string entity, string prop, string value)
+    {
+        if (string.IsNullOrEmpty(entity) || string.IsNullOrEmpty(prop)) return Json(new { ok = false, error = "entity and prop required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var ent = FindEntity(es, entity);
+        if (ent == null) return Json(new { ok = false, error = "entity not found: " + entity });
+        string before = null;
+        try { var b = GetProp(ent, prop); if (b != null) before = b.ToString(); } catch { }
+        return RunCmd(module, "set entity prop " + prop, es2 =>
+        {
+            object val = value;
+            if (bool.TryParse(value, out var b)) val = b;
+            else if (int.TryParse(value, out var i)) val = i;
+            else if (long.TryParse(value, out var l)) val = l;
+            SetProp(ent, prop, val); // throws -> RunCmd marks error (read-only props land here)
+            string after = null;
+            try { var a = GetProp(ent, prop); if (a != null) after = a.ToString(); } catch { }
+            return "set " + entity + "." + prop + " = " + value
+                + (before != null ? " (was " + before + ")" : "")
+                + (after != null ? " -> now " + after : "");
+        });
+    }
+
+    // set_structure_prop / set_server_action_prop: set a settable bool/string/int property on
+    // a Structure or a Server/Service Action (e.g. Public=True). Same pattern as SetEntityProp.
+    static string SetStructureProp(string module, string structure, string prop, string value)
+    {
+        if (string.IsNullOrEmpty(structure) || string.IsNullOrEmpty(prop)) return Json(new { ok = false, error = "structure and prop required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        object obj = null;
+        var structs = GetProp(es, "Structures") as IEnumerable;
+        if (structs != null)
+            foreach (var s in structs)
+                try { if ((GetProp(s, "Name") as string) == structure) { obj = s; break; } } catch { }
+        if (obj == null) return Json(new { ok = false, error = "structure not found: " + structure });
+        return SetNamedObjectProp(module, structure, prop, value, obj);
+    }
+
+    static string SetServerActionProp(string module, string action, string prop, string value)
+    {
+        if (string.IsNullOrEmpty(action) || string.IsNullOrEmpty(prop)) return Json(new { ok = false, error = "action and prop required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var obj = FindAction(es, action);
+        if (obj == null) return Json(new { ok = false, error = "action not found: " + action });
+        return SetNamedObjectProp(module, action, prop, value, obj);
+    }
+
+    static string SetNamedObjectProp(string module, string name, string prop, string value, object obj)
+    {
+        string before = null;
+        try { var b = GetProp(obj, prop); if (b != null) before = b.ToString(); } catch { }
+        return RunCmd(module, "set " + prop, es2 =>
+        {
+            object val = value;
+            if (bool.TryParse(value, out var b)) val = b;
+            else if (int.TryParse(value, out var i)) val = i;
+            else if (long.TryParse(value, out var l)) val = l;
+            SetProp(obj, prop, val);
+            string after = null;
+            try { var a = GetProp(obj, prop); if (a != null) after = a.ToString(); } catch { }
+            return "set " + name + "." + prop + " = " + value
+                + (before != null ? " (was " + before + ")" : "")
+                + (after != null ? " -> now " + after : "");
+        });
+    }
+
+    // set_entity_identifier: wire an existing attribute as the entity's Identifier (primary
+    // key). The settable surface is entity.Identifier (public setter on AbstractCoreEntity);
+    // IsIdentifierAttribute on the attribute is read-only (computed). Then RefreshEntityActions()
+    // regenerates the auto entity actions against the new schema. Verified by re-read.
+    static string SetEntityIdentifier(string module, string entity, string attrName)
+    {
+        if (string.IsNullOrEmpty(entity) || string.IsNullOrEmpty(attrName)) return Json(new { ok = false, error = "entity and attrName required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var ent = FindEntity(es, entity);
+        if (ent == null) return Json(new { ok = false, error = "entity not found: " + entity });
+        object attr = null;
+        var attrs = GetProp(ent, "Attributes") as IEnumerable;
+        if (attrs != null)
+            foreach (var a in attrs)
+                try { if ((GetProp(a, "Name") as string) == attrName) { attr = a; break; } } catch { }
+        if (attr == null) return Json(new { ok = false, error = "attribute not found: " + attrName + " on " + entity });
+        return RunCmd(module, "set entity identifier", es2 =>
+        {
+            SetProp(ent, "Identifier", attr);
+            CallMethod(ent, "RefreshEntityActions", null, 0);
+            var id = GetProp(ent, "Identifier");
+            var idType = GetProp(ent, "IdentifierType");
+            var idName = id != null ? (GetProp(id, "Name") as string ?? "<unnamed>") : "<null>";
+            return entity + ".Identifier = " + idName + " ; IdentifierType = " + (idType != null ? idType.GetType().Name : "<null>");
+        });
+    }
+
+    // probe_entity_actions: list the auto-generated entity actions (type short name, Name,
+    // input/output parameter names + types). Read-only. Call after set_entity_identifier so the
+    // actions are regenerated (RefreshEntityActions).
+    static string ProbeEntityActions(string module, string entity)
+    {
+        if (string.IsNullOrEmpty(entity)) return Json(new { ok = false, error = "entity required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var ent = FindEntity(es, entity);
+        if (ent == null) return Json(new { ok = false, error = "entity not found: " + entity });
+        var actions = GetProp(ent, "EntityActions") as IEnumerable;
+        var sb = new StringBuilder();
+        sb.AppendLine("entity " + entity + " EntityActions:");
+        int n = 0;
+        if (actions != null)
+            foreach (var actObj in actions)
+            {
+                n++;
+                sb.AppendLine("  [" + n + "] type=" + ShortName(actObj) + " name=" + SafeToString(GetProp(actObj, "Name")));
+                var ins = GetProp(actObj, "InputParameters") as IEnumerable;
+                if (ins != null) foreach (var p in ins)
+                    sb.AppendLine("      in : " + SafeToString(GetProp(p, "Name")) + " : " + SafeToString(GetProp(p, "DataType")));
+                var outs = GetProp(actObj, "OutputParameters") as IEnumerable;
+                if (outs != null) foreach (var p in outs)
+                    sb.AppendLine("      out: " + SafeToString(GetProp(p, "Name")));
+            }
+        if (n == 0) sb.AppendLine("  (none - regenerate via set_entity_identifier or check entity)");
+        return Json(new { ok = true, report = sb.ToString() });
+    }
+
+    // Find an entity action object by name: exact Name match, then exact type short name
+    // (e.g. "CreateEntity"), then prefix match (e.g. "Create" -> "CreateEntity").
+    static object FindEntityAction(object ent, string name)
+    {
+        var actions = GetProp(ent, "EntityActions") as IEnumerable;
+        if (actions == null || string.IsNullOrEmpty(name)) return null;
+        object prefixMatch = null;
+        foreach (var a in actions)
+        {
+            var nm = GetProp(a, "Name") as string;
+            if (string.Equals(nm, name, StringComparison.OrdinalIgnoreCase)) return a;
+            var tn = ShortName(a);
+            if (string.Equals(tn, name, StringComparison.OrdinalIgnoreCase)) return a;
+            if (prefixMatch == null && tn != null && tn.StartsWith(name, StringComparison.OrdinalIgnoreCase)) prefixMatch = a;
+            if (prefixMatch == null && nm != null && nm.StartsWith(name, StringComparison.OrdinalIgnoreCase)) prefixMatch = a;
+        }
+        return prefixMatch;
+    }
+
+    // Map an ExecuteAction's Arguments by name against the flow action's scope
+    // (input parameters + local variables). Same SetValue(str) mechanism as MapActionInputs.
+    static string MapArgumentsByName(object act, object node)
+    {
+        var sb = new StringBuilder();
+        var scope = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var collName in new[] { "InputParameters", "Variables", "LocalVariables" })
+        {
+            var coll = GetProp(act, collName) as IEnumerable;
+            if (coll == null) continue;
+            foreach (var p in coll) { var nm = GetProp(p, "Name") as string; if (nm != null) scope.Add(nm); }
+        }
+        var args = GetProp(node, "Arguments") as IEnumerable;
+        if (args == null) { sb.AppendLine("  (no Arguments on node)"); return sb.ToString(); }
+        foreach (var arg in args)
+        {
+            var param = GetProp(arg, "Parameter");
+            var paramName = param != null ? (GetProp(param, "Name") as string ?? "?") : "?";
+            if (scope.Contains(paramName))
+            {
+                bool mapped = false;
+                try { CallMethod(arg, "SetValue", new object[] { paramName }, 1); mapped = true; } catch { }
+                if (!mapped) try { CallMethod(arg, "SetVariable", new object[] { paramName }, 1); mapped = true; } catch { }
+                sb.AppendLine("  arg " + paramName + " -> " + (mapped ? "mapped (=" + paramName + ")" : "SetValue FAILED"));
+            }
+            else sb.AppendLine("  arg " + paramName + " -> no scope match (set manually)");
+        }
+        return sb.ToString();
+    }
+
+    // create_entity_action_node: insert an ExecuteAction node calling an ENTITY action
+    // (CreateEntity/Create, UpdateEntity/Update, DeleteEntity/Delete, GetEntity/Get,
+    // CreateOrUpdateEntity/CreateOrUpdate...). Entity actions are IActionSignature objects on
+    // entity.EntityActions; the flow node is the standard IExecuteServerActionNode with
+    // Action = that object. where: "beforeEnd" | "afterAnchor" (anchorVar/anchorValue) |
+    // "afterNode" (afterNodeIndex). Auto-maps arguments by name. Undo unit.
+    static string CreateEntityActionNode(string moduleName, string actionName, string entityName, string entityActionName,
+        string where, string anchorVar, string anchorValue, int afterNodeIndex = -1)
+    {
+        if (string.IsNullOrEmpty(entityName) || string.IsNullOrEmpty(entityActionName))
+            return Json(new { ok = false, error = "entity and entityAction required" });
+        return LiveEdit(moduleName, actionName, "create entity action node", (act, es) =>
+        {
+            var ent = FindEntity(es, entityName);
+            if (ent == null) throw new Exception("entity not found: " + entityName);
+            var ea = FindEntityAction(ent, entityActionName);
+            if (ea == null) throw new Exception("entity action not found: " + entityActionName + " on " + entityName + " (probe_entity_actions lists them)");
+            var newNode = CreateNodeGeneric(act, "OutSystems.Model.Logic.Nodes.IExecuteServerActionNode");
+            SetProp(newNode, "Action", ea);
+            var sb = new StringBuilder();
+            if (where == "afterNode" && afterNodeIndex >= 0)
+            {
+                var nodes = NodeList(act);
+                if (afterNodeIndex >= nodes.Count) throw new Exception("afterNodeIndex out of range: " + afterNodeIndex + " (count=" + nodes.Count + ")");
+                var anchor = nodes[afterNodeIndex];
+                var anchorTarget = GetProp(anchor, "Target");
+                SetProp(newNode, "Target", anchorTarget);
+                SetProp(anchor, "Target", newNode);
+                sb.AppendLine("inserted entity action " + entityActionName + " after node[" + afterNodeIndex + "] (" + ShortName(anchor) + ")");
+            }
+            else if (where == "afterAnchor")
+            {
+                var anchor = FindAssignNode(act, anchorVar ?? "", anchorValue ?? "");
+                if (anchor == null) throw new Exception("anchor not found: " + anchorVar + "=" + anchorValue);
+                var anchorTarget = GetProp(anchor, "Target");
+                SetProp(newNode, "Target", anchorTarget);
+                SetProp(anchor, "Target", newNode);
+                sb.AppendLine("inserted entity action " + entityActionName + " after anchor (" + anchorVar + "=" + anchorValue + ")");
+            }
+            else // beforeEnd (first End node)
+            {
+                var endNode = NodesOfType(act, "IEndNode").FirstOrDefault();
+                object prev = null;
+                if (endNode != null)
+                    foreach (var n in NodeList(act))
+                    {
+                        var tgt = GetProp(n, "Target");
+                        if (tgt != null && object.ReferenceEquals(tgt, endNode)) { prev = n; break; }
+                    }
+                if (endNode != null && prev == null)
+                {
+                    var startNode = NodesOfType(act, "IStartNode").FirstOrDefault();
+                    if (startNode != null && GetProp(startNode, "Target") == null)
+                    {
+                        SetProp(startNode, "Target", endNode);
+                        prev = startNode;
+                        sb.AppendLine("auto-linked Start?End");
+                    }
+                }
+                if (endNode == null || prev == null) throw new Exception("End/prev not found (create Start+End nodes and link them via live_set_node_target before using where='beforeEnd')");
+                SetProp(newNode, "Target", endNode);
+                SetProp(prev, "Target", newNode);
+                sb.AppendLine("inserted entity action " + entityActionName + " before End");
+            }
+            sb.AppendLine(MapArgumentsByName(act, newNode));
+            sb.AppendLine(DumpFlowGraph(act));
+            return sb.ToString();
         });
     }
 
@@ -11174,8 +11871,7 @@ internal static class BridgeHost
     static string MapActionInputs(string moduleName, string actionName, int nodeIndex, string inputParamName = null)
     {
         return LiveEdit(moduleName, actionName, "map action inputs", (act, es) =>
-        {
-            var nodes = NodeList(act);
+        {            var nodes = NodeList(act);
             if (nodeIndex < 0 || nodeIndex >= nodes.Count) throw new Exception("nodeIndex out of range: " + nodeIndex);
             var node = nodes[nodeIndex];
             if (!node.GetType().GetInterfaces().Any(i => i.Name == "IExecuteServerActionNode"))
@@ -11288,6 +11984,42 @@ internal static class BridgeHost
                 }
             }
             if (argCount == 0) sb.AppendLine("no arguments on ExecuteAction node");
+            return sb.ToString();
+        });
+    }
+
+    // set_action_arg: set ONE argument value on an existing ExecuteAction node (IExecuteServerActionNode
+    // or IExecuteClientActionNode) by its parameter name. This is the per-argument counterpart of
+    // map_action_inputs (which maps by the action's INPUT PARAMETERS only). argName="*" sets ALL args
+    // to the same value. Works for entity-action nodes, consumed server actions, and system client
+    // actions (e.g. Navigate). Undo unit.
+    static string SetActionArg(string moduleName, string actionName, int nodeIndex, string argName, string value)
+    {
+        if (string.IsNullOrEmpty(argName)) return Json(new { ok = false, error = "argName required" });
+        return LiveEdit(moduleName, actionName, "set action arg", (act, es) =>
+        {
+            var nodes = NodeList(act);
+            if (nodeIndex < 0 || nodeIndex >= nodes.Count) throw new Exception("nodeIndex out of range: " + nodeIndex);
+            var node = nodes[nodeIndex];
+            if (!node.GetType().GetInterfaces().Any(i => i.Name == "IExecuteServerActionNode" || i.Name == "IExecuteClientActionNode"))
+                throw new Exception("node[" + nodeIndex + "] is not an ExecuteAction node (type=" + ShortName(node) + ")");
+            var args = GetProp(node, "Arguments") as IEnumerable;
+            if (args == null) throw new Exception("Arguments collection is null on ExecuteAction node");
+            var sb = new StringBuilder();
+            int done = 0;
+            foreach (var arg in args)
+            {
+                var param = GetProp(arg, "Parameter");
+                var paramName = param != null ? (GetProp(param, "Name") as string ?? "") : "";
+                if (argName != "*" && !string.Equals(paramName, argName, StringComparison.OrdinalIgnoreCase)) continue;
+                bool mapped = false;
+                try { CallMethod(arg, "SetValue", new object[] { value }, 1); mapped = true; }
+                catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; sb.AppendLine("  " + paramName + " SetValue err: " + r.Message); }
+                if (!mapped) try { CallMethod(arg, "SetVariable", new object[] { value }, 1); mapped = true; } catch { }
+                sb.AppendLine("  arg " + paramName + " = " + (mapped ? value : "FAILED"));
+                if (mapped) done++;
+            }
+            sb.AppendLine("set " + done + " arg(s) on node[" + nodeIndex + "]");
             return sb.ToString();
         });
     }
@@ -11825,6 +12557,8 @@ internal static class BridgeHost
     }
 
     // ---- reflection helpers (interface-aware, for explicit interface impls) ----
+    static string SafeToString(object o) => o == null ? null : o.ToString();
+
     static object GetProp(object obj, string name)
     {
         if (obj == null) return null;

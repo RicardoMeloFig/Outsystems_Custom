@@ -636,6 +636,12 @@ verify error `Can't identify 'info' element in expression`.
 Correct: **`set_block_cp_value_attr`** (bridge; via `Send-BridgeCmd.ps1`) with
 `propName="Icon", value="info"` — clears the ValueExpression and writes the `_value` string.
 
+**Icon NAMES are FontAwesome:** the OutSystems Icon widget renders `fa fa-<name>` at runtime
+(`<i class="fa fa-user">`), e.g. `th`, `user`, `clipboard`, `shield`, `archive`, `flag`,
+`info`. Do NOT use Material Symbols names — Material Symbols `@import` does NOT work in OS
+theme CSS (icons render as literal text). Set the icon via `set_block_cp_value_attr`
+(`propName=Icon, value=<fa-name>`); no screen-side twin exists.
+
 ## Stale verification cache after raw field writes (proven)
 
 Writing CP backing fields directly (`SetField(cp, "_value", ...)`) **bypasses SS's change
@@ -654,6 +660,17 @@ The MCP server (`mcp/outsystems-liveeditor/publish/`) must be re-published after
 changes — run `scripts\Update-LiveEditorMcp.ps1` when no opencode session has the server loaded
 (the running server locks the publish DLL), then restart opencode (the tool list is frozen per
 session). The bridge commands are also drivable directly via `scripts\Send-BridgeCmd.ps1`.
+
+## New MCP tools (added 2026-09-19, ZombieGame DEAD RUN session)
+
+- **`live_set_screen_cp_text(module, screen, widget, propName, value)`** — set a
+  TEXT-LITERAL CustomProperty on a SCREEN widget (exactly like `live_set_block_cp_text`
+  does for blocks): bare value, no quotes, no parsing, then `InvalidateSelfVerifyCache`
+  + `ForceValidate`. **The ONLY correct writer for Style classes on screen containers**
+  (see styling-and-css-live for the quote/arithmetic trap table).
+- **`live_delete_screen_client_action(module, screen, action)`** — delete a
+  SCREEN-level Client Action (`ClientScreenActionFlow`). `live_delete_service_action`
+  is module-level only and will not find screen actions.
 
 ## Part A � newly exposed bridge commands
 
