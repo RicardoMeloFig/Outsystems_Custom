@@ -14,7 +14,7 @@ UI-free counterpart to the first baseline (`AI Outsystem Automation`), which is
 now **extraction-only** (ClrMD readers + docs).
 
 - **Two MCP servers** (`outsystems-omleditor` + `outsystems-liveeditor`, declared in
-  `opencode.json`) + **15 skills** (`.opencode/skills/`, auto-discovered).
+  `opencode.json`) + **26 skills** (`.opencode/skills/`, auto-discovered).
 - The headless server is `net8.0`, hand-rolled JSON-RPC/stdio. It loads the SS model
   DLLs from the SS install dir via `Assembly.LoadFrom` at runtime — **SS 11 must be
   installed** (for the DLLs) but **need not be running**. The live server is a thin
@@ -26,7 +26,7 @@ now **extraction-only** (ClrMD readers + docs).
 | `outsystems-omleditor` | SS model DLLs (`Oml.LoadWithoutUpgrades`) | Edit `.oml` **files** headlessly: probe fragments, create service actions, add dependencies, regen signatures. No UI, no running SS. |
 | `outsystems-liveeditor` | OsLiveBridge plugin (named pipe) in a **running** SS | Edit the **open** module live: create/clone service actions, edit flows (assign/output/node), manage dependencies (consume all 15 element types from a producer). All land in the SS tree immediately (no reload), as real undo units. Requires SS running + plugin + module open. |
 
-The 15 skills:
+The 26 skills (see `.opencode/skills/` for the full list):
 - **Proven (headless):** `editor-workflow` (the breakthrough meta-skill),
   `outsystems-omleditor` (tool guide), `creating-service-actions`,
   `managing-dependencies` (live + headless), `oml-editing-reference` (deep reference)

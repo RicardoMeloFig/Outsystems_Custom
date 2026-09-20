@@ -51,7 +51,8 @@
     "paths": [
       "__BASELINE__/toolkits/extraction/.opencode/skills",
       "__BASELINE__/toolkits/editor/.opencode/skills",
-      "__BASELINE__/toolkits/html-docs/.opencode/skills"
+      "__BASELINE__/toolkits/html-docs/.opencode/skills",
+      "__BASELINE__/.opencode/skills"
     ]
   }
 }

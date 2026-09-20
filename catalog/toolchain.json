@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "note": "Toolchain compatibility manifest. Recorded per consumer in .opencode/link-manifest.json (baselineCommit). Update when adding/removing servers, agents, commands, or skill folders.",
+  "serviceStudio": {
+    "provenVersion": "11.55.81",
+    "note": "Live editing + bridge proven on this version; others untested."
+  },
+  "mcpServers": {
+    "outsystems-tools": "toolkits/extraction/mcp/outsystems-tools/publish/OutSystemsMcp.exe",
+    "outsystems-logic": "toolkits/extraction/mcp/outsystems-logic/publish/OutSystemsMcpLogic.exe",
+    "outsystems-ui": "toolkits/extraction/mcp/outsystems-ui/publish/OutSystemsMcpUi.exe",
+    "outsystems-omleditor": "toolkits/editor/mcp/outsystems-omleditor/publish/OutSystemsMcpOmlEditor.exe",
+    "outsystems-liveeditor": "toolkits/editor/mcp/outsystems-liveeditor/publish/OutSystemsMcpLiveEditor.exe"
+  },
+  "bridge": {
+    "name": "OsLiveBridge",
+    "source": "toolkits/editor/bridge",
+    "installRequiresConfirmation": true
+  },
+  "agents": [
+    "os-coordinator",
+    "os-architect",
+    "os-reference",
+    "os-extract",
+    "os-edit-headless",
+    "os-edit-live",
+    "os-docs",
+    "os-toolkit"
+  ],
+  "commands": [
+    "extract-module",
+    "document-module",
+    "research",
+    "build",
+    "design"
+  ],
+  "skills": {
+    "root": 2,
+    "extraction": 7,
+    "editor": 26,
+    "html-docs": 1
+  }
+}

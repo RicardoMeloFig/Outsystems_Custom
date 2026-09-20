@@ -1,0 +1,3 @@
+# Reference snapshots: freeze EOL handling — they come from upstream syncs,
+# are read-only for our purposes, and CRLF/LF conversion causes 40k-file churn.
+references/repos/** -text

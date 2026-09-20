@@ -13,7 +13,7 @@ live inside each component (each toolkit has its own scoped `AGENTS.md`).
 | `toolkits/editor/` | Editing: 2 MCP servers — `outsystems-omleditor` (headless `.oml` files) and `outsystems-liveeditor` (live in-process via the OsLiveBridge plugin) + 26 skills. |
 | `toolkits/html-docs/` | Interactive HTML documentation site generator: `html-docs-generation` skill + `Render-Site.ps1` + templates/assets. |
 | `references/repos/` | Local snapshots of ~236 upstream repositories (official docs, UI libraries, plugins, examples). Git histories remain in the original `Outsystems REPO` folders. |
-| `catalog/` | `repositories.json` (provenance: origin, commit, branch, license, size per repo) + `topics.md` (curated entry points). |
+| `catalog/` | `repositories.json` (provenance: origin, commit, branch, license, size per repo) + `topics.md` (curated entry points) + `toolchain.json` (compatibility manifest). |
 | `projects/` | Application-specific workspaces (extraction outputs, generated docs/sites). |
 | `scripts/` | Unified build/verify/launch tooling + linked-consumer scaffolding (`New-LinkedProject.ps1`, `Verify-LinkedProject.ps1`, `Test-McpHandshake.ps1`) and `scripts/templates/`. |
 | `docs/` | Workspace-level documentation (architecture). |
@@ -23,23 +23,38 @@ Each toolkit keeps its own `AGENTS.md`, `SETUP.md`, scripts, and `.opencode/skil
 
 ## Routing: which agent for which task
 
-All five MCP servers are **disabled for the primary agent** (context stays lean).
-The primary agent delegates to specialist subagents (Task tool), which re-enable
-only the tools they need:
+OutSystems router: **`os-coordinator`** (subagent) — the primary agent
+calls it for ANY OutSystems task. It classifies the request, gathers
+evidence, dispatches specialists with a handoff contract, verifies results
+against acceptance checks, and returns one consolidated report. All five
+MCP servers are **disabled for the primary agent and the coordinator**
+(context stays lean); specialists re-enable only the tools they need:
 
 | Task | Agent | Tools it enables |
 |------|-------|------------------|
+| Any OutSystems task — route, coordinate, verify (call this first) | `os-coordinator` | none (Task tool only) |
 | "How does X work in OutSystems?", docs lookup, API/pattern/CSS reference | `os-reference` | none (catalog + grep/read) |
 | Extract entities/actions/flows/UI from a module open in Service Studio | `os-extract` | `outsystems-tools_*`, `outsystems-logic_*`, `outsystems-ui_*` |
+| Design before substantial builds (see architect gate below) | `os-architect` | none (read-only, no edits) |
 | Edit a saved `.oml` file headlessly (no SS needed) | `os-edit-headless` | `outsystems-omleditor_*` |
 | Edit the module **open in Service Studio** (live, instant tree updates) | `os-edit-live` | `outsystems-liveeditor_*` |
 | Generate technical docs / user guide / interactive HTML site | `os-docs` | none (skills + files) |
 | Build/fix the MCP servers, bridge, scripts, config | `os-toolkit` | none (bash + files) |
 
-Route automatically based on the user's goal. For multi-stage work (e.g.
-"extract and document this module"), chain: `os-extract` → `os-docs`.
-For editing + verification: `os-edit-live` (or `os-edit-headless`) → `os-extract`
-to re-read the values.
+Specialists may also be called directly when the task is unambiguous
+(e.g. `/research` goes straight to `os-reference`). For multi-stage work
+(e.g. "extract and document this module"), chain: `os-extract` → `os-docs`.
+For substantial edits: `os-extract` (evidence) → `os-architect` (design
+contract) → `os-edit-live`/`os-edit-headless` (implement) → `os-extract`
+(independent read-back against the acceptance checks).
+
+### Architect gate
+
+New screens, web blocks, flows/service actions, cross-module changes, data
+model changes, and security changes go through `os-architect` BEFORE any
+editor. Trivial edits (label text, style class, single-expression fix) may
+go straight to an editor plus read-back. Planning-only requests stop at the
+design contract — nothing is built.
 
 ## Ground rules (always)
 
@@ -78,7 +93,8 @@ and troubleshooting.
 
 Application projects (new ones; Arkki/Kopa predate this) should be **thin
 consumers**: they hold only app content (`OMLs/`, `docs/`, notes) and consume
-every tool — 5 MCP servers, 36 skills, 6 specialists, 4 commands — from this
+every tool — 5 MCP servers, 36 skills, 8 agents (coordinator + architect +
+6 specialists), 5 commands — from this
 baseline in place, via absolute paths in their `opencode.json`. Their
 `AGENTS.md` plus this file are auto-loaded there (`instructions`), so the
 routing table above applies unchanged in consumers.

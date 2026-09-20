@@ -58,8 +58,9 @@ Each OutSystems application gets its own thin consumer project that uses this
 baseline in place (nothing copied except generated agent/command markdown):
 
 ```powershell
-# from this baseline root — creates opencode.json, the 6 specialists, the 4
-# commands, AGENTS.md, .gitignore, <AppName>.md, OMLs/, open/, docs/:
+# from this baseline root — creates opencode.json, the 8 agents
+# (coordinator + architect + 6 specialists), the 5 commands, AGENTS.md,
+# .gitignore, <AppName>.md, OMLs/, open/, docs/:
 .\scripts\New-LinkedProject.ps1 -Target "C:\Users\<you>\Documents\NewAppAutomation" -AppName "NewApp"
 
 # integrity gate for the consumer (must print READY and exit 0):

@@ -4,9 +4,11 @@
 
 .DESCRIPTION
     Checks: 5 MCP exes present + fresh, skills discoverable in all four
-    paths, opencode.json valid JSON, agents present, catalog present,
-    reference library populated, AGENTS.md present. -Strict turns staleness
-    into a hard failure.
+    paths, opencode.json valid JSON (+ default_agent valid if set),
+    coordinator is a subagent (not default), agents present
+    (coordinator + architect + 6 specialists), commands present, catalog
+    present (incl. toolchain.json), reference library populated, AGENTS.md
+    present. -Strict turns staleness into a hard failure.
 #>
 param([switch]$Strict)
 
@@ -18,16 +20,20 @@ function Warn($m) { Write-Host "STALE:   $m" -ForegroundColor Yellow; $script:wa
 function Ok($m)   { Write-Host "OK:      $m" -ForegroundColor Green }
 
 # Core files
-foreach ($f in @("opencode.json","AGENTS.md","catalog\repositories.json","catalog\topics.md")) {
+foreach ($f in @("opencode.json","AGENTS.md","catalog\repositories.json","catalog\topics.md","catalog\toolchain.json")) {
     if (Test-Path -LiteralPath (Join-Path $Root $f)) { Ok $f } else { Fail $f }
 }
 
-# opencode.json parses
+# opencode.json parses + toolchain manifest parses
 try {
     $cfg = Get-Content -LiteralPath (Join-Path $Root "opencode.json") -Raw | ConvertFrom-Json
     $mcpNames = @($cfg.mcp.PSObject.Properties.Name)
     Ok "opencode.json valid ($($mcpNames.Count) MCP servers)"
 } catch { Fail "opencode.json does not parse: $_" }
+try {
+    $null = Get-Content -LiteralPath (Join-Path $Root "catalog\toolchain.json") -Raw | ConvertFrom-Json
+    Ok "catalog\toolchain.json valid"
+} catch { Fail "catalog\toolchain.json does not parse: $_" }
 
 # MCP exes
 $serverDirs = Get-ChildItem -LiteralPath (Join-Path $Root "toolkits") -Directory | ForEach-Object {
@@ -52,9 +58,37 @@ foreach ($k in $expected.Keys) {
     if ($n -ge $expected[$k]) { Ok "$k skills ($n)" } else { Fail "$k skills: found $n, expected $($expected[$k])" }
 }
 
-# Agents
+# Agents (coordinator + architect + 6 specialists)
 $agents = @(Get-ChildItem -LiteralPath (Join-Path $Root ".opencode\agent") -Filter *.md -ErrorAction SilentlyContinue)
-if ($agents.Count -ge 6) { Ok "specialist agents ($($agents.Count))" } else { Fail ".opencode\agent: found $($agents.Count), expected 6" }
+if ($agents.Count -ge 8) { Ok "agents ($($agents.Count))" } else { Fail ".opencode\agent: found $($agents.Count), expected 8" }
+foreach ($req in @("os-coordinator.md","os-architect.md")) {
+    $p = Join-Path $Root ".opencode\agent\$req"
+    if (Test-Path -LiteralPath $p) {
+        $raw = [System.IO.File]::ReadAllText($p)
+        if ($req -eq "os-coordinator.md" -and $raw -notmatch '(?m)^mode:\s*subagent') { Fail "os-coordinator.md: mode must be 'subagent' (called by the primary agent, not a default agent)" }
+        elseif ($req -eq "os-architect.md" -and $raw -notmatch '(?m)^\s*edit:\s*deny') { Fail "os-architect.md: must deny 'edit' (read-only design gate)" }
+        else { Ok $req }
+    } else { Fail ".opencode\agent\$req" }
+}
+# default_agent: optional; if set it must point at an existing primary-mode agent
+$defaultAgent = $null
+if ($cfg -and $cfg.PSObject.Properties['default_agent']) { $defaultAgent = $cfg.default_agent }
+if ($defaultAgent) {
+    $daPath = Join-Path $Root ".opencode\agent\$defaultAgent.md"
+    if (Test-Path -LiteralPath $daPath) {
+        $da = [System.IO.File]::ReadAllText($daPath)
+        if ($da -match '(?m)^mode:\s*primary') { Ok "default_agent = $defaultAgent (primary)" }
+        else { Fail "default_agent '$defaultAgent' is not mode: primary" }
+    } else {
+        Fail "default_agent '$defaultAgent' has no agent file"
+    }
+} else {
+    Ok "default_agent unset (normal primary agent routes OutSystems work to os-coordinator)"
+}
+
+# Commands
+$commands = @(Get-ChildItem -LiteralPath (Join-Path $Root ".opencode\command") -Filter *.md -ErrorAction SilentlyContinue)
+if ($commands.Count -ge 5) { Ok "commands ($($commands.Count))" } else { Fail ".opencode\command: found $($commands.Count), expected 5" }
 
 # Reference library
 $repos = @(Get-ChildItem -LiteralPath (Join-Path $Root "references\repos") -Directory -ErrorAction SilentlyContinue)

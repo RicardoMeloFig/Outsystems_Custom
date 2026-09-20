@@ -2,7 +2,8 @@
 
 This project contains **__APPNAME__-specific content only**: OMLs,
 extraction outputs, hand-written docs, generated sites, and notes. All
-tooling (5 MCP servers, 36 skills, 6 specialist agents, workflow commands,
+tooling (5 MCP servers, 36 skills, 8 agents (coordinator + architect + 6
+specialists), 5 workflow commands,
 scripts, reference library) is consumed in place from the shared baseline:
 
 **Baseline:** `__BASELINE__`

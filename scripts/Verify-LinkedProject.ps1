@@ -7,17 +7,22 @@
     Checks a consumer project against its baseline:
       - opencode.json parses; exactly the 5 expected MCP servers, enabled,
         each command pointing at an existing baseline exe
+      - default_agent, if set, points at an existing primary-mode agent;
+        os-coordinator must NOT be the default (it is a subagent the
+        primary agent calls for OutSystems work)
       - permission denies outsystems-* for the primary agent and allows the
         baseline tree via external_directory
-      - subagent_depth >= 2 (document-module chains os-docs -> os-extract)
+      - subagent_depth >= 2 (primary -> os-coordinator -> specialists)
       - instructions include the consumer AGENTS.md and the baseline AGENTS.md
-      - skills.paths covers the three baseline skill folders (with expected
+      - skills.paths covers the four baseline skill folders (with expected
         minimum skill counts, read live from the baseline)
-      - the 6 specialist agents exist, use permission: (not deprecated
-        tools:), carry the expected per-specialist allow keys, and reference
-        the baseline path (stale-generation detection)
-      - the 4 workflow commands exist
+      - the 8 agents exist (coordinator + architect + 6 specialists), use
+        permission: (not deprecated tools:), carry the expected
+        per-specialist allow keys, and reference the baseline path
+        (stale-generation detection)
+      - the 5 workflow commands exist
       - consumer skeleton folders and user files exist
+      - baseline git commit drift vs the link manifest (warning only)
 
     Exit codes: 0 = READY, 1 = problems found.
 
@@ -118,13 +123,29 @@ if ($extDir) {
     Fail "permission.external_directory missing (agents cannot read the baseline)"
 }
 
-# --- 4. subagent depth ----------------------------------------------------------------
+# --- 4. Default agent (optional) ---------------------------------------------------------
+if ($cfg.PSObject.Properties['default_agent'] -and $cfg.default_agent) {
+    $daPath = Join-Path $Target ".opencode\agent\$($cfg.default_agent).md"
+    if ($cfg.default_agent -eq "os-coordinator") {
+        Fail "default_agent must not be 'os-coordinator' (it is a subagent; regenerate with New-LinkedProject.ps1 -Refresh)"
+    } elseif (Test-Path -LiteralPath $daPath) {
+        $da = [System.IO.File]::ReadAllText($daPath)
+        if ($da -match '(?m)^mode:\s*primary') { Ok "default_agent = $($cfg.default_agent) (primary)" }
+        else { Fail "default_agent '$($cfg.default_agent)' is not mode: primary" }
+    } else {
+        Fail "default_agent '$($cfg.default_agent)' has no agent file"
+    }
+} else {
+    Ok "default_agent unset (normal primary agent routes OutSystems work to os-coordinator)"
+}
+
+# --- 5. subagent depth --------------------------------------------------------------------
 $depth = 0
 if ($cfg.PSObject.Properties['subagent_depth']) { $depth = [int]$cfg.subagent_depth }
-if ($depth -ge 2) { Ok "subagent_depth = $depth" }
-else { Fail "subagent_depth must be >= 2 (document-module chains os-docs -> os-extract; got $depth)" }
+if ($depth -ge 2) { Ok "subagent_depth = $depth (primary -> os-coordinator -> specialists)" }
+else { Fail "subagent_depth must be >= 2 (primary -> os-coordinator -> specialist; got $depth)" }
 
-# --- 5. instructions --------------------------------------------------------------------
+# --- 6. instructions --------------------------------------------------------------------
 $instr = @()
 if ($cfg.instructions) { $instr = @($cfg.instructions) }
 if ($instr -contains "AGENTS.md") { Ok "instructions includes consumer AGENTS.md" }
@@ -133,11 +154,12 @@ $baselineAgentsMd = "$BaselineFwd/AGENTS.md"
 if ($instr -contains $baselineAgentsMd) { Ok "instructions includes baseline AGENTS.md" }
 else { Warn "instructions does not include '$baselineAgentsMd' (baseline routing doc not auto-loaded)" }
 
-# --- 6. Skills ---------------------------------------------------------------------------
+# --- 7. Skills ---------------------------------------------------------------------------
 $skillExpect = @{
     "toolkits/extraction/.opencode/skills" = 7
     "toolkits/editor/.opencode/skills"     = 26
     "toolkits/html-docs/.opencode/skills"  = 1
+    ".opencode/skills"                     = 2
 }
 $skillPaths = @()
 if ($cfg.skills -and $cfg.skills.paths) { $skillPaths = @($cfg.skills.paths) }
@@ -153,8 +175,10 @@ foreach ($k in @($skillExpect.Keys)) {
     }
 }
 
-# --- 7. Specialist agents -------------------------------------------------------------------
+# --- 8. Agents -------------------------------------------------------------------
 $agentExpect = @{
+    "os-coordinator"   = @()
+    "os-architect"     = @()
     "os-extract"       = @("outsystems-tools_*", "outsystems-logic_*", "outsystems-ui_*")
     "os-edit-headless" = @("outsystems-omleditor_*")
     "os-edit-live"     = @("outsystems-liveeditor_*")
@@ -179,6 +203,14 @@ foreach ($name in @($agentExpect.Keys)) {
         Fail "agent $name.md: expected broad deny `"outsystems-*`" (regenerate)"
         $agentOk = $false
     }
+    if ($name -eq "os-coordinator" -and $raw -notmatch '(?m)^mode:\s*subagent') {
+        Fail "agent os-coordinator.md: mode must be 'subagent' (called by the primary agent)"
+        $agentOk = $false
+    }
+    if ($name -eq "os-architect" -and $raw -notmatch '(?m)^\s*edit:\s*deny') {
+        Fail "agent os-architect.md: must deny 'edit' (read-only design gate)"
+        $agentOk = $false
+    }
     if ($raw -notmatch [regex]::Escape($BaselineFwd)) {
         Warn "agent $name.md: no baseline path found - possibly generated against a different baseline (stale?)"
     }
@@ -188,25 +220,45 @@ $allAgents = @(Get-ChildItem -LiteralPath (Join-Path $Target ".opencode\agent") 
 $extraAgents = @($allAgents | Where-Object { -not $agentExpect.ContainsKey($_.BaseName) })
 if ($extraAgents.Count -gt 0) { Warn "extra agent file(s): $($extraAgents.Name -join ', ')" }
 
-# --- 8. Commands --------------------------------------------------------------------------------
-foreach ($name in @("extract-module", "document-module", "research", "build")) {
+# --- 9. Commands --------------------------------------------------------------------------------
+foreach ($name in @("extract-module", "document-module", "research", "build", "design")) {
     $p = Join-Path $Target ".opencode\command\$name.md"
     if (Test-Path -LiteralPath $p) { Ok "command $name.md" } else { Fail "command $name.md missing" }
 }
 
-# --- 9. references entry (optional) -----------------------------------------------------------------
+# --- 10. references entry (optional) -----------------------------------------------------------------
 if ($cfg.references -and $cfg.references.PSObject.Properties['outsystems-toolkit']) {
     Ok "references entry 'outsystems-toolkit' (baseline advertised)"
 } else {
     Warn "references entry 'outsystems-toolkit' missing (baseline not advertised to agents)"
 }
 
-# --- 10. Consumer skeleton + user files -----------------------------------------------------------------
+# --- 11. Consumer skeleton + user files -----------------------------------------------------------------
 foreach ($d in @("OMLs", "open", "docs")) {
     if (Test-Path -LiteralPath (Join-Path $Target $d)) { Ok "folder $d\" } else { Fail "folder $d\ missing" }
 }
 foreach ($f in @("AGENTS.md", ".gitignore")) {
     if (Test-Path -LiteralPath (Join-Path $Target $f)) { Ok $f } else { Fail "$f missing" }
+}
+
+# --- 12. Baseline commit drift (warning only) ------------------------------------------------------------
+$manifestPath = Join-Path $Target ".opencode\link-manifest.json"
+if (Test-Path -LiteralPath $manifestPath) {
+    try {
+        $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+        $currentCommit = $null
+        try {
+            $currentCommit = (git -C $Baseline rev-parse HEAD 2>$null)
+            if ($currentCommit) { $currentCommit = $currentCommit.Trim() } else { $currentCommit = $null }
+        } catch { $currentCommit = $null }
+        if ($manifest.baselineCommit -and $currentCommit -and $manifest.baselineCommit -ne $currentCommit) {
+            Warn "baseline has moved since generation (manifest $($manifest.baselineCommit.Substring(0,10)) vs current $($currentCommit.Substring(0,10))) - refresh when convenient"
+        } elseif (-not $manifest.baselineCommit) {
+            Warn "manifest has no baselineCommit (generated before toolchain tracking) - refresh to record it"
+        }
+    } catch {
+        Warn "link-manifest.json unreadable: $_"
+    }
 }
 
 # --- Result ----------------------------------------------------------------------------------------------
