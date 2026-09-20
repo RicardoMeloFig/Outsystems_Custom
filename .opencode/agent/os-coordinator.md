@@ -56,6 +56,12 @@ Route through `os-architect` BEFORE any editor when the change is:
 Skip the architect only for trivial edits (label text, style class,
 single-expression fix) — then editor + read-back directly.
 
+Architect contracts always sequence work bottom-up through the module
+dependency graph — producer (lower) modules before the consumers that
+reference them; CS → BL → UI is the common 4-layer-canvas case, not the
+definition. Editors must implement in that order — never build a consumer
+against producers that do not exist yet.
+
 ## Handoff contract (pass to every specialist)
 
 ```

@@ -37,7 +37,11 @@ task needs; nothing is duplicated; everything is verifiable.
   coordinator; specialists re-enable their own server's tools via
   agent-file frontmatter, so tool schemas (196 for the live editor alone)
   only enter context when relevant. `os-architect` (read-only: no MCP, no
-  edits) gates every substantial build BEFORE an editor runs.
+  edits) gates every substantial build BEFORE an editor runs: it verifies
+  what needs doing first and where, checks best practices, and sequences
+  every contract bottom-up by module dependency (producer modules first —
+  CS → BL → UI in the classic 4-layer canvas), so consumer modules are
+  only built on producers that exist.
 - **Skills**: 36 total, in four discovery paths (root 2 + extraction 7 +
   editor 26 + html-docs 1). Root skills describe workspace-wide workflows
   (catalog research, toolkit maintenance); toolkit skills stay scoped with

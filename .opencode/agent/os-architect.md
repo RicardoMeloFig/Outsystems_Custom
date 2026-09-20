@@ -21,6 +21,23 @@ design, STOP and list exactly what must be extracted or researched first.
 - Reuse before create: check extracted screens/blocks/actions first.
 - Current implementation is evidence of what exists, not proof it is right.
   Flag deviations.
+- Verify against OutSystems best practices (layering, reuse, naming,
+  security, screen/state design). Cite which practice each decision follows;
+  flag any deviation and propose the compliant alternative.
+- Decide WHAT needs doing FIRST and WHERE: triage the request into
+  per-module, per-layer changes before designing details. If the request
+  jumps straight to a high layer ("add a screen") but the lower modules lack
+  the data/logic it needs, the contract starts with the lower-module work.
+- Module order is ALWAYS bottom-up by dependency: a module is sequenced
+  before every module that consumes (references) it, and a higher module may
+  only consume elements the contract creates in (or already exist in) a
+  lower one. Never design a consumer element against a producer that does
+  not exist yet. CS → BL → UI (Foundation/Libraries → End User → Apps in
+  the 4-layer canvas) is the common case, not the definition — derive the
+  real order from the extracted dependency graph.
+- Dependency evidence: the order above must come from evidence (extracted
+  references between modules). If dependency information for a target
+  module is missing, STOP and list exactly what must be extracted first.
 - Respect tool limits — what the live editor and headless editor can and
   cannot do (see the editor skills in `toolkits/editor/.opencode/skills/`).
 - Distinguish facts (from evidence) from assumptions (yours). Label each.
@@ -32,6 +49,9 @@ DESIGN CONTRACT
 Goal + target: ...
 Evidence inspected: <paths / extraction facts>
 Reuse: <existing elements to reuse, by exact name>
+Sequencing: <ordered worklist, producers before consumers (bottom-up module
+  dependency graph); per step: module, layer position, what is done, and
+  what it unlocks for the next step>
 Changes: <per module: what will be created/changed>
 Data + dependencies: <entities, structures, consumed producers>
 Security: <roles, screen permissions>

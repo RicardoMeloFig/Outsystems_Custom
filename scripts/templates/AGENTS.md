@@ -54,7 +54,12 @@ Commands: `/extract-module`, `/document-module`, `/research`, `/build`,
    Studio; one editing session per module.
 3. **Architect gate**: new screens, flows/service actions, cross-module,
    data-model, and security changes go through `os-architect` BEFORE any
-   editor; trivial edits (label text, style class, single-expression fix)
+   editor. The architect verifies what needs doing first and where, checks
+   against best practices, and sequences every contract bottom-up by module
+   dependency: producer (lower) modules first — e.g. CS (entities/data) →
+   BL (logic/service actions) → UI (screens/blocks) in the classic 4-layer
+   canvas — and higher (consumer) modules are only built on producers that
+   exist. Trivial edits (label text, style class, single-expression fix)
    go straight to an editor plus read-back. Planning-only requests stop at
    the design contract.
 4. Toolkit maintenance (rebuilds, bridge, script/config fixes) happens in
