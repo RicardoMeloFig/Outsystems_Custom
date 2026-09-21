@@ -28,7 +28,19 @@ $Root = Split-Path $PSScriptRoot -Parent
 if (-not (Test-Path -LiteralPath $Source)) { Write-Host "Source not found: $Source" -ForegroundColor Red; exit 1 }
 
 $extra = @(); if ($NoMirror) { $extra = @('/E') } else { $extra = @('/MIR') }
-robocopy $Source (Join-Path $Root "references\repos") @extra /XD .git /R:1 /W:1 /NFL /NDL /NP /MT:16
+
+# Never copy repos listed in catalog\excluded-repos.txt (they were removed
+# from the snapshot library on purpose). Match by absolute path so only the
+# top-level repo folder is excluded.
+$excludeDirs = @()
+$exclFile = Join-Path $Root "catalog\excluded-repos.txt"
+if (Test-Path -LiteralPath $exclFile) {
+    $excludeDirs = @(Get-Content -LiteralPath $exclFile | ForEach-Object { $_.Trim() } |
+        Where-Object { $_ -and -not $_.StartsWith('#') } |
+        ForEach-Object { (Join-Path (Join-Path $Root "references\repos") $_).ToLowerInvariant() })
+}
+
+robocopy $Source (Join-Path $Root "references\repos") @extra /XD .git @excludeDirs /R:1 /W:1 /NFL /NDL /NP /MT:16
 $rc = $LASTEXITCODE
 if ($rc -ge 8) { Write-Host "Sync-References: robocopy FAILED (exit $rc)" -ForegroundColor Red; exit 1 }
 Write-Host "Sync-References: done (robocopy exit $rc). Next: .\scripts\New-Catalog.ps1 to refresh provenance." -ForegroundColor Green

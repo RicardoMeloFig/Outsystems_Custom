@@ -44,7 +44,7 @@
   "references": {
     "outsystems-toolkit": {
       "path": "__BASELINE__",
-      "description": "Shared OutSystems automation baseline (Outsystems_Custom): toolkit runbooks in toolkits/*/AGENTS.md, build/verify scripts, and the catalog/topics.md reference-library map. Use for toolkit and reference questions; search narrowly, never bulk-read references/repos."
+      "description": "Shared OutSystems automation baseline (Outsystems_Custom): toolkit runbooks in toolkits/*/AGENTS.md, build/verify scripts, and the catalog/topics.md task router + catalog/domains/*.md reference-library map. Use for toolkit and reference questions; search narrowly, never bulk-read references/repos."
     }
   },
   "skills": {

@@ -1,7 +1,0 @@
-install.packages("dplyr")
-install.packages("dbplyr")
-install.packages("tidyr")
-install.packages("stringr")
-install.packages("RSQLite")
-install.packages("readr")
-install.packages("lubridate")

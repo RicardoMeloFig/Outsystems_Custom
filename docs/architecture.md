@@ -57,11 +57,15 @@ task needs; nothing is duplicated; everything is verifiable.
 
 ## Reference library
 
-`references/repos/` holds git-free snapshots (175k files). Provenance in
+`references/repos/` holds git-free snapshots (228 repos). Provenance in
 `catalog/repositories.json` (branch/commit/shallow/dirty/license per repo;
 regenerate with `scripts/New-Catalog.ps1` from the original `Outsystems REPO`
-folder). Retrieval is catalog-first: `catalog/topics.md` → repo → targeted
-grep. Git history for every snapshot remains in the original folders.
+folder; `catalog/excluded-repos.txt` keeps removed repos out of catalog +
+sync). Retrieval is task-first: `catalog/topics.md` (task router) →
+`catalog/domains/<X>.md` (per-domain where-to-look, repos + exact paths) →
+targeted grep; `catalog/routing.json` classifies every repo
+(category/domains/purpose/priority) for lookups. Git history for every
+snapshot remains in the original folders.
 
 ## Invariants
 

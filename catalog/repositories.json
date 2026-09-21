@@ -120,18 +120,6 @@
         "licenseFile":  "LICENSE"
     },
     {
-        "name":  "blogpost_regression_nunit",
-        "path":  "references/repos/blogpost_regression_nunit",
-        "branch":  "master",
-        "commit":  "989307aa244516849f6c9f6f7b4a7752f2ed91e3",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  9,
-        "sizeBytes":  17020,
-        "licenseFile":  null
-    },
-    {
         "name":  "Calendar-PhoneGap-Plugin",
         "path":  "references/repos/Calendar-PhoneGap-Plugin",
         "branch":  "master",
@@ -1164,18 +1152,6 @@
         "licenseFile":  "LICENSE.md"
     },
     {
-        "name":  "CUBES",
-        "path":  "references/repos/CUBES",
-        "branch":  "main",
-        "commit":  "f458cc00b52c0589fbb4340cc64e2efa37528c34",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  19830,
-        "sizeBytes":  308437338,
-        "licenseFile":  "LICENSE"
-    },
-    {
         "name":  "datavisualization-images",
         "path":  "references/repos/datavisualization-images",
         "branch":  "main",
@@ -1258,18 +1234,6 @@
         "fileCount":  11,
         "sizeBytes":  27383,
         "licenseFile":  "LICENSE"
-    },
-    {
-        "name":  "dotnet-project-for-experiments",
-        "path":  "references/repos/dotnet-project-for-experiments",
-        "branch":  "master",
-        "commit":  "0995d63060d3a611fde8d375481a41d21ccbb557",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  10,
-        "sizeBytes":  21743,
-        "licenseFile":  null
     },
     {
         "name":  "dynatrace-cordova-plugin",
@@ -1390,30 +1354,6 @@
         "fileCount":  60,
         "sizeBytes":  43007174,
         "licenseFile":  null
-    },
-    {
-        "name":  "google-bert",
-        "path":  "references/repos/google-bert",
-        "branch":  "master",
-        "commit":  "eedf5716ce1268e56f0a50264a88cafad334ac61",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  21,
-        "sizeBytes":  370159,
-        "licenseFile":  "LICENSE"
-    },
-    {
-        "name":  "graph_nets",
-        "path":  "references/repos/graph_nets",
-        "branch":  "master",
-        "commit":  "61a0f055d5892c014260f784ee4fb59e2ba11607",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  31,
-        "sizeBytes":  1817407,
-        "licenseFile":  "LICENSE"
     },
     {
         "name":  "HeadlessChromium.Puppeteer.Lambda.Dotnet",
@@ -1569,18 +1509,6 @@
         "hasSubmodules":  false,
         "fileCount":  10,
         "sizeBytes":  111756,
-        "licenseFile":  "LICENSE"
-    },
-    {
-        "name":  "kud",
-        "path":  "references/repos/kud",
-        "branch":  "main",
-        "commit":  "7c288c468e2a4d9a10d8cd664515dedb4ca83471",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  27,
-        "sizeBytes":  1794711,
         "licenseFile":  "LICENSE"
     },
     {
@@ -2208,18 +2136,6 @@
         "licenseFile":  "LICENSE"
     },
     {
-        "name":  "pandora-no-op",
-        "path":  "references/repos/pandora-no-op",
-        "branch":  "master",
-        "commit":  "a8afadcc01778227757a973d87065d1526abac93",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  47,
-        "sizeBytes":  159575,
-        "licenseFile":  "LICENSE"
-    },
-    {
         "name":  "phonegap-estimotebeacons",
         "path":  "references/repos/phonegap-estimotebeacons",
         "branch":  "master",
@@ -2722,18 +2638,6 @@
         "fileCount":  83,
         "sizeBytes":  3288024,
         "licenseFile":  "LICENSE"
-    },
-    {
-        "name":  "vscode",
-        "path":  "references/repos/vscode",
-        "branch":  "main-os",
-        "commit":  "c195fdf3a7c3d371b432fdf6ddf325872a44cf19",
-        "shallow":  true,
-        "dirty":  false,
-        "hasSubmodules":  false,
-        "fileCount":  9693,
-        "sizeBytes":  153395522,
-        "licenseFile":  "LICENSE.txt"
     },
     {
         "name":  "watchmen",

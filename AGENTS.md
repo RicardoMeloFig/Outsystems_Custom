@@ -12,8 +12,8 @@ live inside each component (each toolkit has its own scoped `AGENTS.md`).
 | `toolkits/extraction/` | Read-only extraction: 3 ClrMD MCP servers (`outsystems-tools`, `outsystems-logic`, `outsystems-ui`) + 7 skills + schemas. Reads module state from a running Service Studio process. |
 | `toolkits/editor/` | Editing: 2 MCP servers — `outsystems-omleditor` (headless `.oml` files) and `outsystems-liveeditor` (live in-process via the OsLiveBridge plugin) + 26 skills. |
 | `toolkits/html-docs/` | Interactive HTML documentation site generator: `html-docs-generation` skill + `Render-Site.ps1` + templates/assets. |
-| `references/repos/` | Local snapshots of ~236 upstream repositories (official docs, UI libraries, plugins, examples). Git histories remain in the original `Outsystems REPO` folders. |
-| `catalog/` | `repositories.json` (provenance: origin, commit, branch, license, size per repo) + `topics.md` (curated entry points) + `toolchain.json` (compatibility manifest). |
+| `references/repos/` | Local snapshots of 228 upstream repositories (official docs, UI libraries, plugins, examples). Git histories remain in the original `Outsystems REPO` folders. |
+| `catalog/` | `repositories.json` (provenance: origin, commit, branch, license, size per repo) + `routing.json` (task classification of every repo) + `topics.md` (task-first router) + `domains/*.md` (per-domain "where to look" pages) + `toolchain.json` (compatibility manifest) + `excluded-repos.txt` (removed repos). |
 | `projects/` | Application-specific workspaces (extraction outputs, generated docs/sites). |
 | `scripts/` | Unified build/verify/launch tooling + linked-consumer scaffolding (`New-LinkedProject.ps1`, `Verify-LinkedProject.ps1`, `Test-McpHandshake.ps1`) and `scripts/templates/`. |
 | `docs/` | Workspace-level documentation (architecture). |
@@ -81,9 +81,12 @@ design contract — nothing is built.
    ONLY when the user explicitly requests it (e.g. "edit the .oml file",
    "no SS", "headless"). Never switch to headless on your own initiative; if
    the editing mode is unclear, ask.
-6. **Reference library**: go catalog-first (`catalog/topics.md` → repo →
-   targeted grep). Never bulk-read or index the whole `references/repos/`
-   tree; large binaries and `node_modules` are off-limits for routine search.
+6. **Reference library**: go task-first (`catalog/topics.md` → domain page
+   `catalog/domains/<X>.md` → repo → targeted grep). `catalog/routing.json`
+   classifies every repo (category/domains/purpose/priority) for lookups;
+   `catalog/excluded-repos.txt` lists removed repos. Never bulk-read or
+   index the whole `references/repos/` tree; large binaries and
+   `node_modules` are off-limits for routine search.
 7. **Edits to the same module are serialized** — one editing specialist at a
    time per module.
 

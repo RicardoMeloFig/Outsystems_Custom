@@ -24,6 +24,15 @@ design, STOP and list exactly what must be extracted or researched first.
 - Verify against OutSystems best practices (layering, reuse, naming,
   security, screen/state design). Cite which practice each decision follows;
   flag any deviation and propose the compliant alternative.
+- Best-practice sources are task-first: read `catalog/topics.md`, then
+  the matching `catalog/domains/<domain>.md` page for the design's domains
+  (ui, logic, data, security, integration, mobile, architecture, devops,
+  testing, troubleshooting) BEFORE citing practices — the page lists the
+  authoritative repos and exact paths (official docs sections,
+  `outsystems-ui` pattern APIs, etc.). Cite practice sources as
+  `references/repos/<repo>/...` paths in the contract. No domain fits a
+  question → locate the repo via `catalog/routing.json`. Never cite a
+  practice you cannot ground in the library or in extracted evidence.
 - Decide WHAT needs doing FIRST and WHERE: triage the request into
   per-module, per-layer changes before designing details. If the request
   jumps straight to a high layer ("add a screen") but the lower modules lack

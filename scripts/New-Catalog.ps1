@@ -28,6 +28,15 @@ $outDir = Join-Path $Root "catalog"
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
 $repos = Get-ChildItem -LiteralPath $Source -Directory | Where-Object Name -ne '.git' | Sort-Object Name
+
+# Skip repos deliberately excluded from the snapshot library
+# (catalog\excluded-repos.txt) - they are not catalogued.
+$exclFile = Join-Path $Root "catalog\excluded-repos.txt"
+if (Test-Path -LiteralPath $exclFile) {
+    $excluded = @(Get-Content -LiteralPath $exclFile | ForEach-Object { $_.Trim() } |
+        Where-Object { $_ -and -not $_.StartsWith('#') })
+    if ($excluded.Count -gt 0) { $repos = $repos | Where-Object { $excluded -notcontains $_.Name } }
+}
 $rows = New-Object System.Collections.Generic.List[object]
 $i = 0
 foreach ($r in $repos) {

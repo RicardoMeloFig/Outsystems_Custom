@@ -1,0 +1,12 @@
+# Repositories deliberately excluded from references/repos/ snapshots.
+# One folder name per line. Honored by scripts\Sync-References.ps1 (never
+# copied) and scripts\New-Catalog.ps1 (never catalogued). Curation for the
+# remaining repos lives in catalog\routing.json.
+vscode
+kud
+dotnet-project-for-experiments
+blogpost_regression_nunit
+google-bert
+graph_nets
+CUBES
+pandora-no-op

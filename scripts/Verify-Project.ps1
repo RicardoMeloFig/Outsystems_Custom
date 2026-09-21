@@ -20,7 +20,7 @@ function Warn($m) { Write-Host "STALE:   $m" -ForegroundColor Yellow; $script:wa
 function Ok($m)   { Write-Host "OK:      $m" -ForegroundColor Green }
 
 # Core files
-foreach ($f in @("opencode.json","AGENTS.md","catalog\repositories.json","catalog\topics.md","catalog\toolchain.json")) {
+foreach ($f in @("opencode.json","AGENTS.md","catalog\repositories.json","catalog\topics.md","catalog\routing.json","catalog\domains","catalog\excluded-repos.txt","catalog\toolchain.json")) {
     if (Test-Path -LiteralPath (Join-Path $Root $f)) { Ok $f } else { Fail $f }
 }
 
@@ -90,9 +90,35 @@ if ($defaultAgent) {
 $commands = @(Get-ChildItem -LiteralPath (Join-Path $Root ".opencode\command") -Filter *.md -ErrorAction SilentlyContinue)
 if ($commands.Count -ge 5) { Ok "commands ($($commands.Count))" } else { Fail ".opencode\command: found $($commands.Count), expected 5" }
 
-# Reference library
+# Reference library: provenance <-> disk <-> routing consistency
 $repos = @(Get-ChildItem -LiteralPath (Join-Path $Root "references\repos") -Directory -ErrorAction SilentlyContinue)
-if ($repos.Count -ge 230) { Ok "reference library ($($repos.Count) repos)" } else { Fail "references\repos: found $($repos.Count), expected ~236" }
+$provNames = $null
+try {
+    $prov = Get-Content -LiteralPath (Join-Path $Root "catalog\repositories.json") -Raw | ConvertFrom-Json
+    $provNames = @($prov | ForEach-Object { $_.name })
+    $diskNames = @($repos | ForEach-Object { $_.Name })
+    foreach ($n in ($provNames | Where-Object { $diskNames -notcontains $_ })) { Fail "repositories.json lists repo missing on disk: $n" }
+    foreach ($n in ($diskNames | Where-Object { $provNames -notcontains $_ })) { Fail "repo on disk not in repositories.json: $n" }
+    Ok "reference library provenance consistent ($($diskNames.Count) repos)"
+} catch { Fail "catalog\repositories.json does not parse: $_" }
+if ($provNames -ne $null) {
+    try {
+        $rout = Get-Content -LiteralPath (Join-Path $Root "catalog\routing.json") -Raw | ConvertFrom-Json
+        $routNames = @($rout.repos.PSObject.Properties.Name)
+        foreach ($n in ($provNames | Where-Object { $routNames -notcontains $_ })) { Fail "routing.json missing repo: $n" }
+        foreach ($n in ($routNames | Where-Object { $provNames -notcontains $_ })) { Fail "routing.json has unknown repo: $n" }
+        foreach ($n in $routNames) {
+            $unk = @($rout.repos.$n.domains) | Where-Object { $_ -and ($rout.domains.PSObject.Properties.Name -notcontains $_) -and $_ -ne "tooling" } | Select-Object -First 1
+            if ($unk) { Fail "routing.json repo $n has unknown domain: $unk" }
+        }
+        if ($routNames.Count -eq $provNames.Count) { Ok "catalog\routing.json covers all repos ($($routNames.Count))" } else { Fail "routing.json repo count differs from repositories.json" }
+        $domKeys = @($rout.domains.PSObject.Properties | ForEach-Object { $_.Name })
+        $domFiles = @(Get-ChildItem -LiteralPath (Join-Path $Root "catalog\domains") -Filter *.md -ErrorAction SilentlyContinue | ForEach-Object { $_.BaseName })
+        foreach ($k in $domKeys) { if ($domFiles -notcontains $k) { Fail "catalog/domains/$k.md missing" } }
+        foreach ($f in $domFiles) { if ($domKeys -notcontains $f) { Fail "catalog/domains/$f.md is not a known domain" } }
+        if ($domFiles.Count -gt 0) { Ok "catalog\domains present ($($domFiles.Count) pages)" }
+    } catch { Fail "catalog\routing.json does not parse: $_" }
+}
 
 Write-Host ""
 if ($fail -gt 0) { Write-Host "Verify-Project: $fail missing/stale item(s). Fix before use." -ForegroundColor Red; exit 1 }
