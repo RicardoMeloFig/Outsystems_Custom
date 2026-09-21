@@ -1,9 +1,12 @@
 ---
 name: outsystems-omleditor
-description: Use when the user wants to edit an OutSystems module's .oml file headlessly (no UI, no running SS) via the outsystems-omleditor MCP server. Triggers on "edit oml", "headless edit", "create service action without UI", "add dependency oml", "regen signatures", "probe oml". Provides 6 tools. Read editor-workflow first for the mechanism + save-edit-reload workflow.
+description: Use when the user wants to edit an OutSystems module's .oml file headlessly (no UI, no running SS) via the outsystems-omleditor MCP server — ONLY when the user explicitly requests headless/no-SS/.oml-file editing (default is the live editor, outsystems-liveeditor). Triggers on "edit oml", "headless edit", "create service action without UI", "add dependency oml", "regen signatures", "probe oml". Provides 6 tools. Read editor-workflow first for the mechanism + save-edit-reload workflow.
 ---
 
 # outsystems-omleditor (headless .oml editor MCP)
+
+**Gate: use only when the user explicitly requested headless / no-SS /
+`.oml`-file editing. Default is `outsystems-liveeditor` (live).**
 
 One MCP server, six tools. All operate on `.oml` **files** (not the live module).
 SS 11 must be installed (the server loads its model DLLs); SS need not be running.

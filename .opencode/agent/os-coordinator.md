@@ -19,6 +19,11 @@ caller stitch specialist outputs together.
    caller; never guess.
 3. Detect planning-only requests ("just planning", "do not build") — stop
    after design; do not dispatch editors.
+4. Determine the editing mode. **Default: live** (`os-edit-live`, module open
+   in SS). Choose headless (`os-edit-headless`) **only when the user
+   explicitly requested it** (e.g. "edit the .oml file", "no SS",
+   "headless"). If ambiguous, ask via the caller — never decide headless on
+   your own initiative.
 
 ## Lookup order (evidence before decisions)
 
@@ -39,8 +44,8 @@ which you used.
 | Concept/docs/CSS/pattern question | `os-reference` |
 | Inspect/extract a module | `os-extract` |
 | Design before substantial build (gate below) | `os-architect` (feed it evidence gathered via `os-extract`) |
-| Edit module open in SS | `os-architect` (if substantial) → `os-edit-live` |
-| Edit saved `.oml` headlessly | `os-architect` (if substantial) → `os-edit-headless` |
+| Edit module open in SS (**DEFAULT editing path**) | `os-architect` (if substantial) → `os-edit-live` |
+| Edit saved `.oml` headlessly — **ONLY if the user explicitly requested it** | `os-architect` (if substantial) → `os-edit-headless` |
 | Generate docs / user guide / site | `os-extract` (if data needed) → `os-docs` |
 | Toolkit build/fix (scripts, MCP, bridge, config) | `os-toolkit` |
 

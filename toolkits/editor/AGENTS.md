@@ -7,11 +7,12 @@ followed step-by-step.
 ## Project overview
 
 The **editor** baseline for OutSystems 11 — the sole place modules get mutated.
-It edits two ways: **headless `.oml` files** (`outsystems-omleditor`, no SS
-running) and **live in-process** (`outsystems-liveeditor` via the OsLiveBridge
-plugin, open module). No Service Studio UI, no `productKey`. This is the
-UI-free counterpart to the first baseline (`AI Outsystem Automation`), which is
-now **extraction-only** (ClrMD readers + docs).
+It edits **live-first**: **live in-process** (`outsystems-liveeditor` via the
+OsLiveBridge plugin, open module) is the default; **headless `.oml` files**
+(`outsystems-omleditor`, no SS running) are used **only when the user
+explicitly requests headless/no-SS/file editing**. No Service Studio UI, no
+`productKey`. This is the UI-free counterpart to the first baseline
+(`AI Outsystem Automation`), which is now **extraction-only** (ClrMD readers + docs).
 
 - **Two MCP servers** (`outsystems-omleditor` + `outsystems-liveeditor`, declared in
   `opencode.json`) + **26 skills** (`.opencode/skills/`, auto-discovered).
@@ -50,8 +51,13 @@ clone-with-key-remap. A headlessly-created Service Action opens correctly in SS.
 
 ## The file-vs-live constraint (critical)
 
-This editor mutates `.oml` **files**, not the live in-memory module. Canonical
-workflow:
+**Editing is live-first.** The default is the live in-process editor
+(`outsystems-liveeditor`, module open in SS, instant tree updates, undo
+history). Headless `.oml` editing below is used **only when the user
+explicitly requests it** ("edit the .oml file", "no SS", "headless") — never
+switch to headless on your own initiative.
+
+Headless canonical workflow (on explicit request):
 1. **Save** the module in SS (`Ctrl+S`) → `.oml` on disk. (Use
    `scripts\Get-OmlPath.ps1 <Module>` to find it.)
 2. **Edit headlessly** — call an `outsystems-omleditor` tool with `omlPath` +
@@ -64,9 +70,8 @@ Live in-memory editing of the open module is **proven** (not future): the
 SS command system (`Command.ExecuteFromAsyncCode`), so changes appear in the live
 tree immediately with no reload. This covers service actions, flow editing, AND
 dependency management (consuming all 15 element types from a producer module via
-`IESpace.AddDependency`). See the `live-editing` skill. Use live when the module is
-open and you want instant tree updates; use headless when SS isn't running or you
-need a saved `.oml` artifact.
+`IESpace.AddDependency`). See the `live-editing` skill. Use live by default when
+the module is open; use headless only when the user explicitly asked for it.
 
 ## Agent conventions (behavioral rules for every edit session)
 
@@ -159,7 +164,7 @@ Modeled on the official OutSystems MCP conventions doc
 | Verify a container class landed (Style CP = ParsedExpression) | `live_probe_style_prop` |
 | Verify the theme CSS source fields | `live_read_theme_css`, `live_probe_sheet` |
 
-## Canonical runbook: edit a module headlessly
+## Canonical runbook: edit a module headlessly (ONLY on explicit user request)
 
 1. **Find + save the .oml.** In SS, open the module and `Ctrl+S`. Run
    `scripts\Get-OmlPath.ps1 <Module>` to locate the `.oml`. Note its path.

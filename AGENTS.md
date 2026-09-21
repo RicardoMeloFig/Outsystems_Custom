@@ -36,8 +36,8 @@ MCP servers are **disabled for the primary agent and the coordinator**
 | "How does X work in OutSystems?", docs lookup, API/pattern/CSS reference | `os-reference` | none (catalog + grep/read) |
 | Extract entities/actions/flows/UI from a module open in Service Studio | `os-extract` | `outsystems-tools_*`, `outsystems-logic_*`, `outsystems-ui_*` |
 | Design before substantial builds (see architect gate below) | `os-architect` | none (read-only, no edits) |
-| Edit a saved `.oml` file headlessly (no SS needed) | `os-edit-headless` | `outsystems-omleditor_*` |
-| Edit the module **open in Service Studio** (live, instant tree updates) | `os-edit-live` | `outsystems-liveeditor_*` |
+| Edit the module **open in Service Studio** (live, instant tree updates) — **DEFAULT editing path** | `os-edit-live` | `outsystems-liveeditor_*` |
+| Edit a saved `.oml` file headlessly (no SS needed) — **ONLY when the user explicitly requests headless/no-SS/file editing** | `os-edit-headless` | `outsystems-omleditor_*` |
 | Generate technical docs / user guide / interactive HTML site | `os-docs` | none (skills + files) |
 | Build/fix the MCP servers, bridge, scripts, config | `os-toolkit` | none (bash + files) |
 
@@ -45,7 +45,8 @@ Specialists may also be called directly when the task is unambiguous
 (e.g. `/research` goes straight to `os-reference`). For multi-stage work
 (e.g. "extract and document this module"), chain: `os-extract` → `os-docs`.
 For substantial edits: `os-extract` (evidence) → `os-architect` (design
-contract) → `os-edit-live`/`os-edit-headless` (implement) → `os-extract`
+contract) → `os-edit-live` (implement; `os-edit-headless` only when the user
+explicitly requested it) → `os-extract`
 (independent read-back against the acceptance checks).
 
 ### Architect gate
@@ -75,10 +76,15 @@ design contract — nothing is built.
 4. **Extraction prerequisites**: the target module must be fully loaded in a
    running `ServiceStudio.exe` (not just on the recent-projects screen). Call
    `get_open_module` first; pass `pid` when multiple modules/instances exist.
-5. **Reference library**: go catalog-first (`catalog/topics.md` → repo →
+5. **Editing is live-first.** Default to `os-edit-live` (module open in SS,
+   instant tree updates). Use headless `.oml` editing (`os-edit-headless`)
+   ONLY when the user explicitly requests it (e.g. "edit the .oml file",
+   "no SS", "headless"). Never switch to headless on your own initiative; if
+   the editing mode is unclear, ask.
+6. **Reference library**: go catalog-first (`catalog/topics.md` → repo →
    targeted grep). Never bulk-read or index the whole `references/repos/`
    tree; large binaries and `node_modules` are off-limits for routine search.
-6. **Edits to the same module are serialized** — one editing specialist at a
+7. **Edits to the same module are serialized** — one editing specialist at a
    time per module.
 
 ## Build / verify / launch (workspace root)

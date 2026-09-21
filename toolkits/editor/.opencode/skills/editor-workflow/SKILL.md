@@ -1,14 +1,14 @@
 ---
 name: editor-workflow
-description: The meta-process for headless OutSystems .oml editing (no UI, no running SS, no productKey). Documents the breakthrough - load a .oml via Oml.LoadWithoutUpgrades(bytes,""), mutate XML fragments, regenerate signatures, write a valid .oml. Read this before any headless edit. Proven on SS 11.55.81.
+description: The meta-process for headless OutSystems .oml editing (no UI, no running SS, no productKey). Documents the breakthrough - load a .oml via Oml.LoadWithoutUpgrades(bytes,""), mutate XML fragments, regenerate signatures, write a valid .oml. Read this before any headless edit. **Use only when the user explicitly requests headless/.oml-file editing — the default is the live editor (live-editing skill).** Proven on SS 11.55.81.
 ---
 
 # Editor Workflow (headless .oml editing — the breakthrough)
 
-This baseline edits OutSystems modules by manipulating the `.oml` **file**
-directly — no Service Studio UI, no running process, no `productKey`. It is the
-headless/file counterpart to the live editor (`outsystems-liveeditor`) and to
-the first baseline's extraction tools (ClrMD readers, read-only).
+**Gate: headless editing happens ONLY on explicit user request ("edit the
+.oml file", "no SS", "headless"). Default is live in-process editing — see
+the `live-editing` skill.** On request, the workflow edits the `.oml` **file**
+directly — no Service Studio UI, no running process, no `productKey`.
 
 ## The core mechanism (proven)
 

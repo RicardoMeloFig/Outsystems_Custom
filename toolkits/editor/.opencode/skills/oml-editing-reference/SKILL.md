@@ -1,9 +1,13 @@
 ---
 name: oml-editing-reference
-description: Deep reference for headless .oml editing - the OutSystems Oml .NET API surface (LoadWithoutUpgrades, GetFragmentXmlReader/Writer, SetNeedsSignatureRegeneration, GetBytes, IsValidOml), the fragment model (eSpace, ServiceAPIMethods, UserActions, NodesNotShownInESpaceTree, References, Signature), how signatures work (content hashes), ObjectKey format, key remapping for clones, and the proven-operations table. Read when extending the editor to new element types.
+description: Deep reference for headless .oml editing - the OutSystems Oml .NET API surface (LoadWithoutUpgrades, GetFragmentXmlReader/Writer, SetNeedsSignatureRegeneration, GetBytes, IsValidOml), the fragment model (eSpace, ServiceAPIMethods, UserActions, NodesNotShownInESpaceTree, References, Signature), how signatures work (content hashes), ObjectKey format, key remapping for clones, and the proven-operations table. Read when extending the editor to new element types. **Headless editing happens only on explicit user request; the default is live editing (outsystems-liveeditor).**
 ---
 
 # .oml editing reference (headless)
+
+> **Gate: headless `.oml` editing is used ONLY when the user explicitly
+> requests it — the default editing path is live in-process
+> (`outsystems-liveeditor`).**
 
 The factual reference behind the `outsystems-omleditor` tools. Use when extending
 editing to a new element type (entity, attribute, structure, …) or debugging a

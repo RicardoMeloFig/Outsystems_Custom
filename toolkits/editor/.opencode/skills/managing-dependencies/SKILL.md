@@ -1,19 +1,19 @@
 ---
 name: managing-dependencies
-description: Use when the user wants to add a module dependency (consume a producer module's elements) into an OutSystems module. Triggers on "add dependency", "consume module", "consume elements", "reference another module", "add reference", "manage dependencies". TWO approaches: LIVE (preferred — both modules open in SS, instant tree update, single undo unit) and HEADLESS (.oml file edit, no SS running). Live proven on SS 11.55.81 via live_consume_elements (24 elements consumed from Diet_CS into Diet_BL). Read live-editing first for the live approach; editor-workflow for headless.
+description: Use when the user wants to add a module dependency (consume a producer module's elements) into an OutSystems module. Triggers on "add dependency", "consume module", "consume elements", "reference another module", "add reference", "manage dependencies". **LIVE is the DEFAULT** (both modules open in SS, instant tree update, single undo unit); HEADLESS (.oml file edit, no SS running) ONLY when the user explicitly requests headless/no-SS editing. Live proven on SS 11.55.81 via live_consume_elements (24 elements consumed from Diet_CS into Diet_BL). Read live-editing first for the live approach; editor-workflow for headless (on request).
 ---
 
 # Managing Dependencies
 
 Consume elements from a producer module into a consumer module — the equivalent
-of SS's "Manage Dependencies" dialog, but headless/live. Covers **all 15 consumable
+of SS's "Manage Dependencies" dialog, but live/headless. Covers **all 15 consumable
 element types**: ServiceActions, ServerActions, ClientActions, Entities, Structures,
 Roles, Processes, Scripts, Images, Resources, WebThemes, MobileThemes, WebFlows,
 MobileFlows, Folders.
 
-## TWO approaches — LIVE FIRST
+## Approaches — LIVE IS THE DEFAULT
 
-### Live (PREFERRED — both modules open in SS)
+### Live (DEFAULT — both modules open in SS)
 
 **Use when:** both the consumer and producer modules are OPEN in Service Studio.
 No Save needed, no reload, instant tree update, single undo unit (`Ctrl+Z`).
@@ -40,7 +40,7 @@ live_consume_elements(diet_BL, Diet_CS, "*")                        # 2. consume
 live_consume_elements(diet_BL, Diet_CS, "ServerAction:*,Entity:*")  # 3. or just specific types
 ```
 
-### Headless (fallback — SS not running / module not open)
+### Headless (ONLY on explicit user request — SS not running / module not open)
 
 **Use when:** SS isn't running or the modules aren't open. Requires `.oml` files on
 disk. Save → edit → reload workflow.

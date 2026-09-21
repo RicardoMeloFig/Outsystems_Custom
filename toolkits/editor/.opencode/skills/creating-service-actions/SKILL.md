@@ -1,9 +1,12 @@
 ---
 name: creating-service-actions
-description: Use when the user wants to create a Service Action in an OutSystems module headlessly (no UI, no running SS) by editing the .oml file. Triggers on "create service action", "add service action", "headless service action", "create service action without UI". Proven on SS 11.55.81 via create_service_action (clone + from-scratch + flow clone). Read editor-workflow first. For live in-process editing (module open in SS, no reload), use creating-service-actions-live instead.
+description: Use when the user wants to create a Service Action in an OutSystems module headlessly (no UI, no running SS) by editing the .oml file — ONLY when the user explicitly requests headless/no-SS/.oml-file editing (default is live: creating-service-actions-live). Triggers on "create service action", "add service action", "headless service action", "create service action without UI". Proven on SS 11.55.81 via create_service_action (clone + from-scratch + flow clone). Read editor-workflow first. For live in-process editing (module open in SS, no reload), use creating-service-actions-live instead.
 ---
 
 # Creating Service Actions (headless .oml editing)
+
+**Gate: use only when the user explicitly requested headless / no-SS /
+`.oml`-file editing. Default is live editing (`creating-service-actions-live`).**
 
 Create a Service Action by editing the module's `.oml` **file** directly — no
 Service Studio UI, no running SS. Proven end-to-end (SS 11.55.81): a
@@ -13,12 +16,13 @@ Logic → Service Actions.
 **Read `editor-workflow` first** — Save → edit → reload workflow, the load/edit/
 regen/verify mechanism, and the file-vs-live constraint.
 
-## Live Alternative
+## Live Alternative (default)
 
-**If the target module is OPEN in SS**, use `creating-service-actions-live`
-instead — mutations land in the live tree immediately, no Save/edit/reload.
-This headless skill is for when SS is not running or the module file is not
-open in SS.
+**If the target module is OPEN in SS** (the normal case), use
+`creating-service-actions-live` instead — mutations land in the live tree
+immediately, no Save/edit/reload. This headless skill is used only when the
+user explicitly asks for headless/.oml-file editing (e.g. SS not running, or
+a saved `.oml` artifact is wanted).
 
 ## What a Service Action is in the .oml
 - A `<Flows.ServiceAPIMethod>` element in the **`ServiceAPIMethods`** fragment.

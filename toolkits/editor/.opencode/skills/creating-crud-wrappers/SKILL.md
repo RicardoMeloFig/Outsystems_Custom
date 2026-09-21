@@ -1,6 +1,6 @@
 ---
 name: creating-crud-wrappers
-description: Use when the user wants to generate public CRUD service-action wrappers for an entity (Create, Read/Get, Update, Delete). TWO approaches: LIVE (preferred — module open in SS, use building-service-action-flows runbook) and HEADLESS (.oml file edit, roadmap). Read building-service-action-flows first for the live approach.
+description: Use when the user wants to generate public CRUD service-action wrappers for an entity (Create, Read/Get, Update, Delete). **LIVE is the default** (module open in SS, use building-service-action-flows runbook); HEADLESS (.oml file edit, roadmap) ONLY when the user explicitly requests headless/no-SS editing. Read building-service-action-flows first for the live approach.
 ---
 
 # Creating CRUD Wrappers
@@ -8,12 +8,12 @@ description: Use when the user wants to generate public CRUD service-action wrap
 Generate a set of public CRUD service-action wrappers for an entity (Create,
 Read/Get, Update, Delete).
 
-## TWO Approaches — ALWAYS LIVE FIRST
+## Approaches — LIVE IS THE DEFAULT
 
 | Approach | When to use | Skill to read |
 |---|---|---|
-| **LIVE (preferred)** | Module is OPEN in Service Studio | `building-service-action-flows` (proven 15-step runbook) |
-| HEADLESS (.oml) | SS not running / module not open / CI | `editor-workflow` + `creating-service-actions` (ROADMAP) |
+| **LIVE (default)** | Module is OPEN in Service Studio | `building-service-action-flows` (proven 15-step runbook) |
+| HEADLESS (.oml) | **ONLY if the user explicitly requests headless** (SS not running / CI) | `editor-workflow` + `creating-service-actions` (ROADMAP) |
 
 **Rule:** If the module is open in SS, use the LIVE approach via
 `building-service-action-flows`. That skill has the proven 15-step runbook

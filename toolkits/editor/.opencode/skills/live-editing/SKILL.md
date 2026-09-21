@@ -285,15 +285,19 @@ Exposed as MCP tools: `live_list_consumable_elements`, `live_consume_elements`.
 
 ## When to use live vs headless
 
+**Live is the default.** Headless is used ONLY when the user explicitly
+requests it ("edit the .oml file", "no SS", "headless") — never choose
+headless on your own initiative.
+
 | Need | Use |
 |---|---|
-| Module is OPEN in SS; want instant tree update, keep undo history | **live** (`outsystems-liveeditor`) |
+| Module is OPEN in SS; want instant tree update, keep undo history (DEFAULT) | **live** (`outsystems-liveeditor`) |
 | Consume dependencies from a producer (both modules open in SS) | **live** (`live_consume_elements`) |
-| Module not open / SS not running / batch-edit many files / CI | **headless** (`outsystems-omleditor`, `editor-workflow`) |
-| Need a saved `.oml` artifact on disk | headless (live edits are in-memory; `Ctrl+S` to persist) |
+| Module not open / SS not running / batch-edit many files / CI — **ONLY on explicit user request** | **headless** (`outsystems-omleditor`, `editor-workflow`) |
+| Need a saved `.oml` artifact on disk | headless on request (live edits are in-memory; `Ctrl+S` to persist) |
 
 Live edits are in-memory until the user saves in SS. For a verifiable on-disk
-artifact, use the headless editor.
+artifact, the user may explicitly request the headless editor.
 
 ## Extending to new element types (entities, attributes, …)
 

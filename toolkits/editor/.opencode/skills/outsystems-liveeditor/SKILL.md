@@ -1,6 +1,6 @@
 ---
 name: outsystems-liveeditor
-description: Use when the user wants to edit an OutSystems module that is OPEN in Service Studio via the outsystems-liveeditor MCP server (live, in-process, no reload). Triggers on "live edit", "edit open module", "live service action", "create service action in open module", "change assign", "add output", "add dependency", "consume elements", "manage dependencies", "create button", "add button", "wire button onclick", "create web screen", "create web block", "web block", "add placeholder", "block variable", "add expression to block", "style class". Provides 126 live_* tools. Requires SS running with the OsLiveBridge plugin. PREFER THIS over headless .oml editing whenever the module is open in SS. Read live-editing first for the mechanism; for headless .oml file editing read outsystems-omleditor instead. For screens/widgets/buttons see building-screens-and-buttons.
+description: Use when the user wants to edit an OutSystems module that is OPEN in Service Studio via the outsystems-liveeditor MCP server (live, in-process, no reload). Triggers on "live edit", "edit open module", "live service action", "create service action in open module", "change assign", "add output", "add dependency", "consume elements", "manage dependencies", "create button", "add button", "wire button onclick", "create web screen", "create web block", "web block", "add placeholder", "block variable", "add expression to block", "style class". Provides 126 live_* tools. Requires SS running with the OsLiveBridge plugin. **DEFAULT editing path — PREFER THIS over headless .oml editing whenever the module is open in SS; headless only on explicit user request.** Read live-editing first for the mechanism; for headless .oml file editing read outsystems-omleditor instead (on request). For screens/widgets/buttons see building-screens-and-buttons.
 ---
 
 # outsystems-liveeditor (live in-process editor MCP)
@@ -688,11 +688,12 @@ session). The bridge commands are also drivable directly via `scripts\Send-Bridg
    in-memory until saved).
 
 ## live vs headless — pick the right server
+**Live is the DEFAULT.** Headless only on explicit user request.
 | Situation | Server |
 |---|---|
-| Module OPEN in SS, want instant tree update, keep undo history | `outsystems-liveeditor` (this) |
-| Module not open / SS not running / batch files / CI | `outsystems-omleditor` (headless, `editor-workflow`) |
-| Need a saved `.oml` artifact on disk | `outsystems-omleditor` (live is in-memory until `Ctrl+S`) |
+| Module OPEN in SS, want instant tree update, keep undo history (DEFAULT) | `outsystems-liveeditor` (this) |
+| Module not open / SS not running / batch files / CI — **ONLY on explicit user request** | `outsystems-omleditor` (headless, `editor-workflow`) |
+| Need a saved `.oml` artifact on disk — **on explicit request** | `outsystems-omleditor` (live is in-memory until `Ctrl+S`) |
 
 Don't confuse the two: `outsystems-omleditor` = files, no SS; `outsystems-liveeditor`
 = open module, SS running. Same conceptual operation (create service action), different

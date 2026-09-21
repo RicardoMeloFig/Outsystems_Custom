@@ -35,8 +35,8 @@ consolidated report. Direct routes when the task is unambiguous:
 | Docs/reference lookup, "How does X work in OutSystems?" | `os-reference` |
 | Extract entities/actions/flows/UI from a module open in Service Studio | `os-extract` |
 | Design a screen/flow/cross-module change BEFORE implementation | `os-architect` |
-| Edit a saved `.oml` headlessly (no Service Studio needed) | `os-edit-headless` |
-| Edit the module open in Service Studio (live, instant tree updates) | `os-edit-live` |
+| Edit the module open in Service Studio (live, instant tree updates) — **DEFAULT** | `os-edit-live` |
+| Edit a saved `.oml` headlessly (no Service Studio needed) — **ONLY on explicit user request** | `os-edit-headless` |
 | Generate technical docs / user guide / interactive HTML site | `os-docs` |
 | Build/fix the tooling itself (in the baseline workspace) | `os-toolkit` |
 
@@ -51,7 +51,9 @@ Commands: `/extract-module`, `/document-module`, `/research`, `/build`,
 2. Baseline rules apply unchanged: never guess opaque keys (probe first);
    succeeded ≠ landed (verify by read-back); confirm destructive actions
    before executing; extraction requires the module fully loaded in Service
-   Studio; one editing session per module.
+   Studio; one editing session per module. **Editing is live-first**: use
+   `os-edit-live` by default; headless `.oml` editing only when the user
+   explicitly requests it — never switch to headless on your own initiative.
 3. **Architect gate**: new screens, flows/service actions, cross-module,
    data-model, and security changes go through `os-architect` BEFORE any
    editor. The architect verifies what needs doing first and where, checks
