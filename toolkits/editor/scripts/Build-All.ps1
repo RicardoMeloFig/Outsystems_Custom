@@ -3,29 +3,32 @@
     Builds (publishes) the headless .oml editor MCP server.
 
 .DESCRIPTION
-    Runs `dotnet publish -c Release` for the outsystems-omleditor project,
-    writing the exe to mcp/outsystems-omleditor/publish/. The output path matches
-    the `command` entry in opencode.json, so once this succeeds the server is
-    launchable by opencode.
+    Runs `dotnet publish -c Release -r win-x64 --self-contained true` for the
+    outsystems-omleditor and outsystems-liveeditor projects, writing each exe
+    to mcp/<server>/publish/. Self-contained is the DEFAULT: each exe bundles
+    the .NET runtime, so it runs on any Windows x64 PC with no .NET installs.
+    The output paths match the `command` entries in opencode.json, so once
+    this succeeds the servers are launchable by opencode.
 
-    The compiled exe is gitignored (bin/, obj/, publish/), so this is the command
-    to run after a fresh clone to bring the editor online.
+    The compiled exes are gitignored (bin/, obj/, publish/), so this is the
+    command to run after a fresh clone to bring the editor online.
 
-    Requires the .NET 8+ SDK (the editor is net8.0). Run `dotnet --list-sdks`.
+    Requires the .NET 8+ SDK to BUILD (the editors are net8.0) — but the built
+    exes need no runtime to RUN. Run `dotnet --list-sdks`.
 
-.PARAMETER SelfContained
-    Publish self-contained (bundles the .NET runtime). Larger output. Use on a PC
-    with no .NET runtime installed.
+.PARAMETER FrameworkDependent
+    Publish framework-dependent instead (smaller output, but the machine
+    running the server needs a .NET 8 runtime). Dev-only opt-out; NOT portable.
 
 .PARAMETER Runtime
-    The RID to use with -SelfContained (default: win-x64).
+    The RID for the self-contained publish (default: win-x64).
 
 .EXAMPLE
-    .\scripts\Build-All.ps1
-    .\scripts\Build-All.ps1 -SelfContained
+    .\scripts\Build-All.ps1                      # self-contained win-x64 (default, portable)
+    .\scripts\Build-All.ps1 -FrameworkDependent  # dev machines with a .NET 8 runtime
 #>
 param(
-    [switch]$SelfContained,
+    [switch]$FrameworkDependent,
     [string]$Runtime = "win-x64"
 )
 
@@ -61,22 +64,32 @@ foreach ($s in $Servers) {
         $failures++; continue
     }
 
-    # Clean publish dir to avoid poisoned mixed deployments (self-contained leftovers).
+    # Clean publish dir to avoid poisoned mixed deployments (self-contained
+    # leftovers + a partial overwrite from the other mode). Locks are probed
+    # BEFORE cleaning: if a running opencode holds any file open, SKIP this
+    # server — publishing over a partially-cleaned dir would mix a new build
+    # with the locked old exe/DLLs, and deleting unlocked files would leave a
+    # gutted, unlaunchable dir.
     if (Test-Path -LiteralPath $outDir) {
         $locked = @()
-        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force)) {
-            try { Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop }
-            catch { $locked += $item.Name }
+        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force -File)) {
+            try { $fs = [System.IO.File]::Open($item.FullName, 'Open', 'ReadWrite', 'None'); $fs.Close() } catch { $locked += $item.Name }
         }
         if ($locked.Count -gt 0) {
-            Write-Host "NOTE: $($locked.Count) locked file(s) kept in $outDir (opencode running?)." -ForegroundColor DarkYellow
+            Write-Host "NOTE: $($locked.Count) locked file(s) in $outDir (opencode running?)." -ForegroundColor DarkYellow
+            Write-Host "      SKIPPING $($s.Name) to avoid a poisoned mixed deployment - existing exe kept." -ForegroundColor DarkYellow
+            $stale++
+            continue
+        }
+        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force)) {
+            Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop
         }
     }
 
     Write-Host ""
     Write-Host "==> Building $($s.Name) ..." -ForegroundColor Cyan
     $args = @("publish", $projPath, "-c", "Release", "-o", $outDir)
-    if ($SelfContained) { $args += @("-r", $Runtime, "--self-contained", "true") }
+    if (-not $FrameworkDependent) { $args += @("-r", $Runtime, "--self-contained", "true") }
     & dotnet @args
     $publishExit = $LASTEXITCODE
 

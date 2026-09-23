@@ -93,7 +93,7 @@ design contract — nothing is built.
 ## Build / verify / launch (workspace root)
 
 ```powershell
-.\scripts\Build-All.ps1        # publish all 5 MCP exes (first run after clone)
+.\scripts\Build-All.ps1        # publish all 5 MCP exes (first run after clone) - self-contained win-x64 by default: portable, no .NET install needed to run
 .\scripts\Build-Bridge.ps1     # compile the SS plugin (compile-only by default)
 .\scripts\Verify-Project.ps1   # integrity gate: must print OK: and exit 0
 .\scripts\Start-OpenCode.ps1   # staleness gate + launch OpenCode Desktop here

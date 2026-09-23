@@ -3,10 +3,12 @@
     Builds (publishes) all three OutSystems extraction MCP servers.
 
 .DESCRIPTION
-    Runs `dotnet publish -c Release` for every MCP server project, writing each
-    exe to a normalized `<project>/publish/` folder. The output paths match the
-    `command` entries in opencode.json exactly, so once this script succeeds the
-    MCP servers are launchable by opencode.
+    Runs `dotnet publish -c Release -r win-x64 --self-contained true` for every
+    MCP server project, writing each exe to a normalized `<project>/publish/`
+    folder. Self-contained is the DEFAULT: each exe bundles the .NET runtime,
+    so it runs on any Windows x64 PC with no .NET installs. The output paths
+    match the `command` entries in opencode.json exactly, so once this script
+    succeeds the MCP servers are launchable by opencode.
 
     The compiled exes are gitignored (bin/, obj/, publish/), so this script is
     the single command to run after a fresh `git clone` to bring the toolkit
@@ -15,22 +17,22 @@
 
     This baseline is extraction-only (ClrMD readers). Editing lives in the
     `AI Outsystems Automation Editor` baseline (live + headless .oml). Requires
-    the .NET 8+ SDK (all servers are net8.0). Run `dotnet --list-sdks` to confirm.
+    the .NET 8+ SDK to BUILD (all servers are net8.0) — but the built exes
+    need no runtime to RUN. Run `dotnet --list-sdks` to confirm.
 
-.PARAMETER SelfContained
-    Publish self-contained (bundles the .NET runtime, no SDK needed on the
-    target machine). Larger output. Use when deploying to a PC without the
-    .NET runtime installed.
+.PARAMETER FrameworkDependent
+    Publish framework-dependent instead (smaller output, but the machine
+    running the server needs a .NET 8 runtime). Dev-only opt-out; NOT portable.
 
 .PARAMETER Runtime
-    The RID to use with -SelfContained (default: win-x64).
+    The RID for the self-contained publish (default: win-x64).
 
 .EXAMPLE
-    .\scripts\Build-All.ps1
-    .\scripts\Build-All.ps1 -SelfContained
+    .\scripts\Build-All.ps1                      # self-contained win-x64 (default, portable)
+    .\scripts\Build-All.ps1 -FrameworkDependent  # dev machines with a .NET 8 runtime
 #>
 param(
-    [switch]$SelfContained,
+    [switch]$FrameworkDependent,
     [string]$Runtime = "win-x64"
 )
 
@@ -76,28 +78,36 @@ foreach ($s in $Servers) {
     }
 
     # Clean the publish dir before publishing. Prevents "poisoned" mixed
-    # deployments: a previous -SelfContained run leaves coreclr.dll /
-    # hostpolicy.dll on disk, then a framework-dependent run only rewrites the
-    # runtimeconfig -> the apphost loads the leftover local hostpolicy, cannot
-    # resolve the shared framework, and crashes on launch with
-    # "You must install or update .NET". Files locked by a running opencode are
-    # skipped (warning); close opencode for a fully clean rebuild.
+    # deployments: a previous self-contained run leaves coreclr.dll /
+    # hostpolicy.dll on disk, then a framework-dependent run (-FrameworkDependent)
+    # only rewrites the runtimeconfig -> the apphost loads the leftover local
+    # hostpolicy, cannot resolve the shared framework, and crashes on launch
+    # with "You must install or update .NET". Locks are probed BEFORE cleaning:
+    # if a running opencode holds any file open, the server is SKIPPED —
+    # publishing over a partially-cleaned dir would mix a new build with the
+    # locked old exe/DLLs, and deleting unlocked files would leave a gutted,
+    # unlaunchable dir.
     if (Test-Path -LiteralPath $outDir) {
         $locked = @()
-        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force)) {
-            try { Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop }
-            catch { $locked += $item.Name }
+        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force -File)) {
+            try { $fs = [System.IO.File]::Open($item.FullName, 'Open', 'ReadWrite', 'None'); $fs.Close() } catch { $locked += $item.Name }
         }
         if ($locked.Count -gt 0) {
-            Write-Host "NOTE: $($locked.Count) locked file(s) kept in $outDir (opencode running?)." -ForegroundColor DarkYellow
+            Write-Host "NOTE: $($locked.Count) locked file(s) in $outDir (opencode running?)." -ForegroundColor DarkYellow
+            Write-Host "      SKIPPING $($s.Name) to avoid a poisoned mixed deployment - existing exe kept." -ForegroundColor DarkYellow
             Write-Host "      Close opencode and re-run for a clean rebuild." -ForegroundColor DarkYellow
+            $stale++
+            continue
+        }
+        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force)) {
+            Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop
         }
     }
 
     Write-Host ""
     Write-Host "==> Building $($s.Name) ..." -ForegroundColor Cyan
     $args = @("publish", $projPath, "-c", "Release", "-o", $outDir)
-    if ($SelfContained) {
+    if (-not $FrameworkDependent) {
         $args += @("-r", $Runtime, "--self-contained", "true")
     }
 

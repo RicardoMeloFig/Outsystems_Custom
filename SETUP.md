@@ -4,7 +4,10 @@
 
 - **Windows x64**
 - **Git** — https://git-scm.com
-- **.NET 8+ SDK** — `dotnet --list-sdks` must show an `8.0.x` (or newer) entry.
+- **.NET 8+ SDK** — `dotnet --list-sdks` must show an `8.0.x` (or newer)
+  entry. Needed only to **build** the MCP exes; **running** them needs no
+  .NET install at all — `Build-All.ps1` publishes self-contained win-x64 by
+  default (each exe bundles the runtime).
 - **OutSystems Service Studio 11** — installed at
   `C:\Program Files\OutSystems\Service Studio 11\Service Studio\`
   (override with the `OSSS_DIR` env var if elsewhere).
@@ -12,12 +15,20 @@
   (https://opencode.ai). The `opencode` CLI is optional; the launcher script
   uses the Desktop app.
 
-## Steps
+> **Zip-copy works with zero .NET installs.** A zip copy of a healthy,
+> already-built baseline runs anywhere (Windows x64): the exes are
+> self-contained and gitignored artifacts are the only things you lose by
+> not cloning. A `git clone` needs the one-time SDK install above, then
+> `Build-All.ps1` produces portable, always-current exes.
+
+## Steps (fresh-PC runbook)
 
 1. **Build the MCP servers** (outputs are gitignored):
    ```powershell
-   .\scripts\Build-All.ps1          # add -SelfContained on a PC without .NET runtime
+   .\scripts\Build-All.ps1          # self-contained win-x64 (default, portable)
    ```
+   `-FrameworkDependent` is a dev-only opt-out (smaller output, but the
+   machine running the servers then needs a .NET 8 runtime — not portable).
 2. **Build the Service Studio bridge** (compile only; does NOT install):
    ```powershell
    .\scripts\Build-Bridge.ps1
@@ -114,7 +125,9 @@ use. Setup guidance: `references/repos/outsystems-mcp/README.md`.
 | Editor tools error "type not found" | SS 11 not installed / `OSSS_DIR` wrong. |
 | `Verify-Project.ps1` prints `MISSING:` | toolkit incomplete — restore from the original source folders. |
 | Build fails on `net8.0` targeting pack | let NuGet restore it (network), or install the .NET 8 SDK. |
-| `Build-All.ps1` exits 2 (stale) | publish failed but an old exe remains (usually locked DLLs) → close opencode, re-run. |
+| `Build-All.ps1` exits 2 (stale) | locked files or failed publish; old exe kept → close opencode, re-run. |
+| Server exe crashes with "You must install or update .NET" | **poisoned publish dir** — mixed self-contained/framework-dependent leftovers from interrupted builds. Delete that server's `publish/` folder, close opencode, re-run `.\scripts\Build-All.ps1`. |
+| `Verify-Project.ps1` warns "FRAMEWORK-DEPENDENT (no coreclr.dll)" | the publish was built with `-FrameworkDependent` or by an old script version → re-run `.\scripts\Build-All.ps1` (self-contained is the default) with opencode closed. |
 | Consumer `Verify-LinkedProject.ps1` prints `MISSING:` | re-run `New-LinkedProject.ps1 -Target <target> -AppName <app> -Refresh`; rebuild baseline exes if the gate names a missing exe. |
 | Consumer refresh skips a file you edited | by design (manifest hash differs). Rename your version, refresh, re-apply your edit — or use `-Force` to discard it. |
 | `Test-McpHandshake.ps1` FAILs a server | the exe is not protocol-usable — rebuild it (`Build-All.ps1 -Name <server>`), then re-probe. |

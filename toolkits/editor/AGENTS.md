@@ -220,9 +220,9 @@ Modeled on the official OutSystems MCP conventions doc
 ## Setup (fresh clone)
 
 1. `git clone` (or copy) this repo; `cd` into the root.
-2. `.\scripts\Build-All.ps1` — builds the editor exe into
-   `mcp\outsystems-omleditor\publish\`. (Use `-SelfContained` on a PC with no
-   .NET runtime.)
+2. `.\scripts\Build-All.ps1` — builds the editor exes into
+   `mcp\<server>\publish\`. (Self-contained win-x64 by default — the exes
+   run with no .NET runtime installed.)
 3. `.\scripts\Verify-Project.ps1` — hard-fail integrity gate. **Must print `OK:`
    and exit 0.** If it lists `MISSING:`, stop and fix.
 4. Launch opencode **from the repo root**: `opencode` (or

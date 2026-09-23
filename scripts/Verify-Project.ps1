@@ -3,12 +3,13 @@
     Workspace integrity gate. Must print OK: and exit 0 before use.
 
 .DESCRIPTION
-    Checks: 5 MCP exes present + fresh, skills discoverable in all four
-    paths, opencode.json valid JSON (+ default_agent valid if set),
-    coordinator is a subagent (not default), agents present
-    (coordinator + architect + 6 specialists), commands present, catalog
-    present (incl. toolchain.json), reference library populated, AGENTS.md
-    present. -Strict turns staleness into a hard failure.
+    Checks: 5 MCP exes present + fresh + self-contained (coreclr.dll in each
+    publish dir), skills discoverable in all four paths, opencode.json valid
+    JSON (+ default_agent valid if set), coordinator is a subagent (not
+    default), agents present (coordinator + architect + 6 specialists),
+    commands present, catalog present (incl. toolchain.json), reference
+    library populated, AGENTS.md present. -Strict turns staleness and
+    framework-dependent publishes into hard failures.
 #>
 param([switch]$Strict)
 
@@ -40,7 +41,12 @@ $serverDirs = Get-ChildItem -LiteralPath (Join-Path $Root "toolkits") -Directory
     Get-ChildItem -LiteralPath (Join-Path $_.FullName "mcp") -Directory -ErrorAction SilentlyContinue
 } | Where-Object { $_ -and (Test-Path (Join-Path $_.FullName "*.csproj")) }
 foreach ($dir in $serverDirs) {
-    $exe = Get-ChildItem -LiteralPath (Join-Path $dir.FullName "publish") -Filter *.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+    # App exe is named after the csproj (AssemblyName). Never pick
+    # "alphabetically first *.exe": a self-contained publish contains
+    # runtime-pack exes (createdump.exe) with old preserved timestamps.
+    $proj = Get-ChildItem -LiteralPath $dir.FullName -Filter *.csproj | Select-Object -First 1
+    $appExeName = [System.IO.Path]::GetFileNameWithoutExtension($proj.FullName) + ".exe"
+    $exe = Get-ChildItem -LiteralPath (Join-Path $dir.FullName "publish") -Filter $appExeName -File -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $exe) { Fail "$($dir.Name): publish exe not built (run scripts\Build-All.ps1)"; continue }
     $newestSrc = Get-ChildItem -LiteralPath $dir.FullName -Recurse -Include *.cs,*.csproj -File -ErrorAction SilentlyContinue |
         Where-Object { $_.FullName -notmatch '\\(publish|bin|obj)\\' } |
@@ -48,6 +54,10 @@ foreach ($dir in $serverDirs) {
     if ($newestSrc -and $newestSrc.LastWriteTime -gt $exe.LastWriteTime) {
         if ($Strict) { Fail "$($dir.Name): exe is STALE (source newer) - rebuild" } else { Warn "$($dir.Name): exe is STALE - rebuild before extracting" }
     } else { Ok "$($dir.Name): exe fresh" }
+    if (-not (Test-Path -LiteralPath (Join-Path $dir.FullName "publish\coreclr.dll"))) {
+        $msg = "$($dir.Name): publish is FRAMEWORK-DEPENDENT (no coreclr.dll) - rebuild with scripts\Build-All.ps1 (self-contained is the default)"
+        if ($Strict) { Fail $msg } else { Warn $msg }
+    } else { Ok "$($dir.Name): self-contained" }
 }
 
 # Skills

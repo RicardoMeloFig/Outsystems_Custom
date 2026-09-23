@@ -55,10 +55,13 @@ it; see "Live editor setup" below.
 .\scripts\Build-All.ps1
 ```
 
-For a PC with **no .NET runtime installed**, build self-contained:
+The build is **self-contained win-x64 by default**: the exe bundles the .NET
+runtime and runs on any Windows x64 PC with no .NET installs. On a dev
+machine that has the runtime and wants the smaller output, opt out with
+`-FrameworkDependent` (NOT portable):
 
 ```powershell
-.\scripts\Build-All.ps1 -SelfContained
+.\scripts\Build-All.ps1 -FrameworkDependent
 ```
 
 ### 3. Verify the toolkit is complete

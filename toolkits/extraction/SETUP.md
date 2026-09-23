@@ -66,11 +66,13 @@ normalized `<project>/publish/` folder, matching the paths in `opencode.json`.
 .\scripts\Build-All.ps1
 ```
 
-For a PC with **no .NET runtime installed**, build self-contained (bundles
-the runtime, larger output):
+The build is **self-contained win-x64 by default**: each exe bundles the
+.NET runtime and runs on any Windows x64 PC with no .NET installs. On a dev
+machine that has the runtime and wants the smaller output, opt out with
+`-FrameworkDependent` (NOT portable):
 
 ```powershell
-.\scripts\Build-All.ps1 -SelfContained
+.\scripts\Build-All.ps1 -FrameworkDependent
 ```
 
 The script fails (non-zero exit) if any server fails to publish. The exact
@@ -248,11 +250,12 @@ See `AGENTS.md` "Creating derivative projects" for the agent-facing rule.
 ## Troubleshooting
 
 ### A server fails to start with a framework/runtime error
-You're likely missing the runtime for that TFM. Easiest fix: rebuild all
-servers self-contained so each bundles its own runtime:
+You're likely missing the runtime for that TFM, or the publish is framework-
+dependent. Easiest fix: rebuild all servers (self-contained is the default, so
+each bundles its own runtime):
 
 ```powershell
-.\scripts\Build-All.ps1 -SelfContained
+.\scripts\Build-All.ps1
 ```
 
 Self-contained exes run on a PC with **no .NET SDK/runtime installed**, at

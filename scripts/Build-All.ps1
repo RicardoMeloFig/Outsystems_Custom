@@ -4,29 +4,32 @@
 
 .DESCRIPTION
     Finds every .csproj under toolkits/*/mcp/*/ and runs
-    `dotnet publish -c Release -o <dir>\publish`. The output paths match the
-    `command` entries in opencode.json. Exes are gitignored; run this after a
-    fresh clone. Rebuild a single server with -Name.
+    `dotnet publish -c Release -o <dir>\publish` SELF-CONTAINED win-x64 by
+    default, so the exes run on any Windows x64 PC with no .NET installs.
+    The output paths match the `command` entries in opencode.json. Exes are
+    gitignored; run this after a fresh clone. Rebuild a single server with -Name.
 
     Exit codes: 0 = all published; 1 = hard failure (exe missing);
-    2 = stale (publish failed, old exe kept — usually locked DLLs).
+    2 = stale (old exe kept — locked files or failed publish; close opencode
+    and re-run).
 
-.PARAMETER SelfContained
-    Publish self-contained (bundles the .NET runtime). For PCs with no .NET runtime.
+.PARAMETER FrameworkDependent
+    Publish framework-dependent (smaller output, but the machine running the
+    server needs a .NET 8 runtime). Dev-only opt-out; NOT portable.
 
 .PARAMETER Runtime
-    The RID to use with -SelfContained (default win-x64).
+    The RID for the self-contained publish (default win-x64).
 
 .PARAMETER Name
     Only build the server whose folder matches this name.
 
 .EXAMPLE
-    .\scripts\Build-All.ps1
-    .\scripts\Build-All.ps1 -SelfContained
+    .\scripts\Build-All.ps1                      # self-contained win-x64 (default, portable)
+    .\scripts\Build-All.ps1 -FrameworkDependent  # dev machines with a .NET 8 runtime
     .\scripts\Build-All.ps1 -Name outsystems-ui
 #>
 param(
-    [switch]$SelfContained,
+    [switch]$FrameworkDependent,
     [string]$Runtime = "win-x64",
     [string]$Name
 )
@@ -55,17 +58,35 @@ foreach ($dir in $serverDirs) {
     $proj = Get-ChildItem -LiteralPath $dir.FullName -Filter *.csproj | Select-Object -First 1
     $outDir = Join-Path $dir.FullName "publish"
     if (Test-Path -LiteralPath $outDir) {
+        # Probe for locked files BEFORE cleaning. If opencode holds any file
+        # open, skip this server entirely: publishing over a partially-cleaned
+        # dir would mix a new build with the locked old exe/DLLs (poisoned
+        # deployment), and deleting the unlocked files would leave a gutted,
+        # unlaunchable dir.
+        $locked = @()
+        foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force -File)) {
+            try { $fs = [System.IO.File]::Open($item.FullName, 'Open', 'ReadWrite', 'None'); $fs.Close() } catch { $locked += $item.Name }
+        }
+        if ($locked.Count -gt 0) {
+            Write-Host "STALE   $($dir.Name): $($locked.Count) locked file(s) in publish (opencode running?). Kept existing exe - close opencode and re-run." -ForegroundColor Yellow
+            $stale++
+            continue
+        }
         foreach ($item in (Get-ChildItem -LiteralPath $outDir -Force)) {
-            try { Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop } catch { }
+            Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction Stop
         }
     }
     Write-Host ""
     Write-Host "==> Building $($dir.Name) ..." -ForegroundColor Cyan
     $args = @("publish", $proj.FullName, "-c", "Release", "-o", $outDir)
-    if ($SelfContained) { $args += @("-r", $Runtime, "--self-contained", "true") }
+    if (-not $FrameworkDependent) { $args += @("-r", $Runtime, "--self-contained", "true") }
     & dotnet @args
     $exit = $LASTEXITCODE
-    $exe = Get-ChildItem -LiteralPath $outDir -Filter *.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+    # App exe is named after the csproj (AssemblyName). Never pick
+    # "alphabetically first *.exe": a self-contained publish contains
+    # runtime-pack exes (createdump.exe) that would misreport the path.
+    $appExeName = [System.IO.Path]::GetFileNameWithoutExtension($proj.FullName) + ".exe"
+    $exe = Get-ChildItem -LiteralPath $outDir -Filter $appExeName -File -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($exe) {
         if ($exit -ne 0) { Write-Host "STALE   $($dir.Name): publish failed but exe exists -> $($exe.FullName)" -ForegroundColor Yellow; $stale++ }
         else { Write-Host "OK      $($dir.Name) -> $($exe.FullName)" -ForegroundColor Green }

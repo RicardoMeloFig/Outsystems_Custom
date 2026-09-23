@@ -65,8 +65,8 @@ Follow these stages in order. Each stage is deterministic.
 ### Stage 0 — One-time setup on a new PC (skip if already built)
 1. `git clone <repo>` then `cd` into the repo root.
 2. `.\scripts\Build-All.ps1` — builds the 3 gitignored MCP exes into each
-   `<project>/publish/` folder. (Use `-SelfContained` on a PC with no .NET
-   runtime.)
+   `<project>/publish/` folder. (Self-contained win-x64 by default — the
+   exes run with no .NET runtime installed.)
 3. `.\scripts\Verify-Project.ps1` — hard-fail integrity gate. **Must print
    `OK:` and exit 0.** If it lists `MISSING:` lines, stop and fix them (the
    message says what) — do not proceed.
@@ -75,7 +75,7 @@ Follow these stages in order. Each stage is deterministic.
    checks for stale exes and rebuilds automatically before launching).
 5. Inside opencode, run `/mcp`. All three servers must show active/connected.
    - If a server is inactive: the `.exe` is missing or a runtime is missing →
-     re-run `Build-All.ps1` (or `-SelfContained`), then restart opencode.
+     re-run `Build-All.ps1` (self-contained by default), then restart opencode.
 
 ### Stage 0b — Staleness gate (automatic via launcher script)
 After any MCP source edit (or after a `git pull` that touches `mcp/*/Program.cs`),
@@ -281,7 +281,7 @@ including the Editor baseline:
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| MCP servers inactive in `/mcp` after clone | `.exe` files not built (gitignored) | Run `.\scripts\Build-All.ps1`; restart opencode from repo root. If a runtime is missing, use `-SelfContained`. |
+| MCP servers inactive in `/mcp` after clone | `.exe` files not built (gitignored) | Run `.\scripts\Build-All.ps1`; restart opencode from repo root. The default self-contained publish needs no .NET runtime. |
 | `Verify-Project.ps1` prints `MISSING:` | Toolkit incomplete (missing skill/MCP/script/exe) | Re-clone the full repo or re-scaffold with `New-OutSystemsProject.ps1`. Never fix by selective file writing. |
 | `dotnet publish` says SDK missing | .NET 8+ SDK not installed | Install the .NET 8+ SDK (`dotnet --list-sdks` must show `8.0.x`+). |
 | Extractor returns "Service Studio is not running" | SS not running, or module only on recent-projects screen | Open the module in SS and wait until it finishes loading. |
