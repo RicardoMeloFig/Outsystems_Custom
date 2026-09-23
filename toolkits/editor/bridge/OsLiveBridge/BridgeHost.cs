@@ -274,6 +274,7 @@ internal static class BridgeHost
             case "create_entity": return CreateEntity(GetStr(root, "module"), GetStr(root, "name"));
             case "add_entity_attribute": return AddEntityAttribute(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"), GetStr(root, "type"), GetStr(root, "isMandatory"), GetStr(root, "defaultValue"));
             case "set_entity_attribute_type": return SetEntityAttributeType(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"), GetStr(root, "type"));
+            case "set_entity_attribute_name": return SetEntityAttributeName(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "attrName"), GetStr(root, "newName"));
             case "set_entity_prop": return SetEntityProp(GetStr(root, "module"), GetStr(root, "entity"), GetStr(root, "prop"), GetStr(root, "value"));
             case "set_structure_prop": return SetStructureProp(GetStr(root, "module"), GetStr(root, "structure"), GetStr(root, "prop"), GetStr(root, "value"));
             case "set_server_action_prop": return SetServerActionProp(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "prop"), GetStr(root, "value"));
@@ -8439,6 +8440,34 @@ internal static class BridgeHost
         {
             SetProp(attr, "DataType", dataType);
             return "set " + entity + "." + attrName + " DataType -> " + type + " (" + TypeLabel(dataType) + ")";
+        });
+    }
+
+    // set_entity_attribute_name: rename an EXISTING entity attribute. Same resolution
+    // pattern as set_entity_attribute_type (entity by name -> attribute by name), then
+    // SetProp(attr, "Name", newName) inside a real SS command (undo unit). The report
+    // carries the old name and a read-back of the new Name for verification.
+    static string SetEntityAttributeName(string module, string entity, string attrName, string newName)
+    {
+        if (string.IsNullOrEmpty(entity) || string.IsNullOrEmpty(attrName) || string.IsNullOrEmpty(newName)) return Json(new { ok = false, error = "entity, attrName and newName required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var ent = FindEntity(es, entity);
+        if (ent == null) return Json(new { ok = false, error = "entity not found: " + entity });
+        object attr = null;
+        var attrs = GetProp(ent, "Attributes") as IEnumerable;
+        if (attrs != null)
+            foreach (var a in attrs)
+                try { if ((GetProp(a, "Name") as string) == attrName) { attr = a; break; } } catch { }
+        if (attr == null) return Json(new { ok = false, error = "attribute not found: " + attrName + " on " + entity });
+        if (newName == attrName) return Json(new { ok = false, error = "newName equals current name '" + attrName + "' - nothing to change" });
+        return RunCmd(module, "set entity attribute name", es2 =>
+        {
+            SetProp(attr, "Name", newName);
+            string readBack = null;
+            try { readBack = GetProp(attr, "Name") as string; } catch { }
+            return "renamed " + entity + "." + attrName + " Name -> " + newName
+                + (readBack != null ? " (read-back: " + readBack + ")" : " (read-back: n/a)");
         });
     }
 

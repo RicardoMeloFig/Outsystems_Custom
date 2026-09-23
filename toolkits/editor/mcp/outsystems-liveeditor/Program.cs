@@ -1687,6 +1687,17 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "entity", "attrName", "type" } }
         },
         new JsonObject {
+            ["name"] = "live_set_entity_attribute_name",
+            ["description"] = "Rename an EXISTING entity attribute in an OPEN module - LIVE tree, undo unit. Finds the entity by name, the attribute by its current name (attrName), then sets Name to the new value. Fails clearly if entity or attribute is not found, if newName is empty, or if newName equals the current name. The report includes the old name and a read-back of the new name.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["entity"] = Str("entity", "Entity name"),
+                    ["attrName"] = Str("attrName", "Current attribute name"),
+                    ["newName"] = Str("newName", "New attribute name") },
+                ["required"] = new JsonArray { "module", "entity", "attrName", "newName" } }
+        },
+        new JsonObject {
             ["name"] = "live_delete_entity_attribute",
             ["description"] = "Delete one attribute from a server Entity in an OPEN module - LIVE tree, undo unit.",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2455,6 +2466,7 @@ internal static class Program
             "live_create_entity" => Bridge.CreateEntity(Arg("module"), Arg("name")),
             "live_add_entity_attribute" => Bridge.AddEntityAttribute(Arg("module"), Arg("entity"), Arg("attrName"), Arg("type"), Arg("isMandatory"), Arg("defaultValue")),
             "live_set_entity_attribute_type" => Bridge.SetEntityAttributeType(Arg("module"), Arg("entity"), Arg("attrName"), Arg("type")),
+            "live_set_entity_attribute_name" => Bridge.SetEntityAttributeName(Arg("module"), Arg("entity"), Arg("attrName"), Arg("newName")),
             "live_delete_entity_attribute" => Bridge.DeleteEntityAttribute(Arg("module"), Arg("entity"), Arg("attrName")),
             "live_delete_entity" => Bridge.DeleteEntity(Arg("module"), Arg("name")),
             "live_get_verify_errors" => Bridge.GetVerifyErrors(Arg("module"), Arg("kind"), Arg("name"), Arg("screen"), Arg("block"), Arg("verbose")),
@@ -3385,6 +3397,9 @@ internal static class Bridge
 
     public static string SetEntityAttributeType(string module, string entity, string attrName, string type) =>
         RunCmd(module, "{\"cmd\":\"set_entity_attribute_type\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"attrName\":\"" + Escape(attrName ?? "") + "\",\"type\":\"" + Escape(type ?? "") + "\"}", "Set entity attribute type:");
+
+    public static string SetEntityAttributeName(string module, string entity, string attrName, string newName) =>
+        RunCmd(module, "{\"cmd\":\"set_entity_attribute_name\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"attrName\":\"" + Escape(attrName ?? "") + "\",\"newName\":\"" + Escape(newName ?? "") + "\"}", "Set entity attribute name:");
 
     public static string DeleteEntityAttribute(string module, string entity, string attrName) =>
         RunCmd(module, "{\"cmd\":\"delete_entity_attribute\",\"module\":\"" + Escape(module) + "\",\"entity\":\"" + Escape(entity ?? "") + "\",\"attrName\":\"" + Escape(attrName ?? "") + "\"}", "Deleted entity attribute:");
