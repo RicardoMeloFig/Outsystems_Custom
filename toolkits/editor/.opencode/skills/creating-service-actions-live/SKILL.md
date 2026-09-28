@@ -5,19 +5,20 @@ description: Use when the user wants to create a Service Action in an OutSystems
 
 # Creating Service Actions Live (in-process, no reload)
 
-> **STATUS 2026-09-16 (SS 11.55.83): live service-action CREATION is BLOCKED by a
-> platform validation ("Service Action objects can't be children of Module objects").
-> Exhaustively proven over 5 deploy cycles: direct factory, collection Create/Add,
-> every ctor × every parent (module/adapter/folder × null/name), ObjectKey path
-> (`NewKey()` yields a non-convertible `KeyImplementation` wrapper). The UI creates
-> them through its command framework (tree-selection context) with no headless
-> equivalent found to date. WORKAROUND: build all logic as SERVER actions
-> (`live_create_server_action` ✅ + identical flow tooling) or screen/block client
-> actions — service actions add cross-module exposure only. Micro-lead on file:
-> unwrap `KeyImplementation` → real `ObjectKey` → key-ctor → collection Add.
-> Cloning (`live_clone_service_action`) still works wherever a source action exists.
-> The flow-building runbook below applies UNCHANGED to server actions
-> (all `live_*` flow tools resolve any action type via FindAction).
+> **STATUS 2026-09-25 (SS 11.55.89): live service-action CREATION FROM SCRATCH =
+> RESOLVED.** `IESpace.CreateServiceAction` inside `Command.ExecuteFromAsyncCode`
+> succeeds on a live session (verified: ZombieGame_CS `serviceActions` 2→3, created
+> type `ServiceStudio.Model.Flows+ServiceAPIMethod`; `withSkeleton=true` gives a
+> linked Start→End skeleton via `CreateStandardNodes`). The 2026-09-16 `.83`
+> block did NOT reproduce — it was a stale-espace symptom (older bridge instances
+> resolved an unregistered espace; live-context lookup avoids it), not a permanent
+> platform block. Keep `live_create_server_action` as the workaround for anything
+> that needs no cross-module exposure, and `live_clone_service_action` for exact
+> copies. `live_clone_service_action_from` (cross-module) is NOT usable: SS's
+> `CopyPaste.ClipboardManager.DeserializeInto` NREs on 11.55.89.
+>
+> **Flow-building runbook below applies UNCHANGED** to server actions (all
+> `live_*` flow tools resolve any action type via FindAction).
 
 Create a Service Action in a module that is **open in Service Studio** — the
 mutation lands in the live tree **immediately**, no Save/edit/reload, and is a

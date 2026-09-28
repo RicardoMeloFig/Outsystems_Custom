@@ -1,11 +1,11 @@
 ---
 name: outsystems-liveeditor
-description: Use when the user wants to edit an OutSystems module that is OPEN in Service Studio via the outsystems-liveeditor MCP server (live, in-process, no reload). Triggers on "live edit", "edit open module", "live service action", "create service action in open module", "change assign", "add output", "add dependency", "consume elements", "manage dependencies", "create button", "add button", "wire button onclick", "create web screen", "create web block", "web block", "add placeholder", "block variable", "add expression to block", "style class". Provides 126 live_* tools. Requires SS running with the OsLiveBridge plugin. **DEFAULT editing path — PREFER THIS over headless .oml editing whenever the module is open in SS; headless only on explicit user request.** Read live-editing first for the mechanism; for headless .oml file editing read outsystems-omleditor instead (on request). For screens/widgets/buttons see building-screens-and-buttons.
+description: Use when the user wants to edit an OutSystems module that is OPEN in Service Studio via the outsystems-liveeditor MCP server (live, in-process, no reload). Triggers on "live edit", "edit open module", "live service action", "create service action in open module", "change assign", "add output", "add dependency", "consume elements", "manage dependencies", "create button", "add button", "wire button onclick", "create web screen", "create web block", "web block", "add placeholder", "block variable", "add expression to block", "style class". Provides 215 live_* tools. Requires SS running with the OsLiveBridge plugin. **DEFAULT editing path — PREFER THIS over headless .oml editing whenever the module is open in SS; headless only on explicit user request.** Read live-editing first for the mechanism; for headless .oml file editing read outsystems-omleditor instead (on request). For screens/widgets/buttons see building-screens-and-buttons.
 ---
 
 # outsystems-liveeditor (live in-process editor MCP)
 
-One MCP server, 86 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
+One MCP server, 215 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
 `.oml` **files** with no SS running), this server talks to the **OsLiveBridge plugin
 loaded inside a running Service Studio** over a named pipe (`OsLiveBridge-<SSpid>`).
 Mutations land in the open module's live tree **immediately** (no Save/edit/reload)
@@ -14,6 +14,27 @@ via the SS command system (`Command.ExecuteFromAsyncCode` → `UndoManager`).
 **Read `live-editing` first** — it covers the command-system breakthrough (why
 `Command.Execute` is the opener and `ExecuteInContext` is not), `PresenterContext`,
 and the bridge.
+
+## Tool inventory (215 `live_*` tools, by area)
+
+Counts are generated from the MCP server's `tools/list` (source of truth:
+`mcp/outsystems-liveeditor/Program.cs`). Each tool's full description is in the
+MCP schema; representative names below, `…` = more in the same family.
+
+| Area | # | Representative tools |
+|---|---|---|
+| Status / modules / probes | 13 | `live_status`, `live_list_modules`, `live_module_info`, `live_list_web_flows`, `live_probe_type`, `live_probe_obj`, `live_probe_collection`, `live_debug_eSpace_collections`, `live_debug_eSpace_collection_items`, `live_probe_theme`, `live_probe_sheet`, `live_probe_layout_ref`, `live_debug_create_surface` |
+| Actions: create / clone / delete | 15 | `live_create_service_action`, `live_create_server_action`, `live_create_client_action`, `live_create_screen_client_action`, `live_create_block_client_action`, `live_clone_service_action`, `live_clone_server_action`, `live_clone_client_action`, `live_clone_web_block`, `live_delete_service_action`, `live_delete_screen_client_action`, `live_delete_action`, `live_set_action_name`, `live_set_server_action_prop`, `live_probe_entity_actions` |
+| Flow editing (nodes, params, vars) | 51 | `live_list_flow`, `live_debug_create_node`, `live_delete_node(_by_index)`, `live_set_node_target`, `live_set_connector_target`, `live_set_assign_value`, `live_add_assign_node`, `live_add_action_call_node`, `live_add_if_node`, `live_add_switch_node`, `live_add_foreach_node`, `live_add_refresh_node`, `live_add_message_node`, `live_add_js_node`, `live_add_input_param`/`live_add_output_param`, `live_add_entity_input`, `live_add_local_variable`, `live_map_action_inputs`, `live_set_error_handler_exception`, `live_layout_flow`, `live_set_node_position`, `live_probe_node_*`, `live_debug_node_props`, `live_debug_action_args` |
+| Dependencies | 4 | `live_list_consumable_elements`, `live_consume_elements`, `live_remove_dependency`, `live_probe_references` |
+| Data model (entities, structures) | 12 | `live_create_entity`, `live_delete_entity`, `live_add_entity_attribute`, `live_delete_entity_attribute`, `live_set_entity_attribute_name/type`, `live_set_entity_identifier`, `live_set_entity_prop`, `live_create_structure`, `live_add_structure_attribute`, `live_set_structure_attribute_type`, `live_set_structure_prop` |
+| Screens, blocks, widgets | 66 | `live_create_web_flow/screen/block`, `live_delete_web_flow`, `live_move_web_block_to_flow`, `live_add_container/text/expression/link/html_element`, `live_add_button(_to_block)`, `live_set_button_onclick`, `live_add_to_placeholder`, `live_list_placeholders`, `live_add_widget_to_block`, `live_add_nr_widget` (23 kinds), `live_add_if_widget_to_block`, `live_set_widget_handler`, `live_add_event_to_block`, `live_set_block_handler`, `live_create_theme`, `live_set_theme_css`, `live_set_screen_theme`, `live_set_theme_layout`, `live_create_folder`, `live_move_widget`, `live_set_link_params`, `live_set_screen_title`, `live_probe_block_members`, `live_dump_widget_concretes` |
+| Aggregates & data actions | 24 | `live_probe_data_sources`, `live_add_aggregate_to_screen/block`, `live_add_aggregate_source/sort/filter/join/calculated_attr`, `live_delete_aggregate_sort/filter`, `live_add_screen_aggregate_filter`, `live_set_aggregate_paging`, `live_read_aggregate_calcs/sorts/params`, `live_add_data_action_to_screen/block`, `live_delete_aggregate`, `live_delete_data_action` |
+| Widget binding (CPs, types) | 11 | `live_set_block_cp`, `live_set_block_cp_parsed`, `live_set_block_cp_text`, `live_set_block_cp_image`, `live_set_screen_cp_parsed`, `live_set_screen_cp_text`, `live_set_widget_source`, `live_probe_block_cp`, `live_set_block_extended_property`, `live_set_extended_property`, `live_set_block_variable_type` |
+| Styling & theme CSS | 8 | `live_set_style_class`, `live_fix_style_literal`, `live_probe_style_prop`, `live_set_user_css`, `live_set_module_css`, `live_read_theme_css`, `live_read_user_css_text`, `live_probe_sheet` |
+| Security & config | 8 | `live_create_role`, `live_set_screen_permissions`, `live_read_screen_permissions`, `live_grant_screen_permission`, `live_remove_screen_permission`, `live_create_site_property`, `live_create_timer`, `live_set_timer_action` |
+| Verification | 1+ | `live_get_verify_errors` (the inner loop), `live_debug_publish_surface` (publish API surface probe) |
+| Publish (in-process) | 2 | `live_publish_module` (F5-equivalent, no UI automation; `ok:false` = async start, poll `live_debug_publish_state`), `live_debug_publish_state` (process monitor) |
 
 ## PREFER LIVE FIRST
 **If the target module is OPEN in Service Studio, always use the live editor
@@ -53,7 +74,28 @@ Creates a Service Action in the open module — it appears in the SS tree immedi
 Opens a real SS command (`Command.ExecuteFromAsyncCode`), so the new action is a
 proper **undo unit** (`Ctrl+Z` in SS removes it). Returns the created element type +
 service-action count before/after. **Creates an empty action with only a Comment placeholder
-node — NOT Start→End. You must create Start and End nodes yourself.**
+node — NOT Start→End. You must create Start and End nodes yourself.** (Pass
+`withSkeleton=true` to auto-create a linked Start→End skeleton.)
+
+> **PROVEN on SS 11.55.89 (no caveat):** creation from scratch works via
+> `IESpace.CreateServiceAction` inside a real command — a **Start→End skeleton
+> (`CreateStandardNodes`) when `withSkeleton=true`** (default false = empty action
+> with a Comment node, create Start/End yourself). Verified live: `serviceActions`
+> 2→3 on ZombieGame_CS, type `ServiceStudio.Model.Flows+ServiceAPIMethod`, and the
+> earlier `.83` "can't be children of Module objects" blocker did NOT fire (it was
+> a stale-espace symptom, not a permanent platform block).
+
+### Clone (server / client, live) — `live_clone_server_action(module, sourceName, newName)` / `live_clone_client_action(module, sourceName, newName)`
+Same `IModelServices.Duplicate` mechanism as `live_clone_service_action`,
+generalized to module-level **server actions** (searches `UserActions`/`ServerActions`)
+and **client actions** (`ClientActions`). Exact copy (params, flow, metadata) with a
+fresh key, renamed to `newName`, live tree, undo unit (`Ctrl+Z`).
+
+### `live_remove_dependency(module, producer)` — remove a module dependency (live)
+Deletes the `Reference` to `producer` from the module's `References` collection inside
+a real SS command — undo unit (`Ctrl+Z` restores it). Companion to
+`live_consume_elements`; use after consuming the wrong module or when a producer is no
+longer needed.
 
 ### `live_create_server_action(module, name)` — create a server action in the LIVE tree
 Creates a Server Action (UserAction) in the open module — same pattern as
@@ -96,6 +138,14 @@ parameters, flow graph, metadata) with a fresh key, renamed to `newName`. Uses
 immediately as an undo unit (`Ctrl+Z`). Proven: cloned `SourceAction`→`ClonedAction`
 in `MyModule` (1→2 actions; ClrMD `get_action_detail` confirmed identical public flag +
 params + output). Use this to replicate an action exactly, no UI.
+
+> ⚠ **Same-module only.** `live_clone_service_action_from` (cross-module) invokes
+> `Duplicate(producerAction, consumerEspace)` but **SS's model routes cross-espace
+> duplicates through `CopyPaste.ClipboardManager.DeserializeInto`, which throws
+> `NullReferenceException` on 11.55.89** regardless of producer/consumer pairing
+> (proven CS→ZG and BL→ZG). Until that NRE is researched, cross-module clone =
+> `live_create_service_action` + replay the flow, or UI copy-paste.
+
 
 ## Screens, widgets & buttons (live)
 
@@ -500,6 +550,21 @@ This produces a structurally correct action in seconds. Used to fix `ClientCreat
 when manual flow construction hit the `add_assign beforeEnd` bug. Single undo
 unit per step.
 
+## Publishing (live, in-process — no UI automation, no Ollama) — PROVEN 2026-09-24
+
+`live_publish_module(module, commitMessage?)` invokes
+`ServiceStudio.Presenter.Commands.Publish` (the F5 command) via the registered singleton
+`AutoRegistryType<Publish>.Instance` and calls `Execute(agg, agg)` — the same code path as
+the button, zero clicks/vision. **Behavior (verified on SS 11.55.83, ZombieGame_CS, dev env):**
+`Execute` returns null almost immediately (async) — `ok:false` is EXPECTED; the real publish
+runs in the `ServerProcess` (registered in `ServerProcess.ProcessesStarted`,
+`InnerState: Uploading → … → none`). Verify with `live_debug_publish_state`
+(ProcessesStarted `none` = finished) + `live_get_verify_errors` + Service Center version.
+**Do NOT pass `commitMessage`** — the message path (`prs#lislasrz`) got STUCK at Uploading
+and blocked all further publishes (guard `ServerOperationRunning`) until SS restart.
+`live_debug_publish_surface(module)` is the read-only surface probe. Full runbook:
+`publishing` (Section 3.0).
+
 ## Styling & theme CSS (live)
 
 **Read `styling-and-css-live` first** (the runbook) and `docs/ui-styling-reference.md`
@@ -734,15 +799,38 @@ Flow building is fully tooled (create/delete/link nodes, multi-assignment, excep
 handlers, action-call nodes, input auto-mapping, debug inspection). Server actions and
 client actions can be created and flow-edited (all `live_*` flow tools work on any
 `IAction` via the `FindAction` lookup). Local variables are tooled (`live_add_local_variable`).
-Remaining work:
-- `live_clone_server_action` / `live_clone_client_action` — deep-clone for server/client
-  actions (same `IModelServices.Duplicate` pattern as `live_clone_service_action`).
-- `live_delete_server_action` / `live_delete_client_action` — delete by name.
-- `live_create_entity` / `live_create_structure` / `live_add_attribute` — wrap the
-  matching `IESpace.Create*` in `Command.ExecuteFromAsyncCode` (same pattern as the
-  service-action tool). `IModelServices.Duplicate` (used by `live_clone_service_action`)
-  also clones entities/structures/any `IObjectSignature` — a generic `live_clone_element`
-  is straightforward.
-- `live_delete_entity` / `live_delete_structure` / `live_delete_attribute` —
-  `IESpace`/element `Delete` inside a command.
-- `live_remove_dependency` — `IESpace.RemoveUnusedDependencies` or targeted removal.
+
+**Proven as of the 2026-09 close-out session (SS 11.55.89):**
+- `live_create_service_action` from scratch — **WORKS** (`es.CreateServiceAction`;
+  `withSkeleton=true` gives a linked Start→End skeleton; count verified 2→3).
+- `live_upload_image` — **WORKS** via `Image.Create(es, bytes, name, null, null)`
+  (the UI's own factory). **Images are rejected by design in Service/Library
+  modules** (`ImageKind.RuntimeKind = AnyWebOrMobileOrReactive` vs `Service=4`;
+  0x7B & 4 = 0) — test in a Web/Reactive module.
+- `live_upload_resource` — WORKS (`IESpace.CreateResource`).
+- `live_set_object_prop_deep` — WORKS for entity auto-Id(-identifier), attribute
+  `DefaultValue` (`DefaultValuePropertyDescriptor` reflection), timer
+  `Schedule`/`Timeout`/`Priority` (public props).
+- `live_create_role` — WORKS (`IESpace.CreateRole`, auto `Not <Role>` exception).
+- `live_grant_screen_permission` — WORKS **and fixed**: grants via
+  `Duplicate(Permission)+Role`, then **dedupes** the extra Permission that
+  `AddDependentPermissions` adds (verified `1→3` → dedupe → `[ProbeTmpRole, Registered]`).
+  `live_read_screen_permissions` / `live_remove_screen_permission` round-trip cleanly.
+- `live_publish_module` — WORKS (plain publish only; see Publish section — `commitMessage`
+  variant stalls at Uploading).
+- `live_open_producer_module` — invokes the UI tab-open command; ok:true (verify tab
+  by eye; producer must be closed to fully prove).
+- `live_delete_structure` — WORKS (1→0). `live_remove_unused_dependencies` — WORKS
+  (correct no-op).
+
+Remaining / known limitations:
+- `live_clone_service_action_from` (cross-module) — **SS-internal NRE** in
+  `CopyPaste.ClipboardManager.DeserializeInto` (11.55.89); use same-module
+  `live_clone_service_action` or create+replay.
+- `live_save_module` — **deadlock**: Save is synchronously UI-bound; the pipe hangs
+  even stringing the UI dispatcher. Use `live_publish_module` (publishes save first).
+- `live_clone_entity` / `live_clone_structure` / `live_clone_element` — not built.
+- Raise Event node tool exists (`live_add_raise_event_node`); not re-proven this session.
+- Timer schedule wiring UI — SS-manual by design (see `app-configuration`).
+- Screen permission grant on a **Service module** is impossible (no screens); test on
+  Web/Reactive modules (ZombieGame).

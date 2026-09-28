@@ -47,6 +47,48 @@ live_get_verify_errors(module, "screen"|"block"|"action"|"widget", name)  # ≤5
   Versions tab) — useful for receipts/audit of agent-published versions.
 - Vision path (needs Ollama `ui-tars-1.5-7b` UP — it was DOWN 2026-09-16):
   `ui_tars_goal("publish the open module (1-Click Publish) and report errors")`.
+  **SUPERSEDED — do NOT use vision for publish anymore. Prefer the no-vision
+  paths below (probed in SS 11.55.83 binaries, 2026-09-24).**
+
+## 3.0 Publish WITHOUT UI automation (no Ollama — PROVEN 2026-09-24)
+
+1-Click Publish is a **real SS command** and is driven the same way we do live edits — no
+clicks, no vision. PROVEN on SS 11.55.83 AND re-proven 2026-09-25 on 11.55.89
+(`ZombieGame_CS`, Development environment, `InstalledKind=Development`):
+
+- **Bridge command `publish_module {module}`** — invokes
+  `ServiceStudio.Presenter.Commands.Publish` (the F5 command) via
+  `AutoRegistryType<Publish>.Instance` (the singleton — `new Publish()` throws
+  "An item with the same key has already been added" because the [Command] registry
+  already registered it), calling public
+  `Execute(ICommandTarget, IPresenter)` = `agg.Execute(agg, agg)`. The command opens its
+  own command via `GetPresenterContext()` — do NOT wrap in `Command.ExecuteFromAsyncCode`.
+- **Semantics (critical):** `Execute` returns **null almost immediately (async)** — the
+  real work runs in the `ServerProcess` (`PublishCommand`2+`prs#qurwhwvn`) registered in
+  `ServerProcess.ProcessesStarted`, which progresses `Uploading → … → done` and removes
+  itself. So **`ok:false` from publish_module is EXPECTED**; the authoritative checks are:
+  1. `debug_publish_state` — `ProcessesStarted: "none"` = the process finished;
+  2. `live_get_verify_errors` clean;
+  3. **Service Center → Factory → Modules → Versions** (a new version with today's
+     date = the receipt).
+- **⚠ NEVER use `commitMessage`** (`prs#lislasrz` = publish-with-message): observed
+  leaving the ServerProcess **STUCK at `InnerState: Uploading`**, which then blocks ALL
+  further publishes (guard `ServerOperationRunning` refuses while a process is
+  registered) until SS is restarted. Plain publish only; use SS's Shift+F5 dialog if you
+  need a message (or fix the message path later).
+- **Why a null result can also be legitimate pre-existing guards** (all read back in
+  `diag`): `HasOpenedActiveESpace` (drives `CanExecute`; needs the module ACTIVE in SS),
+  `ESpaceCanBePublished`, `HasOpenDebugSession`, `ServerProcessActive` (another publish
+  running), `InstallationKind` (Development skips the "publish to Production?" confirm;
+  Production shows a dialog = needs UI, not the bridge).
+- **MCP tooling:** `live_publish_module(module, commitMessage?)` (commitMessage only when
+  the stuck-process bug is fixed), `live_debug_publish_state(module)` (poll monitor),
+  `live_debug_publish_surface(module)` (surface probe). Bridge-only commands via
+  `scripts\Send-BridgeCmd.ps1 -Cmd publish_module`.
+- Known caveat: `Execute` returning null means we can't get the CommandResult text over
+  the pipe yet; success/failure is judged via `debug_publish_state` + Service Center.
+  LLM fix candidate (next): await the ServerProcess completion inside the command and
+  dump `Messages`/`MessageStatistics`.
 - Error triage: publish errors map 1:1 to verify messages — route each to its skill
   (table above), fix live, re-verify headless, republish. TrueChange/upgrade errors
   (e.g. after entity changes with `Requires1CP`) may need a full 1CP to surface —

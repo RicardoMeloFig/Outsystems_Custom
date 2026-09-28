@@ -102,6 +102,26 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "sourceName", "newName" } }
         },
         new JsonObject {
+            ["name"] = "live_clone_server_action",
+            ["description"] = "Deep-clone an existing Server Action in an OPEN module into a new one (exact copy: parameters, flow, metadata) via IModelServices.Duplicate inside a real SS command. The clone gets a fresh key and is renamed; it lands in the LIVE tree immediately and is an undo unit (Ctrl+Z). Same mechanism as live_clone_service_action, generalized to server actions. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name (e.g. MyModule)"),
+                    ["sourceName"] = Str("sourceName", "Existing server action to clone"),
+                    ["newName"] = Str("newName", "Name for the cloned server action") },
+                ["required"] = new JsonArray { "module", "sourceName", "newName" } }
+        },
+        new JsonObject {
+            ["name"] = "live_clone_client_action",
+            ["description"] = "Deep-clone an existing Client Action in an OPEN module into a new one (exact copy: parameters, flow, metadata) via IModelServices.Duplicate inside a real SS command. The clone gets a fresh key and is renamed; it lands in the LIVE tree immediately and is an undo unit (Ctrl+Z). Same mechanism as live_clone_service_action, generalized to module-level client actions. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name (e.g. MyModule)"),
+                    ["sourceName"] = Str("sourceName", "Existing client action to clone"),
+                    ["newName"] = Str("newName", "Name for the cloned client action") },
+                ["required"] = new JsonArray { "module", "sourceName", "newName" } }
+        },
+        new JsonObject {
             ["name"] = "live_create_server_action",
             ["description"] = "Create a Server Action in a module that is OPEN in Service Studio - the mutation lands in the LIVE tree immediately (no Save/edit/reload). Opens a real SS command (Command.ExecuteFromAsyncCode) so the new action is a proper undo unit (Ctrl+Z in SS removes it). Returns the created element type + server-action count before/after. Server actions have flows that can be edited with all live_* flow tools. Requires SS running with OsLiveBridge and the module open.",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -206,6 +226,122 @@ internal static class Program
                     ["producer"] = Str("producer", "Producer module name (must be OPEN in SS)"),
                     ["what"] = Str("what", "'*' for all, or 'Type:Name,Type:Name' (e.g. 'ServerAction:*,Entity:User')") },
                 ["required"] = new JsonArray { "consumer", "producer", "what" } }
+        },
+        new JsonObject {
+            ["name"] = "live_remove_dependency",
+            ["description"] = "Remove a module dependency (the reference to a producer module) from an OPEN module - live, undo unit (Ctrl+Z). Finds the Reference in the module's References collection by producer module name and deletes it inside a real SS command. Use after consuming the wrong module or when a producer is no longer needed. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name (the consumer)"),
+                    ["producer"] = Str("producer", "Producer module name whose reference should be removed") },
+                ["required"] = new JsonArray { "module", "producer" } }
+        },
+        new JsonObject {
+            ["name"] = "live_debug_publish_state",
+            ["description"] = "Read-only monitor for an in-flight in-process publish: reports whether a ServerProcess is registered for the module's aggregator (ProcessesPending / ProcessesStarted), its type and CurrentState/InnerState. Does NOT start anything. Use AFTER live_publish_module: 'none' on both = the publish process finished (check Service Center version + live_get_verify_errors to confirm success).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
+            ["name"] = "live_save_module",
+            ["description"] = "Save the OPEN module in-process (Ctrl+S equivalent): invokes the registered Save command (ESpaceCommands/Save) via its AutoRegistry singleton. Persists live edits to the server/local .oml without UI automation. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
+            ["name"] = "live_open_producer_module",
+            ["description"] = "Open a CONSUMED producer module in a new Service Studio tab, in-process (the 'Open Producer' flow): resolves the Reference's ReferenceKey and calls the UI's own open engine. The bridge can only mutate open modules - use this to bring a producer online before live_consume_elements / cross-module clones. Arbitrary (non-consumed) modules still need the manual open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open consumer module"),
+                    ["reference"] = Str("reference", "Reference (producer module) name to open") },
+                ["required"] = new JsonArray { "module", "reference" } }
+        },
+        new JsonObject {
+            ["name"] = "live_clone_service_action_from",
+            ["description"] = "Create a REAL local Service Action in the consumer by deep-cloning one from an OPEN producer module (consume + IModelServices.Duplicate - the SS copy/paste mechanism). This is the WORKING path to create service actions from scratch (direct creation is blocked by SS 11.55.83 platform validation): keep a template service action in a scratch producer module and instantiate it anywhere. Exact copy, fresh key, renamed, undo unit.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["consumer"] = Str("consumer", "Consumer module (gets the new service action)"),
+                    ["producer"] = Str("producer", "Producer module (OPEN, holds the template action)"),
+                    ["source"] = Str("source", "Template service action name in the producer"),
+                    ["name"] = Str("name", "Name for the new local service action") },
+                ["required"] = new JsonArray { "consumer", "producer", "source", "name" } }
+        },
+        new JsonObject {
+            ["name"] = "live_debug_object_prop_surface",
+            ["description"] = "Read-only dump of a model object's settable surface for live_set_object_prop_deep: public properties (name/type/value/settable), private backing fields (_prop), static setter delegates (_propSetter) and property-grid descriptors (PropPropertyDescriptor). kind: entity|attribute|structure|structureattribute|timer|siteproperty|role (entity = parent entity name for attribute kinds).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["kind"] = Str("kind", "entity|attribute|structure|structureattribute|timer|siteproperty|role"),
+                    ["entity"] = Str("entity", "Parent entity/structure name (attribute kinds only)"),
+                    ["name"] = Str("name", "Object name") },
+                ["required"] = new JsonArray { "module", "kind", "name" } }
+        },
+        new JsonObject {
+            ["name"] = "live_set_object_prop_deep",
+            ["description"] = "Set a property that has NO public setter, using the UI's own surfaces in order: public property -> static _propSetter delegate -> property-grid descriptor (e.g. Attribute DefaultValue) -> raw backing field (+revalidate). Covers entity-attr DefaultValue, Timer Schedule/Timeout/Priority, SiteProperty default, Role on Permission, etc. Use live_debug_object_prop_surface first to see what exists. Undo unit.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["kind"] = Str("kind", "entity|attribute|structure|structureattribute|timer|siteproperty|role"),
+                    ["entity"] = Str("entity", "Parent entity/structure name (attribute kinds only)"),
+                    ["name"] = Str("name", "Object name"),
+                    ["propName"] = Str("propName", "Property to set (e.g. DefaultValue, Schedule, Timeout, Priority)"),
+                    ["value"] = Str("value", "Value as text (parsed to int/double/bool when needed)") },
+                ["required"] = new JsonArray { "module", "kind", "name", "propName", "value" } }
+        },
+        new JsonObject {
+            ["name"] = "live_upload_image",
+            ["description"] = "Upload a module Image from a base64 payload via IESpace.CreateImage - no file dialog, no SS UI. Undo unit. Keep payloads modest (< ~1 MB base64) for the pipe.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["name"] = Str("name", "Image name in the Images tree"),
+                    ["base64Data"] = Str("base64Data", "File bytes as base64"),
+                    ["description"] = Str("description", "Optional description") },
+                ["required"] = new JsonArray { "module", "name", "base64Data" } }
+        },
+        new JsonObject {
+            ["name"] = "live_upload_resource",
+            ["description"] = "Upload a module Resource from a base64 payload via IESpace.CreateResource - no file dialog, no SS UI. Undo unit. Keep payloads modest (< ~1 MB base64) for the pipe.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["name"] = Str("name", "Resource name in the Resources tree"),
+                    ["base64Data"] = Str("base64Data", "File bytes as base64") },
+                ["required"] = new JsonArray { "module", "name", "base64Data" } }
+        },
+        new JsonObject {
+            ["name"] = "live_delete_structure",
+            ["description"] = "Delete a Structure by name from the OPEN module (Delete inside a real SS command, undo unit). The Structure twin of live_delete_entity.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name"),
+                    ["name"] = Str("name", "Structure name to delete") },
+                ["required"] = new JsonArray { "module", "name" } }
+        },
+        new JsonObject {
+            ["name"] = "live_remove_unused_dependencies",
+            ["description"] = "Remove all UNUSED module references via IESpace.RemoveUnusedDependencies - the 'Remove Unused References' menu action, in-process. Undo unit. Reports References count before/after.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
+            ["name"] = "live_publish_module",
+            ["description"] = "1-Click Publish the OPEN module IN-PROCESS (no UI automation, no vision, no Ollama): invokes ServiceStudio.Presenter.Commands.Publish - the same command the F5 button runs - on the UI thread and waits for the CommandResult. Optional commitMessage uses the internal publish-with-message path (Shift+F5 equivalent, no dialog). Long-running (minutes). Requires SS running with OsLiveBridge and the module open. Confirm before use - this publishes to the connected environment.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name to publish"),
+                    ["commitMessage"] = Str("commitMessage", "Optional publish message (attached to the module version)") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
+            ["name"] = "live_debug_publish_surface",
+            ["description"] = "Read-only dump of the in-process publish API surface: whether ServiceStudio.Presenter.Commands.Publish loads, its ctor access, the Execute/message method candidates, the aggregator's IsUnattended flag (True = no confirm dialogs), and ExecuteInContext(Action,bool) availability. Use before live_publish_module on a new SS build to confirm the surface is unchanged.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject { ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
         },
         new JsonObject {
             ["name"] = "live_add_input_param",
@@ -2310,6 +2446,8 @@ internal static class Program
             "live_create_client_action" => Bridge.CreateClientAction(Arg("module"), Arg("name")),
             "live_create_screen_client_action" => Bridge.CreateScreenClientAction(Arg("module"), Arg("screen"), Arg("name")),
             "live_clone_service_action" => Bridge.CloneServiceAction(Arg("module"), Arg("sourceName"), Arg("newName")),
+            "live_clone_server_action" => Bridge.CloneServerAction(Arg("module"), Arg("sourceName"), Arg("newName")),
+            "live_clone_client_action" => Bridge.CloneClientAction(Arg("module"), Arg("sourceName"), Arg("newName")),
             "live_list_flow" => Bridge.ListFlow(Arg("module"), Arg("action")),
             "live_set_assign_value" => Bridge.SetAssignValue(Arg("module"), Arg("action"), Arg("matchValue"), Arg("newValue"), Arg("matchVar")),
             "live_add_output_param" => Bridge.AddOutputParam(Arg("module"), Arg("action"), Arg("name"), Arg("type")),
@@ -2317,6 +2455,19 @@ internal static class Program
             "live_delete_node" => Bridge.DeleteNode(Arg("module"), Arg("action"), Arg("matchVar"), Arg("matchValue")),
             "live_list_consumable_elements" => Bridge.ListConsumableElements(Arg("module")),
             "live_consume_elements" => Bridge.ConsumeElements(Arg("consumer"), Arg("producer"), Arg("what")),
+            "live_remove_dependency" => Bridge.RemoveDependency(Arg("module"), Arg("producer")),
+            "live_publish_module" => Bridge.PublishModule(Arg("module"), Arg("commitMessage")),
+            "live_debug_publish_state" => Bridge.DebugPublishState(Arg("module")),
+            "live_save_module" => Bridge.SaveModule(Arg("module")),
+            "live_open_producer_module" => Bridge.OpenProducerModule(Arg("module"), Arg("reference")),
+            "live_clone_service_action_from" => Bridge.CloneServiceActionFrom(Arg("consumer"), Arg("producer"), Arg("source"), Arg("name")),
+            "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
+            "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
+            "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
+            "live_upload_resource" => Bridge.UploadResource(Arg("module"), Arg("name"), Arg("base64Data")),
+            "live_delete_structure" => Bridge.DeleteStructure(Arg("module"), Arg("name")),
+            "live_remove_unused_dependencies" => Bridge.RemoveUnusedDependencies(Arg("module")),
+            "live_debug_publish_surface" => Bridge.DebugPublishSurface(Arg("module")),
             "live_add_input_param" => Bridge.AddInputParam(Arg("module"), Arg("action"), Arg("name"), Arg("type")),
             "live_add_local_variable" => Bridge.AddLocalVariable(Arg("module"), Arg("action"), Arg("name"), Arg("type")),
             "live_add_end_node" => Bridge.AddEndNode(Arg("module"), Arg("action"), Arg("where")),
@@ -2799,6 +2950,183 @@ internal static class Bridge
         }
         catch { return resp; }
     }
+
+    public static string CloneServerAction(string module, string sourceName, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(sourceName)) return "ERROR: sourceName is required";
+        if (string.IsNullOrWhiteSpace(newName)) return "ERROR: newName is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"clone_server_action\",\"module\":\"" + Escape(module) + "\",\"source\":\"" + Escape(sourceName) + "\",\"name\":\"" + Escape(newName) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var via = j?["via"]?.GetValue<string>();
+            var created = j?["createdType"]?.GetValue<string>();
+            var createdName = j?["createdName"]?.GetValue<string>();
+            var before = j?["before"]?.GetValue<int>();
+            var after = j?["after"]?.GetValue<int>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true
+                ? $"OK: cloned server action '{sourceName}' -> '{createdName}' ({created}) in live module '{module}' via {via}. Server actions: {before} -> {after}. Exact copy; undo unit (Ctrl+Z in SS removes it)."
+                : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string CloneClientAction(string module, string sourceName, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(sourceName)) return "ERROR: sourceName is required";
+        if (string.IsNullOrWhiteSpace(newName)) return "ERROR: newName is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"clone_client_action\",\"module\":\"" + Escape(module) + "\",\"source\":\"" + Escape(sourceName) + "\",\"name\":\"" + Escape(newName) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var via = j?["via"]?.GetValue<string>();
+            var created = j?["createdType"]?.GetValue<string>();
+            var createdName = j?["createdName"]?.GetValue<string>();
+            var before = j?["before"]?.GetValue<int>();
+            var after = j?["after"]?.GetValue<int>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true
+                ? $"OK: cloned client action '{sourceName}' -> '{createdName}' ({created}) in live module '{module}' via {via}. Client actions: {before} -> {after}. Exact copy; undo unit (Ctrl+Z in SS removes it)."
+                : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string RemoveDependency(string module, string producer)
+    {
+        if (string.IsNullOrWhiteSpace(producer)) return "ERROR: producer is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"remove_dependency\",\"module\":\"" + Escape(module) + "\",\"producer\":\"" + Escape(producer) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var via = j?["via"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true
+                ? $"OK: removed dependency on '{producer}' from live module '{module}' via {via}. Undo unit (Ctrl+Z in SS restores it)."
+                : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string PublishModule(string module, string commitMessage)
+    {
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"publish_module\",\"module\":\"" + Escape(module) + "\",\"commitMessage\":\"" + Escape(commitMessage ?? "") + "\"}", 960000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var via = j?["via"]?.GetValue<string>();
+            var resultType = j?["resultType"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true
+                ? $"OK: publish finished for live module '{module}' via {via} (result: {resultType})."
+                : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string DebugPublishSurface(string module) =>
+        RunCmd(module, "{\"cmd\":\"debug_publish_surface\",\"module\":\"" + Escape(module) + "\"}", "Publish surface:");
+
+    public static string DebugPublishState(string module) =>
+        RunCmd(module, "{\"cmd\":\"debug_publish_state\",\"module\":\"" + Escape(module) + "\"}", "Publish state:");
+
+    public static string SaveModule(string module) =>
+        RunCmd(module, "{\"cmd\":\"save_module\",\"module\":\"" + Escape(module) + "\"}", "Save:");
+
+    public static string OpenProducerModule(string module, string reference)
+    {
+        if (string.IsNullOrWhiteSpace(reference)) return "ERROR: reference is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"open_producer_module\",\"module\":\"" + Escape(module) + "\",\"reference\":\"" + Escape(reference) + "\"}", 120000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var e = j?["error"]?.GetValue<string>();
+            return (ok == true ? $"OK: opened producer module '{reference}' in a new tab (in-process)." : $"FAILED: {e}") + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string CloneServiceActionFrom(string consumer, string producer, string source, string name) =>
+        RunCmd(consumer, "{\"cmd\":\"clone_service_action_from\",\"consumer\":\"" + Escape(consumer) + "\",\"producer\":\"" + Escape(producer) + "\",\"source\":\"" + Escape(source) + "\",\"name\":\"" + Escape(name) + "\"}", "Clone from producer:");
+
+    public static string DebugObjectPropSurface(string module, string kind, string entity, string name)
+    {
+        var extra = (entity != null ? ",\"entity\":\"" + Escape(entity) + "\"" : "");
+        return RunCmd(module, "{\"cmd\":\"debug_object_prop_surface\",\"module\":\"" + Escape(module) + "\",\"kind\":\"" + Escape(kind) + "\"" + extra + ",\"name\":\"" + Escape(name) + "\"}", "Object surface:");
+    }
+
+    public static string SetObjectPropDeep(string module, string kind, string entity, string name, string propName, string value)
+    {
+        var extra = (entity != null ? ",\"entity\":\"" + Escape(entity) + "\"" : "");
+        return RunCmd(module, "{\"cmd\":\"set_object_prop_deep\",\"module\":\"" + Escape(module) + "\",\"kind\":\"" + Escape(kind) + "\"" + extra
+            + ",\"name\":\"" + Escape(name) + "\",\"propName\":\"" + Escape(propName) + "\",\"value\":\"" + Escape(value ?? "") + "\"}", "Set prop:");
+    }
+
+    public static string UploadImage(string module, string name, string base64Data, string description)
+    {
+        if (string.IsNullOrWhiteSpace(base64Data)) return "ERROR: base64Data is required";
+        var extra = (description != null ? ",\"description\":\"" + Escape(description) + "\"" : "");
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"upload_image\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\",\"base64Data\":\"" + base64Data.Trim() + "\"" + extra + "}", 120000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var e = j?["error"]?.GetValue<string>();
+            return (ok == true ? $"OK: uploaded image '{name}' (live tree, undo unit)." : $"FAILED: {e}") + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string UploadResource(string module, string name, string base64Data)
+    {
+        if (string.IsNullOrWhiteSpace(base64Data)) return "ERROR: base64Data is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"upload_resource\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\",\"base64Data\":\"" + base64Data.Trim() + "\"}", 120000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var e = j?["error"]?.GetValue<string>();
+            return (ok == true ? $"OK: uploaded resource '{name}' (live tree, undo unit)." : $"FAILED: {e}") + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string DeleteStructure(string module, string name) =>
+        RunCmd(module, "{\"cmd\":\"delete_structure\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\"}", "Delete structure:");
+
+    public static string RemoveUnusedDependencies(string module) =>
+        RunCmd(module, "{\"cmd\":\"remove_unused_dependencies\",\"module\":\"" + Escape(module) + "\"}", "Remove unused dependencies:");
 
     static string RunCmd(string module, string cmdJson, string okSummary)
     {

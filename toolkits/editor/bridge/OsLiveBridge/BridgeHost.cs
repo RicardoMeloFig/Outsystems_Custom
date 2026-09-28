@@ -92,7 +92,10 @@ internal static class BridgeHost
             case "try_create_v7": return TryCreateV7(GetStr(root, "module"), GetStr(root, "name"), root.TryGetProperty("withSkeleton", out var ws) && ws.GetBoolean());
             case "try_create_server_action": return TryCreateServerAction(GetStr(root, "module"), GetStr(root, "name"));
             case "try_create_client_action": return TryCreateClientAction(GetStr(root, "module"), GetStr(root, "name"));
-            case "try_create_screen_client_action": return TryCreateScreenClientAction(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "name"));            case "try_clone_v8": return TryCloneV8(GetStr(root, "module"), GetStr(root, "source"), GetStr(root, "name"));
+            case "try_create_screen_client_action": return TryCreateScreenClientAction(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "name"));
+            case "try_clone_v8": return TryCloneV8(GetStr(root, "module"), GetStr(root, "source"), GetStr(root, "name"));
+            case "clone_server_action": return CloneServerAction(GetStr(root, "module"), GetStr(root, "source"), GetStr(root, "name"));
+            case "clone_client_action": return CloneClientAction(GetStr(root, "module"), GetStr(root, "source"), GetStr(root, "name"));
             // Generic live flow-editing primitives (compose any edit from the MCP - no recompile/restart):
             case "list_flow": return ListFlow(GetStr(root, "module"), GetStr(root, "action"));
             case "set_assign": return SetAssign(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "matchValue"), GetStr(root, "newValue"), GetStr(root, "matchVar"));
@@ -128,6 +131,19 @@ internal static class BridgeHost
             // Live dependency management: list consumable elements + consume (add references).
             case "list_consumable_elements": return ListConsumableElements(GetStr(root, "module"));
             case "consume_elements": return ConsumeElements(GetStr(root, "consumer"), GetStr(root, "producer"), GetStr(root, "what"));
+            case "remove_dependency": return RemoveDependency(GetStr(root, "module"), GetStr(root, "producer"));
+            case "publish_module": return PublishModule(GetStr(root, "module"), GetStr(root, "commitMessage"), !root.TryGetProperty("wait", out var wp) || wp.GetBoolean(), root.TryGetProperty("timeoutSec", out var ts) ? ts.GetInt32() : 600);
+            case "debug_publish_surface": return DebugPublishSurface(GetStr(root, "module"));
+            case "debug_publish_state": return DebugPublishState(GetStr(root, "module"));
+            case "save_module": return SaveModule(GetStr(root, "module"));
+            case "open_producer_module": return OpenProducerModule(GetStr(root, "module"), GetStr(root, "reference"));
+            case "clone_service_action_from": return CloneServiceActionFrom(GetStr(root, "consumer"), GetStr(root, "producer"), GetStr(root, "source"), GetStr(root, "name"));
+            case "debug_object_prop_surface": return DebugObjectPropSurface(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "entity"), GetStr(root, "name"));
+            case "set_object_prop_deep": return SetObjectPropDeep(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "entity"), GetStr(root, "name"), GetStr(root, "propName"), GetStr(root, "value"));
+            case "upload_image": return UploadImage(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "base64Data"), GetStr(root, "description"));
+            case "upload_resource": return UploadResource(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "base64Data"));
+            case "delete_structure": return DeleteStructure(GetStr(root, "module"), GetStr(root, "name"));
+            case "remove_unused_dependencies": return RemoveUnusedDependencies(GetStr(root, "module"));
             case "add_entity_input": return AddEntityInput(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "name"), GetStr(root, "entityName"), GetStr(root, "producerModule"));
             case "add_entity_identifier_input": return AddEntityIdentifierInput(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "name"), GetStr(root, "entityName"), GetStr(root, "producerModule"));
             case "set_output_param_type": return SetOutputParamType(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "paramName"), GetStr(root, "typeName"), GetStr(root, "producerModule"));
@@ -733,6 +749,1086 @@ internal static class BridgeHost
         catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
         int after = CountProp(es, "ServiceActions");
         return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), serviceActionsBefore = before, serviceActionsAfter = after, error = err });
+    }
+
+    // clone_server_action / clone_client_action: DEEP-CLONE a Server Action (UserActions /
+    // ServerActions) or Client Action (ClientActions) via IModelServices.Duplicate + rename -
+    // the same mechanism as try_clone_v8 (service actions), generalized by collection.
+    static string CloneServerAction(string moduleName, string sourceName, string newName)
+        => CloneActionCore(moduleName, sourceName, newName, "server", new[] { "UserActions", "ServerActions" });
+
+    static string CloneClientAction(string moduleName, string sourceName, string newName)
+        => CloneActionCore(moduleName, sourceName, newName, "client", new[] { "ClientActions" });
+
+    static string CloneActionCore(string moduleName, string sourceName, string newName, string kind, string[] collNames)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var ms = ModelServices();
+        if (ms == null) return Json(new { ok = false, error = "ModelServices is null" });
+        string collUsed = null;
+        object source = null;
+        foreach (var cn in collNames)
+        {
+            source = FindActionInCollection(es, cn, sourceName);
+            if (source != null) { collUsed = cn; break; }
+        }
+        if (source == null) return Json(new { ok = false, error = "source " + kind + " action not found: " + sourceName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        int before = CountProp(es, collUsed);
+        MethodInfo dupMethod = null;
+        foreach (var m in ms.GetType().GetMethods())
+        {
+            if (m.Name != "Duplicate") continue;
+            var ps = m.GetParameters();
+            if (ps.Length != 2) continue;
+            if (ps[0].ParameterType.IsAssignableFrom(source.GetType())) { dupMethod = m; break; }
+        }
+        if (dupMethod == null) return Json(new { ok = false, error = "Duplicate(IObjectSignature,IObject) method not found" });
+        object created = null; string err = null; string via = null;
+        Action mutate = () =>
+        {
+            try
+            {
+                var dup = dupMethod.Invoke(ms, new object[] { source, es });
+                try { SetProp(dup, "Name", newName); } catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "rename: " + r.GetType().Name + ": " + r.Message; }
+                created = dup;
+                via = "Duplicate(" + sourceName + ",es)->rename";
+            }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "mutate: " + r.GetType().Name + ": " + r.Message; }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(agg);
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: clone " + kind + " action", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        int after = CountProp(es, collUsed);
+        return Json(new { ok = created != null, kind = kind, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), collection = collUsed, before = before, after = after, error = err });
+    }
+
+    // remove_dependency: remove a module dependency (a Reference) by producer module name,
+    // live, inside a real SS command (undo unit). Finds the Reference in es.References by
+    // Name and deletes it (Delete() then Delete(false) fallback). Use after consuming the
+    // wrong module or when a producer is no longer needed.
+    static string RemoveDependency(string moduleName, string producerName)
+    {
+        if (string.IsNullOrWhiteSpace(producerName)) return Json(new { ok = false, error = "producer required" });
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var refs = GetProp(es, "References") as IEnumerable;
+        if (refs == null) return Json(new { ok = false, error = "References collection is null" });
+        object target = null;
+        foreach (var r in refs)
+        {
+            string nm = null;
+            try { nm = GetProp(r, "Name") as string; } catch { }
+            if (nm == producerName) { target = r; break; }
+        }
+        if (target == null) return Json(new { ok = false, error = "dependency not found: " + producerName });
+        string err = null; string via = null; string typeName = target.GetType().FullName;
+        Action mutate = () =>
+        {
+            try { CallMethod(target, "Delete", null, 0); via = "Delete()"; }
+            catch (Exception e1)
+            {
+                try { CallMethod(target, "Delete", new object[] { false }, 1); via = "Delete(false)"; }
+                catch (Exception e2) { var r = e2; while (r.InnerException != null) r = r.InnerException; err = "Delete() " + FirstMsg(e1) + " ; Delete(false) " + r.GetType().Name + ": " + r.Message; }
+            }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(GetContext(es));
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: remove dependency", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        bool stillThere = false;
+        var refs2 = GetProp(es, "References") as IEnumerable;
+        if (refs2 != null)
+            foreach (var r in refs2)
+            {
+                try { if ((GetProp(r, "Name") as string) == producerName) { stillThere = true; break; } } catch { }
+            }
+        return Json(new { ok = err == null && !stillThere, removed = producerName, via = via, referenceType = typeName, stillPresent = stillThere, error = err });
+    }
+
+    // FindServerProcessFor: the ServerProcess registered for this aggregator (Pending first,
+    // then Started), or null. Also reports which registry held it.
+    static object FindServerProcessFor(object agg, out bool inPending, out bool inStarted)
+    {
+        inPending = false; inStarted = false;
+        var spType = FindType("ServiceStudio.Presenter.Commands.ServerProcess");
+        if (spType == null) return null;
+        foreach (var (dictName, isPending) in new[] { ("ProcessesPending", true), ("ProcessesStarted", false) })
+        {
+            var f = spType.GetField(dictName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (f == null) continue;
+            var lazy = f.GetValue(null);
+            var dict = lazy?.GetType().GetProperty("Value")?.GetValue(lazy, null);
+            if (dict == null) continue;
+            try
+            {
+                var tryGet = dict.GetType().GetMethod("TryGetValue");
+                var args = new object[] { agg, null };
+                if ((bool)tryGet.Invoke(dict, args) && args[1] != null)
+                {
+                    if (isPending) inPending = true; else inStarted = true;
+                    return args[1];
+                }
+            }
+            catch { }
+        }
+        return null;
+    }
+
+    // publish_module: in-process 1-Click Publish of the OPEN module - the SAME code path as
+    // the F5 button (ServiceStudio.Presenter.Commands.Publish, PublishCommand<Publish,
+    // IAggregatorPresenter>). No UI automation, no vision. Decompiled AutoRegistryCommand
+    // .Execute: it calls Command.CheckAccess, then TelemetryUtils.Command(desc, () =>
+    // InnerExecute(...)) which opens its OWN command via targetPresenter.GetPresenterContext()
+    // and routes through ServiceStudio.Commands.Command (the concurrency machinery) - so we
+    // must NOT wrap it in Command.ExecuteFromAsyncCode (nested command), and calling it from
+    // the pipe thread is exactly the path the button uses. Optional commitMessage bypasses
+    // the Shift+F5 dialog by calling the internal Publish.prs#lislasrz(agg, presenter, msg).
+    static string PublishModule(string moduleName, string commitMessage, bool wait, int timeoutSec)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        var cmdType = FindType("ServiceStudio.Presenter.Commands.Publish");
+        if (cmdType == null) return Json(new { ok = false, error = "ServiceStudio.Presenter.Commands.Publish not loaded (SS version?)" });
+        // SS registers every [Command] once (AutoRegistryType<Concrete>.Instance); the UI itself
+        // uses the singleton (see PublishWithCommitMessage: AutoRegistryType<Publish>.Instance).
+        // Activator.CreateInstance on Publish throws "key already added" because the registry
+        // dict already holds it - so resolve the singleton first, fall back to the ctor.
+        object cmd = null; string cmdVia = null;
+        try
+        {
+            var regOpen = FindType("ServiceStudio.AutoRegistryType`1");
+            var regClosed = regOpen?.MakeGenericType(cmdType);
+            cmd = regClosed?.GetField("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
+            cmdVia = "AutoRegistryType<Publish>.Instance";
+        }
+        catch { }
+        if (cmd == null)
+        {
+            try { cmd = Activator.CreateInstance(cmdType); cmdVia = "Activator.CreateInstance"; }
+            catch (Exception e) { return Json(new { ok = false, error = "Publish ctor: " + FirstMsg(e) }); }
+        }
+
+        MethodInfo exec = null; string execVia = null;
+        foreach (var m in cmdType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+        {
+            if (string.IsNullOrEmpty(commitMessage))
+            {
+                if (m.Name == "Execute" && m.GetParameters().Length == 2 && m.IsPublic)
+                { exec = m; execVia = "Execute(ICommandTarget,IPresenter)"; break; }
+            }
+            else if (m.Name == "prs#lislasrz" && m.GetParameters().Length == 3 && m.IsAssembly)
+            { exec = m; execVia = "prs#lislasrz(agg,presenter,message)"; break; }
+        }
+        if (exec == null) return Json(new { ok = false, error = "no usable Execute surface found on Publish" });
+
+        object result = null; string err = null;
+        var sw = Stopwatch.StartNew();
+        try
+        {
+            result = string.IsNullOrEmpty(commitMessage)
+                ? exec.Invoke(cmd, new object[] { agg, agg })
+                : exec.Invoke(cmd, new object[] { agg, agg, commitMessage });
+        }
+        catch (Exception e) { err = "execute: " + FirstMsg(e); }
+        sw.Stop();
+
+        // Await the ServerProcess: Execute returns null immediately (async) - the real publish
+        // runs in a ServerProcess registered in ProcessesPending/ProcessesStarted, which
+        // removes itself when finished. Poll until gone so the tool can report the outcome.
+        bool processSeen = false; bool stillRunning = false;
+        string lastState = null, lastInner = null; long waitMs = 0;
+        if (wait)
+        {
+            var waitSw = Stopwatch.StartNew();
+            var deadline = DateTime.UtcNow.AddSeconds(Math.Max(10, timeoutSec));
+            while (DateTime.UtcNow < deadline)
+            {
+                var sp = FindServerProcessFor(agg, out bool inPending, out bool inStarted);
+                if (sp == null) { stillRunning = false; break; }
+                processSeen = true; stillRunning = true;
+                lastState = SafeGetProp(sp, "CurrentState")?.ToString() ?? lastState;
+                lastInner = SafeGetProp(sp, "InnerState")?.ToString() ?? lastInner;
+                Thread.Sleep(1500);
+            }
+            waitMs = waitSw.ElapsedMilliseconds;
+        }
+
+        // Pre-flight diagnostics whenever Execute yielded no CommandResult: the decompiled
+        // PublishCommand returns null for access-denied, already-publishing, debug session,
+        // or a declined confirm dialog (e.g. "publish to Production?"). Surface the conditions.
+        var diag = new Dictionary<string, object>();
+        try
+        {
+            var canExec = FindMethod(cmd, "CanExecute", 2)?.Invoke(cmd, new object[] { agg, agg });
+            diag["CanExecute"] = canExec?.ToString() ?? "null";
+        }
+        catch (Exception e) { diag["CanExecute_err"] = FirstMsg(e); }
+        try
+        {
+            var baseType = FindType("ServiceStudio.Presenter.Commands.PublishCommand`2");
+            if (baseType != null)
+            {
+                Type aggIface = agg.GetType().GetInterfaces().FirstOrDefault(i => i.Name == "IAggregatorPresenter") ?? agg.GetType();
+                var closed = baseType.MakeGenericType(cmdType, aggIface);
+                foreach (var m in closed.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic))
+                    if (m.Name == "ESpaceCanBePublished")
+                        diag["ESpaceCanBePublished"] = m.Invoke(null, new object[] { agg })?.ToString() ?? "null";
+            }
+        }
+        catch (Exception e) { diag["ESpaceCanBePublished_err"] = FirstMsg(e); }
+        // Guard-value reads (why ExecutePublish returns null):
+        diag["HasOpenedActiveESpace"] = SafeGetProp(agg, "HasOpenedActiveESpace")?.ToString() ?? "null";
+        var activeEs = SafeGetProp(agg, "ActiveESpace");
+        diag["ActiveESpace"] = activeEs != null ? (SafeGetProp(activeEs, "Name")?.ToString() ?? activeEs.GetType().Name) : "null";
+        diag["ActiveESpace.LastSavePath"] = activeEs != null ? (SafeGetProp(activeEs, "LastSavePath")?.ToString() ?? "null") : "null";
+        diag["ActiveESpace.PublishRetryCount"] = activeEs != null ? (SafeGetProp(activeEs, "PublishRetryCount")?.ToString() ?? "null") : "null";
+        var sscp = SafeGetProp(agg, "ServerCommunicationsProvider");
+        diag["InstallationKind"] = sscp != null ? (SafeGetProp(sscp, "InstallationKind")?.ToString() ?? "null") : "null";
+        try
+        {
+            var dm = FindType("ServiceStudio.Presenter.Debugger.DebuggerManager");
+            if (dm != null)
+                foreach (var m in dm.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic))
+                    if (m.Name == "HasOpenDebugSession" && m.GetParameters().Length == 3)
+                        diag["HasOpenDebugSession"] = m.Invoke(null, new object[] { agg, activeEs, false })?.ToString() ?? "null";
+        }
+        catch (Exception e) { diag["HasOpenDebugSession_err"] = FirstMsg(e); }
+        try
+        {
+            var spType = FindType("ServiceStudio.Presenter.Commands.ServerProcess");
+            if (spType != null)
+            {
+                foreach (var m in spType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic))
+                    if (m.Name == "prs#sifwvgpc" && m.GetParameters().Length == 1)
+                    {
+                        var sp = m.Invoke(null, new object[] { agg });
+                        diag["ServerProcessActive"] = sp != null ? (SafeGetProp(sp, "CurrentState")?.ToString() ?? sp.GetType().Name) : "null";
+                        if (sp != null)
+                        {
+                            diag["ServerProcessType"] = sp.GetType().FullName;
+                            diag["ServerProcess.Name"] = SafeGetProp(sp, "Name")?.ToString() ?? "null";
+                            diag["ServerProcess.Description"] = SafeGetProp(sp, "Description")?.ToString() ?? "null";
+                            foreach (var p in sp.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                            {
+                                if (p.GetIndexParameters().Length != 0) continue;
+                                if (!(p.Name.IndexOf("State", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                      p.Name.IndexOf("Name", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                      p.Name.IndexOf("Progress", StringComparison.OrdinalIgnoreCase) >= 0)) continue;
+                                try { diag["ServerProcess." + p.Name] = p.GetValue(sp, null)?.ToString() ?? "null"; } catch { }
+                            }
+                        }
+                    }
+            }
+        }
+        catch (Exception e) { diag["ServerProcess_err"] = FirstMsg(e); }
+        try
+        {
+            var spType = FindType("ServiceStudio.Presenter.Commands.ServerProcess");
+            if (spType != null)
+            {
+                foreach (var dictName in new[] { "ProcessesPending", "ProcessesStarted" })
+                {
+                    var f = spType.GetField(dictName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                    if (f == null) continue;
+                    var lazy = f.GetValue(null);
+                    var dict = lazy?.GetType().GetProperty("Value")?.GetValue(lazy, null);
+                    if (dict == null) { diag["SP." + dictName] = "null"; continue; }
+                    var tryGet = dict.GetType().GetMethod("TryGetValue");
+                    var args = new object[] { agg, null };
+                    bool has = (bool)tryGet.Invoke(dict, args);
+                    diag["SP." + dictName + ".HasThisAgg"] = has.ToString();
+                    diag["SP." + dictName + ".Count"] = dict.GetType().GetProperty("Count")?.GetValue(dict, null)?.ToString() ?? "?";
+                    if (has && args[1] != null)
+                    {
+                        diag["SP." + dictName + ".Type"] = args[1].GetType().FullName;
+                        diag["SP." + dictName + ".State"] = SafeGetProp(args[1], "CurrentState")?.ToString() ?? "null";
+                    }
+                }
+            }
+        }
+        catch (Exception e) { diag["SP_dict_err"] = FirstMsg(e); }
+        try
+        {
+            var rt = FindType("ServiceStudio.Presenter.Runtime");
+            var inst = rt?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null);
+            if (inst != null)
+            {
+                foreach (var p in inst.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+                {
+                    if (p.GetIndexParameters().Length != 0) continue;
+                    if (!(p.Name.IndexOf("ublish", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                          p.Name.IndexOf("Executing", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                          p.Name.IndexOf("nattended", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                          p.Name.IndexOf("RunningUnitTests", StringComparison.OrdinalIgnoreCase) >= 0)) continue;
+                    try { diag["Runtime." + p.Name] = p.GetValue(inst, null)?.ToString() ?? "null"; } catch { }
+                }
+                foreach (var f in inst.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+                {
+                    if (!(f.Name.IndexOf("ublish", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                          f.Name.IndexOf("Executing", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                          f.Name.IndexOf("nattended", StringComparison.OrdinalIgnoreCase) >= 0)) continue;
+                    try { diag["RuntimeField." + f.Name] = f.GetValue(inst)?.ToString() ?? "null"; } catch { }
+                }
+            }
+        }
+        catch { }
+
+        var props = new Dictionary<string, object>();
+        if (result != null)
+        {
+            foreach (var p in result.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (p.GetIndexParameters().Length > 0) continue;
+                try
+                {
+                    var v = p.GetValue(result, null);
+                    if (v == null) props[p.Name] = "null";
+                    else if (v is string || v.GetType().IsPrimitive || v is bool || v is Guid) props[p.Name] = v.ToString();
+                    else if (v is IEnumerable) { int n = 0; foreach (var _ in (IEnumerable)v) n++; props[p.Name] = v.GetType().Name + "[" + n + "]"; }
+                    else props[p.Name] = v.GetType().Name + " (" + v + ")";
+                }
+                catch { props[p.Name] = "<unreadable>"; }
+            }
+        }
+        bool finished = processSeen && !stillRunning;
+        return Json(new
+        {
+            ok = err == null && (result != null || finished),
+            module = moduleName,
+            via = execVia,
+            commitMessageWarning = string.IsNullOrEmpty(commitMessage) ? null : "message path (prs#lislasrz) has been observed leaving the publish process STUCK at Uploading - prefer no commitMessage",
+            elapsedMs = sw.ElapsedMilliseconds,
+            wait = wait,
+            processSeen = processSeen,
+            finished = finished,
+            stillRunning = stillRunning,
+            lastState = lastState,
+            lastInner = lastInner,
+            waitMs = waitMs,
+            resultType = result?.GetType().FullName,
+            resultProps = props,
+            diag = diag,
+            error = err
+        });
+    }
+
+    // debug_publish_surface: read-only dump of the publish API surface - command type load,
+    // ctor access, Execute candidates, aggregator IsUnattended (True = no confirm dialogs),
+    // and whether ExecuteInContext(Action,bool) exists. Use BEFORE publish_module on a new
+    // SS build to confirm the surface is unchanged.
+    static string DebugPublishSurface(string moduleName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        var cmdType = FindType("ServiceStudio.Presenter.Commands.Publish");
+        if (cmdType == null) return Json(new { ok = false, error = "Publish type not loaded" });
+        var methods = new List<object>();
+        foreach (var m in cmdType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            methods.Add(new { name = m.Name, access = m.IsPublic ? "public" : (m.IsAssembly ? "internal" : "private"), paramsCount = m.GetParameters().Length, ret = m.ReturnType.Name });
+        bool? unattended = null;
+        foreach (var p in agg.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            if (p.Name == "IsUnattended") { try { unattended = (bool?)p.GetValue(agg, null); } catch { } }
+        bool hasExecInCtx = false;
+        foreach (var m in agg.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+            if (m.Name == "ExecuteInContext" && m.GetParameters().Length == 2) { hasExecInCtx = true; break; }
+        return Json(new { ok = true, module = moduleName, commandType = cmdType.FullName, methods = methods, aggregatorIsUnattended = unattended, aggregatorHasExecuteInContext2 = hasExecInCtx });
+    }
+
+    // debug_publish_state: read-only monitor for an in-flight in-process publish. Reports
+    // whether a ServerProcess is registered for the aggregator (Pending/Started), its type,
+    // CurrentState + InnerState. Does NOT start anything - use to poll a publish_module call.
+    static string DebugPublishState(string moduleName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        var d = new Dictionary<string, object>();
+        var spType = FindType("ServiceStudio.Presenter.Commands.ServerProcess");
+        if (spType == null) return Json(new { ok = false, error = "ServerProcess type not loaded" });
+        foreach (var dictName in new[] { "ProcessesPending", "ProcessesStarted" })
+        {
+            var f = spType.GetField(dictName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (f == null) continue;
+            var lazy = f.GetValue(null);
+            var dict = lazy?.GetType().GetProperty("Value")?.GetValue(lazy, null);
+            if (dict == null) { d[dictName] = "null"; continue; }
+            var tryGet = dict.GetType().GetMethod("TryGetValue");
+            var args = new object[] { agg, null };
+            bool has = false;
+            try { has = (bool)tryGet.Invoke(dict, args); } catch { }
+            if (has && args[1] != null)
+            {
+                d[dictName] = new
+                {
+                    type = args[1].GetType().FullName,
+                    currentState = SafeGetProp(args[1], "CurrentState")?.ToString() ?? "null",
+                    innerState = SafeGetProp(args[1], "InnerState")?.ToString() ?? "null"
+                };
+            }
+            else d[dictName] = "none";
+        }
+        return Json(new { ok = true, module = moduleName, serverProcess = d });
+    }
+
+    // UnwrapWritable: ReadOnlySSCollectionAdapter wraps the real ISSCollection in a private
+    // field - walk down (max 3 levels) to find a collection object whose declared type is NOT
+    // a ReadOnly adapter, and return it. Returns the input when nothing to unwrap.
+    static object UnwrapWritable(object coll, int depth)
+    {
+        if (coll == null || depth > 3) return coll;
+        var t = coll.GetType();
+        var isReadOnlyAdapter = false;
+        for (var bt = t; bt != null; bt = bt.BaseType)
+            if (bt.Name.StartsWith("ReadOnlySSCollectionAdapter") || bt.Name.StartsWith("ReadOnlySSSequenceAdapter")) { isReadOnlyAdapter = true; break; }
+        if (!isReadOnlyAdapter) return coll;
+        foreach (var tt in AllTypes(t))
+            foreach (var f in tt.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (!f.FieldType.IsGenericType) continue;
+                var defName = f.FieldType.GetGenericTypeDefinition().Name;
+                if (defName != "ISSCollection`1" && defName != "ISSSequence`1" && !f.FieldType.Name.StartsWith("ISSCollection")) continue;
+                try { var v = f.GetValue(coll); if (v != null && !object.ReferenceEquals(v, coll)) return UnwrapWritable(v, depth + 1); } catch { }
+            }
+        return coll;
+    }
+
+    // FindWritableCollection(s): the WRITABLE ISSCollection<T> for an element type. GetProp on
+    // the ESpace returns READ-ONLY adapters (ReadOnlySSCollectionAdapter) with no Create/Add;
+    // the writable ISSCollection lives in a private ESpace field. Scan all instance fields for
+    // an ISSCollection`1 / ISSSequence`1 whose element type name matches.
+    static List<object> FindWritableCollections(object es, string elementTypeName)
+    {
+        var result = new List<object>();
+        foreach (var t in AllTypes(es.GetType()))
+        {
+            foreach (var f in t.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+            {
+                var ft = f.FieldType;
+                if (ft == null || !ft.IsGenericType) continue;
+                var defName = ft.GetGenericTypeDefinition().Name;
+                if (defName != "ISSCollection`1" && defName != "ISSSequence`1") continue;
+                if (ft.GetGenericArguments()[0].Name != elementTypeName) continue;
+                try { var v = f.GetValue(es); if (v != null && !result.Contains(v)) result.Add(v); } catch { }
+            }
+        }
+        return result;
+    }
+
+    // TryRunOnUIThread: marshal an Action to SS's UI thread - WPF Application.Current.Dispatcher
+    // first, then Avalonia Dispatcher.UIThread. Returns false when neither dispatcher exists.
+    // Needed because synchronous UI-bound commands (Save) deadlock the pipe when run directly
+    // on the pipe thread (observed 2026-09-25: save_module wedged the bridge).
+    static bool TryRunOnUIThread(Action work, out string usedDispatcher, out string err)
+    {
+        usedDispatcher = null; err = null;
+        var errs = new List<string>();
+        // WPF
+        try
+        {
+            var appType = FindType("System.Windows.Application");
+            var app = appType?.GetProperty("Current", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null);
+            var disp = app != null ? appType.GetProperty("Dispatcher")?.GetValue(app, null) : null;
+            if (disp != null)
+            {
+                var inv = disp.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                    .FirstOrDefault(m => m.Name == "Invoke" && m.GetParameters().Length >= 1 && typeof(Delegate).IsAssignableFrom(m.GetParameters()[0].ParameterType) && !m.IsGenericMethod);
+                if (inv != null)
+                {
+                    var args = new List<object> { (Delegate)work };
+                    foreach (var p in inv.GetParameters().Skip(1)) args.Add(p.ParameterType.IsValueType ? Activator.CreateInstance(p.ParameterType) : null);
+                    inv.Invoke(disp, args.ToArray());
+                    usedDispatcher = "wpf";
+                    return true;
+                }
+            }
+        }
+        catch (Exception e) { errs.Add("wpf: " + FirstMsg(e)); }
+        // Avalonia
+        try
+        {
+            var dt = FindType("Avalonia.Threading.Dispatcher");
+            var uit = dt?.GetProperty("UIThread", BindingFlags.Public | BindingFlags.Static)?.GetValue(null, null);
+            if (uit != null)
+            {
+                var inv = uit.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                    .FirstOrDefault(m => m.Name == "Invoke" && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == typeof(Action) && !m.IsGenericMethod);
+                if (inv != null) { inv.Invoke(uit, new object[] { work }); usedDispatcher = "avalonia"; return true; }
+            }
+        }
+        catch (Exception e) { errs.Add("avalonia: " + FirstMsg(e)); }
+        err = string.Join(" ; ", errs);
+        return false;
+    }
+
+    // save_module: Ctrl+S equivalent in-process - invokes the registered Save command
+    // (ServiceStudio.Presenter.Commands.ESpaceCommands/Save) via AutoRegistryType<Save>.Instance
+    // .Execute(agg, agg). Save is UI-bound (unlike Publish's async ServerProcess): it MUST run
+    // on the UI dispatcher - direct pipe-thread invocation wedges the bridge (observed).
+    static string SaveModule(string moduleName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        var saveType = FindType("ServiceStudio.Presenter.Commands.ESpaceCommands+Save");
+        if (saveType == null) return Json(new { ok = false, error = "ESpaceCommands+Save type not loaded" });
+        object cmd = null; string via = null;
+        try
+        {
+            var regOpen = FindType("ServiceStudio.AutoRegistryType`1");
+            var regClosed = regOpen?.MakeGenericType(saveType);
+            cmd = regClosed?.GetField("Instance", BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
+            via = "AutoRegistryType<Save>.Instance";
+        }
+        catch { }
+        if (cmd == null)
+        {
+            try { cmd = Activator.CreateInstance(saveType); via = "Activator.CreateInstance"; }
+            catch (Exception e) { return Json(new { ok = false, error = "Save ctor: " + FirstMsg(e) }); }
+        }
+        MethodInfo exec = null;
+        foreach (var m in cmd.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+            if (m.Name == "Execute" && m.GetParameters().Length == 2) { exec = m; break; }
+        if (exec == null) return Json(new { ok = false, error = "Execute(ICommandTarget,IPresenter) not found on Save" });
+        object result = null; string err = null; string via2 = null;
+        var sw = Stopwatch.StartNew();
+        Action work = () => { result = exec.Invoke(cmd, new object[] { agg, agg }); };
+        if (TryRunOnUIThread(work, out var dispatcher, out var uiErr)) via2 = "ui-dispatcher:" + dispatcher;
+        else
+        {
+            if (!string.IsNullOrEmpty(uiErr)) Log("save_module: no UI dispatcher found (" + uiErr + ") - running on pipe thread");
+            try { work(); via2 = "pipe-thread"; }
+            catch (Exception e) { err = "execute: " + FirstMsg(e); }
+        }
+        sw.Stop();
+        return Json(new { ok = err == null, module = moduleName, via = via + " / " + via2, elapsedMs = sw.ElapsedMilliseconds, resultType = result?.GetType().FullName, resultNull = result == null, error = err });
+    }
+
+    // open_producer_module: open a consumed producer module in a NEW SS tab, in-process.
+    // Resolves the Reference's ReferenceKey (ObjectKey of the producer espace) and calls the
+    // UI's own open engine AcrossTabCommands.prs#nexcffly(agg, key, name, null, true, null) -
+    // the same static the "Open Producer" context-menu command uses.
+    static string OpenProducerModule(string moduleName, string referenceName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        var refs = GetProp(es, "References") as IEnumerable;
+        if (refs == null) return Json(new { ok = false, error = "References collection is null" });
+        object target = null;
+        foreach (var r in refs)
+        {
+            string nm = null;
+            try { nm = GetProp(r, "Name") as string; } catch { }
+            if (nm == referenceName) { target = r; break; }
+        }
+        if (target == null)
+        {
+            var known = new List<string>();
+            foreach (var r in refs) { try { known.Add(GetProp(r, "Name") as string ?? "?"); } catch { } }
+            return Json(new { ok = false, error = "reference not found: " + referenceName, references = known });
+        }
+        var key = GetProp(target, "ReferenceKey");
+        if (key == null) return Json(new { ok = false, error = "ReferenceKey is null on reference " + referenceName });
+        var at = FindType("ServiceStudio.Presenter.Commands.AcrossTabCommands");
+        if (at == null) return Json(new { ok = false, error = "AcrossTabCommands type not loaded" });
+        MethodInfo open = null;
+        foreach (var m in at.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic))
+            if (m.Name == "prs#nexcffly" && m.GetParameters().Length == 6) { open = m; break; }
+        if (open == null) return Json(new { ok = false, error = "open engine prs#nexcffly not found" });
+        string err = null;
+        var sw = Stopwatch.StartNew();
+        try { open.Invoke(null, new object[] { agg, key, referenceName, null, true, null }); }
+        catch (Exception e) { err = "open: " + FirstMsg(e); }
+        sw.Stop();
+        return Json(new { ok = err == null, opened = referenceName, elapsedMs = sw.ElapsedMilliseconds, error = err });
+    }
+
+    // clone_service_action_from: create a REAL local Service Action in the consumer by
+    // consuming + IModelServices.Duplicate from an OPEN producer module - the SS copy/paste
+    // mechanism, which bypasses the "Service Action objects can't be children of Module
+    // objects" create-from-scratch validation. The clone is an exact copy with a fresh key,
+    // renamed to newName, living in consumer.ServiceActions.
+    static string CloneServiceActionFrom(string consumerName, string producerName, string sourceName, string newName)
+    {
+        var consumerEs = FindEspace(consumerName);
+        if (consumerEs == null) return Json(new { ok = false, error = "consumer module not found: " + consumerName });
+        var producerEs = FindEspace(producerName);
+        if (producerEs == null) return Json(new { ok = false, error = "producer module not found (open it first): " + producerName });
+        var ms = ModelServices();
+        if (ms == null) return Json(new { ok = false, error = "ModelServices is null" });
+        var source = FindServiceAction(producerEs, sourceName);
+        if (source == null) return Json(new { ok = false, error = "service action not found in producer: " + sourceName });
+        var agg = GetContext(consumerEs);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        MethodInfo dupMethod = null;
+        foreach (var m in ms.GetType().GetMethods())
+        {
+            if (m.Name != "Duplicate") continue;
+            var ps = m.GetParameters();
+            if (ps.Length != 2) continue;
+            if (ps[0].ParameterType.IsAssignableFrom(source.GetType())) { dupMethod = m; break; }
+        }
+        if (dupMethod == null) return Json(new { ok = false, error = "Duplicate(IObjectSignature,IObject) not found" });
+        MethodInfo dupMany = null;
+        foreach (var m in ms.GetType().GetMethods())
+        {
+            if (m.Name != "Duplicate") continue;
+            var ps = m.GetParameters();
+            if (ps.Length != 2 || ps[0].ParameterType.Name.StartsWith("IObjectSignature")) continue;
+            if (ps[0].ParameterType.IsGenericType && ps[0].ParameterType.GetGenericArguments().Length == 1
+                && ps[0].ParameterType.GetGenericArguments()[0].IsAssignableFrom(source.GetType())) dupMany = m;
+        }
+        int before = CountProp(consumerEs, "ServiceActions");
+        object created = null; string err = null; string via = null;
+        Action mutate = () =>
+        {
+            try
+            {
+                try
+                {
+                    var dup = dupMethod.Invoke(ms, new object[] { source, consumerEs });
+                    try { SetProp(dup, "Name", newName); } catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "rename: " + r.GetType().Name + ": " + r.Message; }
+                    created = dup;
+                    via = "Duplicate(producer.ServiceAction, consumerEs)->rename";
+                }
+                catch (Exception eSingle)
+                {
+                    var r = eSingle; while (r.InnerException != null) r = r.InnerException;
+                    if (dupMany == null) throw new Exception("single Duplicate: " + r.GetType().Name + ": " + r.Message, eSingle);
+                    var items = (IEnumerable)Activator.CreateInstance(typeof(List<>).MakeGenericType(source.GetType()));
+                    ((System.Collections.IList)items).Add(source);
+                    var dups = dupMany.Invoke(ms, new object[] { items, consumerEs });
+                    object dup = null;
+                    foreach (var o in (IEnumerable)dups) { dup = o; break; }
+                    if (dup == null) throw new Exception("many Duplicate returned no items: " + r.GetType().Name + ": " + r.Message, eSingle);
+                    try { SetProp(dup, "Name", newName); } catch (Exception e2) { var rr = e2; while (rr.InnerException != null) rr = rr.InnerException; err = "rename: " + rr.GetType().Name + ": " + rr.Message; }
+                    created = dup;
+                    via = "Duplicate([]producer.ServiceAction, consumerEs)->rename (fallback)";
+                }
+            }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "mutate: " + r.GetType().Name + ": " + r.Message + " | " + (r.StackTrace != null ? r.StackTrace.Split('\n')[0].Trim() : ""); }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(agg);
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: clone service action from producer", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        int after = CountProp(consumerEs, "ServiceActions");
+        return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), before = before, after = after, error = err });
+    }
+
+    // debug_object_prop_surface: dump an object's settable surface for live_set_object_prop_deep:
+    // public properties, private backing fields (_prop), static setter delegates
+    // (_propSetter), static property-grid descriptors (PropPropertyDescriptor). Read-only.
+    static string DebugObjectPropSurface(string moduleName, string kind, string entityName, string name)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var obj = FindModelObject(es, kind, entityName, name);
+        if (obj == null) return Json(new { ok = false, error = "object not found: kind=" + kind + " entity=" + entityName + " name=" + name });
+        var props = new List<object>();
+        foreach (var p in obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        {
+            if (p.GetIndexParameters().Length != 0) continue;
+            object v = null; try { v = p.GetValue(obj, null); } catch { }
+            props.Add(new { name = p.Name, type = p.PropertyType.Name, value = v?.ToString(), settable = p.CanWrite });
+        }
+        var fields = new List<object>();
+        foreach (var f in obj.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
+            if (f.Name.StartsWith("_")) fields.Add(new { name = f.Name, type = f.FieldType.Name });
+        var statics = new List<object>();
+        foreach (var t in AllTypes(obj.GetType()))
+        {
+            foreach (var f in t.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static))
+            {
+                if (f.Name.EndsWith("Setter") || f.Name.EndsWith("PropertyDescriptor"))
+                    statics.Add(new { name = f.Name, type = f.FieldType.Name, declaring = t.Name });
+            }
+        }
+        return Json(new { ok = true, kind = kind, name = name, objectType = obj.GetType().FullName, properties = props, backingFields = fields.Take(40), staticSurfaces = statics });
+    }
+
+    // Finder for set_object_prop_deep / debug_object_prop_surface.
+    static object FindModelObject(object es, string kind, string entityName, string name)
+    {
+        switch ((kind ?? "").ToLowerInvariant())
+        {
+            case "entity": return FindEntity(es, name);
+            case "attribute":
+                var ent = FindEntity(es, entityName);
+                if (ent == null) return null;
+                var attrs = GetProp(ent, "Attributes") as IEnumerable;
+                if (attrs == null) return null;
+                foreach (var a in attrs) try { if ((GetProp(a, "Name") as string) == name) return a; } catch { }
+                return null;
+            case "structure":
+                var structs = GetProp(es, "Structures") as IEnumerable;
+                if (structs != null) foreach (var s in structs) try { if ((GetProp(s, "Name") as string) == name) return s; } catch { }
+                return null;
+            case "structureattribute":
+                object st = null;
+                var structs2 = GetProp(es, "Structures") as IEnumerable;
+                if (structs2 != null) foreach (var s in structs2) try { if ((GetProp(s, "Name") as string) == entityName) { st = s; break; } } catch { }
+                if (st == null) return null;
+                var sattrs = GetProp(st, "Attributes") as IEnumerable;
+                if (sattrs != null) foreach (var a in sattrs) try { if ((GetProp(a, "Name") as string) == name) return a; } catch { }
+                return null;
+            case "timer":
+                foreach (var collName in new[] { "Timers", "Processes" })
+                {
+                    var coll = GetProp(es, collName) as IEnumerable;
+                    if (coll == null) continue;
+                    foreach (var t in coll) try { if ((GetProp(t, "Name") as string) == name) return t; } catch { }
+                }
+                return null;
+            case "siteproperty":
+                var sps = GetProp(es, "SiteProperties") as IEnumerable;
+                if (sps != null) foreach (var s in sps) try { if ((GetProp(s, "Name") as string) == name) return s; } catch { }
+                return null;
+            case "role":
+                foreach (var collName in new[] { "Roles", "SystemRoles" })
+                {
+                    var coll = GetProp(es, collName) as IEnumerable;
+                    if (coll == null) continue;
+                    foreach (var r in coll) try { if ((GetProp(r, "Name") as string) == name) return r; } catch { }
+                }
+                return null;
+            default: return null;
+        }
+    }
+
+    // ConvertValueFor: parse the text value into the member's target type (string, int/long,
+    // double, bool, enums, Nullable<>). Returns ok=false when parsing failed (caller then
+    // falls back to the raw string - descriptors parse text themselves).
+    static object ConvertValueFor(Type targetType, string value, out bool ok)
+    {
+        ok = true;
+        try
+        {
+            var t = targetType;
+            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>)) t = t.GetGenericArguments()[0];
+            if (t == typeof(string)) return value;
+            if (t == typeof(int)) return int.Parse(value);
+            if (t == typeof(long)) return long.Parse(value);
+            if (t == typeof(double)) return double.Parse(value);
+            if (t == typeof(bool)) return bool.Parse(value);
+            if (t.IsEnum) return Enum.Parse(t, value, true);
+            return value;
+        }
+        catch { ok = false; return value; }
+    }
+
+    static Type StripNullable(Type t) => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>)
+        ? t.GetGenericArguments()[0] : t;
+
+    // set_object_prop_deep: the Swiss-army setter for property-grid surfaces that lack a
+    // public setter. Tries, in order: public property (type-aware value) -> static
+    // "PropPropertyDescriptor" (reflection SetValue - the property-grid machinery parses the
+    // text itself, e.g. DefaultValue's expression parser) -> static "_propSetter" delegate
+    // (type-aware DynamicInvoke) -> raw backing field "_prop" (+revalidate). Field lookups are
+    // CASE-INSENSITIVE (delegate fields are camelCase: _defaultValueSetter).
+    static string SetObjectPropDeep(string moduleName, string kind, string entityName, string name, string propName, string value)
+    {
+        if (string.IsNullOrEmpty(propName)) return Json(new { ok = false, error = "propName required" });
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        return RunCmd(moduleName, "set object prop deep", es2 =>
+        {
+            var obj = FindModelObject(es2, kind, entityName, name);
+            if (obj == null) throw new Exception("object not found: kind=" + kind + " entity=" + entityName + " name=" + name);
+            var tried = new List<string>();
+            // 1. public property setter (type-aware)
+            foreach (var t in AllTypes(obj.GetType()))
+            {
+                var p = t.GetProperty(propName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                if (p == null || !p.CanWrite || p.GetIndexParameters().Length != 0) continue;
+                try
+                {
+                    var v = ConvertValueFor(p.PropertyType, value, out bool ok);
+                    p.SetValue(obj, v, null);
+                    return "set " + propName + " via public property" + (ok ? "" : " (string fallback)");
+                }
+                catch (Exception e) { tried.Add("property: " + FirstMsg(e)); }
+            }
+            // 2. static property-grid descriptor (reflection SetValue - no System.ComponentModel cast;
+            // these are ServiceStudio.Model.PropertyDescriptors.PropertyDescriptor subclasses that
+            // parse the text themselves, e.g. DefaultValuePropertyDescriptor -> AbstractExpression)
+            foreach (var t in AllTypes(obj.GetType()))
+            {
+                var pdf = t.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                    .FirstOrDefault(f => f.Name.Equals(propName + "PropertyDescriptor", StringComparison.OrdinalIgnoreCase));
+                if (pdf == null) continue;
+                try
+                {
+                    var pd = pdf.GetValue(null);
+                    if (pd == null) continue;
+                    var setValue = pd.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                        .FirstOrDefault(m => m.Name == "SetValue" && m.GetParameters().Length == 2);
+                    if (setValue == null) continue;
+                    setValue.Invoke(pd, new object[] { obj, value });
+                    try { CallMethod(obj, "ForceValidate", null, 0); } catch { }
+                    try { CallMethod(obj, "InvalidateSelfVerifyCache", null, 0); } catch { }
+                    return "set " + propName + " via PropertyDescriptor " + pd.GetType().Name;
+                }
+                catch (Exception e) { tried.Add("descriptor: " + FirstMsg(e)); }
+            }
+            // 3. static delegate _propSetter (case-insensitive; type-aware DynamicInvoke)
+            foreach (var t in AllTypes(obj.GetType()))
+            {
+                var df = t.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                    .FirstOrDefault(f => f.Name.Equals("_" + propName + "Setter", StringComparison.OrdinalIgnoreCase));
+                if (df == null) continue;
+                try
+                {
+                    var dlg = df.GetValue(null) as Delegate;
+                    if (dlg == null) continue;
+                    var paramType = dlg.Method.GetParameters().Length == 2 ? dlg.Method.GetParameters()[1].ParameterType : typeof(string);
+                    var v = ConvertValueFor(paramType, value, out bool ok);
+                    dlg.DynamicInvoke(obj, v);
+                    return "set " + propName + " via static delegate" + (ok ? "" : " (string fallback)");
+                }
+                catch (Exception e) { tried.Add("delegate: " + FirstMsg(e)); }
+            }
+            // 4. raw backing field (_prop, case-insensitive) + revalidate
+            foreach (var t in AllTypes(obj.GetType()))
+            {
+                var f = t.GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                    .FirstOrDefault(x => x.Name.Equals("_" + propName, StringComparison.OrdinalIgnoreCase)
+                                      || x.Name.Equals("_" + char.ToLowerInvariant(propName[0]) + propName.Substring(1), StringComparison.OrdinalIgnoreCase));
+                if (f == null) continue;
+                try
+                {
+                    var v = ConvertValueFor(StripNullable(f.FieldType), value, out bool ok);
+                    f.SetValue(obj, v);
+                    try { CallMethod(obj, "ForceValidate", null, 0); } catch { }
+                    try { CallMethod(obj, "InvalidateSelfVerifyCache", null, 0); } catch { }
+                    return "set " + propName + " via raw field " + f.Name + " (+revalidate)";
+                }
+                catch (Exception e) { tried.Add("field: " + FirstMsg(e)); }
+            }
+            throw new Exception("no settable surface for " + propName + ": " + string.Join(" | ", tried));
+        });
+    }
+
+    // upload_image: create a module Image from a base64 payload via the public
+    // IESpace.CreateImage(Byte[], String, String, IKey). No file dialog, no SS UI.
+    static string UploadImage(string moduleName, string name, string base64Data, string description)
+    {
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(base64Data)) return Json(new { ok = false, error = "name and base64Data required" });
+        byte[] bytes;
+        try { bytes = Convert.FromBase64String(base64Data); }
+        catch (Exception e) { return Json(new { ok = false, error = "base64Data invalid: " + FirstMsg(e) }); }
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var ms = ModelServices();
+        if (ms == null) return Json(new { ok = false, error = "ModelServices is null" });
+        object created = null; string err = null; string via = null;
+        var errs = new List<string>();
+        Action mutate = () =>
+        {
+            // Path 0: the UI's own static factory - ResourceCommands.CreateImage calls
+            // ServiceStudio.Model.Image.Create(es, bytes, name, null, null) (decompiled).
+            try
+            {
+                var imgType = FindType("ServiceStudio.Model.Image");
+                if (imgType != null)
+                    foreach (var m in imgType.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+                    {
+                        if (m.Name != "Create") continue;
+                        var ps = m.GetParameters();
+                        if (ps.Length == 5 && ps[0].ParameterType.Name == "ESpace" && ps[1].ParameterType == typeof(byte[]))
+                        {
+                            created = m.Invoke(null, new object[] { es, bytes, name, null, null });
+                            via = "Image.Create(es,bytes,name,null,null)";
+                            break;
+                        }
+                    }
+            }
+            catch (Exception eImg) { errs.Add("Image.Create: " + FirstMsg(eImg)); }
+            if (created != null) return;
+            var key = CallMethod(ms, "NewKey", null, 0);
+            foreach (var coll0 in FindWritableCollections(es, "Image"))
+            {
+                if (created != null) break;
+                var coll = UnwrapWritable(coll0, 0);
+                foreach (var (methodName, args) in new (string, object[])[] {
+                    ("Create", new object[] { bytes, name, key }),
+                    ("Add",    new object[] { bytes, name, key }),
+                    ("Create", new object[] { bytes, name, description ?? "", key }),
+                    ("Add",    new object[] { bytes, name, description ?? "", key }),
+                    ("Create", new object[] { name, key }),
+                    ("Add",    new object[] { name, key }) })
+                {
+                    try
+                    {
+                        created = CallMethod(coll, methodName, args, args.Length);
+                        if (created != null) { via = "writableImages." + methodName + "/" + args.Length; break; }
+                    }
+                    catch (Exception e0) { errs.Add("writableImages." + methodName + "/" + args.Length + ": " + FirstMsg(e0)); }
+                }
+            }
+            // Path 1b: the es.Images read-only adapter (kept - some builds expose Create on it).
+            foreach (var collName in new[] { "Images", "ResourceImages" })
+            {
+                if (created != null) break;
+                var coll = GetProp(es, collName);
+                if (coll == null) continue;
+                foreach (var (methodName, args) in new (string, object[])[] {
+                    ("Create", new object[] { bytes, name, key }),
+                    ("Create", new object[] { bytes, name, description ?? "", key }),
+                    ("Add",    new object[] { bytes, name, key }),
+                    ("Add",    new object[] { bytes, name, description ?? "", key }),
+                    ("Create", new object[] { name, key }),
+                    ("Add",    new object[] { name, key }) })
+                {
+                    try
+                    {
+                        created = CallMethod(coll, methodName, args, args.Length);
+                        if (created != null) { via = collName + "." + methodName + "/" + args.Length; break; }
+                    }
+                    catch (Exception e1) { errs.Add(collName + "." + methodName + "/" + args.Length + ": " + FirstMsg(e1)); }
+                }
+            }
+            // Path 2: IESpace.CreateImage (kept for older builds where it works)
+            if (created == null)
+            {
+                try { created = CallMethod(es, "CreateImage", new object[] { bytes, name, description ?? "", key }, 4); via = "es.CreateImage/4"; }
+                catch (Exception e1) { errs.Add("es.CreateImage/4: " + FirstMsg(e1)); }
+            }
+            // Path 3: the UI's own static ResourceCommands.CreateImage(key?, es, bytes, name)
+            // (may be internal - include NonPublic; try null and real key for the first param)
+            if (created == null)
+            {
+                var rc = FindType("ServiceStudio.Commands.ResourceCommands");
+                if (rc != null)
+                    foreach (var m in rc.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+                    {
+                        if (m.Name != "CreateImage") continue;
+                        foreach (var first in new object[] { null, key })
+                        {
+                            try
+                            {
+                                created = m.Invoke(null, new object[] { first, es, bytes, name });
+                                if (created != null) { via = "ResourceCommands.CreateImage"; break; }
+                            }
+                            catch (Exception e2) { errs.Add("ResourceCommands.CreateImage: " + FirstMsg(e2)); }
+                        }
+                        if (created != null) break;
+                    }
+            }
+            if (created == null) err = "all image factories failed: " + string.Join(" ; ", errs.Take(6));
+        };
+        RunInCommand(es, "upload image", mutate);
+        return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), bytes = bytes.Length, error = err });
+    }
+
+    // upload_resource: create a module Resource from a base64 payload via
+    // IESpace.CreateResource(Byte[], String, IKey).
+    static string UploadResource(string moduleName, string name, string base64Data)
+    {
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(base64Data)) return Json(new { ok = false, error = "name and base64Data required" });
+        byte[] bytes;
+        try { bytes = Convert.FromBase64String(base64Data); }
+        catch (Exception e) { return Json(new { ok = false, error = "base64Data invalid: " + FirstMsg(e) }); }
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var ms = ModelServices();
+        if (ms == null) return Json(new { ok = false, error = "ModelServices is null" });
+        object created = null; string err = null; string via = null;
+        Action mutate = () =>
+        {
+            try
+            {
+                var key = CallMethod(ms, "NewKey", null, 0);
+                created = CallMethod(es, "CreateResource", new object[] { bytes, name, key }, 3);
+                via = "es.CreateResource(bytes,name,key)";
+            }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "mutate: " + r.GetType().Name + ": " + r.Message; }
+        };
+        RunInCommand(es, "upload resource", mutate);
+        return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), bytes = bytes.Length, error = err });
+    }
+
+    // Shared: run an Action inside Command.ExecuteFromAsyncCode for the module's espace.
+    static void RunInCommand(object es, string desc, Action mutate)
+    {
+        var agg = GetContext(es);
+        if (agg == null) throw new Exception("aggregator (GetContext) is null");
+        var pc = BuildPresenterContext(agg);
+        if (pc == null) throw new Exception("PresenterContext null");
+        var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+        if (exec == null) throw new Exception("Command.ExecuteFromAsyncCode not found");
+        exec.Invoke(null, new object[] { pc, "OsLiveBridge: " + desc, mutate });
+    }
+
+    // delete_structure: delete a Structure by name (Delete inside a real SS command).
+    static string DeleteStructure(string moduleName, string name)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        object target = null;
+        var structs = GetProp(es, "Structures") as IEnumerable;
+        if (structs != null)
+            foreach (var s in structs) try { if ((GetProp(s, "Name") as string) == name) { target = s; break; } } catch { }
+        if (target == null) return Json(new { ok = false, error = "structure not found: " + name });
+        int before = CountProp(es, "Structures");
+        string err = null;
+        Action mutate = () =>
+        {
+            try { CallMethod(target, "Delete", null, 0); }
+            catch (Exception e1)
+            {
+                try { CallMethod(target, "Delete", new object[] { false }, 1); }
+                catch (Exception e2) { err = "Delete() " + FirstMsg(e1) + " ; Delete(false) " + FirstMsg(e2); }
+            }
+        };
+        try { RunInCommand(es, "delete structure", mutate); }
+        catch (Exception e) { err = err ?? FirstMsg(e); }
+        int after = CountProp(es, "Structures");
+        return Json(new { ok = err == null, deleted = name, before = before, after = after, error = err });
+    }
+
+    // remove_unused_dependencies: IESpace.RemoveUnusedDependencies() inside a command.
+    static string RemoveUnusedDependencies(string moduleName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        int before = CountProp(es, "References");
+        string err = null;
+        Action mutate = () =>
+        {
+            try { CallMethod(es, "RemoveUnusedDependencies", null, 0); }
+            catch (Exception e) { err = FirstMsg(e); }
+        };
+        try { RunInCommand(es, "remove unused dependencies", mutate); }
+        catch (Exception e) { err = err ?? FirstMsg(e); }
+        int after = CountProp(es, "References");
+        return Json(new { ok = err == null, referencesBefore = before, referencesAfter = after, removed = Math.Max(0, before - after), error = err });
     }
 
     // delete_service_action: delete a ServiceAPIMethod by name
@@ -8378,6 +9474,43 @@ internal static class BridgeHost
                     catch (Exception e2) { var r = e2; while (r.InnerException != null) r = r.InnerException; err = FirstMsg(e1) + " ; Entities.Add: " + r.GetType().Name + ": " + r.Message; }
                 }
                 if (err == null && created == null) err = "CreateServerEntity returned null";
+                // Auto-Id: SS-created entities always carry an Id identifier attribute; the raw
+                // CreateServerEntity factory does not add one. Create `Id : LongInteger,
+                // mandatory` in the SAME command so the entity is runtime-valid immediately.
+                string idVia = null;
+                if (err == null && created != null)
+                {
+                    try
+                    {
+                        bool hasId = false;
+                        var attrs0 = GetProp(created, "Attributes") as IEnumerable;
+                        if (attrs0 != null) foreach (var a in attrs0) try { if ((GetProp(a, "Name") as string) == "Id") { hasId = true; break; } } catch { }
+                        if (!hasId)
+                        {
+                            var key2 = CallMethod(ms, "NewKey", null, 0);
+                            object idAttr = null;
+                            try { idAttr = CallMethod(created, "CreateAttribute", new object[] { "Id", key2 }, 2); idVia = "CreateAttribute"; }
+                            catch
+                            {
+                                var attrs = GetProp(created, "Attributes");
+                                idAttr = CallMethod(attrs, "Add", new object[] { "Id", key2 }, 2);
+                                idVia = "Attributes.Add";
+                            }
+                            if (idAttr != null)
+                            {
+                                try { SetProp(idAttr, "DataType", GetProp(es, "LongIntegerType")); } catch { }
+                                try { SetProp(idAttr, "IsMandatory", true); } catch { }
+                                try { SetProp(idAttr, "Label", "Id"); } catch { }
+                                // Wire it as THE identifier so entity actions regenerate (SS-created
+                                // entities have Identifier=Id from birth).
+                                try { SetProp(created, "Identifier", idAttr); CallMethod(created, "RefreshEntityActions", null, 0); idVia += "+identifier"; } catch { }
+                                via += " +autoId(" + idVia + ")";
+                            }
+                        }
+                        else via += " (Id already present)";
+                    }
+                    catch (Exception e3) { via += " +autoId FAILED: " + FirstMsg(e3); }
+                }
             };
             exec.Invoke(null, new object[] { pc, "OsLiveBridge: create entity", mutate });
         }
@@ -9553,7 +10686,7 @@ internal static class BridgeHost
             if (permColl == null) throw new Exception("screen has no Permissions collection");
             object template = null;
             foreach (var p in permColl) { template = p; break; }
-            if (template == null) throw new Exception("no existing Permission to clone (Permissions empty)");
+            string grantVia = null;
             object role2 = null;
             foreach (var collName in new[] { "Roles", "SystemRoles" })
             {
@@ -9564,24 +10697,148 @@ internal static class BridgeHost
                 if (role2 != null) break;
             }
             if (role2 == null) throw new Exception("role not found: " + roleName);
-            MethodInfo dupMethod = null;
-            foreach (var m in ms.GetType().GetMethods())
+            int permsBefore = 0;
+            foreach (var p in permColl) permsBefore++;
+            object clone = null;
+            if (template != null)
             {
-                if (m.Name != "Duplicate") continue;
-                var ps = m.GetParameters();
-                if (ps.Length != 2) continue;
-                if (ps[0].ParameterType.IsAssignableFrom(template.GetType())) { dupMethod = m; break; }
+                // Path 1: clone an existing Permission on THIS screen, then re-target Role.
+                var dupMethod = FindDupMethod(ms, template);
+                clone = dupMethod.Invoke(ms, new object[] { template, sc2 });
+                grantVia = "Duplicate(Permission)+Role";
             }
-            if (dupMethod == null) throw new Exception("Duplicate method not found");
-            object clone = dupMethod.Invoke(ms, new object[] { template, sc2 });
-            if (clone == null) throw new Exception("Duplicate returned null");
+            else
+            {
+                // Path 2: no Permission on this screen - clone from ANY other screen in the module.
+                foreach (var flow in WebFlowsOf(es2))
+                {
+                    var nodes = GetProp(flow, "Nodes") as IEnumerable;
+                    if (nodes == null) continue;
+                    foreach (var n in nodes)
+                    {
+                        if (!IsScreen(n) || object.ReferenceEquals(n, sc2)) continue;
+                        var perms2 = GetProp(n, "Permissions") as IEnumerable;
+                        if (perms2 == null) continue;
+                        foreach (var p2 in perms2) { template = p2; break; }
+                        if (template != null) break;
+                    }
+                    if (template != null) break;
+                }
+                if (template != null)
+                {
+                    var dupMethod = FindDupMethod(ms, template);
+                    clone = dupMethod.Invoke(ms, new object[] { template, sc2 });
+                    grantVia = "Duplicate(Permission from other screen)+Role";
+                }
+            }
+            if (clone == null)
+            {
+                // Path 3: no template anywhere - hunt a factory on the Permissions collection
+                // object itself (Create()/Create(IKey)), then the Permission ctor.
+                var collObj = GetProp(sc2, "Permissions");
+                var tried = new List<string>();
+                foreach (var m in collObj.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                {
+                    if (m.Name != "Create" && m.Name != "Add") continue;
+                    var ps = m.GetParameters();
+                    if (ps.Length > 1) continue;
+                    try
+                    {
+                        clone = ps.Length == 0 ? m.Invoke(collObj, null)
+                              : m.Invoke(collObj, new object[] { CallMethod(ms, "NewKey", null, 0) });
+                        if (clone != null) { grantVia = "Permissions." + m.Name + "(" + ps.Length + " args)"; break; }
+                    }
+                    catch (Exception e) { tried.Add(m.Name + "/" + ps.Length + ": " + FirstMsg(e)); }
+                }
+                if (clone == null)
+                {
+                    var permType = FindType("ServiceStudio.Model.Permission");
+                    foreach (var ctor in permType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        var ps = ctor.GetParameters();
+                        object[] args = null;
+                        if (ps.Length == 0) args = new object[0];
+                        else if (ps.Length == 1 && ps[0].ParameterType.IsAssignableFrom(sc2.GetType())) args = new object[] { sc2 };
+                        else if (ps.Length == 2 && ps[0].ParameterType.IsAssignableFrom(sc2.GetType()) && ps[1].ParameterType == typeof(string)) args = new object[] { sc2, roleName };
+                        if (args == null) continue;
+                        try { clone = ctor.Invoke(args); grantVia = "ctor(" + ps.Length + ")"; break; }
+                        catch (Exception e) { tried.Add("ctor/" + ps.Length + ": " + FirstMsg(e)); }
+                    }
+                }
+                if (clone == null) throw new Exception("no way to create a Permission: " + string.Join(" | ", tried));
+            }
             try { SetProp(clone, "Role", role2); }
-            catch (Exception e) { throw new Exception("Role not settable on cloned Permission: " + FirstMsg(e)); }
-            return "granted role '" + roleName + "' on '" + screen + "' via Duplicate(Permission)+Role";
+            catch (Exception e)
+            {
+                // Role via the static _roleSetter delegate fallback.
+                bool okRole = false;
+                foreach (var t in AllTypes(clone.GetType()))
+                {
+                    var df = t.GetField("_roleSetter", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
+                    if (df != null)
+                    {
+                        try { (df.GetValue(null) as Delegate)?.DynamicInvoke(clone, role2); okRole = true; break; }
+                        catch (Exception e2) { throw new Exception("Role set failed (prop + delegate): " + FirstMsg(e) + " / " + FirstMsg(e2)); }
+                    }
+                }
+                if (!okRole) throw new Exception("Role not settable on cloned Permission: " + FirstMsg(e));
+            }
+            try { CallMethod(clone, "AddDependentPermissions", null, 0); } catch { }
+            // AddDependentPermissions can add a second Permission for the same role - dedupe so a
+            // grant never yields two entries for one role on one screen (UI-consistent).
+            int dedupeRemoved = 0; string dedupeErr = null;
+            try
+            {
+                var pc = GetProp(sc2, "Permissions") as IEnumerable;
+                if (pc != null)
+                {
+                    var seen = new HashSet<string>();
+                    var extras = new List<object>();
+                    foreach (var p in pc)
+                    {
+                        string rn = null;
+                        try { var r = GetProp(p, "Role"); if (r != null) rn = GetProp(r, "Name") as string; } catch { }
+                        if (rn == null) continue;
+                        if (!seen.Add(rn)) extras.Add(p);
+                    }
+                    MethodInfo rm = null;
+                    foreach (var m in pc.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        if (m.Name != "Remove") continue;
+                        var ps = m.GetParameters();
+                        if (ps.Length != 1) continue;
+                        try { if (ps[0].ParameterType.IsAssignableFrom(extras.Count > 0 ? extras[0].GetType() : typeof(object))) { rm = m; break; } } catch { }
+                    }
+                    foreach (var p in extras)
+                    {
+                        try { if (rm != null) rm.Invoke(pc, new object[] { p }); else CallMethod(pc, "Remove", new object[] { p }, 1); dedupeRemoved++; }
+                        catch (Exception e) { dedupeErr = dedupeErr ?? FirstMsg(e); }
+                    }
+                }
+            }
+            catch (Exception e) { dedupeErr = "dedupe loop: " + FirstMsg(e); }
+            int permsAfter = 0;
+            var permColl2 = GetProp(sc2, "Permissions") as IEnumerable;
+            if (permColl2 != null) foreach (var p in permColl2) permsAfter++;
+            string grantedRole = null;
+            try { grantedRole = GetProp(GetProp(clone, "Role"), "Name") as string; } catch { }
+            if (grantedRole != roleName) throw new Exception("read-back mismatch: Permission.Role=" + (grantedRole ?? "null"));
+            return "granted role '" + roleName + "' on '" + screen + "' via " + grantVia + " (Permissions " + permsBefore + "->" + permsAfter + ") dedupeRemoved=" + dedupeRemoved + (dedupeErr != null ? " dedupeErr=" + dedupeErr : "");
         });
     }
 
-    // remove_screen_permission: remove Permission entries for a role by name. Undo unit.
+    // FindDupMethod: the IModelServices.Duplicate overload assignable from source's type.
+    static MethodInfo FindDupMethod(object ms, object source)
+    {
+        foreach (var m in ms.GetType().GetMethods())
+        {
+            if (m.Name != "Duplicate") continue;
+            var ps = m.GetParameters();
+            if (ps.Length != 2) continue;
+            if (ps[0].ParameterType.IsAssignableFrom(source.GetType())) return m;
+        }
+        throw new Exception("Duplicate method not found");
+    }
     static string RemoveScreenPermission(string module, string screen, string roleName)
     {
         if (string.IsNullOrEmpty(screen) || string.IsNullOrEmpty(roleName)) return Json(new { ok = false, error = "screen and roleName required" });
@@ -12614,6 +13871,36 @@ internal static class BridgeHost
         return result != null;
     }
 
+    // SafeGetProp: public AND non-public properties across base types + interfaces (GetProp
+    // only reads public instance). Used for diagnostic reads of guard state (e.g.
+    // HasOpenedActiveESpace). Never throws - returns null on any failure.
+    static object SafeGetProp(object obj, string name)
+    {
+        if (obj == null) return null;
+        try
+        {
+            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+            for (var t = obj.GetType(); t != null; t = t.BaseType)
+            {
+                var p = t.GetProperty(name, flags);
+                if (p != null && p.GetIndexParameters().Length == 0)
+                {
+                    try { return p.GetValue(obj, null); } catch { }
+                }
+            }
+            foreach (var iface in obj.GetType().GetInterfaces())
+            {
+                var p = iface.GetProperty(name, flags);
+                if (p != null && p.GetIndexParameters().Length == 0)
+                {
+                    try { return p.GetValue(obj, null); } catch { }
+                }
+            }
+        }
+        catch { }
+        return null;
+    }
+
     // Read a private backing field (e.g. _customStyle) across the whole type hierarchy.
     // Returns null if not found or unreadable.
     static string GetFieldStr(object obj, string name)
@@ -12915,11 +14202,37 @@ internal static class BridgeHost
                                 }
                                 catch (Exception e4)
                                 {
-                                    // Path 5: EXHAUSTIVE self-validating search. Try every constructor × every
-                                    // parent candidate; after each construction attempt Name+Add, then check
-                                    // the ServiceActions COUNT — first combo with count+1 wins. No guessing.
+                                    // Path 5: the WRITABLE ServiceAPIMethod ISSCollection - GetProp
+                                    // returns a ReadOnlySSCollectionAdapter; the writable collection
+                                    // lives in a private ESpace field. Scan fields and retry Create/Add.
                                     try
                                     {
+                                        foreach (var wColl in FindWritableCollections(es, "ServiceAPIMethod"))
+                                        {
+                                            Exception lastW = null;
+                                            foreach (var (methodName, args) in new (string, object[])[] {
+                                                ("Create", new object[] { actionName, key }),
+                                                ("Add", new object[] { actionName, key }) })
+                                            {
+                                                try
+                                                {
+                                                    created = CallMethod(wColl, methodName, args, args.Length);
+                                                    if (created != null) { via += "/writable-" + methodName; break; }
+                                                }
+                                                catch (Exception w2) { lastW = w2; }
+                                            }
+                                            if (created == null && lastW != null) throw lastW;
+                                            if (created != null) break;
+                                        }
+                                        if (created == null) throw new Exception("no writable ServiceAPIMethod collection");
+                                    }
+                                    catch (Exception eW)
+                                    {
+                                        // Path 6: EXHAUSTIVE self-validating search. Try every constructor × every
+                                        // parent candidate; after each construction attempt Name+Add, then check
+                                        // the ServiceActions COUNT — first combo with count+1 wins. No guessing.
+                                        try
+                                        {
                                         var t = FindType("ServiceStudio.Model.Flows+ServiceAPIMethod");
                                         if (t == null) throw new Exception("ServiceAPIMethod type not found");
                                         var msQ = ModelServices();
@@ -12992,7 +14305,8 @@ internal static class BridgeHost
                                         created = obj;
                                         via += "/exhaustive-create#" + ctorUsed;
                                     }
-                                    catch (Exception e5) { throw new Exception("all create paths failed: " + FirstMsg(e1) + " | " + FirstMsg(last) + " | " + FirstMsg(e4) + " | " + FirstMsg(e5)); }
+                                    catch (Exception e5) { throw new Exception("all create paths failed: " + FirstMsg(e1) + " | " + FirstMsg(last) + " | " + FirstMsg(e4) + " | writable: " + FirstMsg(eW) + " | " + FirstMsg(e5)); }
+                                    }
                                 }
                             }
                         }

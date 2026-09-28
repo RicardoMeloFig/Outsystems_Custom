@@ -18,15 +18,20 @@ live_get_verify_errors(...)                          # confirm no new errors
 - Check current roles: `live_debug_eSpace_collection_items(module, "Roles")`
   (+ `SystemRoles` for built-ins: Anonymous, Registered).
 
-## Pending: granting a role on a screen (IN PROGRESS)
+## Proven: granting a role on a screen (2026-09 close-out)
 
 - Screen `Permissions` holds `Permission` WRAPPERS, not Roles — `Permissions.Add(role)`
-  throws `ArgumentException` (proven). No `Create/CreatePermission/AddPermission`
-  factory found by name hunt (proven).
-- Next: `live_probe_collection(module, screen, "Permissions")` (deploy-6, coded —
-  needs UAC-approved DLL swap) → construct the wrapper precisely → extend
-  `set_screen_permissions` → prove `ScratchAdmin` on a scratch admin screen.
-- Until then: set `Public` + roles in SS manually (one dialog), everything else live.
+  throws `ArgumentException` (proven). `live_grant_screen_permission` works around it:
+  **`Duplicate(Permission)+Role`** (clone an existing Permission on this screen, or
+  from any other screen, then re-target Role via `SetProp`/`_roleSetter`), with a
+  ctor-hunt fallback.
+- **Proven on ZombieGame/Squad (SS 11.55.89):** `create_role` → `grant_screen_permission`
+  → read-back `[ProbeTmpRole, Registered]`. `AddDependentPermissions` ADDS a second
+  Permission for the same role (1→3); the bridge now **dedupes** (latest run:
+  `dedupeRemoved=1`, final = exactly one grant per role).
+- `live_read_screen_permissions` / `live_remove_screen_permission` round-trip cleanly
+  (removes all matching; verified `removed 1/1` → back to `[Registered]`).
+- Grant ONLY on Web/Reactive modules — Service/Library modules have no screens.
 
 ## Login / permission-denied patterns (convention)
 
@@ -43,4 +48,7 @@ live_get_verify_errors(...)                          # confirm no new errors
 
 ## Status
 - ✅ roles, Public flag, exceptions auto-created, collections inspectable.
-- ⚠️ Permission-grant wrapper — probe coded, deploy pending UAC approval.
+- ✅ permission-grant wrapper — PROVEN + dedupe-fixed (2026-09 close-out).
+- ⚠️ Cross-module clone (`live_clone_service_action_from`) NREs inside SS's
+  `ClipboardManager.DeserializeInto` — not a security tool, but same session result:
+  do not rely on it for security wiring.

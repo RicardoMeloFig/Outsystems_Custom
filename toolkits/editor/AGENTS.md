@@ -137,6 +137,7 @@ Modeled on the official OutSystems MCP conventions doc
 | Create a Server Action in the **open** module (live, no reload) | `live_create_server_action` |
 | Create a Client Action in the **open** module (live, no reload) | `live_create_client_action` |
 | Deep-clone a Service Action in the **open** module (exact copy, live) | `live_clone_service_action` |
+| Deep-clone a Server Action / Client Action in the **open** module (exact copy, live) | `live_clone_server_action`, `live_clone_client_action` |
 | Inspect a service action's flow graph (nodes/links, live, read-only) | `live_list_flow` |
 | Change an Assign value / add output / add Assign node / delete node (live, direct — no restart) | `live_set_assign_value`, `live_add_output_param`, `live_add_assign_node`, `live_delete_node` |
 | Add an input parameter (basic, entity, or structure type) | `live_add_input_param`, `live_add_entity_input` |
@@ -144,6 +145,8 @@ Modeled on the official OutSystems MCP conventions doc
 | Add a local variable to an action | `live_add_local_variable` |
 | List consumable elements in a producer module (live, read-only) | `live_list_consumable_elements` |
 | Consume elements from a producer into a consumer (live, all 15 types, single undo unit) | `live_consume_elements` |
+| Remove a module dependency (reference to a producer) live, undo unit | `live_remove_dependency` |
+| 1-Click Publish the OPEN module in-process (F5-equivalent, no UI automation) | `live_publish_module` (ok:false = async start; poll `live_debug_publish_state`), `live_debug_publish_surface` (surface probe) |
 | Add a 2nd assignment to an existing Assign node (multi-assignment) | `live_add_assignment_to_node` |
 | Set Exception=All Exceptions on an ErrorHandler node | `live_set_error_handler_exception` |
 | Auto-map ExecuteAction input arguments by name | `live_map_action_inputs` |
