@@ -251,6 +251,8 @@ internal static class BridgeHost
             case "set_connector_target": { var cni = root.GetProperty("nodeIndex").GetInt32(); var cti = root.GetProperty("targetIndex").GetInt32(); return SetConnectorTarget(GetStr(root, "module"), GetStr(root, "action"), cni, GetStr(root, "propName"), cti); }
             case "probe_block_members": return ProbeBlockMembers(GetStr(root, "module"), GetStr(root, "block"));
             case "add_event_to_block": return AddEventToBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "name"));
+            case "delete_block_client_action": return DeleteBlockClientAction(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "name"));
+            case "remove_event_from_block": return RemoveEventFromBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "name"));
             case "add_event_param_to_block": return AddEventParamToBlock(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "event"), GetStr(root, "name"), GetStr(root, "type"));
             case "set_block_handler": return SetBlockHandler(GetStr(root, "module"), GetStr(root, "block"), GetStr(root, "handler"), GetStr(root, "actionName"));
             case "set_screen_handler": return SetScreenHandler(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "handler"), GetStr(root, "actionName"));
@@ -2294,6 +2296,71 @@ internal static class BridgeHost
     // delete_screen_client_action: delete a SCREEN-level Client Action (ClientScreenActionFlow)
     // from a screen's own ClientActions collection. Module-level delete_action does NOT cover
     // these (they live on the screen, not es.ClientActions).
+    // delete_block_client_action: delete a client action that lives on a WEB BLOCK
+    // (module-level delete_action does not see block-owned actions). Same Delete()
+    // in-command pattern as DeleteScreenClientAction. Undo unit (Ctrl+Z).
+    static string DeleteBlockClientAction(string moduleName, string blockName, string actionName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var blk = FindBlock(es, blockName);
+        if (blk == null) return Json(new { ok = false, error = "web block not found: " + blockName });
+        object action = null;
+        var coll = GetProp(blk, "ClientActions") as IEnumerable;
+        if (coll != null)
+            foreach (var a in coll)
+                try { if ((GetProp(a, "Name") as string) == actionName) { action = a; break; } } catch { }
+        if (action == null) return Json(new { ok = false, error = "block client action not found: " + actionName });
+        string err = null;
+        Action mutate = () =>
+        {
+            try { CallMethod(action, "Delete", null, 0); }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = r.GetType().Name + ": " + r.Message; }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(GetContext(es));
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: delete block client action", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        return Json(new { ok = err == null, error = err, report = err == null ? "deleted block client action '" + actionName + "' on block '" + blockName + "'" : null });
+    }
+
+    // remove_event_from_block: delete a custom event (WebBlockCustomEvent) from a web
+    // block. Inverse of add_event_to_block. Same in-command Delete() pattern. Undo unit.
+    static string RemoveEventFromBlock(string moduleName, string blockName, string eventName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var blk = FindBlock(es, blockName);
+        if (blk == null) return Json(new { ok = false, error = "web block not found: " + blockName });
+        object evt = null;
+        var evts = GetProp(blk, "CustomEvents") as IEnumerable ?? GetProp(blk, "Events") as IEnumerable;
+        if (evts != null)
+            foreach (var v in evts)
+                try { if ((GetProp(v, "Name") as string) == eventName) { evt = v; break; } } catch { }
+        if (evt == null) return Json(new { ok = false, error = "block event not found: " + eventName });
+        string err = null;
+        Action mutate = () =>
+        {
+            try { CallMethod(evt, "Delete", null, 0); }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = r.GetType().Name + ": " + r.Message; }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(GetContext(es));
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: remove block event", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        return Json(new { ok = err == null, error = err, report = err == null ? "removed event '" + eventName + "' from block '" + blockName + "'" : null });
+    }
+
     static string DeleteScreenClientAction(string moduleName, string screenName, string actionName)
     {
         var es = FindEspace(moduleName);

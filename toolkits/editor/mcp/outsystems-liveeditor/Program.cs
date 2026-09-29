@@ -280,6 +280,26 @@ internal static class Program
                 ["required"] = new JsonArray { "consumer", "producer", "source", "name" } }
         },
         new JsonObject {
+            ["name"] = "live_delete_block_client_action",
+            ["description"] = "Delete a client action that lives on a WEB BLOCK in an OPEN module (module-level live_delete_action does not see block-owned actions). Real SS command, undo unit (Ctrl+Z). Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["block"] = Str("block", "Web block name (e.g. UserInfo)"),
+                    ["name"] = Str("name", "Client action name to delete") },
+                ["required"] = new JsonArray { "module", "block", "name" } }
+        },
+        new JsonObject {
+            ["name"] = "live_remove_event_from_block",
+            ["description"] = "Delete a custom event (WebBlockCustomEvent) from a web block in an OPEN module - inverse of live_add_event_to_block. Real SS command, undo unit (Ctrl+Z). Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["block"] = Str("block", "Web block name"),
+                    ["name"] = Str("name", "Event name to remove") },
+                ["required"] = new JsonArray { "module", "block", "name" } }
+        },
+        new JsonObject {
             ["name"] = "live_debug_object_prop_surface",
             ["description"] = "Read-only dump of a model object's settable surface for live_set_object_prop_deep: public properties (name/type/value/settable), private backing fields (_prop), static setter delegates (_propSetter) and property-grid descriptors (PropPropertyDescriptor). kind: entity|attribute|structure|structureattribute|timer|siteproperty|role (entity = parent entity name for attribute kinds).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2473,6 +2493,8 @@ internal static class Program
             "live_save_module" => Bridge.SaveModule(Arg("module")),
             "live_open_producer_module" => Bridge.OpenProducerModule(Arg("module"), Arg("reference")),
             "live_clone_service_action_from" => Bridge.CloneServiceActionFrom(Arg("consumer"), Arg("producer"), Arg("source"), Arg("name")),
+            "live_delete_block_client_action" => Bridge.DeleteBlockClientAction(Arg("module"), Arg("block"), Arg("name")),
+            "live_remove_event_from_block" => Bridge.RemoveEventFromBlock(Arg("module"), Arg("block"), Arg("name")),
             "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
             "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
             "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
@@ -2985,6 +3007,46 @@ internal static class Bridge
             var summary = ok == true
                 ? $"OK: cloned {kind} '{name}' -> '{createdName}' ({created}) in live module '{module}' via {via}. Count: {before} -> {after}. Undo unit (Ctrl+Z in SS removes it)."
                 : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string DeleteBlockClientAction(string module, string block, string name)
+    {
+        if (string.IsNullOrWhiteSpace(block)) return "ERROR: block is required";
+        if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"delete_block_client_action\",\"module\":\"" + Escape(module) + "\",\"block\":\"" + Escape(block) + "\",\"name\":\"" + Escape(name) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var report = j?["report"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? $"OK: {report}. Undo unit (Ctrl+Z in SS restores it)." : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string RemoveEventFromBlock(string module, string block, string name)
+    {
+        if (string.IsNullOrWhiteSpace(block)) return "ERROR: block is required";
+        if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"remove_event_from_block\",\"module\":\"" + Escape(module) + "\",\"block\":\"" + Escape(block) + "\",\"name\":\"" + Escape(name) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var report = j?["report"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? $"OK: {report}. Undo unit (Ctrl+Z in SS restores it)." : $"FAILED: {e}";
             return summary + "\n[bridge] " + resp;
         }
         catch { return resp; }

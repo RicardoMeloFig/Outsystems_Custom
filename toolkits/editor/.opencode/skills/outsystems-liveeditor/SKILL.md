@@ -852,8 +852,9 @@ Remaining / known limitations:
   4→5) + `add_raise_event_node` → `TriggerEvent` node created AND **bound to the typed
   `WebBlockCustomEvent` in the same command** (the crash-fix works: no auto-open
   "Select Event" modal, no deadlock); `list_flow` read-back shows `[0] ITriggerNode`.
-  Cleanup note: no block-client-action/event delete tools yet — in-memory test artifacts
-  vanish on close-without-save.
+  Cleanup: `delete_block_client_action` + `remove_event_from_block` (v31, **PROVEN**:
+  created `ProbeEvt2`+`ProbeBlockAction2` on block `UserInfo`, deleted both, read-back
+  shows the block's original 4 actions restored).
 - Timer schedule wiring UI — SS-manual by design (see `app-configuration`).
 - Screen permission grant on a **Service module** is impossible (no screens); test on
   Web/Reactive modules (ZombieGame).
