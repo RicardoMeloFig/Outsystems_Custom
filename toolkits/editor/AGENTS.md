@@ -138,6 +138,10 @@ Modeled on the official OutSystems MCP conventions doc
 | Create a Client Action in the **open** module (live, no reload) | `live_create_client_action` |
 | Deep-clone a Service Action in the **open** module (exact copy, live) | `live_clone_service_action` |
 | Deep-clone a Server Action / Client Action in the **open** module (exact copy, live) | `live_clone_server_action`, `live_clone_client_action` |
+| Generic same-module clone — entity / structure / any action (live) | `live_clone_element` (PROVEN; cross-module clone is platform-unreachable — use create+replay or UI copy-paste) |
+| Raise a block event from a block client action (live) | `live_add_event_to_block` + `live_create_block_client_action` + `live_add_raise_event_node` (typed binding, no modal); cleanup: `live_delete_block_client_action`, `live_remove_event_from_block` |
+| Upload an image / resource into the open module (live, no dialog) | `live_upload_image` (Web/Reactive modules only — Service modules forbid images), `live_upload_resource` |
+| Publish the open module in-process (no UI automation) | `live_publish_module` (also persists edits — publish saves first; `live_save_module` deadlocks, do not use) |
 | Inspect a service action's flow graph (nodes/links, live, read-only) | `live_list_flow` |
 | Change an Assign value / add output / add Assign node / delete node (live, direct — no restart) | `live_set_assign_value`, `live_add_output_param`, `live_add_assign_node`, `live_delete_node` |
 | Add an input parameter (basic, entity, or structure type) | `live_add_input_param`, `live_add_entity_input` |
