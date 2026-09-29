@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Xml;
 using System.Xml.Linq;
 using ServiceStudio.PluginAPI;
 
@@ -138,6 +139,7 @@ internal static class BridgeHost
             case "save_module": return SaveModule(GetStr(root, "module"));
             case "open_producer_module": return OpenProducerModule(GetStr(root, "module"), GetStr(root, "reference"));
             case "clone_service_action_from": return CloneServiceActionFrom(GetStr(root, "consumer"), GetStr(root, "producer"), GetStr(root, "source"), GetStr(root, "name"));
+            case "clone_element": return CloneElement(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "name"), GetStr(root, "newName"));
             case "debug_object_prop_surface": return DebugObjectPropSurface(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "entity"), GetStr(root, "name"));
             case "set_object_prop_deep": return SetObjectPropDeep(GetStr(root, "module"), GetStr(root, "kind"), GetStr(root, "entity"), GetStr(root, "name"), GetStr(root, "propName"), GetStr(root, "value"));
             case "upload_image": return UploadImage(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "base64Data"), GetStr(root, "description"));
@@ -1401,33 +1403,249 @@ internal static class BridgeHost
         }
         int before = CountProp(consumerEs, "ServiceActions");
         object created = null; string err = null; string via = null;
+        var diag = new List<string>();
+        var routeErrs = new List<string>();
+        // Paste targets: the model routes cross-espace Duplicate with the ESPACE as target
+        // (decompiled prs#miuspfqw::Duplicate -> DeserializeInto((IPasteTarget)target, ...)).
+        // NOTE: "ServiceActions" GetProp is a lazy OfType iterator, NOT the collection - never use it as target.
+        object pasteTarget = consumerEs;
+        diag.Add("pasteTarget=" + pasteTarget.GetType().Name + " isEspace=" + object.ReferenceEquals(pasteTarget, consumerEs));
         Action mutate = () =>
         {
             try
             {
+                // Route A: single Duplicate. Route B: many Duplicate. Route C: manual
+                // ClipboardManager.CopyToClipboard + DeserializeInto (the UI's own path).
                 try
                 {
-                    var dup = dupMethod.Invoke(ms, new object[] { source, consumerEs });
+                    var dup = dupMethod.Invoke(ms, new object[] { source, pasteTarget });
                     try { SetProp(dup, "Name", newName); } catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "rename: " + r.GetType().Name + ": " + r.Message; }
                     created = dup;
-                    via = "Duplicate(producer.ServiceAction, consumerEs)->rename";
+                    via = "Duplicate(producer.ServiceAction, ServiceActions->rename";
+                    return;
                 }
-                catch (Exception eSingle)
+                catch (Exception eA) { routeErrs.Add("A: " + FullMsg(eA)); }
+                if (dupMany != null)
                 {
-                    var r = eSingle; while (r.InnerException != null) r = r.InnerException;
-                    if (dupMany == null) throw new Exception("single Duplicate: " + r.GetType().Name + ": " + r.Message, eSingle);
-                    var items = (IEnumerable)Activator.CreateInstance(typeof(List<>).MakeGenericType(source.GetType()));
-                    ((System.Collections.IList)items).Add(source);
-                    var dups = dupMany.Invoke(ms, new object[] { items, consumerEs });
-                    object dup = null;
-                    foreach (var o in (IEnumerable)dups) { dup = o; break; }
-                    if (dup == null) throw new Exception("many Duplicate returned no items: " + r.GetType().Name + ": " + r.Message, eSingle);
-                    try { SetProp(dup, "Name", newName); } catch (Exception e2) { var rr = e2; while (rr.InnerException != null) rr = rr.InnerException; err = "rename: " + rr.GetType().Name + ": " + rr.Message; }
-                    created = dup;
-                    via = "Duplicate([]producer.ServiceAction, consumerEs)->rename (fallback)";
+                    try
+                    {
+                        var items = (IEnumerable)Activator.CreateInstance(typeof(List<>).MakeGenericType(source.GetType()));
+                        ((System.Collections.IList)items).Add(source);
+                        var dups = dupMany.Invoke(ms, new object[] { items, pasteTarget });
+                        object dup = null;
+                        foreach (var o in (IEnumerable)dups) { dup = o; break; }
+                        if (dup == null) throw new Exception("many Duplicate returned no items");
+                        try { SetProp(dup, "Name", newName); } catch (Exception e2) { var rr = e2; while (rr.InnerException != null) rr = rr.InnerException; err = "rename: " + rr.GetType().Name + ": " + rr.Message; }
+                        created = dup;
+                        via = "Duplicate([]producer.ServiceAction, consumerEs)->rename (fallback)";
+                        return;
+                    }
+                    catch (Exception eB) { routeErrs.Add("B: " + FullMsg(eB)); }
                 }
+                // Route D: the EXACT recipe decompiled from prs#miuspfqw::Duplicate/Serialize/
+                // DeserializeInto - MockPresenter(MockAggregatorPresenter) + static
+                // ClipboardManager.Serialize(IEnumerable<AbstractObject>, IPresenter, CT) then
+                // DeserializeInto(bytes, (IPasteTarget)espace, espace, mockPresenter).
+                try
+                {
+                    var aoType = FindType("ServiceStudio.Model.AbstractObject");
+                    var aggCtorType = FindType("ServiceStudio.Presenter.Commands.MockAggregatorPresenter");
+                    var mockPType = FindType("ServiceStudio.Presenter.Commands.MockPresenter");
+                    var cm = FindType("ServiceStudio.CopyPaste.ClipboardManager");
+                    if (aoType != null && aggCtorType != null && mockPType != null && cm != null)
+                    {
+                        var listType = typeof(List<>).MakeGenericType(aoType);
+                        var aoList = (IEnumerable)Activator.CreateInstance(listType);
+                        ((System.Collections.IList)aoList).Add(source);
+                        ConstructorInfo aggCtor = null;
+                        try { aggCtor = aggCtorType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).OrderBy(c => c.GetParameters().Length).FirstOrDefault(); } catch { }
+                        object mockAgg = null, mockP = null;
+                        object realProvider = null;
+                        try { realProvider = SafeGetProp(agg, "ServerCommunicationsProvider"); } catch { }
+                        try
+                        {
+                            if (aggCtor != null)
+                            {
+                                var ps = aggCtor.GetParameters();
+                                var args = new object[ps.Length];
+                                for (int ai = 0; ai < ps.Length; ai++)
+                                {
+                                    var pt = StripNullable(ps[ai].ParameterType);
+                                    if (ps[ai].ParameterType.Name.Contains("ServerCommunicationsProvider") && realProvider != null) { args[ai] = realProvider; continue; }
+                                    if (ps[ai].ParameterType.Name.Contains("ESpace") && ps[ai].Name == "activeESpace") { args[ai] = consumerEs; continue; }
+                                    if (pt.IsValueType) args[ai] = Activator.CreateInstance(pt);
+                                    else args[ai] = null;
+                                    if (ps[ai].Name == "registerAsStaticInstance") args[ai] = false;
+                                }
+                                mockAgg = aggCtor.Invoke(args);
+                            }
+                        }
+                        catch (Exception eCtor) { routeErrs.Add("D-ctor: " + FirstMsg(eCtor)); }
+                        if (mockAgg != null)
+                        {
+                            ConstructorInfo mockCtor = null;
+                            try
+                            {
+                                foreach (var c in mockPType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                                {
+                                    var ps = c.GetParameters();
+                                    if (ps.Length != 1) continue;
+                                    try { if (ps[0].ParameterType.IsInstanceOfType(mockAgg)) { mockCtor = c; break; } } catch { }
+                                }
+                            }
+                            catch { }
+                            if (mockCtor == null)
+                                try { mockCtor = mockPType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).FirstOrDefault(c => c.GetParameters().Length == 1); } catch { }
+                            if (mockCtor != null) mockP = mockCtor.Invoke(new object[] { mockAgg });
+                        }
+                        MethodInfo ser = null, deser = null;
+                        foreach (var m in cm.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+                        {
+                            if (m.Name == "Serialize" && m.GetParameters().Length == 3) ser = m;
+                            if (m.Name == "DeserializeInto" && m.GetParameters().Length == 4) deser = m;
+                        }
+                        diag.Add("D: aggType=" + (aggCtorType?.FullName ?? "null") + " aggCtorFound=" + (aggCtor != null) + " mockAgg=" + (mockAgg != null) + " mockP=" + (mockP != null) + " mockAss=" + (mockPType?.FullName ?? "null"));
+                        if (ser != null && deser != null && mockP != null)
+                        {
+                            // Serialize with the REAL aggregator presenter (UI behaviour:
+                            // SourceSelection needs a real presenter to emit objects), then
+                            // deserialize with the mocks (all paste gates pass there).
+                            object serializePresenter = agg;
+                            if (!(agg is object)) serializePresenter = mockP;
+                            byte[] bytes = ser.Invoke(null, new object[] { aoList, serializePresenter, CancellationToken.None }) as byte[];
+                            var consumerCode = SafeGetProp(consumerEs, "ActivationCode") as string;
+                            var producerCode = SafeGetProp(producerEs, "ActivationCode") as string;
+                            var patched = false;
+                            if (string.IsNullOrEmpty(consumerCode) || consumerCode != producerCode)
+                            {
+                                bytes = PatchActivationCode(bytes, consumerCode);
+                                patched = true;
+                            }
+                            diag.Add("D: patched=" + patched + " consumerCode=" + (consumerCode ?? "<null>") + " producerCode=" + (producerCode ?? "<null>"));
+                            string patchedAttr = "?";
+                            try
+                            {
+                                var omlType2 = FindType("OutSystems.Model.Implementation.Oml.Oml");
+                                var rm2 = omlType2.GetMethod("CreateXmlReader", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+                                using (var ms2 = new MemoryStream(bytes))
+                                using (var rd2 = (XmlReader)rm2.Invoke(null, new object[] { ms2 }))
+                                {
+                                    var doc2 = XDocument.Load(rd2);
+                                    patchedAttr = (doc2.Root?.Attribute("ActivationCode")?.Value ?? "<none>") + " root=" + (doc2.Root?.Name.LocalName ?? "?");
+                                }
+                            }
+                            catch (Exception ep) { patchedAttr = "decode-err:" + FirstMsg(ep); }
+                            diag.Add("D: patchedAttr=" + patchedAttr + " patchedBytes=" + (bytes != null ? bytes.Length : -1) + " realProvider=" + (realProvider != null));
+                            diag.Add("D: consumerAC=" + (SafeGetProp(consumerEs, "ActivationCode") as string) + " producerAC=" + (SafeGetProp(producerEs, "ActivationCode") as string));
+                            try
+                            {
+                                var licType = FindType("ServiceStudio.ServerCommunications.ServerLicensingInfo");
+                                var licMethod = licType?.GetMethod("CheckLocalForeignCodes", BindingFlags.Public | BindingFlags.Static);
+                                var ctType = FindType("ServiceStudio.ServerCommunications.ServerLicensingInfoCheckType");
+                                object checkType = ctType != null ? Enum.Parse(ctType, "CopyPaste") : null;
+                                if (licMethod != null && checkType != null)
+                                {
+                                    var licRes = licMethod.Invoke(null, new object[] { mockAgg, SafeGetProp(consumerEs, "ActivationCode"), patchedAttr.Split(' ')[0], checkType, consumerEs });
+                                    diag.Add("D: lic=" + licRes);
+                                }
+                                else diag.Add("D: lic-missing licM=" + (licMethod != null) + " ct=" + (checkType != null));
+                            }
+                            catch (Exception el) { diag.Add("D: lic-err=" + FirstMsg(el)); }
+                            if (bytes != null && bytes.Length > 0)
+                            {
+                                try
+                                {
+                                    var forM = cm.GetMethod("For", BindingFlags.NonPublic | BindingFlags.Static);
+                                    object mgr = forM?.Invoke(null, new object[] { bytes });
+                                    if (mgr != null)
+                                    {
+                                        MethodInfo canM = null;
+                                        foreach (var m in mgr.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                                            if (m.Name == "CanPasteObjectsInto" && (m.GetParameters().Length == 2 || m.GetParameters().Length == 3)) { canM = m; break; }
+                                        if (canM == null)
+                                            foreach (var m in mgr.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                                                if (m.Name == "CanPasteObjectsInto" && m.GetParameters().Length == 3) { canM = m; break; }
+                                        if (canM != null)
+                                        {
+                                            var canArgs = new object[] { consumerEs, mockP, null };
+                                            var canRes = canM.Invoke(mgr, canArgs);
+                                            diag.Add("D: canPaste=" + canRes + " usesConv=" + (canArgs[2]?.ToString() ?? "null"));
+                                        }
+                                        else diag.Add("D: CanPasteObjectsInto not found");
+                                    }
+                                    else diag.Add("D: For returned null");
+                                }
+                                catch (Exception ecp) { diag.Add("D: canPaste-err=" + FirstMsg(ecp)); }
+                                var objs = deser.Invoke(null, new object[] { bytes, consumerEs, null, mockP }) as IEnumerable;
+                                object dup = null; foreach (var o in objs) { dup = o; break; }
+                                if (dup != null)
+                                {
+                                    try { SetProp(dup, "Name", newName); } catch (Exception e2) { var rr = e2; while (rr.InnerException != null) rr = rr.InnerException; err = "rename: " + rr.GetType().Name + ": " + rr.Message; }
+                                    created = dup;
+                                    via = "clipboard.Serialize+DeserializeInto(MockPresenter) [UI recipe]";
+                                    return;
+                                }
+                                routeErrs.Add("D: deserialize returned no objects");
+                            }
+                            else routeErrs.Add("D: serialize returned " + (bytes?.Length ?? -1).ToString() + " bytes");
+                        }
+                        else routeErrs.Add("D: missing methods ser=" + (ser != null) + " deser=" + (deser != null) + " mockP=" + (mockP != null));
+                    }
+                    else routeErrs.Add("D: type missing ao=" + (aoType != null) + " agg=" + (aggCtorType != null) + " mock=" + (mockPType != null) + " cm=" + (cm != null));
+                }
+                catch (Exception eD2) { routeErrs.Add("D: " + FullMsg(eD2)); }
+                // Route C: the UI's own copy->paste against the consumer aggs.
+                try
+                {
+                    var cm = FindType("ServiceStudio.CopyPaste.ClipboardManager");
+                    var copyM = cm.GetMethod("CopyToClipboard", BindingFlags.Public | BindingFlags.Static);
+                    var pasteM = cm.GetMethod("DeserializeInto", BindingFlags.Public | BindingFlags.Static);
+                    var rt = FindType("ServiceStudio.Runtime") ?? FindType("ServiceStudio.RuntimeCommon.Runtime");
+                    object aggP = null;
+                    bool aggIsPresenter = false;
+                    try { foreach (var i in agg.GetType().GetInterfaces()) if (i.Name == "IPresenter") { aggIsPresenter = true; break; } } catch { }
+                    try { aggP = GetProp(agg, "Presenter"); } catch { }
+                    if (aggP == null && aggIsPresenter) aggP = agg;
+                    diag.Add("aggIsIPresenter=" + aggIsPresenter + " aggPresenter=" + (aggP == null ? "null" : aggP.GetType().Name));
+                    if (copyM != null && pasteM != null && aggP != null)
+                    {
+                        var aoType = FindType("ServiceStudio.Model.AbstractObject");
+                        var listType = typeof(List<>).MakeGenericType(aoType ?? source.GetType());
+                        var items = (IEnumerable)Activator.CreateInstance(listType);
+                        ((System.Collections.IList)items).Add(source);
+                        copyM.Invoke(null, new object[] { items, aggP, CancellationToken.None });
+                        byte[] bytes = null;
+                        if (rt != null)
+                        {
+                            var gi = rt.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+                            object inst = gi?.GetValue(null, null);
+                            if (inst != null)
+                            {
+                                var gcm = inst.GetType().GetMethod("GetClipboardOmlData", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                                if (gcm != null) bytes = gcm.Invoke(inst, null) as byte[];
+                            }
+                        }
+                        if (bytes != null)
+                        {
+                            bytes = PatchActivationCode(bytes, SafeGetProp(consumerEs, "ActivationCode") as string);
+                            var objs = pasteM.Invoke(null, new object[] { bytes, pasteTarget, null, aggP }) as IEnumerable;
+                            object dup = null; foreach (var o in objs) { dup = o; break; }
+                            if (dup != null)
+                            {
+                                try { SetProp(dup, "Name", newName); } catch (Exception e2) { var rr = e2; while (rr.InnerException != null) rr = rr.InnerException; err = "rename: " + rr.GetType().Name + ": " + rr.Message; }
+                                created = dup;
+                                via = "ClipboardManager.CopyToClipboard+DeserializeInto (UI path)";
+                                return;
+                            }
+                            routeErrs.Add("C: paste returned no objects");
+                        }
+                        else routeErrs.Add("C: GetClipboardOmlData null");
+                    }
+                    else routeErrs.Add("C: missing methods/presenter copy=" + (copyM != null) + " paste=" + (pasteM != null) + " aggP=" + (aggP != null));
+                }
+                catch (Exception eC) { routeErrs.Add("C: " + FullMsg(eC)); }
             }
-            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "mutate: " + r.GetType().Name + ": " + r.Message + " | " + (r.StackTrace != null ? r.StackTrace.Split('\n')[0].Trim() : ""); }
+            catch (Exception e) { err = "mutate: " + e.ToString().Replace("\r", " ").Replace("\n", " | "); }
         };
         try
         {
@@ -1439,6 +1657,124 @@ internal static class BridgeHost
         }
         catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
         int after = CountProp(consumerEs, "ServiceActions");
+        try
+        {
+            var cmdSvcsField = ms.GetType().GetField("commandServicesInstance", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            object cmdSvcs = cmdSvcsField?.GetValue(ms);
+            diag.Add("commandServices=" + (cmdSvcs == null ? "null" : cmdSvcs.GetType().FullName));
+            object pv = null; bool hasP = false;
+            try { hasP = TryGetProp(agg, "Presenter", out pv); } catch { }
+            diag.Add("agg=" + agg.GetType().FullName + " hasPresenterProp=" + hasP + " presenter=" + (pv == null ? "null" : pv.GetType().Name));
+            diag.Add("routes=" + string.Join(" ; ", routeErrs));
+        }
+        catch (Exception eD) { diag.Add("diag: " + FirstMsg(eD)); }
+        return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), before = before, after = after, error = err, diag = diag });
+    }
+
+    // PatchActivationCode: the clipboard XML carries the PRODUCER's ActivationCode;
+    // IPPCanPaste -> ServerLicensingInfo.CheckLocalForeignCodes blocks foreign codes
+    // (the UI's "copied from another environment" dialog). Rewrite the attribute to the
+    // consumer's code so the model API path pastes like a same-environment copy.
+    static byte[] PatchActivationCode(byte[] bytes, string code)
+    {
+        try
+        {
+            var omlType = FindType("OutSystems.Model.Implementation.Oml.Oml");
+            if (omlType == null) return bytes;
+            var rm = omlType.GetMethod("CreateXmlReader", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            var wm = omlType.GetMethod("CreateXmlWriter", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (rm == null || wm == null) return bytes;
+            XDocument doc;
+            using (var msIn = new MemoryStream(bytes))
+            using (var reader = (XmlReader)rm.Invoke(null, new object[] { msIn }))
+            {
+                doc = XDocument.Load(reader);
+            }
+            if (doc.Root == null) return bytes;
+            var att = doc.Root.Attribute("ActivationCode");
+            if (att == null) { att = new XAttribute("ActivationCode", ""); doc.Root.Add(att); }
+            att.Value = code ?? "";
+            using (var msOut = new MemoryStream())
+            {
+                using (var writer = (XmlWriter)wm.Invoke(null, new object[] { msOut }))
+                {
+                    doc.Save(writer);
+                    writer.Flush();
+                }
+                return msOut.ToArray();
+            }
+        }
+        catch { return bytes; }
+    }
+
+    // FullMsg: deepest exception plus up to 3 stack frames for diagnostics.
+    static string FullMsg(Exception e)
+    {
+        var r = e;
+        while (r.InnerException != null) r = r.InnerException;
+        var sb = new StringBuilder();
+        sb.Append(r.GetType().Name).Append(": ").Append(r.Message);
+        if (r.StackTrace != null)
+        {
+            foreach (var line in r.StackTrace.Split('\n'))
+            {
+                if (line.Trim().StartsWith("at ")) { sb.Append(" | ").Append(line.Trim()); }
+            }
+        }
+        return sb.ToString();
+    }
+
+    // clone_element: same-module generic clone of a model element (entity / structure /
+    // serviceaction / serveraction / clientaction) via IModelServices.Duplicate + rename.
+    static string CloneElement(string moduleName, string kind, string name, string newName)
+    {
+        var es = FindEspace(moduleName);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + moduleName });
+        var ms = ModelServices();
+        if (ms == null) return Json(new { ok = false, error = "ModelServices is null" });
+        object source = null; string collUsed = null;
+        switch ((kind ?? "").ToLowerInvariant())
+        {
+            case "serviceaction": case "service_action": case "service":
+                source = FindServiceAction(es, name); collUsed = "ServiceActions"; break;
+            case "serveraction": case "server":
+                foreach (var cn in new[] { "UserActions", "ServerActions" }) { source = FindActionInCollection(es, cn, name); if (source != null) { collUsed = cn; break; } }
+                break;
+            case "clientaction": case "client":
+                source = FindActionInCollection(es, "ClientActions", name); collUsed = "ClientActions"; break;
+            case "entity": source = FindEntity(es, name); collUsed = "Entities"; break;
+            case "structure": source = FindModelObject(es, "structure", null, name); collUsed = "Structures"; break;
+            default: return Json(new { ok = false, error = "unknown kind: " + kind + " (entity|structure|serviceaction|serveraction|clientaction)" });
+        }
+        if (source == null) return Json(new { ok = false, error = kind + " not found: " + name });
+        var agg = GetContext(es);
+        if (agg == null) return Json(new { ok = false, error = "aggregator (GetContext) is null" });
+        int before = CountProp(es, collUsed);
+        MethodInfo dupMethod = null;
+        try { dupMethod = FindDupMethod(ms, source); }
+        catch (Exception e) { return Json(new { ok = false, error = "Duplicate method not found for " + source.GetType().Name + ": " + FirstMsg(e) }); }
+        object created = null; string err = null; string via = null;
+        Action mutate = () =>
+        {
+            try
+            {
+                var dup = dupMethod.Invoke(ms, new object[] { source, es });
+                try { SetProp(dup, "Name", newName); } catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "rename: " + r.GetType().Name + ": " + r.Message; }
+                created = dup;
+                via = "Duplicate(" + name + ",es)->rename";
+            }
+            catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = "mutate: " + r.ToString().Replace("\r", " ").Replace("\n", " | "); }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(agg);
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: clone " + kind, mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        int after = CountProp(es, collUsed);
         return Json(new { ok = created != null, via = via, createdType = created?.GetType().FullName, createdName = GetProp(created, "Name"), before = before, after = after, error = err });
     }
 

@@ -139,12 +139,24 @@ immediately as an undo unit (`Ctrl+Z`). Proven: cloned `SourceAction`→`ClonedA
 in `MyModule` (1→2 actions; ClrMD `get_action_detail` confirmed identical public flag +
 params + output). Use this to replicate an action exactly, no UI.
 
-> ⚠ **Same-module only.** `live_clone_service_action_from` (cross-module) invokes
-> `Duplicate(producerAction, consumerEspace)` but **SS's model routes cross-espace
-> duplicates through `CopyPaste.ClipboardManager.DeserializeInto`, which throws
-> `NullReferenceException` on 11.55.89** regardless of producer/consumer pairing
-> (proven CS→ZG and BL→ZG). Until that NRE is researched, cross-module clone =
-> `live_create_service_action` + replay the flow, or UI copy-paste.
+> ⚠ **Same-module only — cross-module is platform-unreachable (proven 2026-09-29, SS 11.55.89).**
+> `live_clone_service_action_from` was exhaustively investigated: the model routes
+> cross-espace duplicates through `CopyPaste.ClipboardManager`
+> (`prs#miuspfqw.Duplicate` → `Serialize(list)` → `DeserializeInto`), and that path
+> **always returns `null` → NRE at `.Objects`**, including when every gate passes:
+> - licensing `CheckLocalForeignCodes` **= true** (equal activation codes + real
+>   `ServerCommunicationsProvider` fed into a `MockAggregatorPresenter`);
+> - `MockPresenter(MockAggregatorPresenter{ActiveESpace=consumer})` constructed
+>   (6-param optional ctor, explicit defaults, `registerAsStaticInstance=false`);
+> - serialization with the **real** AggregatorPresenter (SourceSelection needs one).
+>
+> The root: `GetCommandResult` returns null because the deserializer parents nothing
+> under the espace — and the model's OWN `ms.Duplicate` fails identically, so **no SS
+> code path uses this for cross-module clones**; the UI uses tree-node Copy/Paste
+> commands (real presenters + selection) which is not reproducible headlessly.
+> Workarounds: same-module `live_clone_element` + `live_create_service_action` (replay
+> the flow), or UI copy-paste. `clone_element` (same-module entity/structure/action)
+> is **proven** (Wave→ProbeCloneE, 8→9 verified).
 
 
 ## Screens, widgets & buttons (live)
@@ -824,9 +836,11 @@ client actions can be created and flow-edited (all `live_*` flow tools work on a
   (correct no-op).
 
 Remaining / known limitations:
-- `live_clone_service_action_from` (cross-module) — **SS-internal NRE** in
-  `CopyPaste.ClipboardManager.DeserializeInto` (11.55.89); use same-module
-  `live_clone_service_action` or create+replay.
+- `live_clone_service_action_from` (cross-module) ? **platform-unreachable**: every
+  gate passes (licensing=true, mocks+real provider, real-presenter serialization) but
+  `PasteObjectsInto` parents nothing ? `GetCommandResult` null ? model
+  `ms.Duplicate` fails identically (see note above). Use same-module
+  `live_clone_element`/`live_clone_service_action` or create+replay.
 - `live_save_module` — **deadlock**: Save is synchronously UI-bound; the pipe hangs
   even stringing the UI dispatcher. Use `live_publish_module` (publishes save first).
 - `live_clone_entity` / `live_clone_structure` / `live_clone_element` — not built.

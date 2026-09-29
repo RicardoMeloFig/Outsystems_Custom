@@ -102,6 +102,17 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "sourceName", "newName" } }
         },
         new JsonObject {
+            ["name"] = "live_clone_element",
+            ["description"] = "Deep-clone a model element in an OPEN module into a new one (exact copy: attributes/params/flow/metadata) via IModelServices.Duplicate inside a real SS command. Same-module only. kind = entity | structure | serviceaction | serveraction | clientaction. The clone gets a fresh key and is renamed; it lands in the LIVE tree immediately as an undo unit (Ctrl+Z). Use to derive a second entity/structure or replicate an action pattern instead of replaying node-by-node construction. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name (e.g. MyModule)"),
+                    ["kind"] = Str("kind", "Element kind: entity, structure, serviceaction, serveraction, clientaction"),
+                    ["name"] = Str("name", "Existing element to clone"),
+                    ["newName"] = Str("newName", "Name for the cloned element") },
+                ["required"] = new JsonArray { "module", "kind", "name", "newName" } }
+        },
+        new JsonObject {
             ["name"] = "live_clone_server_action",
             ["description"] = "Deep-clone an existing Server Action in an OPEN module into a new one (exact copy: parameters, flow, metadata) via IModelServices.Duplicate inside a real SS command. The clone gets a fresh key and is renamed; it lands in the LIVE tree immediately and is an undo unit (Ctrl+Z). Same mechanism as live_clone_service_action, generalized to server actions. Requires SS running with OsLiveBridge and the module open.",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2446,6 +2457,7 @@ internal static class Program
             "live_create_client_action" => Bridge.CreateClientAction(Arg("module"), Arg("name")),
             "live_create_screen_client_action" => Bridge.CreateScreenClientAction(Arg("module"), Arg("screen"), Arg("name")),
             "live_clone_service_action" => Bridge.CloneServiceAction(Arg("module"), Arg("sourceName"), Arg("newName")),
+            "live_clone_element" => Bridge.CloneElement(Arg("module"), Arg("kind"), Arg("name"), Arg("newName")),
             "live_clone_server_action" => Bridge.CloneServerAction(Arg("module"), Arg("sourceName"), Arg("newName")),
             "live_clone_client_action" => Bridge.CloneClientAction(Arg("module"), Arg("sourceName"), Arg("newName")),
             "live_list_flow" => Bridge.ListFlow(Arg("module"), Arg("action")),
@@ -2945,6 +2957,33 @@ internal static class Bridge
             var e = j?["error"]?.GetValue<string>();
             var summary = ok == true
                 ? $"OK: cloned '{sourceName}' -> '{createdName}' ({created}) in live module '{module}' via {via}. Service actions: {before} -> {after}. Exact copy; undo unit (Ctrl+Z in SS removes it)."
+                : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string CloneElement(string module, string kind, string name, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(kind)) return "ERROR: kind is required";
+        if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
+        if (string.IsNullOrWhiteSpace(newName)) return "ERROR: newName is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"clone_element\",\"module\":\"" + Escape(module) + "\",\"kind\":\"" + Escape(kind) + "\",\"name\":\"" + Escape(name) + "\",\"newName\":\"" + Escape(newName) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var via = j?["via"]?.GetValue<string>();
+            var created = j?["createdType"]?.GetValue<string>();
+            var createdName = j?["createdName"]?.GetValue<string>();
+            var before = j?["before"]?.GetValue<int>();
+            var after = j?["after"]?.GetValue<int>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true
+                ? $"OK: cloned {kind} '{name}' -> '{createdName}' ({created}) in live module '{module}' via {via}. Count: {before} -> {after}. Undo unit (Ctrl+Z in SS removes it)."
                 : $"FAILED: {e}";
             return summary + "\n[bridge] " + resp;
         }
