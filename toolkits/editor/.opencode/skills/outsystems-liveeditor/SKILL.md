@@ -5,7 +5,7 @@ description: Use when the user wants to edit an OutSystems module that is OPEN i
 
 # outsystems-liveeditor (live in-process editor MCP)
 
-One MCP server, 215 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
+One MCP server, 227 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
 `.oml` **files** with no SS running), this server talks to the **OsLiveBridge plugin
 loaded inside a running Service Studio** over a named pipe (`OsLiveBridge-<SSpid>`).
 Mutations land in the open module's live tree **immediately** (no Save/edit/reload)
@@ -15,7 +15,7 @@ via the SS command system (`Command.ExecuteFromAsyncCode` → `UndoManager`).
 `Command.Execute` is the opener and `ExecuteInContext` is not), `PresenterContext`,
 and the bridge.
 
-## Tool inventory (215 `live_*` tools, by area)
+## Tool inventory (227 `live_*` tools, by area)
 
 Counts are generated from the MCP server's `tools/list` (source of truth:
 `mcp/outsystems-liveeditor/Program.cs`). Each tool's full description is in the
@@ -35,6 +35,7 @@ MCP schema; representative names below, `…` = more in the same family.
 | Security & config | 8 | `live_create_role`, `live_set_screen_permissions`, `live_read_screen_permissions`, `live_grant_screen_permission`, `live_remove_screen_permission`, `live_create_site_property`, `live_create_timer`, `live_set_timer_action` |
 | Verification | 1+ | `live_get_verify_errors` (the inner loop), `live_debug_publish_surface` (publish API surface probe) |
 | Publish (in-process) | 2 | `live_publish_module` (F5-equivalent, no UI automation; `ok:false` = async start, poll `live_debug_publish_state`), `live_debug_publish_state` (process monitor) |
+| Files, props & generic ops | 12 | `live_upload_image` (Web/Reactive modules only — Service modules forbid images by design), `live_upload_resource`, `live_set_object_prop_deep` (auto-Id, DefaultValue, timer Schedule/Timeout/Priority), `live_debug_object_prop_surface`, `live_delete_structure`, `live_remove_unused_dependencies`, `live_save_module` (DEADLOCK — use publish), `live_open_producer_module`, `live_clone_service_action_from` (cross-module: platform-unreachable, diagnostics only), `live_clone_element` (PROVEN: same-module entity/structure/action), `live_delete_block_client_action`, `live_remove_event_from_block` |
 
 ## PREFER LIVE FIRST
 **If the target module is OPEN in Service Studio, always use the live editor
