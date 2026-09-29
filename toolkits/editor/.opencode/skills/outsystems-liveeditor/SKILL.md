@@ -843,7 +843,7 @@ Remaining / known limitations:
   `live_clone_element`/`live_clone_service_action` or create+replay.
 - `live_save_module` — **deadlock**: Save is synchronously UI-bound; the pipe hangs
   even stringing the UI dispatcher. Use `live_publish_module` (publishes save first).
-- `live_clone_entity` / `live_clone_structure` / `live_clone_element` — not built.
+- `live_clone_entity` / `live_clone_structure` — not built (generic `live_clone_element` IS built & PROVEN: same-module entity/structure/action via `IModelServices.Duplicate`+rename; verified `Wave`→`ProbeCloneE`, entities 8→9 on ZombieGame_CS; MCP tool `live_clone_element(module, kind, name, newName)`, kind ∈ entity|structure|serviceaction|serveraction|clientaction).
 - Raise Event node tool exists (`live_add_raise_event_node`); not re-proven this session.
 - Timer schedule wiring UI — SS-manual by design (see `app-configuration`).
 - Screen permission grant on a **Service module** is impossible (no screens); test on

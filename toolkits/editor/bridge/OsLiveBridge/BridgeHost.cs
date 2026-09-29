@@ -1567,9 +1567,22 @@ internal static class BridgeHost
                                                 if (m.Name == "CanPasteObjectsInto" && m.GetParameters().Length == 3) { canM = m; break; }
                                         if (canM != null)
                                         {
-                                            var canArgs = new object[] { consumerEs, mockP, null };
+                                            var canArgs = new object[] { consumerEs, mockP, false };
                                             var canRes = canM.Invoke(mgr, canArgs);
                                             diag.Add("D: canPaste=" + canRes + " usesConv=" + (canArgs[2]?.ToString() ?? "null"));
+                                            try
+                                            {
+                                                var cik = consumerEs.GetType().GetMethod("CanImportKind", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                                                if (cik != null)
+                                                {
+                                                    var kindObj = SafeGetProp(source, "AbstractObjectKind");
+                                                    var cikArgs = new object[] { kindObj, null, null };
+                                                    var cikRes = cik.Invoke(consumerEs, cikArgs);
+                                                    diag.Add("D: CanImportKind=" + cikRes + " kind=" + (kindObj?.GetType().Name ?? "null"));
+                                                }
+                                                else diag.Add("D: CanImportKind method not found");
+                                            }
+                                            catch (Exception ecik) { diag.Add("D: CanImportKind-err=" + FirstMsg(ecik)); }
                                         }
                                         else diag.Add("D: CanPasteObjectsInto not found");
                                     }

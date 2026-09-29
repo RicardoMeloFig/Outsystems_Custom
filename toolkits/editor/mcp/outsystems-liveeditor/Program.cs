@@ -270,7 +270,7 @@ internal static class Program
         },
         new JsonObject {
             ["name"] = "live_clone_service_action_from",
-            ["description"] = "Create a REAL local Service Action in the consumer by deep-cloning one from an OPEN producer module (consume + IModelServices.Duplicate - the SS copy/paste mechanism). This is the WORKING path to create service actions from scratch (direct creation is blocked by SS 11.55.83 platform validation): keep a template service action in a scratch producer module and instantiate it anywhere. Exact copy, fresh key, renamed, undo unit.",
+            ["description"] = "Create a REAL local Service Action in the consumer by deep-cloning one from an OPEN producer module (consume + IModelServices.Duplicate - the SS copy/paste mechanism). NOTE (proven 2026-09-29, SS 11.55.89): the cross-module paste pipeline is PLATFORM-UNREACHABLE headlessly - every gate passes (licensing, mocks, serialization) but SS's FirstPassDeserializer parents nothing, so this route NREs. WORKING ALTERNATIVES: same-module live_clone_service_action / live_clone_element (proven), or live_create_service_action (proven), or UI copy-paste. Kept for diagnostics (extra: diag array reports gate states).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
                 ["properties"] = new JsonObject {
                     ["consumer"] = Str("consumer", "Consumer module (gets the new service action)"),
