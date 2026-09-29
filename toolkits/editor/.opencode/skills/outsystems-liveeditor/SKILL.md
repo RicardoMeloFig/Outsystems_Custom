@@ -264,11 +264,14 @@ expression. `live_add_widget_to_block` (and `CreateWidgetByKind`) try
   (`live_list_flow`, assigns, etc.) address a handler's flow directly (e.g.
   `live_list_flow(action="OnParametersChanged")`).
 
-> ⚠ KNOWN LIMITATION: creating flow NODES **inside a lifecycle child's flow** and creating a
-> "Raise Event" node is NOT safely toolable on this build — `CreateNode<ITriggerNode>` and
-> node-creation on `NREvents.*` children **deadlock the bridge pipe** (must restart SS to
-> unstick; the pipe is single-instance). The `live_add_raise_event_node` tool only contains
-> fail-fast candidate interfaces (never `ITriggerNode`), so it errors cleanly instead of hanging.
+> ⚠ PARTIAL LIMITATION: creating flow NODES **inside a lifecycle child's flow**
+> (`NREvents.*` children like `OnParametersChanged`) can **deadlock the bridge pipe**
+> (must restart SS to unstick; the pipe is single-instance) — avoid node creation there.
+> **A "Raise Event" node in a normal BLOCK client action is PROVEN safe** (2026-09-29):
+> `add_event_to_block` + `create_block_client_action` + `add_raise_event_node` — the node
+> is created via `ITriggerNode` and bound to the typed `WebBlockCustomEvent` in the SAME
+> command, which is what prevents SS's auto-open "Select Event" modal (the old deadlock
+> cause). See the proven list at the end of this skill.
 
 ### Deploy note (once per bridge change)
 Adding a **new bridge command** (e.g. `create_web_block`, `add_widget_to_block`)
@@ -844,7 +847,13 @@ Remaining / known limitations:
 - `live_save_module` — **deadlock**: Save is synchronously UI-bound; the pipe hangs
   even stringing the UI dispatcher. Use `live_publish_module` (publishes save first).
 - `live_clone_entity` / `live_clone_structure` — not built (generic `live_clone_element` IS built & PROVEN: same-module entity/structure/action via `IModelServices.Duplicate`+rename; verified `Wave`→`ProbeCloneE`, entities 8→9 on ZombieGame_CS; MCP tool `live_clone_element(module, kind, name, newName)`, kind ∈ entity|structure|serviceaction|serveraction|clientaction).
-- Raise Event node tool exists (`live_add_raise_event_node`); not re-proven this session.
+- Raise Event node — **PROVEN** (2026-09-29): `add_event_to_block` (e.g. `ProbeEvt` on block
+  `UserInfo` via `WebBlock.CreateEvent`) + `create_block_client_action` (block ClientActions
+  4→5) + `add_raise_event_node` → `TriggerEvent` node created AND **bound to the typed
+  `WebBlockCustomEvent` in the same command** (the crash-fix works: no auto-open
+  "Select Event" modal, no deadlock); `list_flow` read-back shows `[0] ITriggerNode`.
+  Cleanup note: no block-client-action/event delete tools yet — in-memory test artifacts
+  vanish on close-without-save.
 - Timer schedule wiring UI — SS-manual by design (see `app-configuration`).
 - Screen permission grant on a **Service module** is impossible (no screens); test on
   Web/Reactive modules (ZombieGame).
