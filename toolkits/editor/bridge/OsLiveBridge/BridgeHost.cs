@@ -322,6 +322,8 @@ internal static class BridgeHost
             case "create_user_exception": return CreateUserException(GetStr(root, "module"), GetStr(root, "name"));
             case "add_sql_node": return AddSqlNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "sql"), root.TryGetProperty("afterNodeIndex", out var sqlni) && sqlni.ValueKind == JsonValueKind.Number ? sqlni.GetInt32() : -1);
             case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"), GetStr(root, "baseUrl"), GetStr(root, "outputName"), GetStr(root, "structureAttrs"));
+            case "debug_rest_dump": return DebugRestDump(GetStr(root, "module"));
+            case "rest_cleanup": return RestCleanup(GetStr(root, "module"));
             case "set_screen_permissions": return SetScreenPermissions(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "roles"), GetStr(root, "isPublic"));
             case "create_site_property": return CreateSiteProperty(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "type"), GetStr(root, "shared"), GetStr(root, "defaultValue"));
             case "create_timer": return CreateTimer(GetStr(root, "module"), GetStr(root, "name"));
@@ -11904,6 +11906,140 @@ internal static class BridgeHost
         });
     }
 
+    // rest_cleanup: for every REST client action, keep exactly ONE output - the
+    // structure-typed one if any (DataType implements IRecordType/IStructure), else the
+    // first - delete the rest, force placement=BodyPlacement, rename the keeper to
+    // "Response". Runs INSIDE a real SS command (single undo unit).
+    static string RestCleanup(string module)
+    {
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var iraType = FindType("ServiceStudio.Plugin.REST.IRestAction");
+        var outLines = new List<string>();
+        var clients = GetProp(es, "CustomClients") as IEnumerable;
+        if (clients == null) return Json(new { ok = false, error = "CustomClients collection not found" });
+        var keepers = new List<object>(); var doomed = new List<object>();
+        foreach (var client in clients)
+        {
+            var cName = SafeGetProp(client, "Name") as string ?? "?";
+            var actions = GetProp(client, "Actions") as IEnumerable;
+            if (actions == null) { outLines.Add(cName + ": <no actions>"); continue; }
+            foreach (var action in actions)
+            {
+                var aName = SafeGetProp(action, "Name") as string ?? "?";
+                IEnumerable outs = null;
+                try { outs = iraType?.GetProperty("OutputParameters")?.GetValue(action, null) as IEnumerable; } catch { }
+                if (outs == null) outs = GetProp(action, "OutputParameters") as IEnumerable;
+                if (outs == null) { outLines.Add(cName + "/" + aName + ": <outputs not readable>"); continue; }
+                object keeper = null;
+                var actionDoomed = new List<object>();
+                foreach (var o in outs)
+                {
+                    if (keeper == null) { keeper = o; continue; }
+                    var kDt = SafeGetProp(keeper, "DataType");
+                    var oDt = SafeGetProp(o, "DataType");
+                    bool kStruct = kDt != null && kDt.GetType().GetInterfaces().Any(i => i.Name == "IRecordType" || i.Name == "IStructure");
+                    bool oStruct = oDt != null && oDt.GetType().GetInterfaces().Any(i => i.Name == "IRecordType" || i.Name == "IStructure");
+                    if (!kStruct && oStruct) { actionDoomed.Add(keeper); keeper = o; }
+                    else actionDoomed.Add(o);
+                }
+                if (keeper == null) { outLines.Add(cName + "/" + aName + ": no outputs"); continue; }
+                keepers.Add(keeper);
+                foreach (var d in actionDoomed) doomed.Add(d);
+                outLines.Add(cName + "/" + aName + ": keeper " + (SafeGetProp(keeper, "Name") as string ?? "?") + ", doomed " + actionDoomed.Count);
+            }
+        }
+        string err = null;
+        Action mutate = () =>
+        {
+            try
+            {
+                foreach (var d in doomed)
+                {
+                    try { CallMethod(d, "Delete", null, 0); } catch (Exception e) { outLines.Add("delete FAILED: " + FirstMsg(e)); }
+                }
+                foreach (var k in keepers)
+                {
+                    try
+                    {
+                        var opEnum = FindType("ServiceStudio.Plugin.REST.Enumerations.OutputPlacement");
+                        if (opEnum != null) SetProp(k, "OutputPlacement", Enum.Parse(opEnum, "BodyPlacement", true));
+                    }
+                    catch { }
+                    try { SetProp(k, "Name", "Response"); } catch { }
+                }
+            }
+            catch (Exception e) { err = e.GetType().Name + ": " + e.Message; }
+        };
+        try
+        {
+            var pc = BuildPresenterContext(GetContext(es));
+            if (pc == null) return Json(new { ok = false, error = "PresenterContext null" });
+            var exec = GetCommandExecuteMethod("ExecuteFromAsyncCode");
+            if (exec == null) return Json(new { ok = false, error = "Command.ExecuteFromAsyncCode not found" });
+            exec.Invoke(null, new object[] { pc, "OsLiveBridge: rest cleanup", mutate });
+        }
+        catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; err = err ?? (r.GetType().Name + ": " + r.Message); }
+        return Json(new { ok = err == null, error = err, report = outLines });
+    }
+
+    // debug_rest_dump: read-only ground truth for REST integrations - every candidate
+    // collection (WebServices/CustomClients/Integrations), each client's ACTUAL name,
+    // its actions, and each action's outputs (name/placement/DataType) via interface reads.
+    static string DebugRestDump(string module)
+    {
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var iraType = FindType("ServiceStudio.Plugin.REST.IRestAction");
+        var outLines = new List<string>();
+        int totalClients = 0;
+        foreach (var collName in new[] { "WebServices", "CustomClients", "Integrations" })
+        {
+            var coll = GetProp(es, collName) as IEnumerable;
+            if (coll == null) { outLines.Add("[" + collName + "] <null>"); continue; }
+            int count = 0;
+            foreach (var item in coll)
+            {
+                count++;
+                var itemName = SafeGetProp(item, "Name") as string ?? "?";
+                outLines.Add("[" + collName + "] " + itemName + " (" + item.GetType().Name + ")");
+                IEnumerable actions = null;
+                foreach (var apn in new[] { "Actions", "CustomActions", "RestActions" })
+                {
+                    actions = GetProp(item, apn) as IEnumerable;
+                    if (actions != null) { outLines.Add("  actions via prop '" + apn + "'"); break; }
+                }
+                if (actions == null)
+                    foreach (var i in item.GetType().GetInterfaces())
+                    {
+                        try { var ip = i.GetProperty("Actions"); if (ip != null) { actions = ip.GetValue(item, null) as IEnumerable; if (actions != null) { outLines.Add("  actions via iface " + i.Name); break; } } } catch { }
+                    }
+                if (actions == null) { outLines.Add("  <no actions collection found>"); continue; }
+                foreach (var a in actions)
+                {
+                    var an = SafeGetProp(a, "Name") as string ?? "?";
+                    outLines.Add("  action: " + an + " (" + a.GetType().Name + ")");
+                    IEnumerable outs = null;
+                    try { outs = iraType?.GetProperty("OutputParameters")?.GetValue(a, null) as IEnumerable; } catch { }
+                    if (outs == null) outs = GetProp(a, "OutputParameters") as IEnumerable;
+                    if (outs == null) { outLines.Add("    <outputs not readable>"); continue; }
+                    foreach (var o in outs)
+                    {
+                        var on = SafeGetProp(o, "Name") as string ?? "?";
+                        string placement = "?";
+                        try { placement = SafeGetProp(o, "OutputPlacement")?.ToString() ?? "?"; } catch { }
+                        var dt = SafeGetProp(o, "DataType");
+                        var dtName = dt != null ? (SafeGetProp(dt, "Name") as string ?? dt.GetType().Name) : "null";
+                        outLines.Add("    output: " + on + " | placement=" + placement + " | DataType=" + dtName);
+                    }
+                }
+            }
+            if (count == 0) outLines.Add("[" + collName + "] <empty>");
+            totalClients += count;
+        }
+        return Json(new { ok = true, module = module, totalClients = totalClients, dump = outLines });
+    }
+
     // create_rest_client: create (or REUSE) a CONSUMED REST API (RestClient from the REST
     // plugin) in the open module + optionally one method (RestAction) with URL path / HTTP
     // method / output param. REST plugin model is PUBLIC: RestClient(AbstractObject,string),
@@ -11923,8 +12059,9 @@ internal static class BridgeHost
             var iraType = FindType("ServiceStudio.Plugin.REST.IRestAction");
             var parts = new List<string>();
             object client = null;
-            // Reuse an existing client with the same name (idempotent) - WebServices collection.
-            foreach (var collName in new[] { "WebServices", "Integrations" })
+            // Reuse an existing client with the same name (idempotent) - REST clients live in
+            // the CustomClients collection (WebServices is SOAP-legacy; Integrations is a view).
+            foreach (var collName in new[] { "CustomClients", "WebServices", "Integrations" })
             {
                 var coll = GetProp(es2, collName) as IEnumerable;
                 if (coll == null) continue;
@@ -12041,19 +12178,26 @@ internal static class BridgeHost
                                 try { CallMethod(d, "Delete", null, 0); deduped++; } catch { }
                             }
                             if (outp == null)
+                            {
+                                // Find the CreateOutputParameter method FIRST, invoke ONCE.
+                                // (Invoking inside the type-hierarchy loop created one output per
+                                // declaring type - Response/2/3/4!)
+                                MethodInfo createOut = null;
                                 foreach (var t in AllTypes(action.GetType()))
                                     foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                                     {
                                         if (m.Name != "CreateOutputParameter") continue;
                                         var ps = m.GetParameters();
-                                        if (ps.Length >= 1 && ps[0].ParameterType == typeof(string))
-                                        {
-                                            var ms2 = ModelServices();
-                                            var k2 = CallMethod(ms2, "NewKey", null, 0);
-                                            outp = ps.Length == 2 ? m.Invoke(action, new object[] { outputName, k2 }) : m.Invoke(action, new object[] { outputName });
-                                            break;
-                                        }
+                                        if (ps.Length >= 1 && ps[0].ParameterType == typeof(string)) { createOut = m; break; }
                                     }
+                                if (createOut != null)
+                                {
+                                    var ms2 = ModelServices();
+                                    var k2 = CallMethod(ms2, "NewKey", null, 0);
+                                    var ps2 = createOut.GetParameters();
+                                    outp = ps2.Length == 2 ? createOut.Invoke(action, new object[] { outputName, k2 }) : createOut.Invoke(action, new object[] { outputName });
+                                }
+                            }
                             if (outp != null)
                             {
                                 detail += " +output '" + outputName + "'" + (deduped > 0 ? " (deduped " + deduped + " extra)" : "");
@@ -12111,17 +12255,18 @@ internal static class BridgeHost
                                                 if (existingAttr != null) { attrs++; continue; }
                                                 try
                                                 {
+                                                    // Find CreateAttribute first, invoke ONCE (same
+                                                    // type-hierarchy multi-invoke trap as outputs).
                                                     var ms4 = ModelServices();
                                                     var k4 = CallMethod(ms4, "NewKey", null, 0);
-                                                    var cAttr = restStruct.GetType().GetMethod("CreateAttribute", new[] { typeof(string), k4.GetType() });
-                                                    if (cAttr == null)
-                                                        foreach (var t2 in AllTypes(restStruct.GetType()))
-                                                            foreach (var m2 in t2.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
-                                                            {
-                                                                if (m2.Name != "CreateAttribute") continue;
-                                                                var ps2 = m2.GetParameters();
-                                                                if (ps2.Length == 2 && ps2[0].ParameterType == typeof(string)) { cAttr = m2; break; }
-                                                            }
+                                                    MethodInfo cAttr = null;
+                                                    foreach (var t2 in AllTypes(restStruct.GetType()))
+                                                        foreach (var m2 in t2.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                                                        {
+                                                            if (m2.Name != "CreateAttribute") continue;
+                                                            var ps2 = m2.GetParameters();
+                                                            if (ps2.Length == 2 && ps2[0].ParameterType == typeof(string)) { cAttr = m2; break; }
+                                                        }
                                                     cAttr?.Invoke(restStruct, new object[] { an.Trim(), k4 });
                                                     if (cAttr != null) attrs++;
                                                 }
