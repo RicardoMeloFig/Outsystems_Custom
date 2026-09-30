@@ -380,19 +380,25 @@ internal static class BridgeHost
 
     static object FindEspace(string name)
     {
-        // Prefer the entry with a LIVE aggregator context: kills/restarts can leave
-        // multiple same-name entries (stale ones read fine but refuse writes with
-        // "aggregator is null"). Fall back to the first name match.
-        object fallback = null;
+        // Kills/restarts/AutoSave-restores can leave MULTIPLE same-name espace instances in
+        // ModelServices.LoadedESpaces. Several may even have an aggregator context. Pick the
+        // one with the most loaded content (DirectLoadedChildren) - the live in-memory state
+        // - preferring instances with a context. Falls back to the first name match.
+        object best = null; int bestScore = -1; object fallback = null;
         foreach (var es in LoadedESpaces())
         {
             string nm = null;
             try { nm = GetProp(es, "Name") as string; } catch { continue; }
             if (nm != name) continue;
             if (fallback == null) fallback = es;
-            try { if (GetContext(es) != null) return es; } catch { }
+            bool hasCtx = false;
+            try { hasCtx = GetContext(es) != null; } catch { }
+            int children = 0;
+            try { children = CountProp(es, "DirectLoadedChildren"); } catch { }
+            int score = (hasCtx ? 1000000 : 0) + children;
+            if (score > bestScore) { best = es; bestScore = score; }
         }
-        return fallback;
+        return best ?? fallback;
     }
 
     static string ListModules()
@@ -11993,6 +11999,21 @@ internal static class BridgeHost
         var iraType = FindType("ServiceStudio.Plugin.REST.IRestAction");
         var outLines = new List<string>();
         int totalClients = 0;
+        // Instance diagnostics: how many same-name espaces exist and what do they hold?
+        int idx = 0;
+        foreach (var cand in LoadedESpaces())
+        {
+            string nm = null;
+            try { nm = GetProp(cand, "Name") as string; } catch { continue; }
+            if (nm != module) continue;
+            bool hasCtx = false;
+            try { hasCtx = GetContext(cand) != null; } catch { }
+            outLines.Add("[instance " + idx + "] ctx=" + hasCtx
+                + " children=" + CountProp(cand, "DirectLoadedChildren")
+                + " CustomClients=" + CountProp(cand, "CustomClients")
+                + " sameAsPicked=" + object.ReferenceEquals(cand, es));
+            idx++;
+        }
         foreach (var collName in new[] { "WebServices", "CustomClients", "Integrations" })
         {
             var coll = GetProp(es, collName) as IEnumerable;
