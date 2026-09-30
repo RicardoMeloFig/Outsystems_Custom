@@ -321,7 +321,7 @@ internal static class BridgeHost
             case "create_role": return CreateRole(GetStr(root, "module"), GetStr(root, "name"));
             case "create_user_exception": return CreateUserException(GetStr(root, "module"), GetStr(root, "name"));
             case "add_sql_node": return AddSqlNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "sql"), root.TryGetProperty("afterNodeIndex", out var sqlni) && sqlni.ValueKind == JsonValueKind.Number ? sqlni.GetInt32() : -1);
-            case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"), GetStr(root, "baseUrl"), GetStr(root, "outputName"));
+            case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"), GetStr(root, "baseUrl"), GetStr(root, "outputName"), GetStr(root, "structureAttrs"));
             case "set_screen_permissions": return SetScreenPermissions(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "roles"), GetStr(root, "isPublic"));
             case "create_site_property": return CreateSiteProperty(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "type"), GetStr(root, "shared"), GetStr(root, "defaultValue"));
             case "create_timer": return CreateTimer(GetStr(root, "module"), GetStr(root, "name"));
@@ -11910,7 +11910,7 @@ internal static class BridgeHost
     // RestAction(AbstractObject,string), IRestClient.CreateAction(name,key) and
     // IRestClient.BaseURL - an EXPLICITLY-implemented interface property, set via the
     // interface PropertyInfo (class-level GetProperties misses explicit impls).
-    static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod, string baseUrl, string outputName)
+    static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod, string baseUrl, string outputName, string structureAttrs)
     {
         if (string.IsNullOrEmpty(name)) return Json(new { ok = false, error = "name required" });
         var es = FindEspace(module);
@@ -12041,6 +12041,56 @@ internal static class BridgeHost
                                     if (opEnum != null) { SetProp(outp, "OutputPlacement", Enum.Parse(opEnum, "BodyPlacement", true)); detail += "(Body)"; }
                                 }
                                 catch (Exception eo) { detail += " placement-FAILED: " + FirstMsg(eo); }
+                                // DataType: the verify rule requires List or Structure. Create a
+                                // RestStructure on the client (the canonical wizard shape - it
+                                // implements IType) with the requested attributes and assign it.
+                                try
+                                {
+                                    MethodInfo csM = null;
+                                    foreach (var t in AllTypes(client.GetType()))
+                                        foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                                        {
+                                            if (m.Name != "CreateStructure") continue;
+                                            var ps = m.GetParameters();
+                                            if (ps.Length == 2 && ps[0].ParameterType == typeof(string)) { csM = m; break; }
+                                        }
+                                    if (csM != null)
+                                    {
+                                        var ms3 = ModelServices();
+                                        var k3 = CallMethod(ms3, "NewKey", null, 0);
+                                        var structName = actionName + "Structure";
+                                        var restStruct = csM.Invoke(client, new object[] { structName, k3 });
+                                        if (restStruct != null)
+                                        {
+                                            var attrNames = string.IsNullOrEmpty(structureAttrs) ? new[] { "Attribute1" } : structureAttrs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                            int attrs = 0;
+                                            foreach (var an in attrNames)
+                                            {
+                                                try
+                                                {
+                                                    var ms4 = ModelServices();
+                                                    var k4 = CallMethod(ms4, "NewKey", null, 0);
+                                                    var cAttr = restStruct.GetType().GetMethod("CreateAttribute", new[] { typeof(string), k4.GetType() });
+                                                    if (cAttr == null)
+                                                        foreach (var t2 in AllTypes(restStruct.GetType()))
+                                                            foreach (var m2 in t2.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                                                            {
+                                                                if (m2.Name != "CreateAttribute") continue;
+                                                                var ps2 = m2.GetParameters();
+                                                                if (ps2.Length == 2 && ps2[0].ParameterType == typeof(string)) { cAttr = m2; break; }
+                                                            }
+                                                    cAttr?.Invoke(restStruct, new object[] { an.Trim(), k4 });
+                                                    if (cAttr != null) attrs++;
+                                                }
+                                                catch { }
+                                            }
+                                            SetProp(outp, "DataType", restStruct);
+                                            detail += " DataType=" + structName + "(" + attrs + " attrs)";
+                                        }
+                                    }
+                                    else detail += " DataType-FAILED: CreateStructure not found";
+                                }
+                                catch (Exception ed) { detail += " DataType-FAILED: " + FirstMsg(ed); }
                             }
                             else detail += " output-FAILED: CreateOutputParameter not found";
                         }
