@@ -321,14 +321,16 @@ internal static class Program
         },
         new JsonObject {
             ["name"] = "live_create_rest_client",
-            ["description"] = "Create a CONSUMED REST API (RestClient from the REST plugin) in an OPEN module + optionally one method (RestAction) with URL path, HTTP method (GET/POST/PUT/DELETE/PATCH) and ResponseFormat=JSON. PROVEN. Follow-ups (not yet in MVP): Base URL lives in lazily-created ExtendedProperties; structure-from-SampleResponse parsing; callbacks. Requires SS running with OsLiveBridge and the module open.",
+            ["description"] = "Create or UPDATE a CONSUMED REST API (RestClient from the REST plugin) in an OPEN module + optionally one method (RestAction) with URL path, HTTP method (GET/POST/PUT/DELETE/PATCH), ResponseFormat=JSON, and an output parameter (placement=Body). PROVEN. If a REST API with the same name exists it is REUSED (idempotent - use to set its Base URL afterwards). Base URL is IRestClient.BaseURL (explicit interface property). Requires SS running with OsLiveBridge and the module open.",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
                 ["properties"] = new JsonObject {
                     ["module"] = Str("module", "Open module name"),
-                    ["name"] = Str("name", "REST API name (e.g. TicketmasterApi)"),
-                    ["actionName"] = Str("actionName", "Optional method name (e.g. GetTodos)"),
+                    ["name"] = Str("name", "REST API name (e.g. TicketmasterApi) - existing APIs with this name are reused"),
+                    ["actionName"] = Str("actionName", "Optional method name (e.g. GetTodos) - existing methods with this name are reused"),
                     ["urlPath"] = Str("urlPath", "Optional URL path for the method (e.g. /todos/1)"),
-                    ["httpMethod"] = Str("httpMethod", "Optional HTTP method: GET, POST, PUT, DELETE, PATCH") },
+                    ["httpMethod"] = Str("httpMethod", "Optional HTTP method: GET, POST, PUT, DELETE, PATCH"),
+                    ["baseUrl"] = Str("baseUrl", "Optional Base URL for the API (e.g. https://jsonplaceholder.typicode.com) - REQUIRED for valid consume"),
+                    ["outputName"] = Str("outputName", "Optional output parameter name (e.g. Response) - placement=Body; set its Data Type via the UI or structures for full validity") },
                 ["required"] = new JsonArray { "module", "name" } }
         },
         new JsonObject {
@@ -2529,7 +2531,7 @@ internal static class Program
             "live_remove_event_from_block" => Bridge.RemoveEventFromBlock(Arg("module"), Arg("block"), Arg("name")),
             "live_add_sql_node" => Bridge.AddSqlNode(Arg("module"), Arg("action"), Arg("sql"), a?.ContainsKey("afterNodeIndex") == true ? a["afterNodeIndex"]?.GetValue<int>() ?? -1 : -1),
             "live_create_user_exception" => Bridge.CreateUserException(Arg("module"), Arg("name")),
-            "live_create_rest_client" => Bridge.CreateRestClient(Arg("module"), Arg("name"), Arg("actionName"), Arg("urlPath"), Arg("httpMethod")),
+            "live_create_rest_client" => Bridge.CreateRestClient(Arg("module"), Arg("name"), Arg("actionName"), Arg("urlPath"), Arg("httpMethod"), Arg("baseUrl"), Arg("outputName")),
             "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
             "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
             "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
@@ -3126,13 +3128,13 @@ internal static class Bridge
         catch { return resp; }
     }
 
-    public static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod)
+    public static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod, string baseUrl, string outputName)
     {
         if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
         var err = RequireModulePipe(module);
         if (err != null) return err;
         var resp = Send(_pidForModule[module],
-            "{\"cmd\":\"create_rest_client\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\",\"actionName\":\"" + Escape(actionName ?? "") + "\",\"urlPath\":\"" + Escape(urlPath ?? "") + "\",\"httpMethod\":\"" + Escape(httpMethod ?? "") + "\"}", 60000);
+            "{\"cmd\":\"create_rest_client\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\",\"actionName\":\"" + Escape(actionName ?? "") + "\",\"urlPath\":\"" + Escape(urlPath ?? "") + "\",\"httpMethod\":\"" + Escape(httpMethod ?? "") + "\",\"baseUrl\":\"" + Escape(baseUrl ?? "") + "\",\"outputName\":\"" + Escape(outputName ?? "") + "\"}", 60000);
         try
         {
             var j = JsonNode.Parse(resp);

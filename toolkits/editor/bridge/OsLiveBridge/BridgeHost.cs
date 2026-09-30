@@ -321,7 +321,7 @@ internal static class BridgeHost
             case "create_role": return CreateRole(GetStr(root, "module"), GetStr(root, "name"));
             case "create_user_exception": return CreateUserException(GetStr(root, "module"), GetStr(root, "name"));
             case "add_sql_node": return AddSqlNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "sql"), root.TryGetProperty("afterNodeIndex", out var sqlni) && sqlni.ValueKind == JsonValueKind.Number ? sqlni.GetInt32() : -1);
-            case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"));
+            case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"), GetStr(root, "baseUrl"), GetStr(root, "outputName"));
             case "set_screen_permissions": return SetScreenPermissions(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "roles"), GetStr(root, "isPublic"));
             case "create_site_property": return CreateSiteProperty(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "type"), GetStr(root, "shared"), GetStr(root, "defaultValue"));
             case "create_timer": return CreateTimer(GetStr(root, "module"), GetStr(root, "name"));
@@ -11904,12 +11904,13 @@ internal static class BridgeHost
         });
     }
 
-    // create_rest_client: create a CONSUMED REST API (RestClient from the REST plugin) in
-    // the open module + optionally one method (RestAction) with URL path / HTTP method.
-    // Plugin model has public ctors: RestClient(AbstractObject parent, string name),
-    // RestAction(AbstractObject parent, string name), plus IRestClient.CreateAction(name,key).
-    // ExtendedProperties (e.g. BaseURL) are dumped for discovery.
-    static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod)
+    // create_rest_client: create (or REUSE) a CONSUMED REST API (RestClient from the REST
+    // plugin) in the open module + optionally one method (RestAction) with URL path / HTTP
+    // method / output param. REST plugin model is PUBLIC: RestClient(AbstractObject,string),
+    // RestAction(AbstractObject,string), IRestClient.CreateAction(name,key) and
+    // IRestClient.BaseURL - an EXPLICITLY-implemented interface property, set via the
+    // interface PropertyInfo (class-level GetProperties misses explicit impls).
+    static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod, string baseUrl, string outputName)
     {
         if (string.IsNullOrEmpty(name)) return Json(new { ok = false, error = "name required" });
         var es = FindEspace(module);
@@ -11918,33 +11919,76 @@ internal static class BridgeHost
         {
             var clientType = FindType("ServiceStudio.Plugin.REST.RestClient");
             if (clientType == null) throw new Exception("REST plugin type not found (ServiceStudio.Plugin.REST.RestClient)");
-            ConstructorInfo ctor = null;
-            foreach (var c in clientType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            var ircType = FindType("ServiceStudio.Plugin.REST.IRestClient");
+            var parts = new List<string>();
+            object client = null;
+            // Reuse an existing client with the same name (idempotent) - WebServices collection.
+            foreach (var collName in new[] { "WebServices", "Integrations" })
             {
-                var ps = c.GetParameters();
-                if (ps.Length == 2 && ps[1].ParameterType == typeof(string)) { ctor = c; break; }
+                var coll = GetProp(es2, collName) as IEnumerable;
+                if (coll == null) continue;
+                foreach (var w in coll)
+                    try { if ((GetProp(w, "Name") as string) == name) { client = w; break; } } catch { }
+                if (client != null) break;
             }
-            if (ctor == null) throw new Exception("RestClient ctor(parent,name) not found");
-            var client = ctor.Invoke(new object[] { es2, name });
-            if (client == null) throw new Exception("RestClient ctor returned null");
-            var parts = new List<string> { "created REST client '" + name + "' (" + client.GetType().Name + ")" };
+            if (client != null) parts.Add("reusing existing REST client '" + name + "'");
+            else
+            {
+                ConstructorInfo ctor = null;
+                foreach (var c in clientType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                {
+                    var ps = c.GetParameters();
+                    if (ps.Length == 2 && ps[1].ParameterType == typeof(string)) { ctor = c; break; }
+                }
+                if (ctor == null) throw new Exception("RestClient ctor(parent,name) not found");
+                client = ctor.Invoke(new object[] { es2, name });
+                if (client == null) throw new Exception("RestClient ctor returned null");
+                parts.Add("created REST client '" + name + "' (" + client.GetType().Name + ")");
+            }
+            // BaseURL lives on IRestClient as an explicitly-implemented property: set via the
+            // interface PropertyInfo (class-level GetProperties misses explicit impls).
+            if (!string.IsNullOrEmpty(baseUrl))
+            {
+                try
+                {
+                    var pBase = ircType?.GetProperty("BaseURL");
+                    if (pBase == null) throw new Exception("IRestClient.BaseURL not found");
+                    pBase.SetValue(client, baseUrl, null);
+                    var back = pBase.GetValue(client, null) as string;
+                    parts.Add("BaseURL=" + (back ?? "null") + (back == baseUrl ? " (verified)" : " (READBACK MISMATCH)"));
+                }
+                catch (Exception e) { parts.Add("BaseURL-FAILED: " + FirstMsg(e)); }
+            }
             if (!string.IsNullOrEmpty(actionName))
             {
-                MethodInfo createAction = null;
-                foreach (var t in AllTypes(client.GetType()))
-                    foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
-                    {
-                        if (m.Name != "CreateAction") continue;
-                        var ps = m.GetParameters();
-                        if (ps.Length == 2 && ps[0].ParameterType == typeof(string)) { createAction = m; break; }
-                    }
-                if (createAction == null) throw new Exception("IRestClient.CreateAction(name,key) not found");
-                var ms = ModelServices();
-                var key = CallMethod(ms, "NewKey", null, 0);
-                var action = createAction.Invoke(client, new object[] { actionName, key });
+                object action = null;
+                // Reuse an existing method by name.
+                foreach (var collName in new[] { "Actions", "RestActions", "CustomActions" })
+                {
+                    var coll = GetProp(client, collName) as IEnumerable;
+                    if (coll == null) continue;
+                    foreach (var a in coll)
+                        try { if ((GetProp(a, "Name") as string) == actionName) { action = a; break; } } catch { }
+                    if (action != null) break;
+                }
+                if (action == null)
+                {
+                    MethodInfo createAction = null;
+                    foreach (var t in AllTypes(client.GetType()))
+                        foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        {
+                            if (m.Name != "CreateAction") continue;
+                            var ps = m.GetParameters();
+                            if (ps.Length == 2 && ps[0].ParameterType == typeof(string)) { createAction = m; break; }
+                        }
+                    if (createAction == null) throw new Exception("IRestClient.CreateAction(name,key) not found");
+                    var ms = ModelServices();
+                    var key = CallMethod(ms, "NewKey", null, 0);
+                    action = createAction.Invoke(client, new object[] { actionName, key });
+                }
                 if (action != null)
                 {
-                    var detail = "method '" + actionName + "'";
+                    var detail = "method '" + (GetProp(action, "Name") as string ?? actionName) + "'";
                     if (!string.IsNullOrEmpty(urlPath)) { try { SetProp(action, "URLPath", urlPath); detail += " URLPath=" + urlPath; } catch (Exception e) { detail += " URLPath-FAILED: " + FirstMsg(e); } }
                     if (!string.IsNullOrEmpty(httpMethod))
                     {
@@ -11963,6 +12007,45 @@ internal static class BridgeHost
                         if (rf != null) { SetProp(action, "ResponseFormat", Enum.Parse(rf, "JSON", true)); detail += " ResponseFormat=JSON"; }
                     }
                     catch { }
+                    // Optional output param: placement=Body (the UI's "Receive In").
+                    if (!string.IsNullOrEmpty(outputName))
+                    {
+                        try
+                        {
+                            object outp = null;
+                            // Reuse an existing output with the same name.
+                            var existingOuts = GetProp(action, "OutputParameters") as IEnumerable;
+                            if (existingOuts != null)
+                                foreach (var o in existingOuts)
+                                    try { if ((GetProp(o, "Name") as string) == outputName) { outp = o; break; } } catch { }
+                            if (outp == null)
+                                foreach (var t in AllTypes(action.GetType()))
+                                    foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                                    {
+                                        if (m.Name != "CreateOutputParameter") continue;
+                                        var ps = m.GetParameters();
+                                        if (ps.Length >= 1 && ps[0].ParameterType == typeof(string))
+                                        {
+                                            var ms2 = ModelServices();
+                                            var k2 = CallMethod(ms2, "NewKey", null, 0);
+                                            outp = ps.Length == 2 ? m.Invoke(action, new object[] { outputName, k2 }) : m.Invoke(action, new object[] { outputName });
+                                            break;
+                                        }
+                                    }
+                            if (outp != null)
+                            {
+                                detail += " +output '" + outputName + "'";
+                                try
+                                {
+                                    var opEnum = FindType("ServiceStudio.Plugin.REST.Enumerations.OutputPlacement");
+                                    if (opEnum != null) { SetProp(outp, "OutputPlacement", Enum.Parse(opEnum, "BodyPlacement", true)); detail += "(Body)"; }
+                                }
+                                catch (Exception eo) { detail += " placement-FAILED: " + FirstMsg(eo); }
+                            }
+                            else detail += " output-FAILED: CreateOutputParameter not found";
+                        }
+                        catch (Exception eo2) { detail += " output-FAILED: " + FirstMsg(eo2); }
+                    }
                     parts.Add(detail + " (" + action.GetType().Name + ")");
                 }
             }
