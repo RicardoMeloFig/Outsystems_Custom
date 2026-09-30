@@ -11920,6 +11920,7 @@ internal static class BridgeHost
             var clientType = FindType("ServiceStudio.Plugin.REST.RestClient");
             if (clientType == null) throw new Exception("REST plugin type not found (ServiceStudio.Plugin.REST.RestClient)");
             var ircType = FindType("ServiceStudio.Plugin.REST.IRestClient");
+            var iraType = FindType("ServiceStudio.Plugin.REST.IRestAction");
             var parts = new List<string>();
             object client = null;
             // Reuse an existing client with the same name (idempotent) - WebServices collection.
@@ -12008,16 +12009,37 @@ internal static class BridgeHost
                     }
                     catch { }
                     // Optional output param: placement=Body (the UI's "Receive In").
+                    // OutputParameters is an EXPLICITLY-implemented interface property on
+                    // RestAction - read it via the interface PropertyInfo or the reuse check
+                    // silently finds nothing and every rerun creates a duplicate (Response2/3/4).
                     if (!string.IsNullOrEmpty(outputName))
                     {
                         try
                         {
-                            object outp = null;
-                            // Reuse an existing output with the same name.
-                            var existingOuts = GetProp(action, "OutputParameters") as IEnumerable;
+                            object outp = null; int deduped = 0;
+                            IEnumerable existingOuts = null;
+                            try { existingOuts = iraType?.GetProperty("OutputParameters")?.GetValue(action, null) as IEnumerable; } catch { }
+                            if (existingOuts == null) existingOuts = GetProp(action, "OutputParameters") as IEnumerable;
+                            // SS auto-RENAMES duplicates on creation (Response2/3/4...), so match
+                            // the exact name first, then any outputName-prefixed sibling as junk.
+                            var prefixed = new List<object>();
                             if (existingOuts != null)
                                 foreach (var o in existingOuts)
-                                    try { if ((GetProp(o, "Name") as string) == outputName) { outp = o; break; } } catch { }
+                                {
+                                    try
+                                    {
+                                        var n = GetProp(o, "Name") as string;
+                                        if (n == null || !n.StartsWith(outputName, StringComparison.Ordinal)) continue;
+                                        if (n == outputName) { if (outp == null) outp = o; else prefixed.Add(o); }
+                                        else prefixed.Add(o);
+                                    }
+                                    catch { }
+                                }
+                            if (outp == null && prefixed.Count > 0) { outp = prefixed[0]; prefixed.RemoveAt(0); }
+                            foreach (var d in prefixed)
+                            {
+                                try { CallMethod(d, "Delete", null, 0); deduped++; } catch { }
+                            }
                             if (outp == null)
                                 foreach (var t in AllTypes(action.GetType()))
                                     foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
@@ -12034,7 +12056,7 @@ internal static class BridgeHost
                                     }
                             if (outp != null)
                             {
-                                detail += " +output '" + outputName + "'";
+                                detail += " +output '" + outputName + "'" + (deduped > 0 ? " (deduped " + deduped + " extra)" : "");
                                 try
                                 {
                                     var opEnum = FindType("ServiceStudio.Plugin.REST.Enumerations.OutputPlacement");
@@ -12059,13 +12081,34 @@ internal static class BridgeHost
                                         var ms3 = ModelServices();
                                         var k3 = CallMethod(ms3, "NewKey", null, 0);
                                         var structName = actionName + "Structure";
-                                        var restStruct = csM.Invoke(client, new object[] { structName, k3 });
+                                        // Reuse the structure if a previous run created it.
+                                        object restStruct = null;
+                                        IEnumerable existingStructs = GetProp(client, "Structures") as IEnumerable;
+                                        if (existingStructs == null)
+                                            foreach (var i in client.GetType().GetInterfaces())
+                                            {
+                                                try { var ip = i.GetProperty("Structures"); if (ip != null) { existingStructs = ip.GetValue(client, null) as IEnumerable; break; } } catch { }
+                                            }
+                                        if (existingStructs != null)
+                                            foreach (var s in existingStructs)
+                                                try { if ((GetProp(s, "Name") as string) == structName) { restStruct = s; break; } } catch { }
+                                        if (restStruct == null) restStruct = csM.Invoke(client, new object[] { structName, k3 });
                                         if (restStruct != null)
                                         {
                                             var attrNames = string.IsNullOrEmpty(structureAttrs) ? new[] { "Attribute1" } : structureAttrs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                                             int attrs = 0;
+                                            // Read existing attributes via the IRestStructure interface
+                                            // (explicit impl on the concrete class).
+                                            var irsType = FindType("ServiceStudio.Plugin.REST.IRestStructure");
+                                            var existingAttrs = irsType?.GetProperty("Attributes")?.GetValue(restStruct, null) as IEnumerable;
+                                            if (existingAttrs == null) existingAttrs = GetProp(restStruct, "Attributes") as IEnumerable;
                                             foreach (var an in attrNames)
                                             {
+                                                object existingAttr = null;
+                                                if (existingAttrs != null)
+                                                    foreach (var a in existingAttrs)
+                                                        try { if ((GetProp(a, "Name") as string) == an.Trim()) { existingAttr = a; break; } } catch { }
+                                                if (existingAttr != null) { attrs++; continue; }
                                                 try
                                                 {
                                                     var ms4 = ModelServices();
