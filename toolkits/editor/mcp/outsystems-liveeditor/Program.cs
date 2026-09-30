@@ -300,6 +300,26 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "block", "name" } }
         },
         new JsonObject {
+            ["name"] = "live_add_sql_node",
+            ["description"] = "Create an Advanced SQL node (ISQLNode/AdvancedQuery) in an action flow in an OPEN module, with the SQL statement set. Optional afterNodeIndex inserts it into the flow (wire with live_set_node_target). Input params/outputs via node's QueryParameters/OutputStructure (probe with live_debug_node_props); note: the UI's derive-outputs-from-SELECT step does not run headless, so a SELECT without an explicit OutputStructure may show an 'Invalid SQL' verify error until outputs are defined. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["action"] = Str("action", "Action name to add the node to"),
+                    ["sql"] = Str("sql", "SQL statement (OS SQL syntax, e.g. SELECT {Entity}.[ID] FROM {Entity})"),
+                    ["afterNodeIndex"] = new JsonObject { ["type"] = "integer", ["description"] = "Optional node index to insert after" } },
+                ["required"] = new JsonArray { "module", "action", "sql" } }
+        },
+        new JsonObject {
+            ["name"] = "live_create_user_exception",
+            ["description"] = "Create a User Exception (Data > Exceptions) in an OPEN module via the public UserException(ESpace, name) ctor inside a real SS command. Undo unit (Ctrl+Z). Read-back via live_debug_eSpace_collection_items(collection=UserExceptions). Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["name"] = Str("name", "User exception name") },
+                ["required"] = new JsonArray { "module", "name" } }
+        },
+        new JsonObject {
             ["name"] = "live_debug_object_prop_surface",
             ["description"] = "Read-only dump of a model object's settable surface for live_set_object_prop_deep: public properties (name/type/value/settable), private backing fields (_prop), static setter delegates (_propSetter) and property-grid descriptors (PropPropertyDescriptor). kind: entity|attribute|structure|structureattribute|timer|siteproperty|role (entity = parent entity name for attribute kinds).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2495,6 +2515,8 @@ internal static class Program
             "live_clone_service_action_from" => Bridge.CloneServiceActionFrom(Arg("consumer"), Arg("producer"), Arg("source"), Arg("name")),
             "live_delete_block_client_action" => Bridge.DeleteBlockClientAction(Arg("module"), Arg("block"), Arg("name")),
             "live_remove_event_from_block" => Bridge.RemoveEventFromBlock(Arg("module"), Arg("block"), Arg("name")),
+            "live_add_sql_node" => Bridge.AddSqlNode(Arg("module"), Arg("action"), Arg("sql"), a?.ContainsKey("afterNodeIndex") == true ? a["afterNodeIndex"]?.GetValue<int>() ?? -1 : -1),
+            "live_create_user_exception" => Bridge.CreateUserException(Arg("module"), Arg("name")),
             "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
             "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
             "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
@@ -3047,6 +3069,45 @@ internal static class Bridge
             var report = j?["report"]?.GetValue<string>();
             var e = j?["error"]?.GetValue<string>();
             var summary = ok == true ? $"OK: {report}. Undo unit (Ctrl+Z in SS restores it)." : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string AddSqlNode(string module, string action, string sql, int afterNodeIndex)
+    {
+        if (string.IsNullOrWhiteSpace(action)) return "ERROR: action is required";
+        if (string.IsNullOrWhiteSpace(sql)) return "ERROR: sql is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"add_sql_node\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"sql\":\"" + Escape(sql) + "\",\"afterNodeIndex\":" + afterNodeIndex + "}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var report = j?["report"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? $"OK: {report}" : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string CreateUserException(string module, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"create_user_exception\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\"}", 30000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var report = j?["report"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? $"OK: {report}. Undo unit (Ctrl+Z in SS removes it)." : $"FAILED: {e}";
             return summary + "\n[bridge] " + resp;
         }
         catch { return resp; }

@@ -319,6 +319,8 @@ internal static class BridgeHost
             case "add_foreach_node": return AddForeachNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "recordList"), GetStr(root, "maxIterations"), GetStr(root, "startIndex"));
             case "add_screen_input_param": return AddScreenInputParam(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "name"), GetStr(root, "type"));
             case "create_role": return CreateRole(GetStr(root, "module"), GetStr(root, "name"));
+            case "create_user_exception": return CreateUserException(GetStr(root, "module"), GetStr(root, "name"));
+            case "add_sql_node": return AddSqlNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "sql"), root.TryGetProperty("afterNodeIndex", out var sqlni) && sqlni.ValueKind == JsonValueKind.Number ? sqlni.GetInt32() : -1);
             case "set_screen_permissions": return SetScreenPermissions(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "roles"), GetStr(root, "isPublic"));
             case "create_site_property": return CreateSiteProperty(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "type"), GetStr(root, "shared"), GetStr(root, "defaultValue"));
             case "create_timer": return CreateTimer(GetStr(root, "module"), GetStr(root, "name"));
@@ -8174,6 +8176,40 @@ internal static class BridgeHost
         });
     }
 
+    // add_sql_node: create an ISQLNode (Advanced SQL) in an action flow with the given SQL
+    // statement. Statement is a plain string property; MaxRecords/Timeout/CacheInMinutes via
+    // set_object_prop_deep afterwards. Optional afterNodeIndex inserts it into the flow.
+    static string AddSqlNode(string moduleName, string actionName, string sql, int afterNodeIndex = -1)
+    {
+        return LiveEdit(moduleName, actionName, "add sql node", (act, es) =>
+        {
+            var node = CreateNodeGeneric(act, "OutSystems.Model.Logic.Nodes.ISQLNode");
+            var via = "";
+            if (!string.IsNullOrEmpty(sql))
+            {
+                try { SetProp(node, "Statement", sql); via = "Statement prop"; }
+                catch (Exception e) { var r = e; while (r.InnerException != null) r = r.InnerException; via = "FAILED: " + r.Message; }
+            }
+            var idx = NodeList(act).IndexOf(node);
+            var sb = new StringBuilder("created SQL node [" + idx + "] (" + node.GetType().Name + ")");
+            if (!string.IsNullOrEmpty(sql)) sb.Append(" statement via " + via);
+            if (afterNodeIndex >= 0)
+            {
+                var nodes = NodeList(act);
+                if (afterNodeIndex >= nodes.Count) throw new Exception("afterNodeIndex out of range: " + afterNodeIndex);
+                var anchor = nodes[afterNodeIndex];
+                var anchorTarget = GetProp(anchor, "Target");
+                if (anchorTarget != null) { try { SetProp(node, "Target", anchorTarget); } catch { } }
+                try { SetProp(anchor, "Target", node); } catch { }
+                sb.Append(" | inserted after node[" + afterNodeIndex + "] (" + ShortName(anchor) + ")");
+            }
+            sb.AppendLine();
+            sb.AppendLine("NOTE: input params/outputs = ISQLNode.InputParameters/Outputs (probe with debug_node_props); MaxRecords via SetMaxRecords(string).");
+            sb.AppendLine(DumpFlowGraph(act));
+            return sb.ToString();
+        });
+    }
+
     // add_switch_node: create an ISwitchNode in an action flow. Switch conditions live per-case
     // (not settable via a single expression), so this only creates + optionally inserts it at node[afterNodeIndex].
     static string AddSwitchNode(string moduleName, string actionName, int afterNodeIndex = -1)
@@ -11787,6 +11823,83 @@ internal static class BridgeHost
             object created = CallMethod(es2, "CreateRole", new object[] { name, key }, 2);
             if (created == null) throw new Exception("CreateRole returned null");
             return "created role '" + name + "' (" + created.GetType().Name + ")";
+        });
+    }
+
+    // create_user_exception: create a User Exception (Data > Exceptions) in the open module.
+    // Factory hunt: IESpace.CreateUserException/CreateException variants, then the
+    // UserExceptions collection Create/Add, then rename. Same pattern as create_role.
+    static string CreateUserException(string module, string name)
+    {
+        if (string.IsNullOrEmpty(name)) return Json(new { ok = false, error = "name required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        var existing = GetProp(es, "UserExceptions") as IEnumerable;
+        if (existing != null)
+            foreach (var x in existing)
+                try { if ((GetProp(x, "Name") as string) == name) return Json(new { ok = false, error = "user exception already exists: " + name }); } catch { }
+        return RunCmd(module, "create user exception", es2 =>
+        {
+            var ms = ModelServices();
+            var key = CallMethod(ms, "NewKey", null, 0);
+            object created = null; var tried = new List<string>();
+            foreach (var mn in new[] { "CreateUserException", "CreateException" })
+            {
+                foreach (var t in AllTypes(es2.GetType()))
+                    foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        if (m.Name != mn || m.IsAbstract) continue;
+                        var ps = m.GetParameters();
+                        try
+                        {
+                            if (ps.Length == 2 && ps[0].ParameterType == typeof(string)) { created = m.Invoke(es2, new object[] { name, key }); tried.Add(mn + "(name,key)"); }
+                            else if (ps.Length == 1 && ps[0].ParameterType == typeof(string)) { created = m.Invoke(es2, new object[] { name }); tried.Add(mn + "(name)"); }
+                            if (created != null) break;
+                        }
+                        catch (Exception e) { tried.Add(mn + "/" + ps.Length + ": " + FirstMsg(e)); }
+                        if (created != null) break;
+                    }
+                if (created != null) break;
+            }
+            if (created == null)
+            {
+                var coll = GetProp(es2, "UserExceptions");
+                if (coll != null)
+                    foreach (var m in coll.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        if (m.Name != "Create" && m.Name != "Add") continue;
+                        var ps = m.GetParameters();
+                        try
+                        {
+                            if (ps.Length == 1 && ps[0].ParameterType.Name.Contains("Key")) { created = m.Invoke(coll, new object[] { key }); tried.Add("UserExceptions." + m.Name + "(key)"); }
+                            else if (ps.Length == 0) { created = m.Invoke(coll, null); tried.Add("UserExceptions." + m.Name + "()"); }
+                            if (created != null) break;
+                        }
+                        catch (Exception e) { tried.Add("coll." + m.Name + "/" + ps.Length + ": " + FirstMsg(e)); }
+                        if (created != null) break;
+                    }
+            }
+            if (created == null)
+            {
+                // 3) ctor hunt - UserException has a public .ctor(ESpace parent, string name)
+                var uxType = FindType("ServiceStudio.Model.UserException");
+                if (uxType != null)
+                    foreach (var ctor in uxType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        var ps = ctor.GetParameters();
+                        try
+                        {
+                            if (ps.Length == 2 && ps[0].ParameterType.Name == "ESpace" && ps[1].ParameterType == typeof(string))
+                            { created = ctor.Invoke(new object[] { es2, name }); tried.Add("ctor(ESpace,name)"); }
+                            if (created != null) break;
+                        }
+                        catch (Exception e) { tried.Add("ctor/" + ps.Length + ": " + FirstMsg(e)); }
+                    }
+            }
+            if (created == null) throw new Exception("no user-exception factory found: " + string.Join(" ; ", tried));
+            try { SetProp(created, "Name", name); } catch { }
+            var got = GetProp(created, "Name") as string;
+            return "created user exception '" + (got ?? name) + "' (" + created.GetType().Name + ") via " + tried[tried.Count - 1];
         });
     }
 

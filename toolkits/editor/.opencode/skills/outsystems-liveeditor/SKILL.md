@@ -5,7 +5,7 @@ description: Use when the user wants to edit an OutSystems module that is OPEN i
 
 # outsystems-liveeditor (live in-process editor MCP)
 
-One MCP server, 227 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
+One MCP server, 229 `live_*` tools. Unlike the headless `outsystems-omleditor` (which edits
 `.oml` **files** with no SS running), this server talks to the **OsLiveBridge plugin
 loaded inside a running Service Studio** over a named pipe (`OsLiveBridge-<SSpid>`).
 Mutations land in the open module's live tree **immediately** (no Save/edit/reload)
@@ -15,7 +15,7 @@ via the SS command system (`Command.ExecuteFromAsyncCode` → `UndoManager`).
 `Command.Execute` is the opener and `ExecuteInContext` is not), `PresenterContext`,
 and the bridge.
 
-## Tool inventory (227 `live_*` tools, by area)
+## Tool inventory (229 `live_*` tools, by area)
 
 Counts are generated from the MCP server's `tools/list` (source of truth:
 `mcp/outsystems-liveeditor/Program.cs`). Each tool's full description is in the
@@ -25,14 +25,14 @@ MCP schema; representative names below, `…` = more in the same family.
 |---|---|---|
 | Status / modules / probes | 13 | `live_status`, `live_list_modules`, `live_module_info`, `live_list_web_flows`, `live_probe_type`, `live_probe_obj`, `live_probe_collection`, `live_debug_eSpace_collections`, `live_debug_eSpace_collection_items`, `live_probe_theme`, `live_probe_sheet`, `live_probe_layout_ref`, `live_debug_create_surface` |
 | Actions: create / clone / delete | 15 | `live_create_service_action`, `live_create_server_action`, `live_create_client_action`, `live_create_screen_client_action`, `live_create_block_client_action`, `live_clone_service_action`, `live_clone_server_action`, `live_clone_client_action`, `live_clone_web_block`, `live_delete_service_action`, `live_delete_screen_client_action`, `live_delete_action`, `live_set_action_name`, `live_set_server_action_prop`, `live_probe_entity_actions` |
-| Flow editing (nodes, params, vars) | 51 | `live_list_flow`, `live_debug_create_node`, `live_delete_node(_by_index)`, `live_set_node_target`, `live_set_connector_target`, `live_set_assign_value`, `live_add_assign_node`, `live_add_action_call_node`, `live_add_if_node`, `live_add_switch_node`, `live_add_foreach_node`, `live_add_refresh_node`, `live_add_message_node`, `live_add_js_node`, `live_add_input_param`/`live_add_output_param`, `live_add_entity_input`, `live_add_local_variable`, `live_map_action_inputs`, `live_set_error_handler_exception`, `live_layout_flow`, `live_set_node_position`, `live_probe_node_*`, `live_debug_node_props`, `live_debug_action_args` |
+| Flow editing (nodes, params, vars) | 52 | `live_list_flow`, `live_debug_create_node`, `live_delete_node(_by_index)`, `live_set_node_target`, `live_set_connector_target`, `live_set_assign_value`, `live_add_assign_node`, `live_add_action_call_node`, `live_add_if_node`, `live_add_switch_node`, `live_add_foreach_node`, `live_add_refresh_node`, `live_add_message_node`, `live_add_js_node`, `live_add_sql_node` (Advanced SQL — PROVEN: node+statement+wiring; UI's derive-outputs doesn't run headless, set OutputStructure explicitly), `live_add_input_param`/`live_add_output_param`, `live_add_entity_input`, `live_add_local_variable`, `live_map_action_inputs`, `live_set_error_handler_exception`, `live_layout_flow`, `live_set_node_position`, `live_probe_node_*`, `live_debug_node_props`, `live_debug_action_args` |
 | Dependencies | 4 | `live_list_consumable_elements`, `live_consume_elements`, `live_remove_dependency`, `live_probe_references` |
 | Data model (entities, structures) | 12 | `live_create_entity`, `live_delete_entity`, `live_add_entity_attribute`, `live_delete_entity_attribute`, `live_set_entity_attribute_name/type`, `live_set_entity_identifier`, `live_set_entity_prop`, `live_create_structure`, `live_add_structure_attribute`, `live_set_structure_attribute_type`, `live_set_structure_prop` |
 | Screens, blocks, widgets | 66 | `live_create_web_flow/screen/block`, `live_delete_web_flow`, `live_move_web_block_to_flow`, `live_add_container/text/expression/link/html_element`, `live_add_button(_to_block)`, `live_set_button_onclick`, `live_add_to_placeholder`, `live_list_placeholders`, `live_add_widget_to_block`, `live_add_nr_widget` (23 kinds), `live_add_if_widget_to_block`, `live_set_widget_handler`, `live_add_event_to_block`, `live_set_block_handler`, `live_create_theme`, `live_set_theme_css`, `live_set_screen_theme`, `live_set_theme_layout`, `live_create_folder`, `live_move_widget`, `live_set_link_params`, `live_set_screen_title`, `live_probe_block_members`, `live_dump_widget_concretes` |
 | Aggregates & data actions | 24 | `live_probe_data_sources`, `live_add_aggregate_to_screen/block`, `live_add_aggregate_source/sort/filter/join/calculated_attr`, `live_delete_aggregate_sort/filter`, `live_add_screen_aggregate_filter`, `live_set_aggregate_paging`, `live_read_aggregate_calcs/sorts/params`, `live_add_data_action_to_screen/block`, `live_delete_aggregate`, `live_delete_data_action` |
 | Widget binding (CPs, types) | 11 | `live_set_block_cp`, `live_set_block_cp_parsed`, `live_set_block_cp_text`, `live_set_block_cp_image`, `live_set_screen_cp_parsed`, `live_set_screen_cp_text`, `live_set_widget_source`, `live_probe_block_cp`, `live_set_block_extended_property`, `live_set_extended_property`, `live_set_block_variable_type` |
 | Styling & theme CSS | 8 | `live_set_style_class`, `live_fix_style_literal`, `live_probe_style_prop`, `live_set_user_css`, `live_set_module_css`, `live_read_theme_css`, `live_read_user_css_text`, `live_probe_sheet` |
-| Security & config | 8 | `live_create_role`, `live_set_screen_permissions`, `live_read_screen_permissions`, `live_grant_screen_permission`, `live_remove_screen_permission`, `live_create_site_property`, `live_create_timer`, `live_set_timer_action` |
+| Security & config | 9 | `live_create_role`, `live_create_user_exception` (PROVEN via public `UserException(ESpace,name)` ctor), `live_set_screen_permissions`, `live_read_screen_permissions`, `live_grant_screen_permission`, `live_remove_screen_permission`, `live_create_site_property`, `live_create_timer`, `live_set_timer_action` |
 | Verification | 1+ | `live_get_verify_errors` (the inner loop), `live_debug_publish_surface` (publish API surface probe) |
 | Publish (in-process) | 2 | `live_publish_module` (F5-equivalent, no UI automation; `ok:false` = async start, poll `live_debug_publish_state`), `live_debug_publish_state` (process monitor) |
 | Files, props & generic ops | 12 | `live_upload_image` (Web/Reactive modules only — Service modules forbid images by design), `live_upload_resource`, `live_set_object_prop_deep` (auto-Id, DefaultValue, timer Schedule/Timeout/Priority), `live_debug_object_prop_surface`, `live_delete_structure`, `live_remove_unused_dependencies`, `live_save_module` (DEADLOCK — use publish), `live_open_producer_module`, `live_clone_service_action_from` (cross-module: platform-unreachable, diagnostics only), `live_clone_element` (PROVEN: same-module entity/structure/action), `live_delete_block_client_action`, `live_remove_event_from_block` |
@@ -265,14 +265,12 @@ expression. `live_add_widget_to_block` (and `CreateWidgetByKind`) try
   (`live_list_flow`, assigns, etc.) address a handler's flow directly (e.g.
   `live_list_flow(action="OnParametersChanged")`).
 
-> ⚠ PARTIAL LIMITATION: creating flow NODES **inside a lifecycle child's flow**
-> (`NREvents.*` children like `OnParametersChanged`) can **deadlock the bridge pipe**
-> (must restart SS to unstick; the pipe is single-instance) — avoid node creation there.
-> **A "Raise Event" node in a normal BLOCK client action is PROVEN safe** (2026-09-29):
-> `add_event_to_block` + `create_block_client_action` + `add_raise_event_node` — the node
-> is created via `ITriggerNode` and bound to the typed `WebBlockCustomEvent` in the SAME
-> command, which is what prevents SS's auto-open "Select Event" modal (the old deadlock
-> cause). See the proven list at the end of this skill.
+> ⚠ Node creation **inside lifecycle children** (`NREvents.*` like `OnInitialize`/
+> `OnParametersChanged`): **RE-TESTED 2026-09-30 — SAFE for Assign and If nodes**
+> (created both in `UserInfo.OnInitialize`, read-back + cleanup verified, no deadlock;
+> the old deadlock was the TriggerEvent auto-open modal, fixed by same-command typed
+> binding). Avoid only the Raise Event node there. If a hang ever occurs: restart SS
+> (the pipe is single-instance).
 
 ### Deploy note (once per bridge change)
 Adding a **new bridge command** (e.g. `create_web_block`, `add_widget_to_block`)
