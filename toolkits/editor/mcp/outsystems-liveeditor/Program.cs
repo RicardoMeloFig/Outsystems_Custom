@@ -335,6 +335,22 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "name" } }
         },
         new JsonObject {
+            ["name"] = "live_rest_cleanup",
+            ["description"] = "For every REST client action in an OPEN module: keep exactly ONE output (the structure-typed one if any), delete auto-renamed junk duplicates (Response2/3/4...), force placement=Body, rename the keeper to 'Response'. Single undo unit. Use after suspecting duplicate outputs. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
+            ["name"] = "live_debug_rest_dump",
+            ["description"] = "Read-only ground truth for REST integrations in an OPEN module: lists every same-name espace instance (ctx/children/CustomClients counts - detects ghost instances), then every client (actual name), its actions, and each action's outputs with placement + DataType. Use to diagnose duplicate outputs or missing BaseURL. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name") },
+                ["required"] = new JsonArray { "module" } }
+        },
+        new JsonObject {
             ["name"] = "live_debug_object_prop_surface",
             ["description"] = "Read-only dump of a model object's settable surface for live_set_object_prop_deep: public properties (name/type/value/settable), private backing fields (_prop), static setter delegates (_propSetter) and property-grid descriptors (PropPropertyDescriptor). kind: entity|attribute|structure|structureattribute|timer|siteproperty|role (entity = parent entity name for attribute kinds).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2533,6 +2549,8 @@ internal static class Program
             "live_add_sql_node" => Bridge.AddSqlNode(Arg("module"), Arg("action"), Arg("sql"), a?.ContainsKey("afterNodeIndex") == true ? a["afterNodeIndex"]?.GetValue<int>() ?? -1 : -1),
             "live_create_user_exception" => Bridge.CreateUserException(Arg("module"), Arg("name")),
             "live_create_rest_client" => Bridge.CreateRestClient(Arg("module"), Arg("name"), Arg("actionName"), Arg("urlPath"), Arg("httpMethod"), Arg("baseUrl"), Arg("outputName"), Arg("structureAttrs")),
+            "live_rest_cleanup" => Bridge.RestCleanup(Arg("module")),
+            "live_debug_rest_dump" => Bridge.DebugRestDump(Arg("module")),
             "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
             "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
             "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
@@ -3143,6 +3161,40 @@ internal static class Bridge
             var report = j?["report"]?.GetValue<string>();
             var e = j?["error"]?.GetValue<string>();
             var summary = ok == true ? $"OK: {report}" : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string RestCleanup(string module)
+    {
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"rest_cleanup\",\"module\":\"" + Escape(module) + "\"}", 60000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? "OK: REST outputs cleaned (one structure-typed 'Response' per action; junk deleted). Undo unit." : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string DebugRestDump(string module)
+    {
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"debug_rest_dump\",\"module\":\"" + Escape(module) + "\"}", 60000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? "OK: REST ground-truth dump follows (instances + clients + actions + outputs)." : $"FAILED: {e}";
             return summary + "\n[bridge] " + resp;
         }
         catch { return resp; }
