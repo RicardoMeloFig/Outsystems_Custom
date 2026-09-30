@@ -320,6 +320,18 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "name" } }
         },
         new JsonObject {
+            ["name"] = "live_create_rest_client",
+            ["description"] = "Create a CONSUMED REST API (RestClient from the REST plugin) in an OPEN module + optionally one method (RestAction) with URL path, HTTP method (GET/POST/PUT/DELETE/PATCH) and ResponseFormat=JSON. PROVEN. Follow-ups (not yet in MVP): Base URL lives in lazily-created ExtendedProperties; structure-from-SampleResponse parsing; callbacks. Requires SS running with OsLiveBridge and the module open.",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["name"] = Str("name", "REST API name (e.g. TicketmasterApi)"),
+                    ["actionName"] = Str("actionName", "Optional method name (e.g. GetTodos)"),
+                    ["urlPath"] = Str("urlPath", "Optional URL path for the method (e.g. /todos/1)"),
+                    ["httpMethod"] = Str("httpMethod", "Optional HTTP method: GET, POST, PUT, DELETE, PATCH") },
+                ["required"] = new JsonArray { "module", "name" } }
+        },
+        new JsonObject {
             ["name"] = "live_debug_object_prop_surface",
             ["description"] = "Read-only dump of a model object's settable surface for live_set_object_prop_deep: public properties (name/type/value/settable), private backing fields (_prop), static setter delegates (_propSetter) and property-grid descriptors (PropPropertyDescriptor). kind: entity|attribute|structure|structureattribute|timer|siteproperty|role (entity = parent entity name for attribute kinds).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2517,6 +2529,7 @@ internal static class Program
             "live_remove_event_from_block" => Bridge.RemoveEventFromBlock(Arg("module"), Arg("block"), Arg("name")),
             "live_add_sql_node" => Bridge.AddSqlNode(Arg("module"), Arg("action"), Arg("sql"), a?.ContainsKey("afterNodeIndex") == true ? a["afterNodeIndex"]?.GetValue<int>() ?? -1 : -1),
             "live_create_user_exception" => Bridge.CreateUserException(Arg("module"), Arg("name")),
+            "live_create_rest_client" => Bridge.CreateRestClient(Arg("module"), Arg("name"), Arg("actionName"), Arg("urlPath"), Arg("httpMethod")),
             "live_debug_object_prop_surface" => Bridge.DebugObjectPropSurface(Arg("module"), Arg("kind"), Arg("entity"), Arg("name")),
             "live_set_object_prop_deep" => Bridge.SetObjectPropDeep(Arg("module"), Arg("kind"), Arg("entity"), Arg("name"), Arg("propName"), Arg("value")),
             "live_upload_image" => Bridge.UploadImage(Arg("module"), Arg("name"), Arg("base64Data"), Arg("description")),
@@ -3108,6 +3121,25 @@ internal static class Bridge
             var report = j?["report"]?.GetValue<string>();
             var e = j?["error"]?.GetValue<string>();
             var summary = ok == true ? $"OK: {report}. Undo unit (Ctrl+Z in SS removes it)." : $"FAILED: {e}";
+            return summary + "\n[bridge] " + resp;
+        }
+        catch { return resp; }
+    }
+
+    public static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "ERROR: name is required";
+        var err = RequireModulePipe(module);
+        if (err != null) return err;
+        var resp = Send(_pidForModule[module],
+            "{\"cmd\":\"create_rest_client\",\"module\":\"" + Escape(module) + "\",\"name\":\"" + Escape(name) + "\",\"actionName\":\"" + Escape(actionName ?? "") + "\",\"urlPath\":\"" + Escape(urlPath ?? "") + "\",\"httpMethod\":\"" + Escape(httpMethod ?? "") + "\"}", 60000);
+        try
+        {
+            var j = JsonNode.Parse(resp);
+            var ok = j?["ok"]?.GetValue<bool>();
+            var report = j?["report"]?.GetValue<string>();
+            var e = j?["error"]?.GetValue<string>();
+            var summary = ok == true ? $"OK: {report}" : $"FAILED: {e}";
             return summary + "\n[bridge] " + resp;
         }
         catch { return resp; }

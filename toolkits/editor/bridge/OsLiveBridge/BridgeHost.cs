@@ -321,6 +321,7 @@ internal static class BridgeHost
             case "create_role": return CreateRole(GetStr(root, "module"), GetStr(root, "name"));
             case "create_user_exception": return CreateUserException(GetStr(root, "module"), GetStr(root, "name"));
             case "add_sql_node": return AddSqlNode(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "sql"), root.TryGetProperty("afterNodeIndex", out var sqlni) && sqlni.ValueKind == JsonValueKind.Number ? sqlni.GetInt32() : -1);
+            case "create_rest_client": return CreateRestClient(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "actionName"), GetStr(root, "urlPath"), GetStr(root, "httpMethod"));
             case "set_screen_permissions": return SetScreenPermissions(GetStr(root, "module"), GetStr(root, "screen"), GetStr(root, "roles"), GetStr(root, "isPublic"));
             case "create_site_property": return CreateSiteProperty(GetStr(root, "module"), GetStr(root, "name"), GetStr(root, "type"), GetStr(root, "shared"), GetStr(root, "defaultValue"));
             case "create_timer": return CreateTimer(GetStr(root, "module"), GetStr(root, "name"));
@@ -11900,6 +11901,94 @@ internal static class BridgeHost
             try { SetProp(created, "Name", name); } catch { }
             var got = GetProp(created, "Name") as string;
             return "created user exception '" + (got ?? name) + "' (" + created.GetType().Name + ") via " + tried[tried.Count - 1];
+        });
+    }
+
+    // create_rest_client: create a CONSUMED REST API (RestClient from the REST plugin) in
+    // the open module + optionally one method (RestAction) with URL path / HTTP method.
+    // Plugin model has public ctors: RestClient(AbstractObject parent, string name),
+    // RestAction(AbstractObject parent, string name), plus IRestClient.CreateAction(name,key).
+    // ExtendedProperties (e.g. BaseURL) are dumped for discovery.
+    static string CreateRestClient(string module, string name, string actionName, string urlPath, string httpMethod)
+    {
+        if (string.IsNullOrEmpty(name)) return Json(new { ok = false, error = "name required" });
+        var es = FindEspace(module);
+        if (es == null) return Json(new { ok = false, error = "module not found: " + module });
+        return RunCmd(module, "create rest client", es2 =>
+        {
+            var clientType = FindType("ServiceStudio.Plugin.REST.RestClient");
+            if (clientType == null) throw new Exception("REST plugin type not found (ServiceStudio.Plugin.REST.RestClient)");
+            ConstructorInfo ctor = null;
+            foreach (var c in clientType.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                var ps = c.GetParameters();
+                if (ps.Length == 2 && ps[1].ParameterType == typeof(string)) { ctor = c; break; }
+            }
+            if (ctor == null) throw new Exception("RestClient ctor(parent,name) not found");
+            var client = ctor.Invoke(new object[] { es2, name });
+            if (client == null) throw new Exception("RestClient ctor returned null");
+            var parts = new List<string> { "created REST client '" + name + "' (" + client.GetType().Name + ")" };
+            if (!string.IsNullOrEmpty(actionName))
+            {
+                MethodInfo createAction = null;
+                foreach (var t in AllTypes(client.GetType()))
+                    foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                    {
+                        if (m.Name != "CreateAction") continue;
+                        var ps = m.GetParameters();
+                        if (ps.Length == 2 && ps[0].ParameterType == typeof(string)) { createAction = m; break; }
+                    }
+                if (createAction == null) throw new Exception("IRestClient.CreateAction(name,key) not found");
+                var ms = ModelServices();
+                var key = CallMethod(ms, "NewKey", null, 0);
+                var action = createAction.Invoke(client, new object[] { actionName, key });
+                if (action != null)
+                {
+                    var detail = "method '" + actionName + "'";
+                    if (!string.IsNullOrEmpty(urlPath)) { try { SetProp(action, "URLPath", urlPath); detail += " URLPath=" + urlPath; } catch (Exception e) { detail += " URLPath-FAILED: " + FirstMsg(e); } }
+                    if (!string.IsNullOrEmpty(httpMethod))
+                    {
+                        try
+                        {
+                            var em = FindType("ServiceStudio.Plugin.REST.Enumerations.HTTPMethod");
+                            var ev = em != null ? Enum.Parse(em, httpMethod, true) : (object)httpMethod;
+                            SetProp(action, "HTTPMethod", ev);
+                            detail += " HTTPMethod=" + httpMethod;
+                        }
+                        catch (Exception e) { detail += " HTTPMethod-FAILED: " + FirstMsg(e); }
+                    }
+                    try
+                    {
+                        var rf = FindType("ServiceStudio.Plugin.REST.Enumerations.ResponseFormat");
+                        if (rf != null) { SetProp(action, "ResponseFormat", Enum.Parse(rf, "JSON", true)); detail += " ResponseFormat=JSON"; }
+                    }
+                    catch { }
+                    parts.Add(detail + " (" + action.GetType().Name + ")");
+                }
+            }
+            // Discovery: dump the client's URL-ish props + ExtendedProperties (BaseURL lives there in the UI).
+            try
+            {
+                foreach (var p in client.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                {
+                    if (p.Name.Contains("URL") || p.Name.Contains("Url") || p.Name.Contains("Base"))
+                        try { parts.Add("PROP: " + p.Name + " = " + SafeGetProp(client, p.Name)?.ToString()); } catch { }
+                }
+            }
+            catch { }
+            try
+            {
+                var eps = GetProp(client, "ExtendedProperties") as IEnumerable;
+                if (eps != null)
+                    foreach (var ep in eps)
+                    {
+                        var en = GetProp(ep, "Name") as string ?? GetProp(ep, "PropertyName") as string;
+                        var ev = SafeGetProp(ep, "Value")?.ToString();
+                        parts.Add("EP: " + (en ?? "?") + " = " + (ev ?? "null"));
+                    }
+            }
+            catch { }
+            return string.Join(" | ", parts);
         });
     }
 
