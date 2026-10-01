@@ -40,6 +40,7 @@ loaded. Verify with `live_status`.
 | Add **local variables** | ✅ Tooled | `live_add_local_variable` (if bridge updated) |
 | **Flow editing** on service/server/client actions | ✅ Tooled | All `live_*` flow tools work on any action type |
 | **Exception handling** | ✅ Tooled | `IExceptionHandlerNode` + `live_set_error_handler_exception` |
+| Fill a **record-literal** argument field-by-field | ✅ Tooled | `live_set_action_arg_field` — NOT `live_set_action_arg` (see [Anti-Patterns](#anti-patterns--what-not-to-do)) |
 
 ---
 
@@ -305,6 +306,14 @@ uses "User").
 **VERIFY:** `live_debug_action_args(module, action, execIdx)` — check that all
 arguments have values mapped.
 
+> **Record-typed argument?** `live_map_action_inputs` and `live_set_action_arg`
+> store raw TEXT — the O11 parser rejects every record-literal text form
+> (`{ Id: ... }` → `ParserUnexpectedElement`; `New Entity(...)` → syntax error).
+> Fill entity/structure-typed arguments field-by-field with
+> `live_set_action_arg_field(module, action, execIdx, "Source", fields={"TurnNumber":"TurnNumber","ActorName":"ActorName"})`
+> — it edits the argument's `RecordLiteralExpression` directly (identifier refs
+> and `NullIdentifier()` parse fine at field level).
+
 ### Step 13: Delete Comment Placeholder
 
 ```
@@ -431,6 +440,30 @@ reference).
 
 **Fix:** Always use `live_add_action_call_node` which creates AND configures
 the ExecuteAction in one step.
+
+### ❌ DON'T use `live_set_action_arg` to fill a record-literal argument
+
+**What happens:** `live_set_action_arg` stores the value STRING raw via the
+argument's `SetValue`. For an entity/structure-typed argument the model expects
+a `RecordLiteralExpression`, and the O11 expression parser rejects EVERY text
+form of a record literal:
+- `{ Id: NullIdentifier(), OrderIndex: OrderIndex }` → `ParserUnexpectedElement`
+  at the `:` (braces = static-entity syntax to the parser)
+- `New BattleEvent(Id: NullIdentifier(), ...)` → "Syntax error caused by
+  unexpected 'BattleEvent' element" (O11 has no text record-constructor)
+
+Worse, a failed parse can HALF-LAND invalid text on the argument — the edit
+session must then repair the value before continuing.
+
+**Fix:** Use `live_set_action_arg_field(module, action, nodeIndex, argName,
+field, value)` (single field) or `fields={"Attr":"expr", ...}` (multiple
+fields). It locates the argument's `RecordLiteralExpression` (the default SS
+builds when `live_add_action_call_node` sets the Action), maps attribute names
+to field slots (by `AttributeName`, falling back to the record type's attribute
+order), and calls the model's field-level parse API per field — identifier
+refs, literals and `NullIdentifier()` all parse fine at FIELD level. It
+validates all requested attributes BEFORE mutating, and a mid-mutation failure
+rolls back the whole undo unit.
 
 ### ❌ DON'T try to set `Start.ExceptionHandler`
 

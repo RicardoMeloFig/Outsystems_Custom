@@ -154,6 +154,7 @@ Modeled on the official OutSystems MCP conventions doc
 | Add a 2nd assignment to an existing Assign node (multi-assignment) | `live_add_assignment_to_node` |
 | Set Exception=All Exceptions on an ErrorHandler node | `live_set_error_handler_exception` |
 | Auto-map ExecuteAction input arguments by name | `live_map_action_inputs` |
+| Fill fields of a RECORD-LITERAL ExecuteAction argument (entity/structure-typed arg) | `live_set_action_arg_field` (`live_set_action_arg` stores raw text - the parser rejects record-literal text) |
 | Inspect a node's type and settable properties | `live_debug_node_props` |
 | Inspect ExecuteAction arguments | `live_debug_action_args` |
 | Add a container/text/link/expression/html element (live) | `live_add_container`, `live_add_text`, `live_add_link`, `live_add_expression`, `live_add_html_element` |

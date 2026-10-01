@@ -162,6 +162,7 @@ internal static class BridgeHost
             case "set_error_handler_exception": { var idx = root.GetProperty("nodeIndex").GetInt32(); var excName = GetStr(root, "exceptionName"); return SetErrorHandlerException(GetStr(root, "module"), GetStr(root, "action"), idx, excName); }
             case "map_action_inputs": { var idx = root.GetProperty("nodeIndex").GetInt32(); return MapActionInputs(GetStr(root, "module"), GetStr(root, "action"), idx, GetStr(root, "inputParamName")); }
             case "set_action_arg": { var idx = root.GetProperty("nodeIndex").GetInt32(); return SetActionArg(GetStr(root, "module"), GetStr(root, "action"), idx, GetStr(root, "argName"), GetStr(root, "value")); }
+            case "set_action_arg_field": return SetActionArgField(GetStr(root, "module"), GetStr(root, "action"), ReadNodeIndex(root), GetStr(root, "argName"), GetStr(root, "field"), GetStr(root, "value"), root.TryGetProperty("fields", out var faf) ? faf.ToString() : null);
             case "remove_input_param": return RemoveInputParam(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "paramName"));
             case "remove_output_param": return RemoveOutputParam(GetStr(root, "module"), GetStr(root, "action"), GetStr(root, "paramName"));
             case "debug_action_args": { var idx = root.GetProperty("nodeIndex").GetInt32(); return DebugActionArgs(GetStr(root, "module"), GetStr(root, "action"), idx); }
@@ -14270,6 +14271,190 @@ internal static class BridgeHost
         });
     }
 
+    // set_action_arg_field: set ONE or MORE fields of a RECORD-LITERAL argument on an
+    // ExecuteAction node (IExecuteServerActionNode / IExecuteClientActionNode) by parameter
+    // name. set_action_arg stores its value STRING via the argument's SetValue, and the O11
+    // expression parser rejects every text form of a record literal ("{ Id: ... }" ->
+    // ParserUnexpectedElement at the ':', "New Entity(...)" -> syntax error), so record-typed
+    // arguments could not be filled field-by-field until now. This command:
+    //   1. locates the argument and requires arg.Value to be a RecordLiteralExpression
+    //      (the default SS builds when add_action_call sets node.Action - e.g.
+    //      Id = NullIdentifier(), OrderIndex = <same-named input param>),
+    //   2. matches each requested attribute name against the fields' AttributeName
+    //      (fallback: the record type's Attributes ORDER - position i = field i),
+    //   3. calls RecordLiteralField.SetValue(text) per field - the model's own field-level
+    //      parse API (the same mechanism SS uses for mapped field values; identifier refs,
+    //      literals and function calls like NullIdentifier() all parse fine at FIELD level),
+    //   4. reads the resulting literal back and counts the action's verify errors
+    //      (get_verify_errors-style).
+    // ALL requested attribute names are validated BEFORE the first mutation; a mid-mutation
+    // throw is reverted by LiveEdit's UndoLastCommand (single SS undo unit). Clean error =
+    // argument untouched.
+    static string SetActionArgField(string moduleName, string actionName, int nodeIndex, string argName, string field, string value, string fieldsJson)
+    {
+        if (string.IsNullOrEmpty(argName)) return Json(new { ok = false, error = "argName required" });
+        // Build the requested attributeName -> expressionText map before touching the module.
+        var wanted = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        if (!string.IsNullOrEmpty(field))
+        {
+            if (value == null) return Json(new { ok = false, error = "value required when field is given" });
+            wanted[field] = value;
+        }
+        if (!string.IsNullOrEmpty(fieldsJson) && fieldsJson != "null")
+        {
+            try
+            {
+                using var fdoc = JsonDocument.Parse(fieldsJson);
+                if (fdoc.RootElement.ValueKind != JsonValueKind.Object)
+                    return Json(new { ok = false, error = "fields must be a JSON object of attributeName -> expressionText" });
+                foreach (var p in fdoc.RootElement.EnumerateObject())
+                    wanted[p.Name] = p.Value.ValueKind == JsonValueKind.String ? p.Value.GetString() : p.Value.ToString();
+            }
+            catch (Exception e) { return Json(new { ok = false, error = "fields is not valid JSON: " + e.Message }); }
+        }
+        if (wanted.Count == 0) return Json(new { ok = false, error = "field+value or fields (JSON object) required" });
+
+        var fieldResults = new List<object>();   // read-back, filled inside the command body
+        object verify = null;                    // get_verify_errors-style summary
+        var resp = LiveEdit(moduleName, actionName, "set action arg field", (act, es) =>
+        {
+            var nodes = NodeList(act);
+            if (nodeIndex < 0 || nodeIndex >= nodes.Count) throw new Exception("nodeIndex out of range: " + nodeIndex);
+            var node = nodes[nodeIndex];
+            if (!node.GetType().GetInterfaces().Any(i => i.Name == "IExecuteServerActionNode" || i.Name == "IExecuteClientActionNode"))
+                throw new Exception("node[" + nodeIndex + "] is not an ExecuteAction node (type=" + ShortName(node) + ")");
+            var sb = new StringBuilder();
+
+            // 1. Locate the argument by parameter name (single arg; no '*' wildcard here -
+            //    applying one field map to ALL arguments is never what a record edit means).
+            object target = null; string targetParam = null;
+            var argNames = new List<string>();
+            var args = GetProp(node, "Arguments") as IEnumerable;
+            if (args == null) throw new Exception("Arguments collection is null on ExecuteAction node");
+            foreach (var a in args)
+            {
+                var p = GetProp(a, "Parameter");
+                var pn = p != null ? (GetProp(p, "Name") as string ?? "") : "";
+                argNames.Add(pn);
+                if (string.Equals(pn, argName, StringComparison.OrdinalIgnoreCase)) { target = a; targetParam = pn; }
+            }
+            if (target == null)
+                throw new Exception("argument not found: " + argName + " (args on node[" + nodeIndex + "]: " + string.Join(", ", argNames) + ")");
+            sb.AppendLine("arg " + targetParam + " on node[" + nodeIndex + "]");
+
+            // 2. The argument's Value must be a RecordLiteralExpression.
+            var valExpr = GetProp(target, "Value");
+            if (valExpr == null)
+                throw new Exception("argument " + targetParam + " has no Value yet (create it via add_action_call/map_action_inputs first)");
+            var valType = valExpr.GetType();
+            if (valType.Name != "RecordLiteralExpression")
+                throw new Exception("argument " + targetParam + " Value is " + valType.FullName + ", not a RecordLiteralExpression - set_action_arg_field only edits record literals (use set_action_arg for simple values)");
+            sb.AppendLine("record literal: " + valType.FullName);
+
+            // 3. Field slots. RecordLiteralExpression.Fields holds RecordLiteralField items
+            //    (AttributeName + Value + SetValue(text)).
+            var fieldsColl = GetProp(valExpr, "Fields") as IEnumerable;
+            if (fieldsColl == null) throw new Exception("RecordLiteralExpression.Fields is null");
+            var fieldObjs = new List<object>();
+            foreach (var f in fieldsColl) fieldObjs.Add(f);
+
+            // attributeName -> field object. Primary: each field's AttributeName. Fallback
+            // (blank AttributeName): the record type's attribute ORDER (position i = field i).
+            var byName = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            var recordAttrs = new List<string>();
+            for (int i = 0; i < fieldObjs.Count; i++)
+            {
+                var fn = GetProp(fieldObjs[i], "AttributeName") as string;
+                if (string.IsNullOrEmpty(fn))
+                {
+                    if (recordAttrs.Count == 0)
+                    {
+                        var param = GetProp(target, "Parameter");
+                        recordAttrs = RecordTypeAttributes(param != null ? GetProp(param, "DataType") : null);
+                    }
+                    if (i < recordAttrs.Count) fn = recordAttrs[i];
+                }
+                if (!string.IsNullOrEmpty(fn)) byName[fn] = fieldObjs[i];
+            }
+
+            // 4. Validate ALL requested attributes BEFORE mutating (atomicity: unknown
+            //    attribute -> clean error, no partial mutation).
+            var missing = wanted.Keys.Where(k => !byName.ContainsKey(k)).ToList();
+            if (missing.Count > 0)
+                throw new Exception("attribute(s) not found on record argument " + targetParam + ": " + string.Join(", ", missing) + " (available: " + string.Join(", ", byName.Keys) + ")");
+
+            // 5. Mutate: RecordLiteralField.SetValue(text) per field.
+            foreach (var kv in wanted)
+            {
+                CallMethod(byName[kv.Key], "SetValue", new object[] { kv.Value }, 1);
+                sb.AppendLine("  field " + kv.Key + " = " + kv.Value);
+            }
+
+            // 6. Read-back of the resulting literal (field names + value text).
+            foreach (var f in fieldObjs)
+            {
+                var fname = GetProp(f, "AttributeName") as string;
+                var fval = GetProp(f, "Value");
+                var ftext = fval != null ? ((GetProp(fval, "Text") as string) ?? (CallMethod(fval, "GetText", null, 0) as string)) : null;
+                fieldResults.Add(new { attribute = fname ?? "?", value = ftext ?? "?" });
+            }
+
+            // 7. Validation readback for the action (error count; get_verify_errors surface).
+            verify = VerifySummary(act);
+            return sb.ToString();
+        });
+
+        // Merge LiveEdit's {ok,error,report} with the structured per-field read-back.
+        try
+        {
+            using var doc = JsonDocument.Parse(resp);
+            var ok = doc.RootElement.TryGetProperty("ok", out var okEl) && okEl.ValueKind == JsonValueKind.True;
+            string error = doc.RootElement.TryGetProperty("error", out var erEl) && erEl.ValueKind == JsonValueKind.String ? erEl.GetString() : null;
+            string report = doc.RootElement.TryGetProperty("report", out var rpEl) && rpEl.ValueKind == JsonValueKind.String ? rpEl.GetString() : null;
+            return Json(new { ok = ok, error = error, report = report, argName = argName, fields = fieldResults, verify = verify });
+        }
+        catch { return resp; }
+    }
+
+    // RecordTypeAttributes: ordered attribute names of a record type (entity or structure).
+    // Used to map RecordLiteralExpression fields by position when a field's AttributeName is
+    // blank. Tries the Attributes property, then the IRecordType.GetAttributes() method.
+    static List<string> RecordTypeAttributes(object recordType)
+    {
+        var names = new List<string>();
+        if (recordType == null) return names;
+        var attrs = GetProp(recordType, "Attributes") as IEnumerable;
+        if (attrs == null) { try { attrs = CallMethod(recordType, "GetAttributes", null, 0) as IEnumerable; } catch { } }
+        if (attrs != null) foreach (var a in attrs) { var n = GetProp(a, "Name") as string; if (n != null) names.Add(n); }
+        return names;
+    }
+
+    // VerifySummary: get_verify_errors-style readback for one action - returns
+    // { count, messages (first 5) } using the same GetVerifyErrors/GetValidationMessages
+    // surface the get_verify_errors command uses.
+    static object VerifySummary(object action)
+    {
+        var msgs = new List<string>();
+        try
+        {
+            object res = null;
+            try { res = CallMethod(action, "GetVerifyErrors", null, 0); }
+            catch { res = CallMethod(action, "GetValidationMessages", new object[] { true }, 1); }
+            var en = res as IEnumerable;
+            if (en != null)
+                foreach (var m in en)
+                {
+                    if (msgs.Count >= 50) break;
+                    string text = null;
+                    try { text = GetProp(m, "Message") as string; } catch { }
+                    if (text == null) { try { text = GetProp(m, "Text") as string; } catch { } }
+                    msgs.Add(text ?? (m?.ToString() ?? "?"));
+                }
+        }
+        catch (Exception e) { return new { count = -1, error = e.Message }; }
+        return new { count = msgs.Count, messages = msgs.Take(5).ToList() };
+    }
+
     // debug_action_ref: create an IExecuteServerActionNode and try all possible property
     // names to set the server action reference. Use to find the correct property name.
     static string DebugActionRef(string moduleName, string actionName, string serverActionName, string producerModule)
@@ -16121,6 +16306,16 @@ internal static class BridgeHost
 
     static string GetStr(JsonElement root, string prop) =>
         root.TryGetProperty(prop, out var v) ? v.GetString() : null;
+
+    // ReadNodeIndex: nodeIndex arrives as a JSON number (MCP forwarder) or a JSON string
+    // (hand-rolled pipe clients). Both conventions exist across the dispatch table
+    // (set_action_arg reads GetInt32, debug_node_props reads GetStr) - accept both.
+    static int ReadNodeIndex(JsonElement root)
+    {
+        if (!root.TryGetProperty("nodeIndex", out var v)) return -1;
+        if (v.ValueKind == JsonValueKind.Number) return v.GetInt32();
+        return int.TryParse(v.GetString(), out var i) ? i : -1;
+    }
 
     static string Json(object o) => JsonSerializer.Serialize(o);
 

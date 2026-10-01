@@ -674,6 +674,20 @@ internal static class Program
                 ["required"] = new JsonArray { "module", "action", "nodeIndex", "argName", "value" } }
         },
         new JsonObject {
+            ["name"] = "live_set_action_arg_field",
+            ["description"] = "Set one or MORE FIELDS of a RECORD-LITERAL argument on an ExecuteAction node (an entity/structure-typed argument, e.g. the 'Source' arg typed to entity BattleEvent). set_action_arg stores raw text and the O11 parser REJECTS every record-literal text form ('{Id: ...}' and 'New Entity(...)' both fail) - use THIS tool instead: it locates the argument's RecordLiteralExpression (the default SS builds when live_add_action_call_node sets Action), maps attribute names to field slots (by AttributeName; falls back to the record type's attribute order) and calls RecordLiteralField.SetValue(text) per field - identifier refs, literals and function calls like NullIdentifier() parse fine at FIELD level. Single field: field+value. Multiple fields: fields object {\"AttributeName\":\"expressionText\"}. Unknown attribute = clean error, NO partial mutation; a mid-mutation failure rolls back the whole undo unit. Response includes a per-field read-back (field names + value text) and the action's verify-error count. Undo unit (Ctrl+Z).",
+            ["inputSchema"] = new JsonObject { ["type"] = "object",
+                ["properties"] = new JsonObject {
+                    ["module"] = Str("module", "Open module name"),
+                    ["action"] = Str("action", "Flow action name"),
+                    ["nodeIndex"] = new JsonObject { ["type"] = "integer", ["description"] = "ExecuteAction node index" },
+                    ["argName"] = Str("argName", "Argument/parameter name whose Value is a record literal (e.g. Source)"),
+                    ["field"] = Str("field", "Single-field form: attribute name (e.g. TurnNumber)"),
+                    ["value"] = Str("value", "Single-field form: value expression text (e.g. TurnNumber, \"x\", NullIdentifier())"),
+                    ["fields"] = new JsonObject { ["type"] = "object", ["additionalProperties"] = new JsonObject { ["type"] = "string" }, ["description"] = "Map form: attributeName -> expressionText, e.g. {\"TurnNumber\":\"TurnNumber\",\"ActorName\":\"ActorName\"}" } },
+                ["required"] = new JsonArray { "module", "action", "nodeIndex", "argName" } }
+        },
+        new JsonObject {
             ["name"] = "live_map_action_inputs",
             ["description"] = "Auto-map input arguments on an IExecuteServerActionNode by name. For each Argument on the ExecuteAction node, finds the matching InputParameter on the service action (by name) and sets the Argument's Value via SetValue. When parameter names don't match (e.g. server action uses 'Source' but service action uses 'Client'), falls back to type-aware matching (matches argument's parameter DataType to input param DataType), then single-input fallback. Pass inputParamName to explicitly specify which input parameter to map to (bypasses name matching and fallback — useful when multiple input params exist from cloning). Undo unit (Ctrl+Z).",
             ["inputSchema"] = new JsonObject { ["type"] = "object",
@@ -2590,6 +2604,7 @@ internal static class Program
             "live_set_error_handler_exception" => Bridge.SetErrorHandlerException(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("exceptionName")),
             "live_map_action_inputs" => Bridge.MapActionInputs(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("inputParamName")),
             "live_set_action_arg" => Bridge.SetActionArg(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0, Arg("argName"), Arg("value")),
+            "live_set_action_arg_field" => Bridge.SetActionArgField(Arg("module"), Arg("action"), GetInt("nodeIndex"), Arg("argName"), Arg("field"), Arg("value"), Arg("fields")),
             "live_debug_node_props" => Bridge.DebugNodeProps(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0),
             "live_debug_action_args" => Bridge.DebugActionArgs(Arg("module"), Arg("action"), a?["nodeIndex"]?.GetValue<int>() ?? 0),
             "live_layout_flow" => Bridge.LayoutFlow(Arg("module"), Arg("action")),
@@ -3518,6 +3533,12 @@ internal static class Bridge
 
     public static string SetActionArg(string module, string action, int nodeIndex, string argName, string value) =>
         RunCmd(module, "{\"cmd\":\"set_action_arg\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":" + nodeIndex + ",\"argName\":\"" + Escape(argName) + "\",\"value\":\"" + Escape(value) + "\"}", "Set action arg:");
+
+    public static string SetActionArgField(string module, string action, int nodeIndex, string argName, string field, string value, string fields) =>
+        RunCmd(module, "{\"cmd\":\"set_action_arg_field\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":" + nodeIndex + ",\"argName\":\"" + Escape(argName) + "\""
+            + (field != null ? ",\"field\":\"" + Escape(field) + "\"" : "")
+            + (value != null ? ",\"value\":\"" + Escape(value) + "\"" : "")
+            + (fields != null ? ",\"fields\":" + fields : "") + "}", "Set action arg fields:");
 
     public static string DebugNodeProps(string module, string action, int nodeIndex) =>
         RunCmd(module, "{\"cmd\":\"debug_node_props\",\"module\":\"" + Escape(module) + "\",\"action\":\"" + Escape(action) + "\",\"nodeIndex\":\"" + nodeIndex + "\"}", "Node props:");

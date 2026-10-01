@@ -25,7 +25,7 @@ MCP schema; representative names below, `â€¦` = more in the same family.
 |---|---|---|
 | Status / modules / probes | 13 | `live_status`, `live_list_modules`, `live_module_info`, `live_list_web_flows`, `live_probe_type`, `live_probe_obj`, `live_probe_collection`, `live_debug_eSpace_collections`, `live_debug_eSpace_collection_items`, `live_probe_theme`, `live_probe_sheet`, `live_probe_layout_ref`, `live_debug_create_surface` |
 | Actions: create / clone / delete | 15 | `live_create_service_action`, `live_create_server_action`, `live_create_client_action`, `live_create_screen_client_action`, `live_create_block_client_action`, `live_clone_service_action`, `live_clone_server_action`, `live_clone_client_action`, `live_clone_web_block`, `live_delete_service_action`, `live_delete_screen_client_action`, `live_delete_action`, `live_set_action_name`, `live_set_server_action_prop`, `live_probe_entity_actions` |
-| Flow editing (nodes, params, vars) | 52 | `live_list_flow`, `live_debug_create_node`, `live_delete_node(_by_index)`, `live_set_node_target`, `live_set_connector_target`, `live_set_assign_value`, `live_add_assign_node`, `live_add_action_call_node`, `live_add_if_node`, `live_add_switch_node`, `live_add_foreach_node`, `live_add_refresh_node`, `live_add_message_node`, `live_add_js_node`, `live_add_sql_node` (Advanced SQL â€” PROVEN: node+statement+wiring; UI's derive-outputs doesn't run headless, set OutputStructure explicitly), `live_add_input_param`/`live_add_output_param`, `live_add_entity_input`, `live_add_local_variable`, `live_map_action_inputs`, `live_set_error_handler_exception`, `live_layout_flow`, `live_set_node_position`, `live_probe_node_*`, `live_debug_node_props`, `live_debug_action_args` |
+| Flow editing (nodes, params, vars) | 53 | `live_list_flow`, `live_debug_create_node`, `live_delete_node(_by_index)`, `live_set_node_target`, `live_set_connector_target`, `live_set_assign_value`, `live_add_assign_node`, `live_add_action_call_node`, `live_add_if_node`, `live_add_switch_node`, `live_add_foreach_node`, `live_add_refresh_node`, `live_add_message_node`, `live_add_js_node`, `live_add_sql_node` (Advanced SQL â€” PROVEN: node+statement+wiring; UI's derive-outputs doesn't run headless, set OutputStructure explicitly), `live_add_input_param`/`live_add_output_param`, `live_add_entity_input`, `live_add_local_variable`, `live_map_action_inputs`, `live_set_action_arg_field`, `live_set_error_handler_exception`, `live_layout_flow`, `live_set_node_position`, `live_probe_node_*`, `live_debug_node_props`, `live_debug_action_args` |
 | Dependencies | 4 | `live_list_consumable_elements`, `live_consume_elements`, `live_remove_dependency`, `live_probe_references` |
 | Data model (entities, structures) | 12 | `live_create_entity`, `live_delete_entity`, `live_add_entity_attribute`, `live_delete_entity_attribute`, `live_set_entity_attribute_name/type`, `live_set_entity_identifier`, `live_set_entity_prop`, `live_create_structure`, `live_add_structure_attribute`, `live_set_structure_attribute_type`, `live_set_structure_prop` |
 | Screens, blocks, widgets | 66 | `live_create_web_flow/screen/block`, `live_delete_web_flow`, `live_move_web_block_to_flow`, `live_add_container/text/expression/link/html_element`, `live_add_button(_to_block)`, `live_set_button_onclick`, `live_add_to_placeholder`, `live_list_placeholders`, `live_add_widget_to_block`, `live_add_nr_widget` (23 kinds), `live_add_if_widget_to_block`, `live_set_widget_handler`, `live_add_event_to_block`, `live_set_block_handler`, `live_create_theme`, `live_set_theme_css`, `live_set_screen_theme`, `live_set_theme_layout`, `live_create_folder`, `live_move_widget`, `live_set_link_params`, `live_set_screen_title`, `live_probe_block_members`, `live_dump_widget_concretes` |
@@ -430,6 +430,27 @@ Auto-maps the input arguments of an `IExecuteServerActionNode` (created by
 param name â†’ same-named variable in scope), then falls back to trying each input
 parameter name against available variables. Use after creating a call node to
 avoid wiring each input argument manually with `live_set_node_property`.
+
+### `live_set_action_arg_field(module, action, nodeIndex, argName, field, value, fields)` - fill a record-literal argument's fields
+Sets ONE or MORE fields of a **record-literal** argument on an ExecuteAction node
+(an entity/structure-typed argument, e.g. a `Source` arg typed to producer entity
+`BattleEvent`). `live_set_action_arg` stores its value STRING raw and the O11
+parser REJECTS every record-literal text form (`{Id: ...}` fails with
+ParserUnexpectedElement, `New Entity(...)` is a syntax error - no text
+record-constructor in O11). THIS tool instead locates the argument's
+`RecordLiteralExpression` (the default SS builds when `live_add_action_call_node`
+sets the Action - e.g. `Id = NullIdentifier()`, `OrderIndex = <same-named input
+param>`), maps attribute names to field slots (by `AttributeName`, falling back
+to the record type's attribute ORDER) and calls the model's field-level parse
+API per field - identifier refs, literals and function calls like
+`NullIdentifier()` parse fine at FIELD level.
+
+- Single field: `field` + `value` (e.g. `field="TurnNumber"`, `value="TurnNumber"`)
+- Multiple fields: `fields` as a JSON object `{"AttributeName":"expressionText", ...}`
+- Unknown attribute = clean error, NO partial mutation; a mid-mutation failure
+  rolls back the whole undo unit
+- Response includes a per-field read-back (attribute + value text) and the
+  action's verify-error count
 
 ### `live_delete_node_by_index(module, action, nodeIndex)` â€” delete any node type
 Deletes a node at the given index from the flow's NodeList. Works for **all node
